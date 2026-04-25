@@ -1,6 +1,6 @@
 # MLB Sharp Betting Cards — 2026-04-25
 
-_Generated 2026-04-25 02:31 _  
+_Generated 2026-04-25 02:43 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_
 
@@ -194,7 +194,12 @@ Grade H49.8 / A50.5 · FG xRuns 7.67 · F5 xRuns 3.79 · NRFI 60.6%
 
 ### Colorado Rockies @ New York Mets — NO PLAY
 
-Grade H46.5 / A45.8 | FG xRuns 8.55 | F5 xRuns 4.21 | NRFI 58.2%
+Grade H48.8 / A45.8 | FG xRuns 8.55 | F5 xRuns 4.21 | NRFI 58.2%
+No bet cleared edge + confidence thresholds.
+
+### Pittsburgh Pirates @ Milwaukee Brewers — NO PLAY
+
+Grade H55.0 / A46.0 | FG xRuns 8.05 | F5 xRuns 3.76 | NRFI 61.0%
 No bet cleared edge + confidence thresholds.
 
 ### Chicago Cubs @ Los Angeles Dodgers — NO PLAY
@@ -214,7 +219,7 @@ No bet cleared edge + confidence thresholds.
 
 ### Detroit Tigers @ Cincinnati Reds — NO PLAY
 
-Grade H42.0 / A43.2 | FG xRuns 8.71 | F5 xRuns 4.5 | NRFI 56.8%
+Grade H44.2 / A43.2 | FG xRuns 8.71 | F5 xRuns 4.5 | NRFI 56.8%
 No bet cleared edge + confidence thresholds.
 
 ### Washington Nationals @ Chicago White Sox — NO PLAY
@@ -234,7 +239,7 @@ No bet cleared edge + confidence thresholds.
 
 ### San Diego Padres @ Arizona Diamondbacks — NO PLAY
 
-Grade H46.0 / A49.8 | FG xRuns 8.7 | F5 xRuns 4.7 | NRFI 56.5%
+Grade H48.2 / A49.8 | FG xRuns 8.7 | F5 xRuns 4.7 | NRFI 56.5%
 No bet cleared edge + confidence thresholds.
 
 

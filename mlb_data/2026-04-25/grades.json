@@ -545,11 +545,11 @@
         ]
       },
       "market": {
-        "home": 3.5,
+        "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -198@fanduel; fair -181 (64.4%); gap -2.02%",
-          "away best +170@betmgm; fair +181 (35.6%); gap -1.46%"
+          "home best -198@fanduel; fair -182 (64.6%); gap -1.85%",
+          "away best +170@betmgm; fair +182 (35.4%); gap -1.63%"
         ]
       },
       "situational": {
@@ -566,12 +566,12 @@
       }
     },
     "grade": {
-      "home": 46.5,
+      "home": 48.8,
       "away": 45.8
     },
     "win_prob": {
-      "home": 0.542,
-      "away": 0.458
+      "home": 0.565,
+      "away": 0.435
     },
     "expected_total": 8.55,
     "expected_f5_total": 4.21,
@@ -584,18 +584,141 @@
         "book": "draftkings",
         "price_american": -122,
         "line": 1.5,
-        "fair_prob": 0.7019,
-        "fair_american": -235,
-        "edge": 0.277227868852459,
+        "fair_prob": 0.68925,
+        "fair_american": -222,
+        "edge": 0.25420901639344273,
         "confidence": 7,
         "unit_size": 1.5,
         "risk": "Strong",
         "reasoning": [
-          "Market edge (5.0 vs 3.5)",
           "home: CSW% L4 starts 24.7%",
           "away: CSW% L3 starts 20.6%",
           "home: 1 arms gassed, 3 back-to-back, 882 pitches L7d",
           "away: 3 arms gassed, 4 back-to-back, 1115 pitches L7d"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ]
+      }
+    ]
+  },
+  {
+    "gamePk": 823799,
+    "matchup": "Pittsburgh Pirates @ Milwaukee Brewers",
+    "gameDate": "2026-04-25T23:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 7.0,
+        "away": 5.5,
+        "notes": [
+          "home: CSW% L5 starts 32.6%",
+          "away: CSW% L5 starts 25.5%"
+        ]
+      },
+      "bullpen": {
+        "home": 5.0,
+        "away": 3.0,
+        "notes": [
+          "home: 1 arms gassed, 0 back-to-back, 880 pitches L7d",
+          "away: 5 arms gassed, 1 back-to-back, 872 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "cold (43.3\u00b0F) \u2014 ball dies"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 3.5,
+        "notes": [
+          "home best -132@fanduel; fair -125 (55.6%); gap -1.31%",
+          "away best +115@betmgm; fair +125 (44.4%); gap -2.10%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 55.0,
+      "away": 46.0
+    },
+    "win_prob": {
+      "home": 0.625,
+      "away": 0.375
+    },
+    "expected_total": 8.05,
+    "expected_f5_total": 3.76,
+    "nrfi_prob": 0.61,
+    "bet_cards": [
+      {
+        "bet_label": "Milwaukee Brewers ML",
+        "market": "moneyline",
+        "side": "home",
+        "book": "fanduel",
+        "price_american": -132,
+        "line": null,
+        "fair_prob": 0.625,
+        "fair_american": -167,
+        "edge": 0.0984848484848484,
+        "confidence": 8,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Pitching edge (7.0 vs 5.5)",
+          "Bullpen edge (5.0 vs 3.0)",
+          "Market edge (5.0 vs 3.5)",
+          "home: CSW% L5 starts 32.6%",
+          "away: CSW% L5 starts 25.5%",
+          "home: 1 arms gassed, 0 back-to-back, 880 pitches L7d"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ]
+      },
+      {
+        "bet_label": "FG Under 8.0",
+        "market": "total",
+        "side": "under",
+        "book": "draftkings",
+        "price_american": -110,
+        "line": 8.0,
+        "fair_prob": 0.5447865151282549,
+        "fair_american": -120,
+        "edge": 0.04004698342666857,
+        "confidence": 5,
+        "unit_size": 0.5,
+        "risk": "Lean",
+        "reasoning": [
+          "Expected total 8.05 vs market 8.0",
+          "home: CSW% L5 starts 32.6%",
+          "away: CSW% L5 starts 25.5%",
+          "cold (43.3\u00b0F) \u2014 ball dies",
+          "home: 1 arms gassed, 0 back-to-back, 880 pitches L7d"
         ],
         "pass_triggers": [
           "Key bat scratched at lineup release",
@@ -644,8 +767,8 @@
         "home": 5.0,
         "away": 3.5,
         "notes": [
-          "home best -146@fanduel; fair -138 (58.0%); gap -1.35%",
-          "away best +125@betmgm; fair +138 (42.0%); gap -2.44%"
+          "home best -146@fanduel; fair -137 (57.8%); gap -1.59%",
+          "away best +125@betmgm; fair +137 (42.2%); gap -2.20%"
         ]
       },
       "situational": {
@@ -934,11 +1057,11 @@
         "notes": []
       },
       "market": {
-        "home": 3.5,
+        "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -108@fanduel; fair +101 (49.8%); gap -2.16%",
-          "away best -108@fanduel; fair -101 (50.2%); gap -1.69%"
+          "home best -108@fanduel; fair -100 (50.0%); gap -1.92%",
+          "away best -108@fanduel; fair -100 (50.0%); gap -1.92%"
         ]
       },
       "situational": {
@@ -955,12 +1078,12 @@
       }
     },
     "grade": {
-      "home": 42.0,
+      "home": 44.2,
       "away": 43.2
     },
     "win_prob": {
-      "home": 0.523,
-      "away": 0.477
+      "home": 0.545,
+      "away": 0.455
     },
     "expected_total": 8.71,
     "expected_f5_total": 4.5,
@@ -973,12 +1096,38 @@
         "book": "draftkings",
         "price_american": -175,
         "line": 1.5,
-        "fair_prob": 0.7376499999999999,
-        "fair_american": -281,
-        "edge": 0.15916428571428565,
+        "fair_prob": 0.74975,
+        "fair_american": -300,
+        "edge": 0.17817857142857152,
         "confidence": 7,
         "unit_size": 1.5,
         "risk": "Strong",
+        "reasoning": [
+          "Pitching edge (4.5 vs 3.5)",
+          "home: velo soft (-1.0 mph)",
+          "home: CSW% L5 starts 25.6%",
+          "home: 6 arms gassed, 3 back-to-back, 1004 pitches L7d",
+          "away: 6 arms gassed, 1 back-to-back, 1087 pitches L7d"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ]
+      },
+      {
+        "bet_label": "Cincinnati Reds ML",
+        "market": "moneyline",
+        "side": "home",
+        "book": "fanduel",
+        "price_american": -108,
+        "line": null,
+        "fair_prob": 0.545,
+        "fair_american": -120,
+        "edge": 0.04962962962962969,
+        "confidence": 5,
+        "unit_size": 0.5,
+        "risk": "Lean",
         "reasoning": [
           "Pitching edge (4.5 vs 3.5)",
           "home: velo soft (-1.0 mph)",
@@ -1251,8 +1400,8 @@
         "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -130@fanduel; fair -120 (54.6%); gap -1.92%",
-          "away best +113@draftkings; fair +120 (45.4%); gap -1.55%"
+          "home best -130@fanduel; fair -121 (54.8%); gap -1.72%",
+          "away best +113@draftkings; fair +121 (45.2%); gap -1.75%"
         ]
       },
       "situational": {
@@ -1344,11 +1493,11 @@
         "notes": []
       },
       "market": {
-        "home": 3.5,
+        "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -112@fanduel; fair -103 (50.7%); gap -2.13%",
-          "away best +100@betmgm; fair +103 (49.3%); gap -0.70%"
+          "home best -112@fanduel; fair -104 (50.9%); gap -1.90%",
+          "away best +100@betmgm; fair +104 (49.1%); gap -0.93%"
         ]
       },
       "situational": {
@@ -1365,12 +1514,12 @@
       }
     },
     "grade": {
-      "home": 46.0,
+      "home": 48.2,
       "away": 49.8
     },
     "win_prob": {
-      "home": 0.497,
-      "away": 0.503
+      "home": 0.519,
+      "away": 0.481
     },
     "expected_total": 8.7,
     "expected_f5_total": 4.7,

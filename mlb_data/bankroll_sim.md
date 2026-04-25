@@ -1,6 +1,6 @@
 # Bankroll Simulation
 
-_Generated 2026-04-25 02:31_  
+_Generated 2026-04-25 02:43_  
 _Replays every SETTLED bet in `bet_log.csv` against five sizing strategies._
 
 _Starting bankroll: **$10,000.00** (1u = 1%)._
@@ -21,6 +21,7 @@ _Half-Kelly / quarter-Kelly require a model `fair_prob`; rows without it are ski
 
 | Market        | Bets |   W-L-P  |   Starting   |   Ending     |  Growth  |   ROI    |  Max DD |
 |---            |-----:|:--------:|-------------:|-------------:|---------:|---------:|--------:|
+| moneyline     |    0 |   0-  0- 0 | $10,000.00 | $ 10,000.00 |    +0.00% |   +0.00% |   0.00% |
 | runline       |    0 |   0-  0- 0 | $10,000.00 | $ 10,000.00 |    +0.00% |   +0.00% |   0.00% |
 | total         |    0 |   0-  0- 0 | $10,000.00 | $ 10,000.00 |    +0.00% |   +0.00% |   0.00% |
 
@@ -28,6 +29,7 @@ _Half-Kelly / quarter-Kelly require a model `fair_prob`; rows without it are ski
 
 | Market        | Bets |   W-L-P  |   Starting   |   Ending     |  Growth  |   ROI    |  Max DD |
 |---            |-----:|:--------:|-------------:|-------------:|---------:|---------:|--------:|
+| moneyline     |    0 |   0-  0- 0 | $10,000.00 | $ 10,000.00 |    +0.00% |   +0.00% |   0.00% |
 | runline       |    0 |   0-  0- 0 | $10,000.00 | $ 10,000.00 |    +0.00% |   +0.00% |   0.00% |
 | total         |    0 |   0-  0- 0 | $10,000.00 | $ 10,000.00 |    +0.00% |   +0.00% |   0.00% |
 
