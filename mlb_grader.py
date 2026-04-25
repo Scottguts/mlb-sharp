@@ -56,10 +56,12 @@ WEIGHTS = {
 }
 
 # Win-prob model parameters
+# Calibrated for sharp-bettor realism: most MLB games are coin flips.
+# Big edges should be RARE.
 LEAGUE_AVG_TOTAL = 8.6     # baseline runs per game (refresh annually)
-HOME_FIELD_PROB  = 0.035   # home edge as a probability bump
-GRADE_TO_PROB    = 0.010   # 1% win prob per 1 grade-point edge
-MAX_PROB_SHIFT   = 0.20    # cap model output relative to base
+HOME_FIELD_PROB  = 0.030   # home edge as a probability bump
+GRADE_TO_PROB    = 0.005   # 0.5% win prob per 1 grade-point edge (was 1.0%)
+MAX_PROB_SHIFT   = 0.12    # cap model output relative to base (was 0.20)
 
 # F5 model parameters (no bullpen contribution)
 F5_LEAGUE_AVG    = 4.4     # baseline F5 runs per game
@@ -68,30 +70,34 @@ F5_LEAGUE_AVG    = 4.4     # baseline F5 runs per game
 LEAGUE_NRFI_RATE = 0.585   # ~58.5% of MLB games have a scoreless 1st (2023-24)
 
 # Minimum edge to publish a bet card by market type
+# These are post-vig edges vs Pinnacle no-vig — REAL edges, not model noise.
+# Tightened to filter out borderline plays. Sharp bettors win at 53-55%, not 60%.
 MIN_EDGE = {
-    "moneyline":  0.030,
-    "runline":    0.030,
-    "total":      0.030,
-    "f5_total":   0.035,
-    "nrfi":       0.035,
+    "moneyline":  0.045,    # was 3.0%
+    "runline":    0.040,    # was 3.0%
+    "total":      0.040,    # was 3.0%
+    "f5_total":   0.050,    # was 3.5%
+    "nrfi":       0.050,    # was 3.5%
 }
 
 # Confidence floor — never publish a card below this
-MIN_CONFIDENCE = 5
+MIN_CONFIDENCE = 6   # was 5 — only publish bets we genuinely believe in
 
 # Unit sizing rules. 1u = 1% of bankroll.
+# Tighter ladder: harder to qualify for higher units.
 # (edge_floor, confidence_floor, units, risk_label)
 UNIT_LADDER = [
-    (0.080, 9, 2.0, "Max"),       # rare max play
-    (0.060, 7, 1.5, "Strong"),
-    (0.040, 6, 1.0, "Standard"),
-    (0.030, 5, 0.5, "Lean"),
+    (0.090, 9, 2.0, "Max"),       # rare max play — needs 9%+ edge AND 9/10 conf
+    (0.070, 8, 1.5, "Strong"),    # was 6%/7
+    (0.055, 7, 1.0, "Standard"),  # was 4%/6
+    (0.045, 6, 0.5, "Lean"),      # was 3%/5
 ]
 
-# Hard caps
-MAX_BETS_PER_SLATE     = 8       # never expose more than 8u in action on a day
-MAX_UNITS_PER_GAME     = 2.0     # never more than 2u on a single game
-ALLOW_PARLAYS          = False   # built-in for now: singles only
+# Hard caps — designed to enforce sharp discipline (quality > quantity)
+MAX_BETS_PER_SLATE     = 5       # was 8 — sharp bettors play very few games
+MAX_UNITS_PER_GAME     = 1.5     # was 2.0 — never overload a single game
+MAX_CARDS_PER_GAME     = 1       # never recommend more than 1 bet per game
+ALLOW_PARLAYS          = False   # singles only
 
 
 # ===========================================================================
@@ -447,20 +453,14 @@ def expected_f5_total(game, catscores):
     return round(base, 2)
 
 def estimate_nrfi_prob(game, catscores) -> tuple[float, list[str]]:
-    """Estimate prob of a scoreless 1st inning.
-
-    Approach: start from league NRFI rate, adjust by:
-      - quality of both starters (pitching grade)
-      - park run factor
-      - top-of-order quality (proxy: lineup confirmed + platoon edge in offense grade)
-    """
+    """Estimate prob of a scoreless 1st inning."""
     notes: list[str] = []
     p = LEAGUE_NRFI_RATE
     avg_pitch = (catscores["pitching"].home + catscores["pitching"].away) / 2.0
-    p += (avg_pitch - 5) * 0.020       # +/- 2% per grade pt vs avg
+    p += (avg_pitch - 5) * 0.020
     notes.append(f"avg pitching grade {avg_pitch:.1f} → {('+' if avg_pitch>=5 else '')}{(avg_pitch-5)*0.02*100:+.1f}% NRFI")
     pf = (_safe(game, "venue", "pf_runs") or 100)
-    p -= (pf - 100) * 0.0015           # hitter park = lower NRFI
+    p -= (pf - 100) * 0.0015
     if pf != 100:
         notes.append(f"park factor {pf} → {(pf-100)*-0.0015*100:+.1f}% NRFI")
     avg_off = (catscores["offense"].home + catscores["offense"].away) / 2.0
@@ -474,12 +474,20 @@ def estimate_nrfi_prob(game, catscores) -> tuple[float, list[str]]:
 # ===========================================================================
 
 def confidence_from(grade_diff, edge):
-    base = 5
-    if abs(grade_diff) >= 15: base += 2
-    elif abs(grade_diff) >= 8: base += 1
-    if edge >= 0.07: base += 2
-    elif edge >= 0.05: base += 1
-    elif edge < 0.03: base -= 1
+    """Confidence requires BOTH a real grade gap AND a meaningful edge.
+    Either alone earns at most a 6/10. To hit 8+ you need both axes strong.
+    Calibrated so that 7+ is rare; 9+ is exceptional."""
+    abs_diff = abs(grade_diff)
+    grade_score = (3 if abs_diff >= 18 else
+                   2 if abs_diff >= 12 else
+                   1 if abs_diff >=  6 else 0)
+    edge_score  = (4 if edge >= 0.090 else
+                   3 if edge >= 0.070 else
+                   2 if edge >= 0.055 else
+                   1 if edge >= 0.045 else 0)
+    if grade_score == 0 or edge_score == 0:
+        return int(_clip(4 + max(grade_score, edge_score), 1, 6))
+    base = 4 + grade_score + edge_score
     return int(_clip(base, 1, 10))
 
 def unit_size_from(edge, conf):
@@ -535,9 +543,6 @@ def make_ml_card(game, side, fair_prob, odds, cats, hg, ag):
 def make_runline_card(game, side, win_prob, odds, cats, hg, ag):
     price, line, book = _best_runline_price(odds, side)
     if price is None: return None
-    # Convert ML win prob to runline cover prob with a simple translation:
-    # team -1.5 covers ~ win_prob × 0.55 (favorites win by 2+ ~half their wins)
-    # team +1.5 covers ~ 1 - (1 - win_prob) × 0.55
     if line < 0:
         cover_p = win_prob * 0.55
     else:
@@ -597,7 +602,6 @@ def make_f5_card(game, expected_f5, odds, cats):
     for side in ("over", "under"):
         price, line, book = _best_total_price(odds, side, market_key="totals_1st_5_innings")
         if price is None or line is None: continue
-        # F5 has tighter variance — sigma ~ 2.5 runs
         sigma = 2.5
         z = (line + 0.5 - expected_f5) / sigma if side == "under" \
             else (expected_f5 - line + 0.5) / sigma
@@ -605,7 +609,7 @@ def make_f5_card(game, expected_f5, odds, cats):
         edge = edge_pct(prob, price)
         if edge < MIN_EDGE["f5_total"]: continue
         diff = abs(expected_f5 - line)
-        conf = confidence_from(diff * 6, edge)   # tighter market = bigger conf swing per gap
+        conf = confidence_from(diff * 6, edge)
         if conf < MIN_CONFIDENCE: continue
         units, risk = unit_size_from(edge, conf)
         if units == 0: continue
@@ -625,8 +629,7 @@ def make_f5_card(game, expected_f5, odds, cats):
     return out
 
 def make_nrfi_card(game, nrfi_prob, nrfi_notes, odds):
-    """The NRFI/YRFI market on most US books is published as a 1st-inning
-    total at 0.5 runs.  Under 0.5 = NRFI, Over 0.5 = YRFI."""
+    """NRFI/YRFI = 1st-inning total at 0.5. Under = NRFI, Over = YRFI."""
     out = []
     for label, side, our_prob in (("NRFI", "under", nrfi_prob),
                                   ("YRFI", "over", 1 - nrfi_prob)):
@@ -635,7 +638,6 @@ def make_nrfi_card(game, nrfi_prob, nrfi_notes, odds):
             continue
         edge = edge_pct(our_prob, price)
         if edge < MIN_EDGE["nrfi"]: continue
-        # Confidence from how far our prob is from 50/50 + edge size
         conf = confidence_from(abs(our_prob - 0.5) * 30, edge)
         if conf < MIN_CONFIDENCE: continue
         units, risk = unit_size_from(edge, conf)
@@ -726,11 +728,12 @@ def grade_one_game(game, odds_for_game):
         cards.extend(make_f5_card(game, exp_f5, odds_for_game, cats))
         cards.extend(make_nrfi_card(game, nrfi_p, nrfi_notes, odds_for_game))
 
-    # Per-game cap
-    cards.sort(key=lambda c: c.edge, reverse=True)
+    # Per-game cap — best-edge bet wins, max 1 card per game
+    cards.sort(key=lambda c: (-c.edge, -c.confidence))
     capped: list[BetCard] = []
     units_so_far = 0.0
     for c in cards:
+        if len(capped) >= MAX_CARDS_PER_GAME: break
         if units_so_far + c.unit_size > MAX_UNITS_PER_GAME: continue
         capped.append(c); units_so_far += c.unit_size
 
