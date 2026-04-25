@@ -1,6 +1,6 @@
 # MLB Sharp Betting Cards — 2026-04-25
 
-_Generated 2026-04-25 02:24 _  
+_Generated 2026-04-25 02:31 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_
 
@@ -229,12 +229,12 @@ No bet cleared edge + confidence thresholds.
 
 ### Philadelphia Phillies @ Atlanta Braves — NO PLAY
 
-Grade H44.5 / A45.5 | FG xRuns 8.85 | F5 xRuns 4.33 | NRFI 59.0%
+Grade H46.8 / A45.5 | FG xRuns 8.85 | F5 xRuns 4.33 | NRFI 59.0%
 No bet cleared edge + confidence thresholds.
 
 ### San Diego Padres @ Arizona Diamondbacks — NO PLAY
 
-Grade H48.2 / A49.8 | FG xRuns 8.7 | F5 xRuns 4.7 | NRFI 56.5%
+Grade H46.0 / A49.8 | FG xRuns 8.7 | F5 xRuns 4.7 | NRFI 56.5%
 No bet cleared edge + confidence thresholds.
 
 
