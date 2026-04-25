@@ -1,0 +1,66 @@
+name: Pre-Game Alerts
+
+# Fires every 15 min during MLB game windows. For pending bets whose first
+# pitch is in the next ~5-15 minutes, re-checks lineup, weather, and line
+# movement; sends a Discord alert if anything changed materially.
+#
+# Idempotent: each bet is alerted at most once per day (tracked in
+# mlb_data/<DATE>/alerted.json).
+
+on:
+  schedule:
+    # Cron is in UTC. EDT (March-Nov) and EST (Nov-March) covered:
+    - cron: "*/15 16-23 * * *"   # 12:00 PM – 7:45 PM ET (EDT, summer)
+    - cron: "*/15 0-3 * * *"     # 8:00 PM – 11:45 PM ET (EDT, summer; next UTC day)
+    - cron: "*/15 17-23 * * *"   # 12:00 PM – 6:45 PM ET (EST, winter)
+    - cron: "*/15 0-4 * * *"     # 7:00 PM – 11:45 PM ET (EST, winter; next UTC day)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    env:
+      ODDS_API_KEY:        ${{ secrets.ODDS_API_KEY }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      SLACK_WEBHOOK_URL:   ${{ secrets.SLACK_WEBHOOK_URL }}
+      TELEGRAM_BOT_TOKEN:  ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID:    ${{ secrets.TELEGRAM_CHAT_ID }}
+      TZ: America/New_York
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip }
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Pull latest log
+        run: git pull --rebase --autostash
+
+      - name: Run pregame alert checks
+        run: python pregame_alerts.py --data-root ./mlb_data --window 5 15
+
+      - name: Commit alerted ledger if changed
+        run: |
+          git config user.name  "mlb-sharp-bot"
+          git config user.email "mlb-sharp-bot@users.noreply.github.com"
+          git add mlb_data/*/alerted.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No alert ledger changes"
+          else
+            git commit -m "pregame alert ledger $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
