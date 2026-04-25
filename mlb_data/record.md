@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-04-25 03:28_  
+_Generated 2026-04-25 12:33_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,30 +9,30 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   21 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.73% |
+| OVERALL        |   32 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.63% |
 | moneyline      |    2 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  7.41% |
-| runline        |    7 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 16.73% |
-| total          |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 21.78% |
+| runline        |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 16.40% |
+| total          |   18 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 21.36% |
 
 ## Last 30 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   21 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.73% |
+| OVERALL        |   32 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.63% |
 | moneyline      |    2 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  7.41% |
-| runline        |    7 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 16.73% |
-| total          |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 21.78% |
+| runline        |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 16.40% |
+| total          |   18 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 21.36% |
 
 ## Last 7 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   21 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.73% |
+| OVERALL        |   32 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.63% |
 | moneyline      |    2 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  7.41% |
-| runline        |    7 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 16.73% |
-| total          |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 21.78% |
+| runline        |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 16.40% |
+| total          |   18 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 21.36% |
 
 ## By Confidence (All Time)
 
@@ -41,28 +41,21 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | 9-10           |    1 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 78.24% |
 | 7-8            |   14 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 19.90% |
-| 5-6            |    6 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  6.08% |
+| 5-6            |   17 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 14.08% |
 
 ## By Book (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |    2 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 20.02% |
-| draftkings     |   10 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.60% |
-| fanduel        |    9 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 18.59% |
+| betmgm         |    4 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 19.76% |
+| draftkings     |   12 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 19.67% |
+| fanduel        |   16 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% | 17.57% |
 
-## Pending (21)
+## Pending (32)
 
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
-| 2026-04-25 | Cleveland Guardians @ Toronto Blue Jays | total | over | 8.0 | draftkings | -105 | 1.5 |
-| 2026-04-25 | Athletics @ Texas Rangers | total | over | 8.0 | draftkings | -107 | 1.5 |
-| 2026-04-25 | Minnesota Twins @ Tampa Bay Rays | total | over | 8.0 | fanduel | -110 | 1.5 |
-| 2026-04-25 | Minnesota Twins @ Tampa Bay Rays | runline | away | 1.5 | fanduel | -194 | 0.5 |
-| 2026-04-25 | Seattle Mariners @ St. Louis Cardinals | runline | home | 1.5 | draftkings | -136 | 1.5 |
-| 2026-04-25 | Miami Marlins @ San Francisco Giants | total | over | 7.5 | fanduel | -105 | 1.5 |
-| 2026-04-25 | Colorado Rockies @ New York Mets | runline | away | 1.5 | draftkings | -122 | 1.5 |
 | 2026-04-25 | Chicago Cubs @ Los Angeles Dodgers | total | under | 9.5 | fanduel | -115 | 1.5 |
 | 2026-04-25 | Los Angeles Angels @ Kansas City Royals | runline | away | 1.5 | draftkings | -156 | 1.5 |
 | 2026-04-25 | New York Yankees @ Houston Astros | total | under | 9.0 | betmgm | 100 | 1.5 |
@@ -77,3 +70,14 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | 2026-04-25 | Detroit Tigers @ Cincinnati Reds | moneyline | home |  | fanduel | -108 | 0.5 |
 | 2026-04-25 | Pittsburgh Pirates @ Milwaukee Brewers | total | over | 8.0 | fanduel | -106 | 0.5 |
 | 2026-04-25 | Boston Red Sox @ Baltimore Orioles | runline | home | 1.5 | draftkings | -194 | 0.5 |
+| 2026-04-25 | Cleveland Guardians @ Toronto Blue Jays | total | over | 7.5 | betmgm | 100 | 0.5 |
+| 2026-04-25 | Athletics @ Texas Rangers | total | over | 8.0 | fanduel | -106 | 0.5 |
+| 2026-04-25 | Minnesota Twins @ Tampa Bay Rays | total | over | 8.5 | fanduel | 100 | 0.5 |
+| 2026-04-25 | Miami Marlins @ San Francisco Giants | runline | home | 1.5 | draftkings | -188 | 0.5 |
+| 2026-04-25 | Pittsburgh Pirates @ Milwaukee Brewers | runline | away | 1.5 | fanduel | -176 | 0.5 |
+| 2026-04-25 | Los Angeles Angels @ Kansas City Royals | runline | away | 1.5 | fanduel | -162 | 0.5 |
+| 2026-04-25 | New York Yankees @ Houston Astros | total | under | 9.0 | draftkings | 102 | 0.5 |
+| 2026-04-25 | Detroit Tigers @ Cincinnati Reds | runline | home | 1.5 | fanduel | -166 | 0.5 |
+| 2026-04-25 | Washington Nationals @ Chicago White Sox | total | over | 8.5 | fanduel | 100 | 0.5 |
+| 2026-04-25 | Philadelphia Phillies @ Atlanta Braves | total | over | 8.5 | betmgm | -115 | 0.5 |
+| 2026-04-25 | San Diego Padres @ Arizona Diamondbacks | runline | home | 1.5 | fanduel | -152 | 0.5 |
