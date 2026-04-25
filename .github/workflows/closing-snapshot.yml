@@ -1,0 +1,64 @@
+name: Closing Line Snapshot
+
+# Captures closing-line value for pending bets across all MLB game windows.
+# We run hourly from ~12:30 PM ET through ~11:30 PM ET. Each invocation
+# only fetches odds if there are pending bets in the next 60 min, and only
+# writes closing data once per bet — so it's idempotent and budget-safe.
+#
+# Cron is in UTC. EDT = UTC-4, EST = UTC-5; we cover both.
+
+on:
+  schedule:
+    # 12:30, 13:30, …, 23:30 UTC each hour during EDT (March-Nov)
+    # = 8:30 AM, 9:30 AM, …, 7:30 PM ET — covers most game starts.
+    - cron: "30 16-23 * * *"   # 12:30 PM – 7:30 PM ET (EDT, summer)
+    - cron: "30 0-3 * * *"     # 8:30 PM – 11:30 PM ET (EDT, summer; next UTC day)
+    - cron: "30 17-23 * * *"   # 12:30 PM – 6:30 PM ET (EST, winter)
+    - cron: "30 0-4 * * *"     # 7:30 PM – 11:30 PM ET (EST, winter; next UTC day)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      TZ: America/New_York
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need a writable token to push the closing data back
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip }
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Pull latest log (in case daily workflow ran today)
+        run: git pull --rebase --autostash
+
+      - name: Snapshot closing lines for pending bets
+        run: python closing_snapshot.py --data-root ./mlb_data --lookahead 60
+
+      - name: Commit closing data if anything changed
+        run: |
+          git config user.name  "mlb-sharp-bot"
+          git config user.email "mlb-sharp-bot@users.noreply.github.com"
+          git add mlb_data/bet_log.csv
+          if git diff --staged --quiet; then
+            echo "No closing data changes"
+          else
+            git commit -m "closing snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
