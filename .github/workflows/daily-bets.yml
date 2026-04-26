@@ -19,17 +19,18 @@ jobs:
     timeout-minutes: 25
 
     env:
-      ODDS_API_KEY:           ${{ secrets.ODDS_API_KEY }}
-      SLACK_WEBHOOK_URL:      ${{ secrets.SLACK_WEBHOOK_URL }}
-      DISCORD_WEBHOOK_URL:    ${{ secrets.DISCORD_WEBHOOK_URL }}
-      TELEGRAM_BOT_TOKEN:     ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID:       ${{ secrets.TELEGRAM_CHAT_ID }}
-      EMAIL_SMTP_HOST:        ${{ secrets.EMAIL_SMTP_HOST }}
-      EMAIL_SMTP_PORT:        ${{ secrets.EMAIL_SMTP_PORT }}
-      EMAIL_SMTP_USER:        ${{ secrets.EMAIL_SMTP_USER }}
-      EMAIL_SMTP_PASS:        ${{ secrets.EMAIL_SMTP_PASS }}
-      EMAIL_TO:               ${{ secrets.EMAIL_TO }}
-      TZ:                     America/New_York
+      ODDS_API_KEY:                ${{ secrets.ODDS_API_KEY }}
+      SLACK_WEBHOOK_URL:           ${{ secrets.SLACK_WEBHOOK_URL }}
+      DISCORD_WEBHOOK_URL:         ${{ secrets.DISCORD_WEBHOOK_URL }}
+      DISCORD_RECORD_WEBHOOK_URL:  ${{ secrets.DISCORD_RECORD_WEBHOOK_URL }}
+      TELEGRAM_BOT_TOKEN:          ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID:            ${{ secrets.TELEGRAM_CHAT_ID }}
+      EMAIL_SMTP_HOST:             ${{ secrets.EMAIL_SMTP_HOST }}
+      EMAIL_SMTP_PORT:             ${{ secrets.EMAIL_SMTP_PORT }}
+      EMAIL_SMTP_USER:             ${{ secrets.EMAIL_SMTP_USER }}
+      EMAIL_SMTP_PASS:             ${{ secrets.EMAIL_SMTP_PASS }}
+      EMAIL_TO:                    ${{ secrets.EMAIL_TO }}
+      TZ:                          America/New_York
 
     steps:
       - name: Checkout repo
@@ -77,6 +78,10 @@ jobs:
       - name: Send cards to configured destinations
         run: python notify.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
         continue-on-error: true   # don't fail the workflow if a webhook is down
+
+      - name: Post bet record to dedicated channel
+        run: python post_record.py --data-root ./mlb_data
+        continue-on-error: true
 
       - name: Commit daily artifacts back to repo
         run: |
