@@ -14,12 +14,12 @@
     "indoor": false,
     "park": "Oracle Park",
     "first_pitch_iso": "2026-04-26T20:05:00Z",
-    "temp_f": 55.8,
-    "humidity_pct": 77,
-    "dew_point_f": 48.7,
-    "wind_mph": 14.9,
-    "wind_dir_deg": 288,
-    "precip_prob_pct": 1
+    "temp_f": 57.5,
+    "humidity_pct": 76,
+    "dew_point_f": 50.0,
+    "wind_mph": 15.1,
+    "wind_dir_deg": 282,
+    "precip_prob_pct": 0
   },
   "away": {
     "team_id": 146,
@@ -263,6 +263,60 @@
           "pitched_yesterday": true
         }
       }
+    },
+    "recent_form": {
+      "team_id": 146,
+      "window_days": 14,
+      "games_played": 12,
+      "wins": 5,
+      "losses": 7,
+      "rpg_for": 4.58,
+      "rpg_against": 4.83,
+      "win_pct": 0.417,
+      "results": [
+        {
+          "date": "2026-04-18",
+          "for": 2,
+          "against": 5,
+          "won": false
+        },
+        {
+          "date": "2026-04-19",
+          "for": 5,
+          "against": 3,
+          "won": true
+        },
+        {
+          "date": "2026-04-20",
+          "for": 5,
+          "against": 3,
+          "won": true
+        },
+        {
+          "date": "2026-04-21",
+          "for": 3,
+          "against": 5,
+          "won": false
+        },
+        {
+          "date": "2026-04-22",
+          "for": 4,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-04-25",
+          "for": 9,
+          "against": 4,
+          "won": true
+        },
+        {
+          "date": "2026-04-25",
+          "for": 2,
+          "against": 6,
+          "won": false
+        }
+      ]
     }
   },
   "home": {
@@ -505,12 +559,121 @@
           "pitched_yesterday": true
         }
       }
+    },
+    "recent_form": {
+      "team_id": 137,
+      "window_days": 14,
+      "games_played": 12,
+      "wins": 6,
+      "losses": 6,
+      "rpg_for": 3.5,
+      "rpg_against": 3.75,
+      "win_pct": 0.5,
+      "results": [
+        {
+          "date": "2026-04-18",
+          "for": 7,
+          "against": 6,
+          "won": true
+        },
+        {
+          "date": "2026-04-19",
+          "for": 0,
+          "against": 3,
+          "won": false
+        },
+        {
+          "date": "2026-04-22",
+          "for": 3,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-04-23",
+          "for": 3,
+          "against": 0,
+          "won": true
+        },
+        {
+          "date": "2026-04-23",
+          "for": 0,
+          "against": 3,
+          "won": false
+        },
+        {
+          "date": "2026-04-25",
+          "for": 4,
+          "against": 9,
+          "won": false
+        },
+        {
+          "date": "2026-04-25",
+          "for": 6,
+          "against": 2,
+          "won": true
+        }
+      ]
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 808982,
+        "name": "Jung Hoo Lee",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 656305,
+        "name": "Matt Chapman",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 650333,
+        "name": "Luis Arraez",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 669477,
+        "name": "Casey Schmitt",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 646240,
+        "name": "Rafael Devers",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 671218,
+        "name": "Heliot Ramos",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 687551,
+        "name": "Drew Gilbert",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 683766,
+        "name": "Christian Koss",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 672275,
+        "name": "Patrick Bailey",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

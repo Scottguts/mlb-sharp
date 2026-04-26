@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-04-26 13:29_  
+_Generated 2026-04-26 13:30_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,30 +9,30 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   56 |  19- 22-  1 |  46.3% |  35.50 |   -4.95 | -13.94% | 57.07% |
-| moneyline      |    4 |   1-  2-  0 |  33.3% |   2.50 |   -1.54 | -61.48% | 442.28% |
+| OVERALL        |   62 |  19- 22-  1 |  46.3% |  35.50 |   -4.95 | -13.94% | 53.92% |
+| moneyline      |    8 |   1-  2-  0 |  33.3% |   2.50 |   -1.54 | -61.48% | 233.56% |
 | runline        |   22 |   6- 10-  0 |  37.5% |  12.00 |   -4.18 | -34.82% | 36.01% |
-| total          |   30 |  12- 10-  1 |  54.5% |  21.00 |   +0.77 |  +3.65% | 21.14% |
+| total          |   32 |  12- 10-  1 |  54.5% |  21.00 |   +0.77 |  +3.65% | 21.32% |
 
 ## Last 30 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   56 |  19- 22-  1 |  46.3% |  35.50 |   -4.95 | -13.94% | 57.07% |
-| moneyline      |    4 |   1-  2-  0 |  33.3% |   2.50 |   -1.54 | -61.48% | 442.28% |
+| OVERALL        |   62 |  19- 22-  1 |  46.3% |  35.50 |   -4.95 | -13.94% | 53.92% |
+| moneyline      |    8 |   1-  2-  0 |  33.3% |   2.50 |   -1.54 | -61.48% | 233.56% |
 | runline        |   22 |   6- 10-  0 |  37.5% |  12.00 |   -4.18 | -34.82% | 36.01% |
-| total          |   30 |  12- 10-  1 |  54.5% |  21.00 |   +0.77 |  +3.65% | 21.14% |
+| total          |   32 |  12- 10-  1 |  54.5% |  21.00 |   +0.77 |  +3.65% | 21.32% |
 
 ## Last 7 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   56 |  19- 22-  1 |  46.3% |  35.50 |   -4.95 | -13.94% | 57.07% |
-| moneyline      |    4 |   1-  2-  0 |  33.3% |   2.50 |   -1.54 | -61.48% | 442.28% |
+| OVERALL        |   62 |  19- 22-  1 |  46.3% |  35.50 |   -4.95 | -13.94% | 53.92% |
+| moneyline      |    8 |   1-  2-  0 |  33.3% |   2.50 |   -1.54 | -61.48% | 233.56% |
 | runline        |   22 |   6- 10-  0 |  37.5% |  12.00 |   -4.18 | -34.82% | 36.01% |
-| total          |   30 |  12- 10-  1 |  54.5% |  21.00 |   +0.77 |  +3.65% | 21.14% |
+| total          |   32 |  12- 10-  1 |  54.5% |  21.00 |   +0.77 |  +3.65% | 21.32% |
 
 ## By Confidence (All Time)
 
@@ -41,18 +41,18 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | 9-10           |    1 |   1-  0-  0 | 100.0% |   2.00 |   +1.96 | +98.04% | 78.24% |
 | 7-8            |   14 |   5-  7-  1 |  41.7% |  19.50 |   -4.71 | -24.17% | 19.90% |
-| 5-6            |   41 |  13- 15-  0 |  46.4% |  14.00 |   -2.20 | -15.68% | 69.24% |
+| 5-6            |   47 |  13- 15-  0 |  46.4% |  14.00 |   -2.20 | -15.68% | 63.53% |
 
 ## By Book (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |   10 |   3-  5-  0 |  37.5% |   5.00 |   -2.15 | -42.97% | 227.96% |
-| draftkings     |   18 |   7-  6-  1 |  53.8% |  14.00 |   -1.55 | -11.06% | 17.98% |
-| fanduel        |   28 |   9- 11-  0 |  45.0% |  16.50 |   -1.25 |  -7.58% | 21.16% |
+| betmgm         |   11 |   3-  5-  0 |  37.5% |   5.00 |   -2.15 | -42.97% | 210.15% |
+| draftkings     |   20 |   7-  6-  1 |  53.8% |  14.00 |   -1.55 | -11.06% | 19.85% |
+| fanduel        |   31 |   9- 11-  0 |  45.0% |  16.50 |   -1.25 |  -7.58% | 20.46% |
 
-## Pending (14)
+## Pending (20)
 
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
@@ -70,6 +70,12 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | 2026-04-26 | Boston Red Sox @ Baltimore Orioles | total | over | 7.5 | fanduel | -110 | 0.5 |
 | 2026-04-26 | Philadelphia Phillies @ Atlanta Braves | runline | away | 1.5 | betmgm | -110 | 0.5 |
 | 2026-04-26 | San Diego Padres @ Arizona Diamondbacks | runline | home | 1.5 | fanduel | -120 | 0.5 |
+| 2026-04-26 | Seattle Mariners @ St. Louis Cardinals | moneyline | home |  | fanduel | 114 | 0.5 |
+| 2026-04-26 | Colorado Rockies @ New York Mets | moneyline | away |  | draftkings | 209 | 0.5 |
+| 2026-04-26 | Chicago Cubs @ Los Angeles Dodgers | total | under | 9.0 | fanduel | -110 | 0.5 |
+| 2026-04-26 | Boston Red Sox @ Baltimore Orioles | total | over | 7.5 | draftkings | -105 | 0.5 |
+| 2026-04-26 | Philadelphia Phillies @ Atlanta Braves | moneyline | away |  | betmgm | 185 | 0.5 |
+| 2026-04-26 | San Diego Padres @ Arizona Diamondbacks | moneyline | home |  | fanduel | 114 | 0.5 |
 
 ## Last 10 Settled
 
