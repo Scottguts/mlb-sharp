@@ -70,6 +70,10 @@ jobs:
         run: python bankroll_sim.py --data-root ./mlb_data
         continue-on-error: true   # sim is non-critical
 
+      - name: Build HTML dashboard
+        run: python build_dashboard.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
+        continue-on-error: true   # dashboard is nice-to-have
+
       - name: Send cards to configured destinations
         run: python notify.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
         continue-on-error: true   # don't fail the workflow if a webhook is down
@@ -79,7 +83,8 @@ jobs:
           git config user.name  "mlb-sharp-bot"
           git config user.email "mlb-sharp-bot@users.noreply.github.com"
           git add mlb_data/${{ steps.date.outputs.value }}/ \
-                  mlb_data/bet_log.csv mlb_data/record.md mlb_data/bankroll_sim.md
+                  mlb_data/bet_log.csv mlb_data/record.md mlb_data/bankroll_sim.md \
+                  mlb_data/dashboard.html
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
