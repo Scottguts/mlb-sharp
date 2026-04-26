@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLB Sharp — 2026-04-25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #020617; color: #e2e8f0; font-family: 'DM Sans', system-ui, sans-serif; min-height: 100vh; }
+body { background: radial-gradient(circle at 15% 0%, rgba(14,165,233,0.05), transparent 50%),
+                  radial-gradient(circle at 85% 100%, rgba(124,58,237,0.05), transparent 50%); }
+.container { max-width: 960px; margin: 0 auto; padding: 16px 12px; }
+.muted { color: #94a3b8; }
+.glass { background: rgba(15,23,42,0.6); border: 1px solid rgba(148,163,184,0.1); border-radius: 16px; backdrop-filter: blur(8px); }
+.glass-inner { background: rgba(15,23,42,0.4); border: 1px solid rgba(148,163,184,0.08); border-radius: 12px; }
+
+/* Header */
+.header { padding: 24px 20px; margin-bottom: 16px; position: relative; overflow: hidden;
+           background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(15,23,42,0.7) 40%, rgba(124,58,237,0.06) 100%); }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon { font-size: 28px; }
+.brand-name { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+.brand-version { font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(167,139,250,0.15); color: #a78bfa; font-weight: 700; }
+.brand-meta { color: #94a3b8; font-size: 13px; margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+.brand-meta span.sep { color: #475569; }
+.header-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.stat-card { padding: 10px; background: rgba(15,23,42,0.5); border-radius: 10px; text-align: center; border: 1px solid rgba(148,163,184,0.08); }
+.stat-card .v { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+.stat-card .l { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.tab { padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s;
+        border: 1px solid rgba(148,163,184,0.08); background: rgba(15,23,42,0.5); color: #94a3b8; user-select: none; }
+.tab:hover { background: rgba(15,23,42,0.7); }
+.tab.active { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; border-color: transparent;
+               box-shadow: 0 4px 16px rgba(14,165,233,0.25); font-weight: 700; }
+
+/* Sections */
+.section { display: none; }
+.section.active { display: block; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 16px 20px 0; }
+.section-title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; }
+
+/* Play cards */
+.play-card { padding: 16px; margin-bottom: 12px; border-left: 4px solid #6B7280;
+              background: rgba(15,23,42,0.4); border-radius: 12px; border-top: 1px solid rgba(148,163,184,0.08);
+              border-right: 1px solid rgba(148,163,184,0.08); border-bottom: 1px solid rgba(148,163,184,0.08); }
+.play-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+.play-title { display: flex; align-items: center; gap: 8px; }
+.play-emoji { font-size: 20px; }
+.play-num { font-size: 12px; color: #94a3b8; font-weight: 600; }
+.play-label { font-size: 16px; font-weight: 800; }
+.risk-badge { padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; border: 1px solid; }
+.play-game { color: #cbd5e1; font-size: 13px; margin-bottom: 12px; }
+.play-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { padding: 8px 10px; background: rgba(2,6,23,0.5); border-radius: 8px; }
+.stat-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.stat-value { font-size: 14px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.stat-value.strong { font-weight: 800; }
+.play-details { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(148,163,184,0.08); }
+.play-details summary { cursor: pointer; font-size: 12px; color: #94a3b8; font-weight: 600; user-select: none; }
+.play-details summary:hover { color: #cbd5e1; }
+.reasoning, .triggers { list-style: none; margin-top: 8px; font-size: 13px; color: #cbd5e1; }
+.reasoning li, .triggers li { padding: 4px 0 4px 16px; position: relative; }
+.reasoning li::before { content: '•'; position: absolute; left: 0; color: #475569; }
+.triggers li { color: #f59e0b; }
+.triggers-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 12px; font-weight: 700; }
+
+/* No plays */
+.no-plays { text-align: center; padding: 60px 20px; }
+.no-plays-icon { font-size: 48px; margin-bottom: 12px; }
+.no-plays-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.no-plays-sub { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+
+.no-play-list { margin-top: 16px; }
+.no-play-row { padding: 10px 14px; border-radius: 8px; background: rgba(2,6,23,0.4); margin-bottom: 6px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: baseline; font-size: 13px; }
+.np-matchup { font-weight: 600; color: #cbd5e1; }
+.np-stats { font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+
+/* Tables */
+table.record-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+table.record-table th { text-align: left; padding: 10px 8px; font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(148,163,184,0.1); font-weight: 700; }
+table.record-table td { padding: 10px 8px; border-bottom: 1px solid rgba(148,163,184,0.05); font-family: 'JetBrains Mono', monospace; }
+table.record-table tr.overall { background: rgba(99,102,241,0.05); }
+table.record-table tr:hover { background: rgba(15,23,42,0.4); }
+
+/* Settled list */
+.settled-list { margin-top: 12px; }
+.settled-row { padding: 10px 14px; border-radius: 8px; background: rgba(2,6,23,0.4); margin-bottom: 6px; border-left: 3px solid;
+                display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: baseline; font-size: 13px; }
+.settled-meta { display: flex; flex-direction: column; gap: 2px; }
+.settled-date { font-size: 11px; color: #64748b; font-family: 'JetBrains Mono', monospace; }
+.settled-bet { font-weight: 600; color: #cbd5e1; }
+.settled-matchup { font-size: 11px; }
+.settled-result { font-family: 'JetBrains Mono', monospace; }
+
+h3 { font-size: 15px; margin: 24px 0 12px; padding: 0 20px; font-weight: 700; }
+section.section .glass { padding: 20px; }
+@media (max-width: 600px) {
+  .header-stats { grid-template-columns: repeat(2, 1fr); }
+  .play-stats { grid-template-columns: repeat(2, 1fr); }
+  table.record-table { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="glass header">
+    <div class="header-top">
+      <div>
+        <div class="brand">
+          <span class="brand-icon">⚾</span>
+          <span class="brand-name">MLB Sharp</span>
+          <span class="brand-version">v1</span>
+        </div>
+        <div class="brand-meta">
+          <span>2026-04-25</span>
+          <span class="sep">|</span>
+          <span>15 games</span>
+          <span class="sep">|</span>
+          <span>FD · DK · MGM · CZR</span>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 36px; font-weight: 800; color: #22C55E; line-height: 1; font-family: 'JetBrains Mono', monospace;">12</div>
+        <div style="font-size: 11px; color: #94a3b8; letter-spacing: 0.08em; text-transform: uppercase;">Plays Today</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-card"><div class="v" style="color: #22C55E;">12</div><div class="l">Plays</div></div>
+      <div class="stat-card"><div class="v" style="color: #F59E0B;">6.0u</div><div class="l">Exposure</div></div>
+      <div class="stat-card"><div class="v" style="color: #60A5FA;">1719.0%</div><div class="l">Best Edge</div></div>
+      <div class="stat-card"><div class="v" style="color: #EF4444;">-3.4u</div><div class="l">All-Time P/L</div></div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" data-tab="today">📅 Today</div>
+    <div class="tab" data-tab="record">📊 Record</div>
+    <div class="tab" data-tab="log">📝 Bet Log</div>
+  </div>
+
+  <!-- TODAY -->
+  <section class="section active" id="today">
+    <div class="glass">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <div class="section-title"><span>⚡</span><span>Top Plays</span></div>
+        <span class="muted" style="font-size: 12px;">2026-04-25 · 15 games graded</span>
+      </div>
+      
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #1</span>
+          <span class="play-label">Houston Astros ML</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">New York Yankees @ Houston Astros</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Moneyline</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">BetMGM</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">+3300</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">1719.00%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-115 (53.5%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Pitching edge (6.5 vs 5.5)</li><li>home: CSW% L5 starts 28.5%</li><li>away: velo soft (-1.0 mph)</li><li>home: 0 arms gassed, 2 back-to-back, 1204 pitches L7d</li><li>away: 0 arms gassed, 1 back-to-back, 895 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #2</span>
+          <span class="play-label">Detroit Tigers +1.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Detroit Tigers @ Cincinnati Reds</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Run Line @ 6.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">BetMGM</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">+450</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">285.74%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-235 (70.1%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>home: velo soft (-1.0 mph)</li><li>home: CSW% L5 starts 25.6%</li><li>home: 6 arms gassed, 4 back-to-back, 1141 pitches L7d</li><li>away: 6 arms gassed, 2 back-to-back, 1267 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #3</span>
+          <span class="play-label">Chicago Cubs +1.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Chicago Cubs @ Los Angeles Dodgers</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Run Line @ 7.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">BetMGM</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">+210</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">115.97%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-230 (69.7%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>home: CSW% L4 starts 23.1%</li><li>away: velo soft (-1.2 mph)</li><li>home: 0 arms gassed, 1 back-to-back, 832 pitches L7d</li><li>away: 0 arms gassed, 3 back-to-back, 998 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #4</span>
+          <span class="play-label">Colorado Rockies ML</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Colorado Rockies @ New York Mets</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Moneyline</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">FanDuel</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">+190</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">35.29%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">+114 (46.7%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Market edge (5.0 vs 3.5)</li><li>home: CSW% L4 starts 24.7%</li><li>away: CSW% L3 starts 20.6%</li><li>home: 1 arms gassed, 3 back-to-back, 882 pitches L7d</li><li>away: 3 arms gassed, 4 back-to-back, 1115 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #5</span>
+          <span class="play-label">Arizona Diamondbacks +1.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">San Diego Padres @ Arizona Diamondbacks</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Run Line @ 1.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">BetMGM</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">-130</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">30.41%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-280 (73.7%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>home: velo soft (-1.3 mph)</li><li>home: CSW% L5 starts 23.2%</li><li>home: 0 arms gassed, 4 back-to-back, 933 pitches L7d</li><li>away: 0 arms gassed, 1 back-to-back, 886 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #6</span>
+          <span class="play-label">FG Over 8.0</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Boston Red Sox @ Baltimore Orioles</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Full-Game Total @ 8.0</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">FanDuel</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">+100</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">27.55%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-176 (63.8%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Expected total 8.91 vs market 8.0</li><li>home: velo soft (-1.4 mph)</li><li>home: CSW% L5 starts 28.0%</li><li>home: 2 arms gassed, 4 back-to-back, 1111 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #7</span>
+          <span class="play-label">St. Louis Cardinals +1.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Seattle Mariners @ St. Louis Cardinals</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Run Line @ 1.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">FanDuel</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">-142</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">25.81%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-282 (73.8%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>home: CSW% L5 starts 22.8%</li><li>away: CSW% L5 starts 25.4%</li><li>home: 0 arms gassed, 2 back-to-back, 1077 pitches L7d</li><li>away: 0 arms gassed, 5 back-to-back, 1047 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #8</span>
+          <span class="play-label">FG Under 9.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Philadelphia Phillies @ Atlanta Braves</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Full-Game Total @ 9.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">FanDuel</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">-112</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">16.06%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-158 (61.3%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Expected total 8.85 vs market 9.5</li><li>home: CSW% L5 starts 25.4%</li><li>away: pitcher profile unavailable — neutral 5</li><li>home: 4 arms gassed, 5 back-to-back, 1040 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #9</span>
+          <span class="play-label">FG Over 8.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Washington Nationals @ Chicago White Sox</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Full-Game Total @ 8.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">BetMGM</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">+100</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">14.68%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-134 (57.3%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Expected total 8.74 vs market 8.5</li><li>home: CSW% L2 starts 30.5%</li><li>away: CSW% L5 starts 26.5%</li><li>hitter park (pf_runs 105)</li><li>cold (47.1°F) — ball dies</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #10</span>
+          <span class="play-label">Kansas City Royals +1.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Los Angeles Angels @ Kansas City Royals</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Run Line @ 1.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">DraftKings</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">-195</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">13.09%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-296 (74.8%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Market edge (5.0 vs 3.5)</li><li>home: CSW% L5 starts 26.9%</li><li>away: CSW% L3 starts 25.6%</li><li>home: 5 arms gassed, 4 back-to-back, 1102 pitches L7d</li><li>away: 4 arms gassed, 2 back-to-back, 1038 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #11</span>
+          <span class="play-label">FG Over 8.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Cleveland Guardians @ Toronto Blue Jays</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Full-Game Total @ 8.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">FanDuel</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">-102</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">11.22%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-128 (56.2%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Expected total 8.62 vs market 8.5</li><li>home: CSW% L5 starts 28.4%</li><li>away: CSW% L5 starts 28.5%</li><li>cold (47.4°F) — ball dies</li><li>home: 6 arms gassed, 5 back-to-back, 983 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+    <div class="play-card" style="border-left-color: #3B82F6;">
+      <div class="play-header">
+        <div class="play-title">
+          <span class="play-emoji">🪙</span>
+          <span class="play-num">Bet #12</span>
+          <span class="play-label">FG Over 7.5</span>
+        </div>
+        <div class="risk-badge" style="background: #3B82F622; color: #3B82F6; border-color: #3B82F655;">
+          Lean · 0.5u
+        </div>
+      </div>
+      <div class="play-game">Miami Marlins @ San Francisco Giants</div>
+      <div class="play-stats">
+        <div class="stat"><div class="stat-label">Market</div><div class="stat-value">Full-Game Total @ 7.5</div></div>
+        <div class="stat"><div class="stat-label">Book</div><div class="stat-value strong">DraftKings</div></div>
+        <div class="stat"><div class="stat-label">Price</div><div class="stat-value strong" style="color: #3B82F6;">-105</div></div>
+        <div class="stat"><div class="stat-label">Edge</div><div class="stat-value">11.18%</div></div>
+        <div class="stat"><div class="stat-label">Conf</div><div class="stat-value">6/10</div></div>
+        <div class="stat"><div class="stat-label">Fair</div><div class="stat-value">-132 (56.9%)</div></div>
+      </div>
+      <details class="play-details">
+        <summary>Why this bet</summary>
+        <ul class="reasoning"><li>Expected total 7.7 vs market 7.5</li><li>home: CSW% L5 starts 27.0%</li><li>away: CSW% L5 starts 24.9%</li><li>pitcher park (pf_runs 93)</li><li>home: 0 arms gassed, 1 back-to-back, 1035 pitches L7d</li></ul>
+        <div class='triggers-label'>Pass if...</div><ul class='triggers'><li>⚠ Key bat scratched at lineup release</li><li>⚠ Line moves through your fair value</li><li>⚠ Weather forecast worsens (rain &gt;50% or wind reversal)</li></ul>
+      </details>
+    </div>
+    
+      <h3 style='padding-left:0;margin-top:24px;'>Other graded games</h3><div class='no-play-list'>
+            <div class="no-play-row">
+              <span class="np-matchup">Athletics @ Texas Rangers</span>
+              <span class="np-stats muted">
+                Grade H48.2/A46.0 ·
+                xRuns 8.83 · F5 4.48 ·
+                NRFI 58.0%
+              </span>
+            </div>
+            <div class="no-play-row">
+              <span class="np-matchup">Minnesota Twins @ Tampa Bay Rays</span>
+              <span class="np-stats muted">
+                Grade H47.2/A48.2 ·
+                xRuns 8.58 · F5 4.09 ·
+                NRFI 60.3%
+              </span>
+            </div>
+            <div class="no-play-row">
+              <span class="np-matchup">Pittsburgh Pirates @ Milwaukee Brewers</span>
+              <span class="np-stats muted">
+                Grade H56.5/A48.2 ·
+                xRuns 8.05 · F5 3.73 ·
+                NRFI 61.0%
+              </span>
+            </div></div>
+    </div>
+  </section>
+
+  <!-- RECORD -->
+  <section class="section" id="record">
+    <div class="glass">
+      <div class="section-title"><span>📊</span><span>All-Time Record</span></div>
+      
+    <table class="record-table">
+      <thead>
+        <tr>
+          <th>Bucket</th><th>Bets</th><th>W-L-P</th><th>Win %</th>
+          <th>Risked</th><th>P/L</th><th>ROI</th><th>Avg Edge</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+        <tr class="overall">
+          <td><strong>OVERALL</strong></td>
+          <td>44</td>
+          <td>13-14-1</td>
+          <td>48.1%</td>
+          <td>26.50</td>
+          <td style="color: #EF4444;"><strong>-3.39</strong></td>
+          <td style="color: #EF4444;">-12.79%</td>
+          <td>65.83%</td>
+        </tr>
+        <tr class="">
+          <td><strong>Moneyline</strong></td>
+          <td>4</td>
+          <td>1-1-0</td>
+          <td>50.0%</td>
+          <td>2.00</td>
+          <td style="color: #EF4444;"><strong>-1.04</strong></td>
+          <td style="color: #EF4444;">-51.85%</td>
+          <td>442.28%</td>
+        </tr>
+        <tr class="">
+          <td><strong>Run Line</strong></td>
+          <td>17</td>
+          <td>5-6-0</td>
+          <td>45.5%</td>
+          <td>9.50</td>
+          <td style="color: #EF4444;"><strong>-2.43</strong></td>
+          <td style="color: #EF4444;">-25.63%</td>
+          <td>39.29%</td>
+        </tr>
+        <tr class="">
+          <td><strong>Full-Game Total</strong></td>
+          <td>23</td>
+          <td>7-7-1</td>
+          <td>50.0%</td>
+          <td>15.00</td>
+          <td style="color: #22C55E;"><strong>+0.08</strong></td>
+          <td style="color: #22C55E;">+0.55%</td>
+          <td>19.99%</td>
+        </tr></tbody></table>
+      <h3 style="padding-left: 0;">Last 30 Days</h3>
+      
+    <table class="record-table">
+      <thead>
+        <tr>
+          <th>Bucket</th><th>Bets</th><th>W-L-P</th><th>Win %</th>
+          <th>Risked</th><th>P/L</th><th>ROI</th><th>Avg Edge</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+        <tr class="overall">
+          <td><strong>OVERALL</strong></td>
+          <td>44</td>
+          <td>13-14-1</td>
+          <td>48.1%</td>
+          <td>26.50</td>
+          <td style="color: #EF4444;"><strong>-3.39</strong></td>
+          <td style="color: #EF4444;">-12.79%</td>
+          <td>65.83%</td>
+        </tr>
+        <tr class="">
+          <td><strong>Moneyline</strong></td>
+          <td>4</td>
+          <td>1-1-0</td>
+          <td>50.0%</td>
+          <td>2.00</td>
+          <td style="color: #EF4444;"><strong>-1.04</strong></td>
+          <td style="color: #EF4444;">-51.85%</td>
+          <td>442.28%</td>
+        </tr>
+        <tr class="">
+          <td><strong>Run Line</strong></td>
+          <td>17</td>
+          <td>5-6-0</td>
+          <td>45.5%</td>
+          <td>9.50</td>
+          <td style="color: #EF4444;"><strong>-2.43</strong></td>
+          <td style="color: #EF4444;">-25.63%</td>
+          <td>39.29%</td>
+        </tr>
+        <tr class="">
+          <td><strong>Full-Game Total</strong></td>
+          <td>23</td>
+          <td>7-7-1</td>
+          <td>50.0%</td>
+          <td>15.00</td>
+          <td style="color: #22C55E;"><strong>+0.08</strong></td>
+          <td style="color: #22C55E;">+0.55%</td>
+          <td>19.99%</td>
+        </tr></tbody></table>
+      
+    </div>
+  </section>
+
+  <!-- LOG -->
+  <section class="section" id="log">
+    <div class="glass">
+      <div class="section-title"><span>📝</span><span>Recent Activity</span></div>
+      <h3>Last Settled</h3><div class='settled-list'>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">runline/home 1.5 @ FANDUEL</span>
+            <span class="settled-matchup muted">San Diego Padres @ Arizona Diamondbacks</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/over 8.5 @ FANDUEL</span>
+            <span class="settled-matchup muted">Washington Nationals @ Chicago White Sox</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">runline/home 1.5 @ FANDUEL</span>
+            <span class="settled-matchup muted">Detroit Tigers @ Cincinnati Reds</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.30u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/under 9.0 @ DRAFTKINGS</span>
+            <span class="settled-matchup muted">New York Yankees @ Houston Astros</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">runline/away 1.5 @ FANDUEL</span>
+            <span class="settled-matchup muted">Los Angeles Angels @ Kansas City Royals</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">runline/away 1.5 @ FANDUEL</span>
+            <span class="settled-matchup muted">Pittsburgh Pirates @ Milwaukee Brewers</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.28u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">runline/home 1.5 @ DRAFTKINGS</span>
+            <span class="settled-matchup muted">Miami Marlins @ San Francisco Giants</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.27u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/over 8.5 @ FANDUEL</span>
+            <span class="settled-matchup muted">Minnesota Twins @ Tampa Bay Rays</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/over 8.0 @ FANDUEL</span>
+            <span class="settled-matchup muted">Athletics @ Texas Rangers</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/over 7.5 @ BETMGM</span>
+            <span class="settled-matchup muted">Cleveland Guardians @ Toronto Blue Jays</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">runline/home 1.5 @ DRAFTKINGS</span>
+            <span class="settled-matchup muted">Boston Red Sox @ Baltimore Orioles</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/over 8.0 @ FANDUEL</span>
+            <span class="settled-matchup muted">Pittsburgh Pirates @ Milwaukee Brewers</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.47u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #22C55E;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">moneyline/home @ FANDUEL</span>
+            <span class="settled-matchup muted">Detroit Tigers @ Cincinnati Reds</span>
+          </div>
+          <div class="settled-result" style="color: #22C55E;">
+            <strong>WON</strong> · +0.46u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">total/under 8.0 @ DRAFTKINGS</span>
+            <span class="settled-matchup muted">Pittsburgh Pirates @ Milwaukee Brewers</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -0.50u
+          </div>
+        </div>
+        <div class="settled-row" style="border-left-color: #EF4444;">
+          <div class="settled-meta">
+            <span class="settled-date">2026-04-25</span>
+            <span class="settled-bet">moneyline/home @ FANDUEL</span>
+            <span class="settled-matchup muted">Pittsburgh Pirates @ Milwaukee Brewers</span>
+          </div>
+          <div class="settled-result" style="color: #EF4444;">
+            <strong>LOST</strong> · -1.50u
+          </div>
+        </div></div>
+    </div>
+  </section>
+
+  <div style="text-align: center; margin-top: 24px; padding: 16px; font-size: 11px; color: #475569;">
+    Generated 2026-04-25 22:25  · MLB Sharp Bot
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,32 +1,32 @@
 # MLB Sharp Betting Cards — 2026-04-25
 
-_Generated 2026-04-25 13:37 _  
+_Generated 2026-04-25 22:25 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
-_Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_
+_Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  
+_Caps: max 20 plays / 6.0u total exposure_
 
-## Cleveland Guardians @ Toronto Blue Jays  
-Grade H51.0 / A49.5 · FG xRuns 8.53 · F5 xRuns 3.98 · NRFI 60.1%
+## TOP 12 PLAYS
 
-### Bet #1 — FG Over 7.5
+### Bet #1 — Houston Astros ML
 
 | Field | Value |
 |---|---|
-| Game | Cleveland Guardians @ Toronto Blue Jays (2026-04-25T19:07:00Z) |
-| Market | total |
-| Best Book | BETMGM +100 (line 7.5) |
-| Fair Odds | -185 (64.9%) |
-| Edge | 29.79% |
+| Game | New York Yankees @ Houston Astros (2026-04-25T23:10:00Z) |
+| Market | moneyline |
+| Best Book | BETMGM +3300 |
+| Fair Odds | -115 (53.5%) |
+| Edge | 1719.00% |
 | Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
 
 **Reasoning**
 
-- Expected total 8.53 vs market 7.5
-- home: CSW% L5 starts 28.4%
-- away: CSW% L5 starts 28.5%
-- cold (44.6°F) — ball dies
-- home: 6 arms gassed, 4 back-to-back, 840 pitches L7d
+- Pitching edge (6.5 vs 5.5)
+- home: CSW% L5 starts 28.5%
+- away: velo soft (-1.0 mph)
+- home: 0 arms gassed, 2 back-to-back, 1204 pitches L7d
+- away: 0 arms gassed, 1 back-to-back, 895 pitches L7d
 
 **Pass triggers**
 
@@ -36,81 +36,71 @@ Grade H51.0 / A49.5 · FG xRuns 8.53 · F5 xRuns 3.98 · NRFI 60.1%
 
 ---
 
-## Athletics @ Texas Rangers  
-Grade H46.0 / A46.8 · FG xRuns 8.78 · F5 xRuns 4.48 · NRFI 58.0%
-
-### Bet #2 — FG Over 8.0
+### Bet #2 — Detroit Tigers +1.5
 
 | Field | Value |
 |---|---|
-| Game | Athletics @ Texas Rangers (2026-04-25T23:05:00Z) |
-| Market | total |
-| Best Book | FANDUEL -106 (line 8.0) |
-| Fair Odds | -167 (62.6%) |
-| Edge | 21.56% |
-| Confidence | 6/10 |
-| Risk | Lean |
-| Unit Size | 0.5u |
-
-**Reasoning**
-
-- Expected total 8.78 vs market 8.0
-- home: CSW% L5 starts 26.4%
-- away: velo down -1.5 mph — RED FLAG
-- home: 3 arms gassed, 3 back-to-back, 847 pitches L7d
-
-**Pass triggers**
-
-- Key bat scratched at lineup release
-- Line moves through your fair value
-- Weather forecast worsens (rain >50% or wind reversal)
-
----
-
-## Minnesota Twins @ Tampa Bay Rays  
-Grade H47.2 / A48.2 · FG xRuns 8.58 · F5 xRuns 4.09 · NRFI 60.3%
-
-### Bet #3 — FG Over 8.5
-
-| Field | Value |
-|---|---|
-| Game | Minnesota Twins @ Tampa Bay Rays (2026-04-25T20:10:00Z) |
-| Market | total |
-| Best Book | FANDUEL +100 (line 8.5) |
-| Fair Odds | -126 (55.8%) |
-| Edge | 11.53% |
-| Confidence | 6/10 |
-| Risk | Lean |
-| Unit Size | 0.5u |
-
-**Reasoning**
-
-- Expected total 8.58 vs market 8.5
-- home: CSW% L4 starts 26.8%
-- away: CSW% L5 starts 26.8%
-- indoor / dome — weather neutral
-- home: 4 arms gassed, 2 back-to-back, 960 pitches L7d
-
-**Pass triggers**
-
-- Key bat scratched at lineup release
-- Line moves through your fair value
-- Weather forecast worsens (rain >50% or wind reversal)
-
----
-
-## Seattle Mariners @ St. Louis Cardinals  
-Grade H50.8 / A49.8 · FG xRuns 8.45 · F5 xRuns 4.27 · NRFI 59.5%
-
-### Bet #4 — St. Louis Cardinals +1.5
-
-| Field | Value |
-|---|---|
-| Game | Seattle Mariners @ St. Louis Cardinals (2026-04-25T18:15:00Z) |
+| Game | Detroit Tigers @ Cincinnati Reds (2026-04-25T23:15:00Z) |
 | Market | runline |
-| Best Book | DRAFTKINGS -136 (line 1.5) |
-| Fair Odds | -291 (74.4%) |
-| Edge | 29.15% |
+| Best Book | BETMGM +450 (line 6.5) |
+| Fair Odds | -235 (70.1%) |
+| Edge | 285.74% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- home: velo soft (-1.0 mph)
+- home: CSW% L5 starts 25.6%
+- home: 6 arms gassed, 4 back-to-back, 1141 pitches L7d
+- away: 6 arms gassed, 2 back-to-back, 1267 pitches L7d
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #3 — Chicago Cubs +1.5
+
+| Field | Value |
+|---|---|
+| Game | Chicago Cubs @ Los Angeles Dodgers (2026-04-25T23:15:00Z) |
+| Market | runline |
+| Best Book | BETMGM +210 (line 7.5) |
+| Fair Odds | -230 (69.7%) |
+| Edge | 115.97% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- home: CSW% L4 starts 23.1%
+- away: velo soft (-1.2 mph)
+- home: 0 arms gassed, 1 back-to-back, 832 pitches L7d
+- away: 0 arms gassed, 3 back-to-back, 998 pitches L7d
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #4 — Colorado Rockies ML
+
+| Field | Value |
+|---|---|
+| Game | Colorado Rockies @ New York Mets (2026-04-25T20:10:00Z) |
+| Market | moneyline |
+| Best Book | FANDUEL +190 |
+| Fair Odds | +114 (46.7%) |
+| Edge | 35.29% |
 | Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
@@ -118,10 +108,94 @@ Grade H50.8 / A49.8 · FG xRuns 8.45 · F5 xRuns 4.27 · NRFI 59.5%
 **Reasoning**
 
 - Market edge (5.0 vs 3.5)
+- home: CSW% L4 starts 24.7%
+- away: CSW% L3 starts 20.6%
+- home: 1 arms gassed, 3 back-to-back, 882 pitches L7d
+- away: 3 arms gassed, 4 back-to-back, 1115 pitches L7d
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #5 — Arizona Diamondbacks +1.5
+
+| Field | Value |
+|---|---|
+| Game | San Diego Padres @ Arizona Diamondbacks (2026-04-25T22:05:00Z) |
+| Market | runline |
+| Best Book | BETMGM -130 (line 1.5) |
+| Fair Odds | -280 (73.7%) |
+| Edge | 30.41% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- home: velo soft (-1.3 mph)
+- home: CSW% L5 starts 23.2%
+- home: 0 arms gassed, 4 back-to-back, 933 pitches L7d
+- away: 0 arms gassed, 1 back-to-back, 886 pitches L7d
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #6 — FG Over 8.0
+
+| Field | Value |
+|---|---|
+| Game | Boston Red Sox @ Baltimore Orioles (2026-04-25T16:05:00Z) |
+| Market | total |
+| Best Book | FANDUEL +100 (line 8.0) |
+| Fair Odds | -176 (63.8%) |
+| Edge | 27.55% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- Expected total 8.91 vs market 8.0
+- home: velo soft (-1.4 mph)
+- home: CSW% L5 starts 28.0%
+- home: 2 arms gassed, 4 back-to-back, 1111 pitches L7d
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #7 — St. Louis Cardinals +1.5
+
+| Field | Value |
+|---|---|
+| Game | Seattle Mariners @ St. Louis Cardinals (2026-04-25T18:15:00Z) |
+| Market | runline |
+| Best Book | FANDUEL -142 (line 1.5) |
+| Fair Odds | -282 (73.8%) |
+| Edge | 25.81% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
 - home: CSW% L5 starts 22.8%
 - away: CSW% L5 starts 25.4%
-- home: 0 arms gassed, 2 back-to-back, 900 pitches L7d
-- away: 0 arms gassed, 5 back-to-back, 902 pitches L7d
+- home: 0 arms gassed, 2 back-to-back, 1077 pitches L7d
+- away: 0 arms gassed, 5 back-to-back, 1047 pitches L7d
 
 **Pass triggers**
 
@@ -131,96 +205,25 @@ Grade H50.8 / A49.8 · FG xRuns 8.45 · F5 xRuns 4.27 · NRFI 59.5%
 
 ---
 
-## Miami Marlins @ San Francisco Giants  
-Grade H53.5 / A52.0 · FG xRuns 7.68 · F5 xRuns 3.8 · NRFI 60.6%
-
-### Bet #5 — San Francisco Giants +1.5
+### Bet #8 — FG Under 9.5
 
 | Field | Value |
 |---|---|
-| Game | Miami Marlins @ San Francisco Giants (2026-04-25T20:05:00Z) |
-| Market | runline |
-| Best Book | DRAFTKINGS -175 (line 1.5) |
-| Fair Odds | -293 (74.6%) |
-| Edge | 17.17% |
-| Confidence | 6/10 |
-| Risk | Lean |
-| Unit Size | 0.5u |
-
-**Reasoning**
-
-- Bullpen edge (5.5 vs 4.5)
-- home: CSW% L5 starts 27.0%
-- away: CSW% L5 starts 24.9%
-- home: 0 arms gassed, 1 back-to-back, 871 pitches L7d
-- away: 0 arms gassed, 3 back-to-back, 871 pitches L7d
-
-**Pass triggers**
-
-- Key bat scratched at lineup release
-- Line moves through your fair value
-- Weather forecast worsens (rain >50% or wind reversal)
-
----
-
-### Colorado Rockies @ New York Mets — NO PLAY
-
-Grade H48.8 / A45.8 | FG xRuns 8.55 | F5 xRuns 4.21 | NRFI 58.2%
-No bet cleared edge + confidence thresholds.
-
-## Pittsburgh Pirates @ Milwaukee Brewers  
-Grade H55.0 / A48.2 · FG xRuns 8.03 · F5 xRuns 3.74 · NRFI 61.0%
-
-### Bet #6 — Pittsburgh Pirates +1.5
-
-| Field | Value |
-|---|---|
-| Game | Pittsburgh Pirates @ Milwaukee Brewers (2026-04-25T23:10:00Z) |
-| Market | runline |
-| Best Book | FANDUEL -176 (line 1.5) |
-| Fair Odds | -222 (69.0%) |
-| Edge | 8.17% |
-| Confidence | 8/10 |
-| Risk | Strong |
-| Unit Size | 1.5u |
-
-**Reasoning**
-
-- home: CSW% L5 starts 32.6%
-- away: CSW% L5 starts 25.5%
-- home: 1 arms gassed, 0 back-to-back, 880 pitches L7d
-- away: 5 arms gassed, 1 back-to-back, 872 pitches L7d
-
-**Pass triggers**
-
-- Key bat scratched at lineup release
-- Line moves through your fair value
-- Weather forecast worsens (rain >50% or wind reversal)
-
----
-
-## Chicago Cubs @ Los Angeles Dodgers  
-Grade H50.0 / A48.0 · FG xRuns 8.23 · F5 xRuns 4.25 · NRFI 58.3%
-
-### Bet #7 — FG Under 9.5
-
-| Field | Value |
-|---|---|
-| Game | Chicago Cubs @ Los Angeles Dodgers (2026-04-25T23:15:00Z) |
+| Game | Philadelphia Phillies @ Atlanta Braves (2026-04-25T23:15:00Z) |
 | Market | total |
-| Best Book | FANDUEL -115 (line 9.5) |
-| Fair Odds | -204 (67.1%) |
-| Edge | 25.44% |
+| Best Book | FANDUEL -112 (line 9.5) |
+| Fair Odds | -158 (61.3%) |
+| Edge | 16.06% |
 | Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
 
 **Reasoning**
 
-- Expected total 8.23 vs market 9.5
-- home: CSW% L4 starts 23.1%
-- away: velo soft (-1.2 mph)
-- home: 0 arms gassed, 1 back-to-back, 832 pitches L7d
+- Expected total 8.85 vs market 9.5
+- home: CSW% L5 starts 25.4%
+- away: pitcher profile unavailable — neutral 5
+- home: 4 arms gassed, 5 back-to-back, 1040 pitches L7d
 
 **Pass triggers**
 
@@ -230,29 +233,56 @@ Grade H50.0 / A48.0 · FG xRuns 8.23 · F5 xRuns 4.25 · NRFI 58.3%
 
 ---
 
-## Los Angeles Angels @ Kansas City Royals  
-Grade H46.8 / A49.8 · FG xRuns 8.4 · F5 xRuns 4.03 · NRFI 59.4%
+### Bet #9 — FG Over 8.5
 
-### Bet #8 — Los Angeles Angels +1.5
+| Field | Value |
+|---|---|
+| Game | Washington Nationals @ Chicago White Sox (2026-04-25T20:10:00Z) |
+| Market | total |
+| Best Book | BETMGM +100 (line 8.5) |
+| Fair Odds | -134 (57.3%) |
+| Edge | 14.68% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- Expected total 8.74 vs market 8.5
+- home: CSW% L2 starts 30.5%
+- away: CSW% L5 starts 26.5%
+- hitter park (pf_runs 105)
+- cold (47.1°F) — ball dies
+- home: 5 arms gassed, 5 back-to-back, 1163 pitches L7d
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #10 — Kansas City Royals +1.5
 
 | Field | Value |
 |---|---|
 | Game | Los Angeles Angels @ Kansas City Royals (2026-04-25T23:10:00Z) |
 | Market | runline |
-| Best Book | DRAFTKINGS -163 (line 1.5) |
-| Fair Odds | -253 (71.7%) |
-| Edge | 15.65% |
+| Best Book | DRAFTKINGS -195 (line 1.5) |
+| Fair Odds | -296 (74.8%) |
+| Edge | 13.09% |
 | Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
 
 **Reasoning**
 
-- Bullpen edge (4.0 vs 2.0)
+- Market edge (5.0 vs 3.5)
 - home: CSW% L5 starts 26.9%
 - away: CSW% L3 starts 25.6%
-- home: 5 arms gassed, 3 back-to-back, 958 pitches L7d
-- away: 4 arms gassed, 1 back-to-back, 840 pitches L7d
+- home: 5 arms gassed, 4 back-to-back, 1102 pitches L7d
+- away: 4 arms gassed, 2 back-to-back, 1038 pitches L7d
 
 **Pass triggers**
 
@@ -262,35 +292,69 @@ Grade H46.8 / A49.8 · FG xRuns 8.4 · F5 xRuns 4.03 · NRFI 59.4%
 
 ---
 
-### New York Yankees @ Houston Astros — NO PLAY
+### Bet #11 — FG Over 8.5
 
-Grade H53.3 / A51.5 | FG xRuns 7.66 | F5 xRuns 3.68 | NRFI 61.0%
-No bet cleared edge + confidence thresholds.
+| Field | Value |
+|---|---|
+| Game | Cleveland Guardians @ Toronto Blue Jays (2026-04-25T19:07:00Z) |
+| Market | total |
+| Best Book | FANDUEL -102 (line 8.5) |
+| Fair Odds | -128 (56.2%) |
+| Edge | 11.22% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
 
-### Detroit Tigers @ Cincinnati Reds — NO PLAY
+**Reasoning**
 
-Grade H44.2 / A41.0 | FG xRuns 8.7 | F5 xRuns 4.5 | NRFI 56.8%
-No bet cleared edge + confidence thresholds.
+- Expected total 8.62 vs market 8.5
+- home: CSW% L5 starts 28.4%
+- away: CSW% L5 starts 28.5%
+- cold (47.4°F) — ball dies
+- home: 6 arms gassed, 5 back-to-back, 983 pitches L7d
 
-### Washington Nationals @ Chicago White Sox — NO PLAY
+**Pass triggers**
 
-Grade H50.8 / A49.5 | FG xRuns 8.72 | F5 xRuns 4.0 | NRFI 60.2%
-No bet cleared edge + confidence thresholds.
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
 
-### Boston Red Sox @ Baltimore Orioles — NO PLAY
+---
 
-Grade H52.5 / A46.2 | FG xRuns 8.99 | F5 xRuns 4.55 | NRFI 57.9%
-No bet cleared edge + confidence thresholds.
+### Bet #12 — FG Over 7.5
 
-### Philadelphia Phillies @ Atlanta Braves — NO PLAY
+| Field | Value |
+|---|---|
+| Game | Miami Marlins @ San Francisco Giants (2026-04-25T20:05:00Z) |
+| Market | total |
+| Best Book | DRAFTKINGS -105 (line 7.5) |
+| Fair Odds | -132 (56.9%) |
+| Edge | 11.18% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
 
-Grade H44.5 / A45.5 | FG xRuns 8.85 | F5 xRuns 4.33 | NRFI 59.0%
-No bet cleared edge + confidence thresholds.
+**Reasoning**
 
-### San Diego Padres @ Arizona Diamondbacks — NO PLAY
+- Expected total 7.7 vs market 7.5
+- home: CSW% L5 starts 27.0%
+- away: CSW% L5 starts 24.9%
+- pitcher park (pf_runs 93)
+- home: 0 arms gassed, 1 back-to-back, 1035 pitches L7d
 
-Grade H48.2 / A49.8 | FG xRuns 8.7 | F5 xRuns 4.7 | NRFI 56.5%
-No bet cleared edge + confidence thresholds.
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
 
 
-_Total exposure today: **5.0u** across **8** bets._
+## Other graded games (no play)
+
+- **Athletics @ Texas Rangers** · grade H48.2/A46.0 · xRuns 8.83 · F5 4.48 · NRFI 58.0%
+- **Minnesota Twins @ Tampa Bay Rays** · grade H47.2/A48.2 · xRuns 8.58 · F5 4.09 · NRFI 60.3%
+- **Pittsburgh Pirates @ Milwaukee Brewers** · grade H56.5/A48.2 · xRuns 8.05 · F5 3.73 · NRFI 61.0%
+
+_Total exposure today: **6.0u** across **12** bets._
