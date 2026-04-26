@@ -1,0 +1,59 @@
+name: Refresh Bet Record
+
+# Manual-only workflow. Triggers a settle pass against MLB Stats API,
+# rebuilds record.md, and posts the running record to the Discord
+# bet-tracker channel. Use this anytime you want to "force" the tracker
+# to refresh — useful for verifying yesterday's results landed.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+
+    env:
+      DISCORD_WEBHOOK_URL:         ${{ secrets.DISCORD_WEBHOOK_URL }}
+      DISCORD_RECORD_WEBHOOK_URL:  ${{ secrets.DISCORD_RECORD_WEBHOOK_URL }}
+      TZ: America/New_York
+
+    steps:
+      - name: Checkout (latest)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip }
+
+      - name: Install lightweight deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas python-dateutil
+
+      - name: Settle pending bets via MLB Stats API
+        run: python bet_tracker.py settle --data-root ./mlb_data
+
+      - name: Rebuild record.md
+        run: python bet_tracker.py report --data-root ./mlb_data
+
+      - name: Post record to Discord channel
+        run: python post_record.py --data-root ./mlb_data
+
+      - name: Commit settlement updates
+        run: |
+          git config user.name  "mlb-sharp-bot"
+          git config user.email "mlb-sharp-bot@users.noreply.github.com"
+          git add mlb_data/bet_log.csv mlb_data/record.md
+          if git diff --staged --quiet; then
+            echo "No log changes — bets may not have finals yet"
+          else
+            git commit -m "manual record refresh $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
