@@ -107,11 +107,11 @@ UNIT_LADDER = [
     (0.045, 6, 0.5, "Lean"),      # was 3%/5
 ]
 
-# Hard caps — quality gates (MIN_EDGE / MIN_CONFIDENCE) do most of the work.
-# Count cap is loose — let the model take every real edge it finds.
-# Units cap is the bankroll-safety backstop.
-MAX_CARDS_PER_SLATE    = 20      # effectively unlimited — only triggers on huge slates
-MAX_UNITS_PER_SLATE    = 6.0     # bankroll safety — max 6u total exposure in one day
+# Hard caps — calibration phase: max 5 best-edge plays per day until the
+# system proves it can hit >50% over a meaningful sample. Quality (MIN_EDGE)
+# still gates each play; this just caps total count.
+MAX_CARDS_PER_SLATE    = 5       # top-5 by edge × confidence (calibration phase)
+MAX_UNITS_PER_SLATE    = 6.0     # bankroll safety backstop
 MAX_UNITS_PER_GAME     = 1.5     # never overload a single game
 MAX_CARDS_PER_GAME     = 1       # never recommend more than 1 bet per game
 ALLOW_PARLAYS          = False   # singles only
