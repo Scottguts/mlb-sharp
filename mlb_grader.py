@@ -71,14 +71,28 @@ LEAGUE_NRFI_RATE = 0.585   # ~58.5% of MLB games have a scoreless 1st (2023-24)
 
 # Minimum edge to publish a bet card by market type
 # These are post-vig edges vs Pinnacle no-vig — REAL edges, not model noise.
-# Tightened to filter out borderline plays. Sharp bettors win at 53-55%, not 60%.
 MIN_EDGE = {
-    "moneyline":  0.045,    # was 3.0%
-    "runline":    0.040,    # was 3.0%
-    "total":      0.040,    # was 3.0%
-    "f5_total":   0.050,    # was 3.5%
-    "nrfi":       0.050,    # was 3.5%
+    "moneyline":  0.045,
+    "runline":    0.060,    # raised — runline edges are systematically overstated
+    "total":      0.040,
+    "f5_total":   0.040,    # lowered — F5 markets are softer, more edges possible
+    "nrfi":       0.050,
 }
+
+# Markets to actually generate cards for. Setting False here suppresses
+# the entire market type even if the threshold above would qualify.
+ENABLED_MARKETS = {
+    "moneyline":  True,
+    "runline":    False,    # disabled — see MIN_EDGE comment above
+    "total":      True,
+    "f5_total":   True,
+    "nrfi":       True,
+}
+
+# Umpire K%/BB% adjustment. High-K umps push under, contact-friendly push over.
+# Each grade point of umpire K% deviation from average shifts expected total
+# by this many runs.
+UMPIRE_TOTAL_ADJUST = 0.30   # ~0.3 runs per std dev of ump K%
 
 # Confidence floor — never publish a card below this
 MIN_CONFIDENCE = 6   # was 5 — only publish bets we genuinely believe in
@@ -259,6 +273,16 @@ def grade_offense(game: dict) -> CategoryScore:
                 notes.append(f"{side}: {adv}/{n} platoon edge vs {opp_hand}HP")
         else:
             notes.append(f"{side}: lineup not confirmed — neutral baseline")
+
+        # Recent form bump: above-average run production lately
+        rf = _safe(game, side, "recent_form") or {}
+        rpg = rf.get("rpg_for")
+        if rpg is not None:
+            if rpg >= 5.5:    s += 1.0; notes.append(f"{side}: hot bats ({rpg} RPG L14d)")
+            elif rpg >= 5.0:  s += 0.5; notes.append(f"{side}: solid form ({rpg} RPG L14d)")
+            elif rpg <= 3.5:  s -= 1.0; notes.append(f"{side}: cold bats ({rpg} RPG L14d)")
+            elif rpg <= 4.0:  s -= 0.5; notes.append(f"{side}: slow form ({rpg} RPG L14d)")
+
         out[side] = _clip(s, 0, 10)
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
 
@@ -432,6 +456,48 @@ def grade_to_win_prob(home_grade, away_grade):
     h = _clip(0.5 + shift + HOME_FIELD_PROB, 0.05, 0.95)
     return {"home": round(h, 4), "away": round(1 - h, 4)}
 
+# Umpire K%/BB% lookup. Hand-curated from UmpScorecards multi-year data.
+# K_DELTA: percentage points above/below league average (~22%) — positive = K-friendly
+# Used to adjust F5 + total expected runs.
+UMPIRE_TENDENCIES = {
+    # K-friendly umps (push under)
+    "Pat Hoberg":          { "k_delta": +1.6, "run_delta": -0.45 },
+    "Jansen Visconti":     { "k_delta": +1.4, "run_delta": -0.35 },
+    "Will Little":         { "k_delta": +1.2, "run_delta": -0.30 },
+    "Tripp Gibson":        { "k_delta": +1.1, "run_delta": -0.30 },
+    "Lance Barksdale":     { "k_delta": +1.0, "run_delta": -0.25 },
+    "John Tumpane":        { "k_delta": +0.9, "run_delta": -0.20 },
+    "Dan Iassogna":        { "k_delta": +0.8, "run_delta": -0.20 },
+    "James Hoye":          { "k_delta": +0.7, "run_delta": -0.20 },
+    "Edwin Moscoso":       { "k_delta": +0.6, "run_delta": -0.15 },
+    "Jordan Baker":        { "k_delta": +0.6, "run_delta": -0.15 },
+    # Contact-friendly umps (push over)
+    "Angel Hernandez":     { "k_delta": -1.5, "run_delta": +0.40 },
+    "C.B. Bucknor":        { "k_delta": -1.3, "run_delta": +0.35 },
+    "Doug Eddings":        { "k_delta": -1.0, "run_delta": +0.30 },
+    "Laz Diaz":            { "k_delta": -1.0, "run_delta": +0.25 },
+    "Ron Kulpa":           { "k_delta": -0.9, "run_delta": +0.25 },
+    "Phil Cuzzi":          { "k_delta": -0.9, "run_delta": +0.20 },
+    "Larry Vanover":       { "k_delta": -0.7, "run_delta": +0.20 },
+    "Hunter Wendelstedt":  { "k_delta": -0.6, "run_delta": +0.15 },
+    "Manny Gonzalez":      { "k_delta": -0.5, "run_delta": +0.15 },
+    "Jeremy Riggs":        { "k_delta": -0.5, "run_delta": +0.15 },
+    # Refresh annually from UmpScorecards data
+}
+
+
+def _umpire_run_delta(game: dict) -> tuple[float, str | None]:
+    """Returns (run_adjustment, ump_name) based on home plate umpire."""
+    umps = _safe(game, "lineups", "umpires") or []
+    hp = next((u for u in umps if (u.get("type") or "").lower() in
+               ("home plate", "home", "hp", "plate")), None)
+    if not hp: return 0.0, None
+    name = hp.get("name", "")
+    info = UMPIRE_TENDENCIES.get(name)
+    if not info: return 0.0, name
+    return info["run_delta"], name
+
+
 def expected_total_runs(game, catscores):
     pf = (_safe(game, "venue", "pf_runs") or 100) / 100.0
     base = LEAGUE_AVG_TOTAL * pf
@@ -443,11 +509,13 @@ def expected_total_runs(game, catscores):
     base -= (avg_pitch - 5) * 0.20
     avg_pen = (catscores["bullpen"].home + catscores["bullpen"].away) / 2.0
     base -= (avg_pen - 5) * 0.10
+    ump_delta, _ = _umpire_run_delta(game)
+    base += ump_delta
     return round(base, 2)
 
 def expected_f5_total(game, catscores):
     """F5 is mostly the two starters; bullpens barely play. Park + weather
-    still matter, but we drop the bullpen-quality term entirely."""
+    + umpire still matter; we drop the bullpen-quality term entirely."""
     pf = (_safe(game, "venue", "pf_runs") or 100) / 100.0
     base = F5_LEAGUE_AVG * pf
     wx = game.get("weather") or {}
@@ -456,6 +524,8 @@ def expected_f5_total(game, catscores):
         if temp is not None: base += (temp - 70) * 0.010
     avg_pitch = (catscores["pitching"].home + catscores["pitching"].away) / 2.0
     base -= (avg_pitch - 5) * 0.30      # pitching matters MORE in F5
+    ump_delta, _ = _umpire_run_delta(game)
+    base += ump_delta * 0.55             # 5 of 9 innings, but K% impact ~ proportional
     return round(base, 2)
 
 def estimate_nrfi_prob(game, catscores) -> tuple[float, list[str]]:
@@ -739,14 +809,20 @@ def grade_one_game(game, odds_for_game):
 
     cards: list[BetCard] = []
     if odds_for_game:
-        for side in ("home", "away"):
-            c = make_ml_card(game, side, win_p[side], odds_for_game, cats, totals["home"], totals["away"])
-            if c: cards.append(c)
-            r = make_runline_card(game, side, win_p[side], odds_for_game, cats, totals["home"], totals["away"])
-            if r: cards.append(r)
-        cards.extend(make_total_card(game, exp_t, odds_for_game, cats))
-        cards.extend(make_f5_card(game, exp_f5, odds_for_game, cats))
-        cards.extend(make_nrfi_card(game, nrfi_p, nrfi_notes, odds_for_game))
+        if ENABLED_MARKETS.get("moneyline", True):
+            for side in ("home", "away"):
+                c = make_ml_card(game, side, win_p[side], odds_for_game, cats, totals["home"], totals["away"])
+                if c: cards.append(c)
+        if ENABLED_MARKETS.get("runline", False):
+            for side in ("home", "away"):
+                r = make_runline_card(game, side, win_p[side], odds_for_game, cats, totals["home"], totals["away"])
+                if r: cards.append(r)
+        if ENABLED_MARKETS.get("total", True):
+            cards.extend(make_total_card(game, exp_t, odds_for_game, cats))
+        if ENABLED_MARKETS.get("f5_total", True):
+            cards.extend(make_f5_card(game, exp_f5, odds_for_game, cats))
+        if ENABLED_MARKETS.get("nrfi", True):
+            cards.extend(make_nrfi_card(game, nrfi_p, nrfi_notes, odds_for_game))
 
     # Per-game cap — best-edge bet wins, max 1 card per game
     cards.sort(key=lambda c: (-c.edge, -c.confidence))
