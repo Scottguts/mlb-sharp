@@ -353,35 +353,45 @@ def run(data_root: Path, window_min: tuple[int, int]) -> int:
         by_game.setdefault(pk, []).append(r)
 
     for pk, game_rows in by_game.items():
-        original = _load_original_game(data_root, today, pk)
-        if not original:
-            print(f"  [skip] no original snapshot for gamePk {pk}")
-            continue
-
-        venue_id = (original.get("venue") or {}).get("venue_id")
-        # venue_id may not be stored; pull from the schedule snapshot if needed
-        if venue_id is None:
-            # The scraper stores venue but not always venue_id; fall back to
-            # the snapshot's venue.name lookup. For a robust check here we
-            # accept that weather check may be skipped if missing.
-            pass
-        first_pitch = original.get("gameDate", "")
-
-        lineup_warns = check_lineup_scratches(original, pk)
-        weather_warns = check_weather_change(original, venue_id, first_pitch) if venue_id else []
-
-        for r in game_rows:
-            line_warns = check_line_movement(r)
-            warnings = {
-                "lineup":  lineup_warns,
-                "weather": weather_warns,
-                "line":    line_warns,
-            }
-            if not any(warnings.values()):
+        try:
+            original = _load_original_game(data_root, today, pk)
+            if not original:
+                print(f"  [skip] no original snapshot for gamePk {pk}")
                 continue
-            if send_alert(r, warnings):
-                alerted.add(str(r["bet_id"]))
-                fired += 1
+
+            venue_id = (original.get("venue") or {}).get("venue_id")
+            first_pitch = original.get("gameDate", "")
+
+            try:
+                lineup_warns = check_lineup_scratches(original, pk)
+            except Exception as e:
+                print(f"  [warn] lineup check failed for {pk}: {e}")
+                lineup_warns = []
+
+            try:
+                weather_warns = check_weather_change(original, venue_id, first_pitch) if venue_id else []
+            except Exception as e:
+                print(f"  [warn] weather check failed for {pk}: {e}")
+                weather_warns = []
+
+            for r in game_rows:
+                try:
+                    line_warns = check_line_movement(r)
+                except Exception as e:
+                    print(f"  [warn] line check failed for bet {r.get('bet_id')}: {e}")
+                    line_warns = []
+                warnings = {"lineup": lineup_warns, "weather": weather_warns, "line": line_warns}
+                if not any(warnings.values()):
+                    continue
+                try:
+                    if send_alert(r, warnings):
+                        alerted.add(str(r["bet_id"]))
+                        fired += 1
+                except Exception as e:
+                    print(f"  [warn] alert send failed for bet {r.get('bet_id')}: {e}")
+        except Exception as e:
+            print(f"  [warn] game {pk} processing failed: {e}")
+            continue
 
     _save_alerted(data_root, today, alerted)
     print(f"[pregame] sent {fired} alert(s)")
