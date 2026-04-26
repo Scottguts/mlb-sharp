@@ -93,11 +93,17 @@ UNIT_LADDER = [
     (0.045, 6, 0.5, "Lean"),      # was 3%/5
 ]
 
-# Hard caps — designed to enforce sharp discipline (quality > quantity)
-MAX_BETS_PER_SLATE     = 5       # was 8 — sharp bettors play very few games
-MAX_UNITS_PER_GAME     = 1.5     # was 2.0 — never overload a single game
+# Hard caps — quality gates (MIN_EDGE / MIN_CONFIDENCE) do most of the work.
+# Count cap is loose — let the model take every real edge it finds.
+# Units cap is the bankroll-safety backstop.
+MAX_CARDS_PER_SLATE    = 20      # effectively unlimited — only triggers on huge slates
+MAX_UNITS_PER_SLATE    = 6.0     # bankroll safety — max 6u total exposure in one day
+MAX_UNITS_PER_GAME     = 1.5     # never overload a single game
 MAX_CARDS_PER_GAME     = 1       # never recommend more than 1 bet per game
 ALLOW_PARLAYS          = False   # singles only
+
+# Legacy alias (kept for backward compat in other files)
+MAX_BETS_PER_SLATE     = MAX_UNITS_PER_SLATE
 
 
 # ===========================================================================
@@ -453,14 +459,20 @@ def expected_f5_total(game, catscores):
     return round(base, 2)
 
 def estimate_nrfi_prob(game, catscores) -> tuple[float, list[str]]:
-    """Estimate prob of a scoreless 1st inning."""
+    """Estimate prob of a scoreless 1st inning.
+
+    Approach: start from league NRFI rate, adjust by:
+      - quality of both starters (pitching grade)
+      - park run factor
+      - top-of-order quality (proxy: lineup confirmed + platoon edge in offense grade)
+    """
     notes: list[str] = []
     p = LEAGUE_NRFI_RATE
     avg_pitch = (catscores["pitching"].home + catscores["pitching"].away) / 2.0
-    p += (avg_pitch - 5) * 0.020
+    p += (avg_pitch - 5) * 0.020       # +/- 2% per grade pt vs avg
     notes.append(f"avg pitching grade {avg_pitch:.1f} → {('+' if avg_pitch>=5 else '')}{(avg_pitch-5)*0.02*100:+.1f}% NRFI")
     pf = (_safe(game, "venue", "pf_runs") or 100)
-    p -= (pf - 100) * 0.0015
+    p -= (pf - 100) * 0.0015           # hitter park = lower NRFI
     if pf != 100:
         notes.append(f"park factor {pf} → {(pf-100)*-0.0015*100:+.1f}% NRFI")
     avg_off = (catscores["offense"].home + catscores["offense"].away) / 2.0
@@ -478,6 +490,7 @@ def confidence_from(grade_diff, edge):
     Either alone earns at most a 6/10. To hit 8+ you need both axes strong.
     Calibrated so that 7+ is rare; 9+ is exceptional."""
     abs_diff = abs(grade_diff)
+    # Convert each axis to a 0-3 sub-score
     grade_score = (3 if abs_diff >= 18 else
                    2 if abs_diff >= 12 else
                    1 if abs_diff >=  6 else 0)
@@ -485,6 +498,7 @@ def confidence_from(grade_diff, edge):
                    3 if edge >= 0.070 else
                    2 if edge >= 0.055 else
                    1 if edge >= 0.045 else 0)
+    # Both axes must contribute. Single-axis ceiling is 6.
     if grade_score == 0 or edge_score == 0:
         return int(_clip(4 + max(grade_score, edge_score), 1, 6))
     base = 4 + grade_score + edge_score
@@ -543,6 +557,9 @@ def make_ml_card(game, side, fair_prob, odds, cats, hg, ag):
 def make_runline_card(game, side, win_prob, odds, cats, hg, ag):
     price, line, book = _best_runline_price(odds, side)
     if price is None: return None
+    # Convert ML win prob to runline cover prob with a simple translation:
+    # team -1.5 covers ~ win_prob × 0.55 (favorites win by 2+ ~half their wins)
+    # team +1.5 covers ~ 1 - (1 - win_prob) × 0.55
     if line < 0:
         cover_p = win_prob * 0.55
     else:
@@ -602,6 +619,7 @@ def make_f5_card(game, expected_f5, odds, cats):
     for side in ("over", "under"):
         price, line, book = _best_total_price(odds, side, market_key="totals_1st_5_innings")
         if price is None or line is None: continue
+        # F5 has tighter variance — sigma ~ 2.5 runs
         sigma = 2.5
         z = (line + 0.5 - expected_f5) / sigma if side == "under" \
             else (expected_f5 - line + 0.5) / sigma
@@ -609,7 +627,7 @@ def make_f5_card(game, expected_f5, odds, cats):
         edge = edge_pct(prob, price)
         if edge < MIN_EDGE["f5_total"]: continue
         diff = abs(expected_f5 - line)
-        conf = confidence_from(diff * 6, edge)
+        conf = confidence_from(diff * 6, edge)   # tighter market = bigger conf swing per gap
         if conf < MIN_CONFIDENCE: continue
         units, risk = unit_size_from(edge, conf)
         if units == 0: continue
@@ -629,7 +647,8 @@ def make_f5_card(game, expected_f5, odds, cats):
     return out
 
 def make_nrfi_card(game, nrfi_prob, nrfi_notes, odds):
-    """NRFI/YRFI = 1st-inning total at 0.5. Under = NRFI, Over = YRFI."""
+    """The NRFI/YRFI market on most US books is published as a 1st-inning
+    total at 0.5 runs.  Under 0.5 = NRFI, Over 0.5 = YRFI."""
     out = []
     for label, side, our_prob in (("NRFI", "under", nrfi_prob),
                                   ("YRFI", "over", 1 - nrfi_prob)):
@@ -638,6 +657,7 @@ def make_nrfi_card(game, nrfi_prob, nrfi_notes, odds):
             continue
         edge = edge_pct(our_prob, price)
         if edge < MIN_EDGE["nrfi"]: continue
+        # Confidence from how far our prob is from 50/50 + edge size
         conf = confidence_from(abs(our_prob - 0.5) * 30, edge)
         if conf < MIN_CONFIDENCE: continue
         units, risk = unit_size_from(edge, conf)
@@ -766,34 +786,66 @@ def run(target, data_root):
     odds_path = day_dir / "odds.json"
     odds_root = _load(odds_path) if odds_path.exists() else None
 
+    # First pass: grade every game (each is already capped to MAX_CARDS_PER_GAME=1)
     grades_out: list[dict] = []
-    md = [
-        f"# MLB Sharp Betting Cards — {target.isoformat()}\n",
-        f"_Generated {datetime.now().strftime('%Y-%m-%d %H:%M %Z')}_  ",
-        f"_Books shopped: {', '.join(b.upper() for b in TARGET_BOOKS)}_  ",
-        f"_Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_\n",
-    ]
-    bet_count = 0
-    total_units = 0.0
+    all_candidates: list[tuple[dict, dict]] = []   # (game, card) tuples
     for gp in sorted(games_dir.glob("*.json")):
         game = _load(gp)
         odds = match_odds(odds_root, game) if odds_root else None
         graded = grade_one_game(game, odds)
         grades_out.append(graded)
-        cards = graded["bet_cards"]
-        if cards and total_units < MAX_BETS_PER_SLATE:
-            md.append(f"## {graded['matchup']}  \n"
-                      f"Grade H{graded['grade']['home']} / A{graded['grade']['away']} · "
-                      f"FG xRuns {graded['expected_total']} · F5 xRuns {graded['expected_f5_total']} · "
-                      f"NRFI {graded['nrfi_prob']:.1%}\n")
-            for c in cards:
-                if total_units + c["unit_size"] > MAX_BETS_PER_SLATE: break
-                bet_count += 1
-                total_units += c["unit_size"]
-                md.append(render_card_md(game, BetCard(**c), bet_count))
+        for c in graded["bet_cards"]:
+            all_candidates.append((game, c))
+
+    # Slate-wide ranking: best cards by edge × confidence get to bet
+    all_candidates.sort(key=lambda gc: -(gc[1]["edge"] * gc[1]["confidence"]))
+
+    # Apply hard caps: max N cards AND max N units across whole slate
+    chosen: list[tuple[dict, dict]] = []
+    chosen_game_pks: set[int] = set()
+    total_units = 0.0
+    for game, card in all_candidates:
+        if len(chosen) >= MAX_CARDS_PER_SLATE: break
+        if total_units + card["unit_size"] > MAX_UNITS_PER_SLATE: continue
+        if game["gamePk"] in chosen_game_pks: continue   # belt + suspenders: 1 per game
+        chosen.append((game, card))
+        chosen_game_pks.add(game["gamePk"])
+        total_units += card["unit_size"]
+
+    # Mutate grades_out so games NOT in the chosen set show empty bet_cards
+    chosen_pks = {pk for pk in chosen_game_pks}
+    chosen_pairs = {(game["gamePk"], c["bet_label"]): True for game, c in chosen}
+    for g in grades_out:
+        if g["gamePk"] not in chosen_pks:
+            g["bet_cards"] = []
         else:
-            md.append(render_no_play(game, graded["grade"], graded["expected_total"],
-                                     graded["expected_f5_total"], graded["nrfi_prob"]))
+            g["bet_cards"] = [c for c in g["bet_cards"]
+                              if (g["gamePk"], c["bet_label"]) in chosen_pairs]
+
+    # Render markdown
+    md = [
+        f"# MLB Sharp Betting Cards — {target.isoformat()}\n",
+        f"_Generated {datetime.now().strftime('%Y-%m-%d %H:%M %Z')}_  ",
+        f"_Books shopped: {', '.join(b.upper() for b in TARGET_BOOKS)}_  ",
+        f"_Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  ",
+        f"_Caps: max {MAX_CARDS_PER_SLATE} plays / {MAX_UNITS_PER_SLATE}u total exposure_\n",
+    ]
+    bet_count = 0
+    if not chosen:
+        md.append(f"## NO PLAYS — {len(grades_out)} games graded, none cleared the filters.\n")
+    else:
+        md.append(f"## TOP {len(chosen)} PLAYS\n")
+        for game, card in chosen:
+            bet_count += 1
+            md.append(render_card_md(game, BetCard(**card), bet_count))
+
+    # Append the no-play summary table for context
+    md.append(f"\n## Other graded games (no play)\n")
+    for g in grades_out:
+        if g["bet_cards"]: continue
+        md.append(f"- **{g['matchup']}** · grade H{g['grade']['home']}/A{g['grade']['away']} · "
+                  f"xRuns {g['expected_total']} · F5 {g['expected_f5_total']} · "
+                  f"NRFI {g['nrfi_prob']:.1%}")
 
     md.append(f"\n_Total exposure today: **{total_units:.1f}u** across **{bet_count}** bets._\n")
 
