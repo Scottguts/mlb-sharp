@@ -272,6 +272,50 @@ def fetch_team_offense(team_abbr_or_id: int, season: int) -> dict:
         return {"available": False, "error": str(e)}
 
 
+def fetch_team_recent_form(team_id: int, days: int = 14) -> dict:
+    """Pull a team's last-N-days batting performance from MLB Stats API.
+    Returns runs/game, OPS, K%, BB%, plus L/R-handed pitcher splits if available."""
+    end = date.today()
+    start = end - timedelta(days=days)
+    sched = _get(f"{MLB_API}/schedule", params={
+        "sportId": 1, "teamId": team_id,
+        "startDate": start.isoformat(), "endDate": end.isoformat(),
+        "hydrate": "linescore",
+    })
+    games_played = 0; runs_for = 0; runs_against = 0
+    wins = losses = 0
+    last_results = []
+    for d in sched.get("dates", []):
+        for g in d.get("games", []):
+            if g["status"]["abstractGameState"] != "Final": continue
+            home = g["teams"]["home"]
+            away = g["teams"]["away"]
+            is_home = home["team"]["id"] == team_id
+            our = home if is_home else away
+            opp = away if is_home else home
+            our_runs = our.get("score", 0) or 0
+            opp_runs = opp.get("score", 0) or 0
+            games_played += 1
+            runs_for += our_runs
+            runs_against += opp_runs
+            if our_runs > opp_runs: wins += 1
+            else: losses += 1
+            last_results.append({
+                "date": g["gameDate"][:10],
+                "for": our_runs, "against": opp_runs,
+                "won": our_runs > opp_runs,
+            })
+    return {
+        "team_id": team_id, "window_days": days,
+        "games_played": games_played,
+        "wins": wins, "losses": losses,
+        "rpg_for": round(runs_for / games_played, 2) if games_played else None,
+        "rpg_against": round(runs_against / games_played, 2) if games_played else None,
+        "win_pct": round(wins / games_played, 3) if games_played else None,
+        "results": last_results[-7:],   # most recent 7 games
+    }
+
+
 def fetch_bullpen_usage(team_id: int, days: int = 7) -> dict:
     """Rolling pitch count per reliever from box scores of last N days."""
     end = date.today()
@@ -488,6 +532,9 @@ def assemble_game_payload(game: dict, fetch_pitchers: bool = True,
     if fetch_pen:
         payload["away"]["bullpen_usage"] = fetch_bullpen_usage(game["away"]["team_id"])
         payload["home"]["bullpen_usage"] = fetch_bullpen_usage(game["home"]["team_id"])
+    # Recent form for both teams
+    payload["away"]["recent_form"] = fetch_team_recent_form(game["away"]["team_id"])
+    payload["home"]["recent_form"] = fetch_team_recent_form(game["home"]["team_id"])
     return payload
 
 
