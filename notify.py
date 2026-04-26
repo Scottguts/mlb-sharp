@@ -3,6 +3,24 @@ notify.py — push the daily MLB cards to a destination.
 
 Discord uses RICH EMBEDS (color-coded cards per bet, structured fields).
 Other channels (Slack, Telegram, email) get the markdown body in a code block.
+
+Configured via environment variables. Pick any combination:
+
+  SLACK_WEBHOOK_URL        Incoming Webhook from a Slack workspace
+  DISCORD_WEBHOOK_URL      Webhook URL from a Discord channel
+  TELEGRAM_BOT_TOKEN       Bot token from BotFather
+  TELEGRAM_CHAT_ID         Your chat / channel ID
+
+  EMAIL_SMTP_HOST          e.g. smtp.gmail.com
+  EMAIL_SMTP_PORT          587
+  EMAIL_SMTP_USER          sender address
+  EMAIL_SMTP_PASS          app password
+  EMAIL_TO                 comma-separated recipient list
+
+Usage:
+    python notify.py                                  # today's cards
+    python notify.py --date 2026-04-25
+    python notify.py --data-root ./mlb_data
 """
 
 from __future__ import annotations
@@ -24,15 +42,16 @@ import requests
 # Visual config
 # ===========================================================================
 
+# Colors for Discord embeds (decimal RGB)
 COLORS = {
     "Max":      0x10B981,   # emerald — rare 2u play
     "Strong":   0x22C55E,   # green   — 1.5u play
     "Medium":   0xF59E0B,   # amber   — 1u play
-    "Standard": 0xF59E0B,   # amber   — 1u play
+    "Standard": 0xF59E0B,   # amber   — 1u play (legacy label)
     "Low":      0x3B82F6,   # blue    — 0.5u lean
     "Lean":     0x3B82F6,   # blue    — 0.5u lean
     "neutral":  0x6B7280,   # slate gray
-    "header":   0x4F46E5,   # indigo
+    "header":   0x4F46E5,   # indigo — for the summary message
 }
 
 EMOJI = {
@@ -77,6 +96,7 @@ def _load_cards(date_iso: str, data_root: Path) -> tuple[str, list[dict] | None]
 
 
 def _summary_line(grades: list[dict] | None) -> tuple[str, dict]:
+    """Returns (text_summary, stats dict)."""
     if not grades:
         return "MLB betting cards ready.", {}
     n_games = len(grades)
@@ -91,7 +111,7 @@ def _summary_line(grades: list[dict] | None) -> tuple[str, dict]:
 
 
 # ===========================================================================
-# Slack
+# Slack (kept simple — text in a code block)
 # ===========================================================================
 
 def post_slack(body: str, summary: str, grades=None) -> bool:
@@ -111,16 +131,20 @@ def post_slack(body: str, summary: str, grades=None) -> bool:
 # ===========================================================================
 
 def post_discord(body: str, summary: str, grades=None, target_date: str | None = None) -> bool:
+    """If grades are available, send beautiful embed cards. Otherwise fall back
+    to text-in-code-block."""
     url = os.environ.get("DISCORD_WEBHOOK_URL")
     if not url:
         return False
 
+    # Rich embeds path
     if grades:
         try:
             return _post_discord_embeds(url, grades, summary, target_date)
         except Exception as e:
             print(f"[discord] embed path failed ({e}); falling back to text")
 
+    # Fallback path: text in code blocks
     chunks = _chunks(body, 1900)
     ok = True
     for i, c in enumerate(chunks):
@@ -134,11 +158,13 @@ def _post_discord_embeds(url: str, grades: list[dict], summary: str,
                          target_date: str | None) -> bool:
     summary_text, stats = _summary_line(grades)
     cards = [(g, c) for g in grades for c in g.get("bet_cards", [])]
-    cards.sort(key=lambda gc: (-gc[1]["unit_size"], -gc[1]["edge"]))
+    cards.sort(key=lambda gc: (-gc[1]["unit_size"], -gc[1]["edge"]))   # biggest plays first
 
+    # 1) Header message — big banner with stats
     header_embed = _build_header_embed(summary_text, stats, target_date, len(grades), len(cards))
     requests.post(url, json={"embeds": [header_embed]}, timeout=20).raise_for_status()
 
+    # 2) If no plays, send a single "no plays" follow-up and exit
     if not cards:
         no_play = {
             "title": "No plays today",
@@ -149,6 +175,21 @@ def _post_discord_embeds(url: str, grades: list[dict], summary: str,
         requests.post(url, json={"embeds": [no_play]}, timeout=20).raise_for_status()
         return True
 
+    # 3) Quick-scan summary — one line per bet (easy to read in 2 sec)
+    quick_lines = ["📋 **TODAY'S PLAYS — quick scan**"]
+    for i, (g, c) in enumerate(cards, 1):
+        emoji = EMOJI.get(c.get("risk", "Standard"), "📊")
+        book = BOOK_LABEL.get(c["book"].lower(), c["book"])
+        line_str = f" {c['line']}" if c.get("line") is not None else ""
+        price = _fmt_price(c["price_american"])
+        quick_lines.append(
+            f"{i}. {emoji} **{c['bet_label']}**{line_str} @ {book} **{price}** — "
+            f"{c['unit_size']}u ({c['edge']*100:.1f}% edge)"
+        )
+    requests.post(url, json={"content": "\n".join(quick_lines)},
+                  timeout=20).raise_for_status()
+
+    # 4) Per-bet embeds, batched (Discord allows 10 embeds/message)
     embeds = [_build_bet_embed(g, c, idx + 1) for idx, (g, c) in enumerate(cards)]
     for batch_start in range(0, len(embeds), 10):
         batch = embeds[batch_start:batch_start + 10]
@@ -198,6 +239,7 @@ def _build_bet_embed(game: dict, card: dict, idx: int) -> dict:
          "inline": True},
     ]
 
+    # Reasoning as a single "Why" field (truncated to fit Discord's 1024-char limit)
     reasoning = card.get("reasoning") or []
     if reasoning:
         why = "\n".join(f"• {r}" for r in reasoning[:5])
@@ -205,6 +247,7 @@ def _build_bet_embed(game: dict, card: dict, idx: int) -> dict:
             why = why[:1000] + "…"
         fields.append({"name": "Why", "value": why, "inline": False})
 
+    # Pass triggers
     triggers = card.get("pass_triggers") or []
     if triggers:
         warn = "\n".join(f"⚠ {t}" for t in triggers[:3])
@@ -225,7 +268,7 @@ def _fmt_price(american: int) -> str:
 
 
 # ===========================================================================
-# Telegram
+# Telegram (Markdown)
 # ===========================================================================
 
 def post_telegram(body: str, summary: str, grades=None) -> bool:
