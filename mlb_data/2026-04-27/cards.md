@@ -1,6 +1,6 @@
 # MLB Sharp Betting Cards — 2026-04-27
 
-_Generated 2026-04-27 13:16 _  
+_Generated 2026-04-27 14:04 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  
 _Caps: max 5 plays / 6.0u total exposure_
@@ -103,9 +103,9 @@ _Caps: max 5 plays / 6.0u total exposure_
 |---|---|
 | Game | Chicago Cubs @ San Diego Padres (2026-04-28T01:40:00Z) |
 | Market | total |
-| Best Book | DRAFTKINGS -112 (line 7.5) |
+| Best Book | DRAFTKINGS -110 (line 7.5) |
 | Fair Odds | -155 (60.8%) |
-| Edge | 15.15% |
+| Edge | 16.14% |
 | Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
@@ -132,15 +132,15 @@ _Caps: max 5 plays / 6.0u total exposure_
 | Game | Tampa Bay Rays @ Cleveland Guardians (2026-04-27T22:10:00Z) |
 | Market | total |
 | Best Book | BETMGM -115 (line 8.0) |
-| Fair Odds | -160 (61.5%) |
-| Edge | 14.99% |
+| Fair Odds | -159 (61.4%) |
+| Edge | 14.81% |
 | Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
 
 **Reasoning**
 
-- Expected total 8.67 vs market 8.0
+- Expected total 8.66 vs market 8.0
 - home: CSW% L5 starts 26.7%
 - away: CSW% L5 starts 26.0%
 - home: 2 arms gassed, 2 back-to-back, 854 pitches L7d
@@ -156,8 +156,8 @@ _Caps: max 5 plays / 6.0u total exposure_
 
 ## Other graded games (no play)
 
-- **Boston Red Sox @ Toronto Blue Jays** · grade H47.0/A48.2 · xRuns 8.6 · F5 4.03 · NRFI 60.1%
-- **St. Louis Cardinals @ Pittsburgh Pirates** · grade H47.8/A45.5 · xRuns 8.39 · F5 3.97 · NRFI 60.2%
+- **Boston Red Sox @ Toronto Blue Jays** · grade H49.2/A48.2 · xRuns 8.61 · F5 4.03 · NRFI 60.1%
+- **St. Louis Cardinals @ Pittsburgh Pirates** · grade H47.8/A45.5 · xRuns 8.4 · F5 3.98 · NRFI 60.2%
 - **Los Angeles Angels @ Chicago White Sox** · grade H46.2/A45.2 · xRuns 8.9 · F5 4.29 · NRFI 57.6%
 
 _Total exposure today: **2.5u** across **5** bets._
