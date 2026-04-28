@@ -52,7 +52,7 @@ import json
 import os
 import sys
 from dataclasses import dataclass
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -157,7 +157,7 @@ def append_pending(target_date: str, data_root: Path) -> int:
                       r["line"], r["book"]) for r in rows}
     next_id = _next_id(rows)
     added = 0
-    now = datetime.utcnow().isoformat() + "Z"
+    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     for g in grades:
         for c in g.get("bet_cards", []):
             line = "" if c.get("line") is None else str(c["line"])
@@ -284,7 +284,7 @@ def settle_pending(data_root: Path) -> int:
     print(f"[settle] {len(pending)} pending bet(s) to check")
     settled = 0
     cache: dict[int, dict] = {}
-    now = datetime.utcnow().isoformat() + "Z"
+    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     for r in pending:
         pk = _i(r["gamePk"])
         if pk is None: continue

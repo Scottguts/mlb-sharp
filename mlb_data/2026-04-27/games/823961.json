@@ -5,7 +5,7 @@
     "available": true,
     "name": "Dodger Stadium",
     "roof": "open",
-    "pf_runs": 98,
+    "pf_runs": 100,
     "pf_hr_lhb": 105,
     "pf_hr_rhb": 102
   },
@@ -14,11 +14,16 @@
     "indoor": false,
     "park": "Dodger Stadium",
     "first_pitch_iso": "2026-04-28T02:10:00Z",
-    "temp_f": 53.6,
-    "humidity_pct": 73,
-    "dew_point_f": 45.2,
-    "wind_mph": 4.1,
-    "wind_dir_deg": 257,
+    "temp_f": 53.5,
+    "humidity_pct": 74,
+    "dew_point_f": 45.4,
+    "wind_mph": 2.4,
+    "wind_dir_deg": 34,
+    "wind_effect": {
+      "effect": "calm",
+      "delta_runs": 0.0,
+      "angle_off_cf": null
+    },
     "precip_prob_pct": 0
   },
   "away": {
@@ -30,6 +35,7 @@
       "id": 663978,
       "available": true,
       "window_days": 30,
+      "throws": "R",
       "total_pitches": 445,
       "season_avg_velo": 86.93,
       "starts": [
@@ -108,6 +114,19 @@
       "team_id": 146,
       "window_days": 7,
       "relievers": {
+        "677053": {
+          "name": "Andrew Nardi",
+          "appearances": 3,
+          "pitches": 54,
+          "ip": 3.1,
+          "dates": [
+            "2026-04-20",
+            "2026-04-22",
+            "2026-04-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
         "664126": {
           "name": "Pete Fairbanks",
           "appearances": 2,
@@ -132,18 +151,6 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
-        "676974": {
-          "name": "Max Meyer",
-          "appearances": 2,
-          "pitches": 168,
-          "ip": 10.1,
-          "dates": [
-            "2026-04-20",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "669622": {
           "name": "Anthony Bender",
           "appearances": 4,
@@ -156,19 +163,6 @@
             "2026-04-26"
           ],
           "back_to_back": true,
-          "pitched_yesterday": true
-        },
-        "677053": {
-          "name": "Andrew Nardi",
-          "appearances": 3,
-          "pitches": 54,
-          "ip": 3.1,
-          "dates": [
-            "2026-04-20",
-            "2026-04-22",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
           "pitched_yesterday": true
         },
         "663969": {
@@ -195,13 +189,13 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "663978": {
-          "name": "Chris Paddack",
+        "656848": {
+          "name": "Michael Petersen",
           "appearances": 1,
-          "pitches": 90,
-          "ip": 4.2,
+          "pitches": 13,
+          "ip": 1.0,
           "dates": [
-            "2026-04-21"
+            "2026-04-22"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
@@ -217,51 +211,14 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": false
-        },
-        "656848": {
-          "name": "Michael Petersen",
-          "appearances": 1,
-          "pitches": 13,
-          "ip": 1.0,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "676083": {
-          "name": "Janson Junk",
-          "appearances": 1,
-          "pitches": 56,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "645261": {
-          "name": "Sandy Alcantara",
-          "appearances": 1,
-          "pitches": 108,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "691587": {
-          "name": "Eury P\u00e9rez",
-          "appearances": 1,
-          "pitches": 94,
-          "ip": 5.1,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         }
+      },
+      "quality": {
+        "bp_innings": 20.67,
+        "bp_era": 4.35,
+        "bp_k_pct": 0.244,
+        "bp_bb_pct": 0.105,
+        "bp_whip": 1.26
       }
     },
     "recent_form": {
@@ -317,6 +274,38 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 805300,
+          "name": "Jakob Marsee",
+          "ab": 79,
+          "ops": 0.514,
+          "avg": 0.177,
+          "obp": 0.286,
+          "slg": 0.228,
+          "woba": 0.3,
+          "k_pct": 0.187
+        },
+        {
+          "id": 672640,
+          "name": "Otto Lopez",
+          "ab": 74,
+          "ops": 0.817,
+          "avg": 0.297,
+          "obp": 0.358,
+          "slg": 0.459,
+          "woba": 0.454,
+          "k_pct": 0.222
+        }
+      ],
+      "avg_woba": 0.377,
+      "avg_ops": 0.665,
+      "avg_k_pct": 0.205
     }
   },
   "home": {
@@ -328,6 +317,7 @@
       "id": 808967,
       "available": true,
       "window_days": 30,
+      "throws": "R",
       "total_pitches": 389,
       "season_avg_velo": 90.51,
       "starts": [
@@ -422,18 +412,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "680736": {
-          "name": "Justin Wrobleski",
-          "appearances": 2,
-          "pitches": 206,
-          "ip": 13.0,
-          "dates": [
-            "2026-04-21",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "656945": {
           "name": "Tanner Scott",
           "appearances": 3,
@@ -445,17 +423,6 @@
             "2026-04-25"
           ],
           "back_to_back": true,
-          "pitched_yesterday": false
-        },
-        "808967": {
-          "name": "Yoshinobu Yamamoto",
-          "appearances": 1,
-          "pitches": 101,
-          "ip": 7.0,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
           "pitched_yesterday": false
         },
         "669165": {
@@ -484,13 +451,13 @@
           "back_to_back": true,
           "pitched_yesterday": true
         },
-        "607192": {
-          "name": "Tyler Glasnow",
+        "595014": {
+          "name": "Blake Treinen",
           "appearances": 1,
-          "pitches": 105,
-          "ip": 8.0,
+          "pitches": 17,
+          "ip": 1.0,
           "dates": [
-            "2026-04-23"
+            "2026-04-25"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
@@ -500,28 +467,6 @@
           "appearances": 1,
           "pitches": 20,
           "ip": 0.2,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "686218": {
-          "name": "Emmet Sheehan",
-          "appearances": 1,
-          "pitches": 101,
-          "ip": 6.1,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "595014": {
-          "name": "Blake Treinen",
-          "appearances": 1,
-          "pitches": 17,
-          "ip": 1.0,
           "dates": [
             "2026-04-25"
           ],
@@ -538,18 +483,14 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": false
-        },
-        "808963": {
-          "name": "Roki Sasaki",
-          "appearances": 1,
-          "pitches": 99,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         }
+      },
+      "quality": {
+        "bp_innings": 15.67,
+        "bp_era": 5.74,
+        "bp_k_pct": 0.221,
+        "bp_bb_pct": 0.088,
+        "bp_whip": 1.34
       }
     },
     "recent_form": {
@@ -605,12 +546,165 @@
           "won": true
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 660271,
+          "name": "Shohei Ohtani",
+          "ab": 73,
+          "ops": 0.743,
+          "avg": 0.219,
+          "obp": 0.359,
+          "slg": 0.384,
+          "woba": 0.421,
+          "k_pct": 0.269
+        },
+        {
+          "id": 518692,
+          "name": "Freddie Freeman",
+          "ab": 77,
+          "ops": 0.826,
+          "avg": 0.286,
+          "obp": 0.345,
+          "slg": 0.481,
+          "woba": 0.454,
+          "k_pct": 0.119
+        },
+        {
+          "id": 669257,
+          "name": "Will Smith",
+          "ab": 63,
+          "ops": 0.787,
+          "avg": 0.286,
+          "obp": 0.343,
+          "slg": 0.444,
+          "woba": 0.436,
+          "k_pct": 0.143
+        }
+      ],
+      "avg_woba": 0.437,
+      "avg_ops": 0.785,
+      "avg_k_pct": 0.177
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 805300,
+        "name": "Jakob Marsee",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 669065,
+        "name": "Kyle Stowers",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 672640,
+        "name": "Otto Lopez",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 669364,
+        "name": "Xavier Edwards",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 689414,
+        "name": "Liam Hicks",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 682663,
+        "name": "Agust\u00edn Ram\u00edrez",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 683357,
+        "name": "Owen Caissie",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 691594,
+        "name": "Javier Sanoja",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 681393,
+        "name": "Connor Norby",
+        "position": "1B",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 660271,
+        "name": "Shohei Ohtani",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 518692,
+        "name": "Freddie Freeman",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 669257,
+        "name": "Will Smith",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 663656,
+        "name": "Kyle Tucker",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 606192,
+        "name": "Teoscar Hern\u00e1ndez",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 571970,
+        "name": "Max Muncy",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 681624,
+        "name": "Andy Pages",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 808975,
+        "name": "Hyeseong Kim",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 690976,
+        "name": "Alex Freeland",
+        "position": "2B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

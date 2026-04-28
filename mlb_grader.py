@@ -56,28 +56,48 @@ WEIGHTS = {
 }
 
 # Win-prob model parameters
-# Calibrated for sharp-bettor realism: most MLB games are coin flips.
-# Big edges should be RARE.
-LEAGUE_AVG_TOTAL = 8.6     # baseline runs per game (refresh annually)
-HOME_FIELD_PROB  = 0.030   # home edge as a probability bump
-GRADE_TO_PROB    = 0.005   # 0.5% win prob per 1 grade-point edge (was 1.0%)
-MAX_PROB_SHIFT   = 0.12    # cap model output relative to base (was 0.20)
+# CALIBRATION PHILOSOPHY: anchor to the market, not to absolute probabilities.
+# The market (Pinnacle devigged) is the world's most accurate MLB win-prob
+# estimator. Our edge is making *small, evidence-backed* adjustments to it
+# based on signals the market may not have fully priced (velocity drops,
+# bullpen exhaustion, lineup confirmations, weather, umpire).
+#
+# Without the market anchor, an unanchored 0-100 grade model will think every
+# +200 underdog has a 50% chance and report fake 30%+ edges. Don't do that.
+LEAGUE_AVG_TOTAL = 8.86    # fallback baseline runs per game (2022-24 trailing avg)
+HOME_FIELD_PROB  = 0.025   # home edge as a probability bump (2022-24 home win % - 50%)
+GRADE_TO_PROB    = 0.0035  # win-prob shift per grade-point edge, applied to MARKET PRIOR
+MAX_PROB_SHIFT   = 0.05    # cap our deviation from market prior at +/-5pp
+GRADE_TO_RUNS    = 0.06    # total-runs shift per grade-point pitching/bullpen edge
+MAX_TOTAL_SHIFT  = 0.80    # cap deviation from market total at +/-0.8 runs
 
 # F5 model parameters (no bullpen contribution)
-F5_LEAGUE_AVG    = 4.4     # baseline F5 runs per game
+F5_LEAGUE_AVG    = 4.99    # fallback baseline F5 runs per game (2022-24 trailing avg)
+MAX_F5_SHIFT     = 0.50    # cap deviation from market F5 line at +/-0.5 runs
 
 # NRFI model parameters
-LEAGUE_NRFI_RATE = 0.585   # ~58.5% of MLB games have a scoreless 1st (2023-24)
+LEAGUE_NRFI_RATE = 0.516   # 2022-24 trailing avg; rose noticeably from 2020-22
+MAX_NRFI_SHIFT   = 0.06    # cap deviation from market-implied NRFI prob at +/-6pp
 
-# Minimum edge to publish a bet card by market type
-# These are post-vig edges vs Pinnacle no-vig — REAL edges, not model noise.
+# Refresh these annually using historical_validate.py — see its output
+# `historical_report_<startYear>_<endYear>.md` for the latest numbers.
+
+# Minimum edge to publish a bet card by market type.
+# These thresholds assume MARKET-ANCHORED probability estimates (see
+# grade_to_win_prob / expected_total_runs). When the model deviates from the
+# market within a small bounded window, edges of 2-4% are realistic and 6%+
+# is rare. Anything claiming >10% edge means a calibration bug, not a play.
 MIN_EDGE = {
-    "moneyline":  0.045,
-    "runline":    0.060,    # raised — runline edges are systematically overstated
-    "total":      0.040,
-    "f5_total":   0.040,    # lowered — F5 markets are softer, more edges possible
-    "nrfi":       0.050,
+    "moneyline":  0.025,
+    "runline":    0.035,
+    "total":      0.030,
+    "f5_total":   0.035,    # F5 markets are softer but high variance
+    "nrfi":       0.035,
 }
+
+# Cap on advertised edge — if the model claims more than this, treat it as a
+# calibration bug rather than a real edge and SKIP the play.
+MAX_REASONABLE_EDGE = 0.12
 
 # Markets to actually generate cards for. Setting False here suppresses
 # the entire market type even if the threshold above would qualify.
@@ -95,16 +115,15 @@ ENABLED_MARKETS = {
 UMPIRE_TOTAL_ADJUST = 0.30   # ~0.3 runs per std dev of ump K%
 
 # Confidence floor — never publish a card below this
-MIN_CONFIDENCE = 6   # was 5 — only publish bets we genuinely believe in
+MIN_CONFIDENCE = 6   # only publish bets we genuinely believe in
 
 # Unit sizing rules. 1u = 1% of bankroll.
-# Tighter ladder: harder to qualify for higher units.
+# Calibrated for a MARKET-ANCHORED model where 5% edge is exceptional.
 # (edge_floor, confidence_floor, units, risk_label)
 UNIT_LADDER = [
-    (0.090, 9, 2.0, "Max"),       # rare max play — needs 9%+ edge AND 9/10 conf
-    (0.070, 8, 1.5, "Strong"),    # was 6%/7
-    (0.055, 7, 1.0, "Standard"),  # was 4%/6
-    (0.045, 6, 0.5, "Lean"),      # was 3%/5
+    (0.060, 8, 1.5, "Strong"),    # rare — 6%+ edge AND 8/10 conf
+    (0.045, 7, 1.0, "Standard"),  # solid play — 4.5%+ edge, 7/10 conf
+    (0.030, 6, 0.5, "Lean"),      # smaller play — must clear MIN_EDGE per market
 ]
 
 # Hard caps — calibration phase: max 5 best-edge plays per day until the
@@ -226,15 +245,20 @@ def grade_pitching(game: dict) -> CategoryScore:
 
 
 def grade_bullpen(game: dict) -> CategoryScore:
+    """Bullpen grade combines USAGE (fatigue) and QUALITY (recent K%/BB%/ERA).
+    A fresh-but-bad pen and a tired-but-elite pen used to grade the same;
+    now they don't."""
     notes: list[str] = []
     out = {}
     for side in ("home", "away"):
         pen = _safe(game, side, "bullpen_usage", "relievers") or {}
-        if not pen:
+        quality = _safe(game, side, "bullpen_usage", "quality") or {}
+        if not pen and not quality:
             out[side] = 5.0
             notes.append(f"{side}: bullpen data missing — neutral 5")
             continue
         s = 6.0
+        # Usage signal (fatigue)
         b2b = sum(1 for r in pen.values() if r.get("back_to_back"))
         gassed = sum(1 for r in pen.values()
                      if r.get("pitched_yesterday") and r.get("appearances", 0) >= 2)
@@ -245,6 +269,31 @@ def grade_bullpen(game: dict) -> CategoryScore:
         if b2b >= 2: s -= 1.0
         if total_pitches > 850: s -= 1.0
         elif total_pitches < 500: s += 0.5
+
+        # Quality signal (recent rate stats)
+        # League-average bullpen 2024: ~22% K%, 9% BB%, 3.95 ERA
+        k_pct  = quality.get("bp_k_pct")
+        bb_pct = quality.get("bp_bb_pct")
+        era    = quality.get("bp_era")
+        ip     = quality.get("bp_innings") or 0
+        if ip >= 5:   # need a meaningful sample
+            if k_pct is not None:
+                if k_pct >= 0.27:    s += 1.0
+                elif k_pct >= 0.24:  s += 0.5
+                elif k_pct < 0.18:   s -= 1.0
+                elif k_pct < 0.21:   s -= 0.5
+            if bb_pct is not None:
+                if bb_pct >= 0.12:   s -= 1.0
+                elif bb_pct >= 0.10: s -= 0.5
+                elif bb_pct < 0.07:  s += 0.5
+            if era is not None:
+                if era <= 2.50:      s += 1.0
+                elif era <= 3.50:    s += 0.5
+                elif era >= 5.50:    s -= 1.5
+                elif era >= 4.50:    s -= 0.5
+            notes.append(f"{side} pen quality: K% {k_pct*100:.1f}, BB% {bb_pct*100:.1f}, ERA {era}"
+                         if (k_pct is not None and bb_pct is not None and era is not None)
+                         else f"{side} pen quality partial")
         out[side] = _clip(s, 0, 10)
         notes.append(f"{side}: {gassed} arms gassed, {b2b} back-to-back, {total_pitches} pitches L7d")
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
@@ -283,6 +332,18 @@ def grade_offense(game: dict) -> CategoryScore:
             elif rpg <= 3.5:  s -= 1.0; notes.append(f"{side}: cold bats ({rpg} RPG L14d)")
             elif rpg <= 4.0:  s -= 0.5; notes.append(f"{side}: slow form ({rpg} RPG L14d)")
 
+        # Top-of-order quality (vs opposing starter's hand, when known).
+        # Drives NRFI/F5/total prediction more than aggregate offense does,
+        # because innings 1-3 are dominated by the top of the order.
+        too = _safe(game, side, "top_of_order") or {}
+        avg_woba = too.get("avg_woba")
+        if avg_woba is not None:
+            # MLB starter wOBA ~0.330; top-of-order skews higher.
+            if   avg_woba >= 0.380: s += 1.5; notes.append(f"{side}: elite top-of-order wOBA {avg_woba:.3f}")
+            elif avg_woba >= 0.355: s += 0.8; notes.append(f"{side}: strong top-of-order wOBA {avg_woba:.3f}")
+            elif avg_woba <= 0.290: s -= 1.5; notes.append(f"{side}: weak top-of-order wOBA {avg_woba:.3f}")
+            elif avg_woba <= 0.310: s -= 0.8; notes.append(f"{side}: soft top-of-order wOBA {avg_woba:.3f}")
+
         out[side] = _clip(s, 0, 10)
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
 
@@ -299,12 +360,18 @@ def grade_weather_park(game: dict) -> CategoryScore:
     if pf >= 105: notes.append(f"hitter park (pf_runs {pf})")
     elif pf <= 95: notes.append(f"pitcher park (pf_runs {pf})")
     temp = wx.get("temp_f")
-    wind = wx.get("wind_mph")
     if temp is not None:
         if temp >= 80: notes.append(f"warm ({temp}°F) — ball carries")
         elif temp <= 55: notes.append(f"cold ({temp}°F) — ball dies")
-    if wind is not None and wind >= 12:
-        notes.append(f"breezy ({wind} mph) — direction matters")
+    # Wind direction relative to centerfield (out/in/cross)
+    we = wx.get("wind_effect") or {}
+    eff = we.get("effect")
+    if eff == "out":
+        notes.append(f"wind {wx.get('wind_mph')}mph OUT to CF (Δ {we['delta_runs']:+.2f}r) — boosts totals")
+    elif eff == "in":
+        notes.append(f"wind {wx.get('wind_mph')}mph IN from CF (Δ {we['delta_runs']:+.2f}r) — suppresses totals")
+    elif eff == "cross" and wx.get("wind_mph", 0) >= 12:
+        notes.append(f"wind {wx.get('wind_mph')}mph crosswind — direction-dependent")
     precip = wx.get("precip_prob_pct")
     if precip is not None and precip >= 50:
         notes.append(f"rain risk {precip}% — re-check before bet time")
@@ -370,7 +437,11 @@ def _dominant_hand(lineup):
     if R > L: return "R"
     return None
 
-def _starter_throw_hand(profile): return None  # extension hook
+def _starter_throw_hand(profile):
+    """Throws hand (L/R) of the pitcher. Populated by fetch_pitcher_profile."""
+    if not profile or not profile.get("available"): return None
+    th = profile.get("throws")
+    return th.upper() if th else None
 
 def _has_platoon_adv(bat_side, pitch_hand):
     if not bat_side or not pitch_hand: return False
@@ -383,6 +454,26 @@ def _book_iter(odds_for_game, only_target_books=True):
         if only_target_books and b["key"].lower() not in TARGET_BOOKS:
             continue
         yield b
+
+def _pinnacle_total_prob(odds_for_game, market_key="totals") -> tuple[float | None, float | None]:
+    """Devigged Pinnacle P(over) at its posted line. Returns (over_prob, line)
+    or (None, None) if Pinnacle isn't carrying that market.
+    Used as the Bayesian prior for over/under bets so edges are bounded."""
+    if not odds_for_game: return (None, None)
+    pinny = next((b for b in odds_for_game.get("bookmakers", [])
+                  if b["key"].lower() in SHARP_ANCHORS), None)
+    if not pinny: return (None, None)
+    m = next((m for m in pinny.get("markets", []) if m["key"] == market_key), None)
+    if not m: return (None, None)
+    over = next((o for o in m["outcomes"] if o.get("name", "").lower() == "over"), None)
+    under = next((o for o in m["outcomes"] if o.get("name", "").lower() == "under"), None)
+    if not over or not under: return (None, None)
+    pt_o = over.get("point"); pt_u = under.get("point")
+    if pt_o is None or pt_u is None or abs(float(pt_o) - float(pt_u)) > 0.001:
+        return (None, None)   # different lines on each side; skip
+    over_p, _ = devig_two_way(int(over["price"]), int(under["price"]))
+    return (over_p, float(pt_o))
+
 
 def _pinnacle_fair_h2h(odds_for_game):
     pinny = next((b for b in odds_for_game.get("bookmakers", [])
@@ -426,7 +517,11 @@ def _best_runline_price(odds_for_game, side):
                 best = (p, line, b["key"])
     return best
 
-def _best_total_price(odds_for_game, side, market_key="totals"):
+def _best_total_price(odds_for_game, side, market_key="totals", target_line=None):
+    """Best price across target books. If target_line is provided, only
+    consider outcomes at that exact line — prevents alt-line markets from
+    hijacking 'best price' shopping (e.g. an Under 4.5 alt at +116 would
+    otherwise fake-beat the consensus 8.5 line)."""
     best = (None, None, "")
     for b in _book_iter(odds_for_game):
         t = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
@@ -434,6 +529,8 @@ def _best_total_price(odds_for_game, side, market_key="totals"):
         for o in t["outcomes"]:
             if o["name"].lower() != side.lower(): continue
             p, line = int(o["price"]), float(o.get("point", 0))
+            if target_line is not None and abs(line - target_line) > 0.001:
+                continue   # skip alt lines
             if best[0] is None or p > best[0]:
                 best = (p, line, b["key"])
     return best
@@ -450,10 +547,94 @@ def total_grade(catscores):
         h += s.home * w; a += s.away * w
     return {"home": round(h, 1), "away": round(a, 1)}
 
-def grade_to_win_prob(home_grade, away_grade):
+
+# ===========================================================================
+# Market-anchored priors (the heart of the calibration)
+# ===========================================================================
+
+def _market_total_line(odds_for_game) -> float | None:
+    """Pinnacle full-game total line (consensus). Falls back to median across
+    target books if Pinnacle is missing the market."""
+    if not odds_for_game:
+        return None
+    pinny = next((b for b in odds_for_game.get("bookmakers", [])
+                  if b["key"].lower() in SHARP_ANCHORS), None)
+    candidates = []
+    for b in odds_for_game.get("bookmakers", []):
+        m = next((m for m in b.get("markets", []) if m["key"] == "totals"), None)
+        if not m: continue
+        for o in m.get("outcomes", []):
+            pt = o.get("point")
+            if pt is not None:
+                candidates.append(float(pt))
+                break
+    if pinny:
+        m = next((m for m in pinny.get("markets", []) if m["key"] == "totals"), None)
+        if m:
+            for o in m.get("outcomes", []):
+                if o.get("point") is not None:
+                    return float(o["point"])
+    if candidates:
+        candidates.sort()
+        return candidates[len(candidates)//2]
+    return None
+
+
+def _market_f5_line(odds_for_game) -> float | None:
+    if not odds_for_game:
+        return None
+    candidates = []
+    for b in odds_for_game.get("bookmakers", []):
+        m = next((m for m in b.get("markets", []) if m["key"] == "totals_1st_5_innings"), None)
+        if not m: continue
+        for o in m.get("outcomes", []):
+            pt = o.get("point")
+            if pt is not None:
+                candidates.append(float(pt))
+                break
+    if not candidates:
+        return None
+    candidates.sort()
+    return candidates[len(candidates)//2]
+
+
+def _market_nrfi_prob(odds_for_game) -> float | None:
+    """Pinnacle-devigged P(NRFI). Returns None if 1st-inning total market not posted."""
+    if not odds_for_game:
+        return None
+    pinny = next((b for b in odds_for_game.get("bookmakers", [])
+                  if b["key"].lower() in SHARP_ANCHORS), None)
+    if not pinny: return None
+    m = next((m for m in pinny.get("markets", []) if m["key"] == "totals_1st_1_innings"), None)
+    if not m: return None
+    over = next((o for o in m["outcomes"] if o.get("name", "").lower() == "over"), None)
+    under = next((o for o in m["outcomes"] if o.get("name", "").lower() == "under"), None)
+    if not over or not under:
+        return None
+    over_p, under_p = devig_two_way(int(over["price"]), int(under["price"]))
+    return under_p   # NRFI = under
+
+
+def grade_to_win_prob(home_grade, away_grade, odds_for_game=None):
+    """Derive home/away win probability.
+
+    PREFERRED PATH: take Pinnacle-devigged fair prob as the prior, then nudge
+    it slightly based on grade differential (capped at ±MAX_PROB_SHIFT pp).
+    This is what keeps edges realistic.
+
+    FALLBACK PATH (no market): use the older grade-only formula.
+    """
+    fair_h = fair_a = None
+    if odds_for_game:
+        fair_h, fair_a = _pinnacle_fair_h2h(odds_for_game)
     diff = home_grade - away_grade
-    shift = _clip(diff * GRADE_TO_PROB, -MAX_PROB_SHIFT, MAX_PROB_SHIFT)
-    h = _clip(0.5 + shift + HOME_FIELD_PROB, 0.05, 0.95)
+    if fair_h is not None:
+        shift = _clip(diff * GRADE_TO_PROB, -MAX_PROB_SHIFT, MAX_PROB_SHIFT)
+        h = _clip(fair_h + shift, 0.05, 0.95)
+    else:
+        # No market — fall back to a grade-only model with home-field bump
+        shift = _clip(diff * 0.005, -0.10, 0.10)
+        h = _clip(0.5 + shift + HOME_FIELD_PROB, 0.05, 0.95)
     return {"home": round(h, 4), "away": round(1 - h, 4)}
 
 # Umpire K%/BB% lookup. Hand-curated from UmpScorecards multi-year data.
@@ -498,7 +679,51 @@ def _umpire_run_delta(game: dict) -> tuple[float, str | None]:
     return info["run_delta"], name
 
 
-def expected_total_runs(game, catscores):
+def _grade_run_delta(game, catscores, weight_pitch=0.5, weight_pen=0.25, weight_off=0.25,
+                     temp_coef=0.012, include_park=False) -> float:
+    """Compute a deviation from the market total based on our signals.
+
+    The market already prices the consensus park factor and most weather; we
+    only nudge for things the market may not have caught up to: a velocity
+    drop in last start, an exhausted pen, a notably hot/cold lineup, and the
+    home-plate umpire's K%/run tendency. include_park=True is reserved for
+    the fallback path when there is no market line.
+    """
+    delta = 0.0
+    if include_park:
+        pf = (_safe(game, "venue", "pf_runs") or 100) / 100.0
+        delta += LEAGUE_AVG_TOTAL * (pf - 1.0)
+    wx = game.get("weather") or {}
+    if not wx.get("indoor", False):
+        temp = wx.get("temp_f")
+        if temp is not None:
+            delta += (temp - 70) * temp_coef
+        # Wind direction vs park CF (already capped at +/-0.4 runs in scraper)
+        we = wx.get("wind_effect") or {}
+        delta += float(we.get("delta_runs") or 0.0)
+    avg_pitch = (catscores["pitching"].home + catscores["pitching"].away) / 2.0
+    delta -= (avg_pitch - 5) * GRADE_TO_RUNS * weight_pitch * 4   # pitch grade is dominant
+    avg_pen = (catscores["bullpen"].home + catscores["bullpen"].away) / 2.0
+    delta -= (avg_pen - 5) * GRADE_TO_RUNS * weight_pen * 4
+    avg_off = (catscores["offense"].home + catscores["offense"].away) / 2.0
+    delta += (avg_off - 5) * GRADE_TO_RUNS * weight_off * 4
+    ump_delta, _ = _umpire_run_delta(game)
+    delta += ump_delta
+    return delta
+
+
+def expected_total_runs(game, catscores, odds_for_game=None) -> float:
+    """Market-anchored full-game total. Starts from Pinnacle/median market
+    line and shifts by at most ±MAX_TOTAL_SHIFT runs based on our signals.
+    Falls back to the additive league-baseline model if no market is found
+    or the market line is implausible (DH 7-inning game, F5 mislabeled, etc)."""
+    market_line = _market_total_line(odds_for_game) if odds_for_game else None
+    if market_line is not None and 6.0 <= market_line <= 13.5:
+        delta = _grade_run_delta(game, catscores, weight_pitch=0.5, weight_pen=0.25,
+                                 weight_off=0.25, temp_coef=0.015, include_park=False)
+        delta = _clip(delta, -MAX_TOTAL_SHIFT, MAX_TOTAL_SHIFT)
+        return round(market_line + delta, 2)
+    # Fallback: original league-baseline math
     pf = (_safe(game, "venue", "pf_runs") or 100) / 100.0
     base = LEAGUE_AVG_TOTAL * pf
     wx = game.get("weather") or {}
@@ -513,9 +738,19 @@ def expected_total_runs(game, catscores):
     base += ump_delta
     return round(base, 2)
 
-def expected_f5_total(game, catscores):
-    """F5 is mostly the two starters; bullpens barely play. Park + weather
-    + umpire still matter; we drop the bullpen-quality term entirely."""
+
+def expected_f5_total(game, catscores, odds_for_game=None) -> float:
+    """Market-anchored F5 total. Same idea as the full-game model but with
+    no bullpen contribution and a tighter cap on deviation from market."""
+    market_line = _market_f5_line(odds_for_game) if odds_for_game else None
+    if market_line is not None and 2.5 <= market_line <= 7.5:
+        delta = _grade_run_delta(game, catscores, weight_pitch=0.7, weight_pen=0.0,
+                                 weight_off=0.3, temp_coef=0.010, include_park=False)
+        # umpire half-effect for F5 is already in _grade_run_delta via _umpire_run_delta;
+        # F5 sees ~5/9 of innings so the ump effect per inning is similar — leave full delta.
+        delta = _clip(delta, -MAX_F5_SHIFT, MAX_F5_SHIFT)
+        return round(market_line + delta, 2)
+    # Fallback: original baseline
     pf = (_safe(game, "venue", "pf_runs") or 100) / 100.0
     base = F5_LEAGUE_AVG * pf
     wx = game.get("weather") or {}
@@ -523,30 +758,36 @@ def expected_f5_total(game, catscores):
         temp = wx.get("temp_f")
         if temp is not None: base += (temp - 70) * 0.010
     avg_pitch = (catscores["pitching"].home + catscores["pitching"].away) / 2.0
-    base -= (avg_pitch - 5) * 0.30      # pitching matters MORE in F5
+    base -= (avg_pitch - 5) * 0.30
     ump_delta, _ = _umpire_run_delta(game)
-    base += ump_delta * 0.55             # 5 of 9 innings, but K% impact ~ proportional
+    base += ump_delta * 0.55
     return round(base, 2)
 
-def estimate_nrfi_prob(game, catscores) -> tuple[float, list[str]]:
-    """Estimate prob of a scoreless 1st inning.
 
-    Approach: start from league NRFI rate, adjust by:
-      - quality of both starters (pitching grade)
-      - park run factor
-      - top-of-order quality (proxy: lineup confirmed + platoon edge in offense grade)
+def estimate_nrfi_prob(game, catscores, odds_for_game=None) -> tuple[float, list[str]]:
+    """Market-anchored NRFI probability.
+
+    PREFERRED PATH: start from Pinnacle-devigged P(NRFI), nudge slightly by
+    pitching grade and offense grade. Capped at ±MAX_NRFI_SHIFT.
+
+    FALLBACK PATH: league-rate Bayesian update if no 1st-inning market posted.
     """
     notes: list[str] = []
-    p = LEAGUE_NRFI_RATE
+    market_p = _market_nrfi_prob(odds_for_game) if odds_for_game else None
     avg_pitch = (catscores["pitching"].home + catscores["pitching"].away) / 2.0
-    p += (avg_pitch - 5) * 0.020       # +/- 2% per grade pt vs avg
-    notes.append(f"avg pitching grade {avg_pitch:.1f} → {('+' if avg_pitch>=5 else '')}{(avg_pitch-5)*0.02*100:+.1f}% NRFI")
+    avg_off = (catscores["offense"].home + catscores["offense"].away) / 2.0
+    grade_shift = (avg_pitch - 5) * 0.012 - (avg_off - 5) * 0.008
+    if market_p is not None:
+        grade_shift = _clip(grade_shift, -MAX_NRFI_SHIFT, MAX_NRFI_SHIFT)
+        p = _clip(market_p + grade_shift, 0.30, 0.85)
+        notes.append(f"market NRFI prior {market_p:.1%} → adj {grade_shift:+.1%}")
+        return round(p, 4), notes
+    p = LEAGUE_NRFI_RATE + grade_shift
+    notes.append(f"no 1st-inn market — league prior {LEAGUE_NRFI_RATE:.1%} adj {grade_shift:+.1%}")
     pf = (_safe(game, "venue", "pf_runs") or 100)
-    p -= (pf - 100) * 0.0015           # hitter park = lower NRFI
+    p -= (pf - 100) * 0.0015
     if pf != 100:
         notes.append(f"park factor {pf} → {(pf-100)*-0.0015*100:+.1f}% NRFI")
-    avg_off = (catscores["offense"].home + catscores["offense"].away) / 2.0
-    p -= (avg_off - 5) * 0.012
     p = _clip(p, 0.30, 0.85)
     return round(p, 4), notes
 
@@ -558,16 +799,21 @@ def estimate_nrfi_prob(game, catscores) -> tuple[float, list[str]]:
 def confidence_from(grade_diff, edge):
     """Confidence requires BOTH a real grade gap AND a meaningful edge.
     Either alone earns at most a 6/10. To hit 8+ you need both axes strong.
-    Calibrated so that 7+ is rare; 9+ is exceptional."""
+
+    Calibrated for the MARKET-ANCHORED model where typical real edges are
+    1-4%, 5%+ is rare, and anything >8% suggests a missing market signal
+    rather than a true edge.
+    """
     abs_diff = abs(grade_diff)
-    # Convert each axis to a 0-3 sub-score
+    # Grade-gap sub-score (0-3)
     grade_score = (3 if abs_diff >= 18 else
                    2 if abs_diff >= 12 else
                    1 if abs_diff >=  6 else 0)
-    edge_score  = (4 if edge >= 0.090 else
-                   3 if edge >= 0.070 else
-                   2 if edge >= 0.055 else
-                   1 if edge >= 0.045 else 0)
+    # Edge sub-score (0-4) — thresholds tightened for anchored model
+    edge_score  = (4 if edge >= 0.070 else
+                   3 if edge >= 0.050 else
+                   2 if edge >= 0.035 else
+                   1 if edge >= 0.025 else 0)
     # Both axes must contribute. Single-axis ceiling is 6.
     if grade_score == 0 or edge_score == 0:
         return int(_clip(4 + max(grade_score, edge_score), 1, 6))
@@ -609,6 +855,7 @@ def make_ml_card(game, side, fair_prob, odds, cats, hg, ag):
     if price is None: return None
     edge = edge_pct(fair_prob, price)
     if edge < MIN_EDGE["moneyline"]: return None
+    if edge > MAX_REASONABLE_EDGE: return None   # calibration sanity check
     diff = (hg - ag) if side == "home" else (ag - hg)
     conf = confidence_from(diff, edge)
     if conf < MIN_CONFIDENCE: return None
@@ -637,6 +884,7 @@ def make_runline_card(game, side, win_prob, odds, cats, hg, ag):
     cover_p = _clip(cover_p, 0.05, 0.95)
     edge = edge_pct(cover_p, price)
     if edge < MIN_EDGE["runline"]: return None
+    if edge > MAX_REASONABLE_EDGE: return None
     diff = (hg - ag) if side == "home" else (ag - hg)
     conf = confidence_from(diff, edge)
     if conf < MIN_CONFIDENCE: return None
@@ -655,15 +903,34 @@ def make_runline_card(game, side, win_prob, odds, cats, hg, ag):
 
 def make_total_card(game, expected_total, odds, cats):
     out = []
+    # Market-anchored side probabilities: use Pinnacle's devigged P(over)/P(under)
+    # at the consensus line as the prior, then nudge based on (expected_total - line).
+    # This keeps edges realistic and prevents the symmetric-inflation bug where
+    # both over and under appeared +EV from a small expected-vs-line gap.
+    prior_over, prior_line = _pinnacle_total_prob(odds, market_key="totals")
+    if prior_line is None:
+        return out   # no consensus line → no play (avoids alt-line hijack)
+    # Plausibility guard: real MLB FG totals run ~6.5-12. If the API returns a
+    # line outside that range, the matched event is probably a doubleheader
+    # 7-inning game, F5 mislabeled as full-game, or an alt-line in disguise.
+    # Skip — this is a data hygiene issue, not an edge.
+    if not (6.0 <= prior_line <= 13.5):
+        return out
     for side in ("over", "under"):
-        price, line, book = _best_total_price(odds, side, market_key="totals")
+        price, line, book = _best_total_price(odds, side, market_key="totals",
+                                              target_line=prior_line)
         if price is None or line is None: continue
+        prior = prior_over if side == "over" else (1.0 - prior_over)
         sigma = 4.0
-        z = (line + 0.5 - expected_total) / sigma if side == "under" \
-            else (expected_total - line + 0.5) / sigma
-        prob = _clip(0.5 * (1 + math.erf(z / math.sqrt(2))), 0.10, 0.90)
+        # Convert "expected vs line" gap into a probability shift relative to prior
+        z = (expected_total - line) / sigma if side == "over" \
+            else (line - expected_total) / sigma
+        # Map z to a small adjustment around prior (capped at ±5pp)
+        adj = _clip(0.5 * math.erf(z / math.sqrt(2)) * 0.40, -0.05, 0.05)
+        prob = _clip(prior + adj, 0.10, 0.90)
         edge = edge_pct(prob, price)
         if edge < MIN_EDGE["total"]: continue
+        if edge > MAX_REASONABLE_EDGE: continue
         diff = abs(expected_total - line)
         conf = confidence_from(diff * 4, edge)
         if conf < MIN_CONFIDENCE: continue
@@ -686,16 +953,26 @@ def make_total_card(game, expected_total, odds, cats):
 
 def make_f5_card(game, expected_f5, odds, cats):
     out = []
+    prior_over, prior_line = _pinnacle_total_prob(odds, market_key="totals_1st_5_innings")
+    if prior_line is None:
+        return out
+    # Plausibility guard: real F5 totals run ~3-7
+    if not (2.5 <= prior_line <= 7.5):
+        return out
     for side in ("over", "under"):
-        price, line, book = _best_total_price(odds, side, market_key="totals_1st_5_innings")
+        price, line, book = _best_total_price(odds, side,
+                                              market_key="totals_1st_5_innings",
+                                              target_line=prior_line)
         if price is None or line is None: continue
-        # F5 has tighter variance — sigma ~ 2.5 runs
+        prior = prior_over if side == "over" else (1.0 - prior_over)
         sigma = 2.5
-        z = (line + 0.5 - expected_f5) / sigma if side == "under" \
-            else (expected_f5 - line + 0.5) / sigma
-        prob = _clip(0.5 * (1 + math.erf(z / math.sqrt(2))), 0.10, 0.90)
+        z = (expected_f5 - line) / sigma if side == "over" \
+            else (line - expected_f5) / sigma
+        adj = _clip(0.5 * math.erf(z / math.sqrt(2)) * 0.50, -0.05, 0.05)
+        prob = _clip(prior + adj, 0.10, 0.90)
         edge = edge_pct(prob, price)
         if edge < MIN_EDGE["f5_total"]: continue
+        if edge > MAX_REASONABLE_EDGE: continue
         diff = abs(expected_f5 - line)
         conf = confidence_from(diff * 6, edge)   # tighter market = bigger conf swing per gap
         if conf < MIN_CONFIDENCE: continue
@@ -722,11 +999,14 @@ def make_nrfi_card(game, nrfi_prob, nrfi_notes, odds):
     out = []
     for label, side, our_prob in (("NRFI", "under", nrfi_prob),
                                   ("YRFI", "over", 1 - nrfi_prob)):
-        price, line, book = _best_total_price(odds, side, market_key="totals_1st_1_innings")
-        if price is None or line is None or abs(line - 0.5) > 0.01:
+        price, line, book = _best_total_price(odds, side,
+                                              market_key="totals_1st_1_innings",
+                                              target_line=0.5)
+        if price is None or line is None:
             continue
         edge = edge_pct(our_prob, price)
         if edge < MIN_EDGE["nrfi"]: continue
+        if edge > MAX_REASONABLE_EDGE: continue
         # Confidence from how far our prob is from 50/50 + edge size
         conf = confidence_from(abs(our_prob - 0.5) * 30, edge)
         if conf < MIN_CONFIDENCE: continue
@@ -802,10 +1082,10 @@ def grade_one_game(game, odds_for_game):
         "injury_lineup": grade_injury_lineup(game),
     }
     totals = total_grade(cats)
-    win_p  = grade_to_win_prob(totals["home"], totals["away"])
-    exp_t  = expected_total_runs(game, cats)
-    exp_f5 = expected_f5_total(game, cats)
-    nrfi_p, nrfi_notes = estimate_nrfi_prob(game, cats)
+    win_p  = grade_to_win_prob(totals["home"], totals["away"], odds_for_game)
+    exp_t  = expected_total_runs(game, cats, odds_for_game)
+    exp_f5 = expected_f5_total(game, cats, odds_for_game)
+    nrfi_p, nrfi_notes = estimate_nrfi_prob(game, cats, odds_for_game)
 
     cards: list[BetCard] = []
     if odds_for_game:
@@ -845,12 +1125,33 @@ def grade_one_game(game, odds_for_game):
     }
 
 def match_odds(odds_root, game):
+    """Match the game's odds entry. Picks the event whose commence_time is
+    closest to the game's scheduled first pitch — the Odds API can return
+    multiple matches for the same teams (today's game + tomorrow's game in
+    a series), and we don't want to grade against tomorrow's lines."""
     if not odds_root or not odds_root.get("available"): return None
     away = game["away"]["team_name"]; home = game["home"]["team_name"]
-    for og in odds_root.get("games", []):
-        if og.get("home_team") == home and og.get("away_team") == away:
-            return og
-    return None
+    target = game.get("gameDate")
+    candidates = [og for og in odds_root.get("games", [])
+                  if og.get("home_team") == home and og.get("away_team") == away]
+    if not candidates:
+        return None
+    if not target or len(candidates) == 1:
+        return candidates[0]
+    # Pick the candidate whose commence_time is closest to target
+    from datetime import datetime
+    try:
+        t = datetime.fromisoformat(target.replace("Z", "+00:00"))
+    except Exception:
+        return candidates[0]
+    def _score(og):
+        ct = og.get("commence_time")
+        if not ct: return float("inf")
+        try:
+            return abs((datetime.fromisoformat(ct.replace("Z", "+00:00")) - t).total_seconds())
+        except Exception:
+            return float("inf")
+    return min(candidates, key=_score)
 
 
 def run(target, data_root):

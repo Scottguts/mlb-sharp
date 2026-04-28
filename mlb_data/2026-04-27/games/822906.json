@@ -2,12 +2,29 @@
   "gamePk": 822906,
   "gameDate": "2026-04-28T00:05:00Z",
   "venue": {
-    "available": false
+    "available": true,
+    "name": "Globe Life Field",
+    "roof": "retractable",
+    "pf_runs": 105,
+    "pf_hr_lhb": 102,
+    "pf_hr_rhb": 100
   },
   "weather": {
-    "available": false,
-    "reason": "park_not_in_table",
-    "venue_id": 5325
+    "available": true,
+    "indoor": false,
+    "park": "Globe Life Field",
+    "first_pitch_iso": "2026-04-28T00:05:00Z",
+    "temp_f": 77.5,
+    "humidity_pct": 74,
+    "dew_point_f": 68.6,
+    "wind_mph": 6.8,
+    "wind_dir_deg": 139,
+    "wind_effect": {
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 41
+    },
+    "precip_prob_pct": 5
   },
   "away": {
     "team_id": 147,
@@ -18,6 +35,7 @@
       "id": 608331,
       "available": true,
       "window_days": 30,
+      "throws": "L",
       "total_pitches": 480,
       "season_avg_velo": 87.79,
       "starts": [
@@ -109,30 +127,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "687396": {
-          "name": "Brent Headrick",
-          "appearances": 2,
-          "pitches": 39,
-          "ip": 1.2,
-          "dates": [
-            "2026-04-21",
-            "2026-04-22"
-          ],
-          "back_to_back": true,
-          "pitched_yesterday": false
-        },
-        "661563": {
-          "name": "Luis Gil",
-          "appearances": 2,
-          "pitches": 166,
-          "ip": 10.1,
-          "dates": [
-            "2026-04-21",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "670280": {
           "name": "David Bednar",
           "appearances": 2,
@@ -145,26 +139,16 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "608331": {
-          "name": "Max Fried",
-          "appearances": 1,
-          "pitches": 100,
-          "ip": 8.0,
+        "687396": {
+          "name": "Brent Headrick",
+          "appearances": 2,
+          "pitches": 39,
+          "ip": 1.2,
           "dates": [
+            "2026-04-21",
             "2026-04-22"
           ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "693645": {
-          "name": "Cam Schlittler",
-          "appearances": 1,
-          "pitches": 96,
-          "ip": 8.0,
-          "dates": [
-            "2026-04-23"
-          ],
-          "back_to_back": false,
+          "back_to_back": true,
           "pitched_yesterday": false
         },
         "642232": {
@@ -179,17 +163,6 @@
           "back_to_back": true,
           "pitched_yesterday": true
         },
-        "701542": {
-          "name": "Will Warren",
-          "appearances": 1,
-          "pitches": 95,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "518585": {
           "name": "Fernando Cruz",
           "appearances": 2,
@@ -197,17 +170,6 @@
           "ip": 1.2,
           "dates": [
             "2026-04-25",
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "677960": {
-          "name": "Ryan Weathers",
-          "appearances": 1,
-          "pitches": 86,
-          "ip": 5.1,
-          "dates": [
             "2026-04-25"
           ],
           "back_to_back": false,
@@ -246,6 +208,13 @@
           "back_to_back": false,
           "pitched_yesterday": true
         }
+      },
+      "quality": {
+        "bp_innings": 15.33,
+        "bp_era": 2.93,
+        "bp_k_pct": 0.267,
+        "bp_bb_pct": 0.05,
+        "bp_whip": 0.91
       }
     },
     "recent_form": {
@@ -301,6 +270,49 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 663757,
+          "name": "Trent Grisham",
+          "ab": 60,
+          "ops": 0.691,
+          "avg": 0.167,
+          "obp": 0.324,
+          "slg": 0.367,
+          "woba": 0.389,
+          "k_pct": 0.176
+        },
+        {
+          "id": 700250,
+          "name": "Ben Rice",
+          "ab": 60,
+          "ops": 1.156,
+          "avg": 0.317,
+          "obp": 0.456,
+          "slg": 0.7,
+          "woba": 0.63,
+          "k_pct": 0.253
+        },
+        {
+          "id": 592450,
+          "name": "Aaron Judge",
+          "ab": 69,
+          "ops": 0.811,
+          "avg": 0.217,
+          "obp": 0.333,
+          "slg": 0.478,
+          "woba": 0.445,
+          "k_pct": 0.28
+        }
+      ],
+      "avg_woba": 0.488,
+      "avg_ops": 0.886,
+      "avg_k_pct": 0.236
     }
   },
   "home": {
@@ -312,6 +324,7 @@
       "id": 683004,
       "available": true,
       "window_days": 30,
+      "throws": "R",
       "total_pitches": 459,
       "season_avg_velo": 91.99,
       "starts": [
@@ -390,18 +403,6 @@
       "team_id": 140,
       "window_days": 7,
       "relievers": {
-        "677958": {
-          "name": "Kumar Rocker",
-          "appearances": 2,
-          "pitches": 172,
-          "ip": 12.0,
-          "dates": [
-            "2026-04-22",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "656641": {
           "name": "Jacob Latz",
           "appearances": 2,
@@ -452,16 +453,18 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
-        "683004": {
-          "name": "Jack Leiter",
-          "appearances": 1,
-          "pitches": 84,
-          "ip": 5.0,
+        "686560": {
+          "name": "Gavin Collyer",
+          "appearances": 3,
+          "pitches": 38,
+          "ip": 2.1,
           "dates": [
-            "2026-04-23"
+            "2026-04-23",
+            "2026-04-24",
+            "2026-04-26"
           ],
-          "back_to_back": false,
-          "pitched_yesterday": false
+          "back_to_back": true,
+          "pitched_yesterday": true
         },
         "656222": {
           "name": "Jalen Beeks",
@@ -476,19 +479,6 @@
           "back_to_back": true,
           "pitched_yesterday": false
         },
-        "686560": {
-          "name": "Gavin Collyer",
-          "appearances": 3,
-          "pitches": 38,
-          "ip": 2.1,
-          "dates": [
-            "2026-04-23",
-            "2026-04-24",
-            "2026-04-26"
-          ],
-          "back_to_back": true,
-          "pitched_yesterday": true
-        },
         "682608": {
           "name": "Peyton Gray",
           "appearances": 2,
@@ -501,17 +491,6 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
-        "594798": {
-          "name": "Jacob deGrom",
-          "appearances": 1,
-          "pitches": 89,
-          "ip": 5.2,
-          "dates": [
-            "2026-04-24"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "615698": {
           "name": "Cal Quantrill",
           "appearances": 1,
@@ -522,29 +501,14 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": false
-        },
-        "543135": {
-          "name": "Nathan Eovaldi",
-          "appearances": 1,
-          "pitches": 86,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "669022": {
-          "name": "MacKenzie Gore",
-          "appearances": 1,
-          "pitches": 106,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         }
+      },
+      "quality": {
+        "bp_innings": 20.33,
+        "bp_era": 2.66,
+        "bp_k_pct": 0.225,
+        "bp_bb_pct": 0.037,
+        "bp_whip": 0.84
       }
     },
     "recent_form": {
@@ -600,12 +564,165 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 607043,
+          "name": "Brandon Nimmo",
+          "ab": 34,
+          "ops": 0.88,
+          "avg": 0.324,
+          "obp": 0.351,
+          "slg": 0.529,
+          "woba": 0.48,
+          "k_pct": 0.243
+        },
+        {
+          "id": 673962,
+          "name": "Josh Jung",
+          "ab": 22,
+          "ops": 0.659,
+          "avg": 0.182,
+          "obp": 0.25,
+          "slg": 0.409,
+          "woba": 0.357,
+          "k_pct": 0.167
+        },
+        {
+          "id": 608369,
+          "name": "Corey Seager",
+          "ab": 28,
+          "ops": 0.65,
+          "avg": 0.25,
+          "obp": 0.364,
+          "slg": 0.286,
+          "woba": 0.38,
+          "k_pct": 0.242
+        }
+      ],
+      "avg_woba": 0.406,
+      "avg_ops": 0.73,
+      "avg_k_pct": 0.217
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 663757,
+        "name": "Trent Grisham",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 700250,
+        "name": "Ben Rice",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 592450,
+        "name": "Aaron Judge",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 641355,
+        "name": "Cody Bellinger",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 665862,
+        "name": "Jazz Chisholm Jr.",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 691176,
+        "name": "Jasson Dom\u00ednguez",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 669224,
+        "name": "Austin Wells",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 641857,
+        "name": "Ryan McMahon",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 676609,
+        "name": "Jos\u00e9 Caballero",
+        "position": "SS",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 607043,
+        "name": "Brandon Nimmo",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 673962,
+        "name": "Josh Jung",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 608369,
+        "name": "Corey Seager",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 669394,
+        "name": "Jake Burger",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 457705,
+        "name": "Andrew McCutchen",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 543309,
+        "name": "Kyle Higashioka",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 664059,
+        "name": "Sam Haggerty",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 694497,
+        "name": "Evan Carter",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 677649,
+        "name": "Ezequiel Duran",
+        "position": "2B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

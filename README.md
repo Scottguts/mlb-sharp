@@ -218,31 +218,74 @@ After that, the cron at 12 PM ET handles it automatically.
 
 ## Unit & confidence system (the core of the bankroll discipline)
 
-Configured at the top of `mlb_grader.py`. Defaults:
+Configured at the top of `mlb_grader.py`. Current defaults (calibrated for
+the market-anchored model — see "How the model finds edges" below):
 
 ```python
 UNIT_LADDER = [
-    (0.080, 9, 2.0, "Max"),       # 8%+ edge, 9+ confidence → 2.0u (rare)
-    (0.060, 7, 1.5, "Strong"),    # 6%+ edge, 7+ confidence → 1.5u
-    (0.040, 6, 1.0, "Standard"),  # 4%+ edge, 6+ confidence → 1.0u
-    (0.030, 5, 0.5, "Lean"),      # 3%+ edge, 5+ confidence → 0.5u
+    (0.060, 8, 1.5, "Strong"),    # 6%+ edge AND 8/10 conf → rare
+    (0.045, 7, 1.0, "Standard"),  # 4.5%+ edge, 7/10 conf
+    (0.030, 6, 0.5, "Lean"),      # 3%+ edge, 6/10 conf
 ]
-MIN_EDGE       = {moneyline 3%, runline 3%, total 3%, f5_total 3.5%, nrfi 3.5%}
-MIN_CONFIDENCE = 5
-MAX_BETS_PER_SLATE = 8u total exposure
-MAX_UNITS_PER_GAME = 2.0u
+MIN_EDGE        = {moneyline 2.5%, runline 3.5%, total 3%, f5_total 3.5%, nrfi 3.5%}
+MIN_CONFIDENCE  = 6
+MAX_REASONABLE_EDGE = 12%       # anything above this is treated as a calibration bug
+MAX_CARDS_PER_SLATE = 5         # top by edge × confidence
+MAX_UNITS_PER_SLATE = 6.0u      # bankroll safety
+MAX_UNITS_PER_GAME  = 1.5u
+MAX_CARDS_PER_GAME  = 1         # never more than one bet per game
 ```
 
-Confidence formula combines edge size with grade differential:
+1 unit = 1% of bankroll. Recalibrate quarterly using `historical_validate.py`.
+Never increase after a loss.
 
-```
-base = 5
-+1 if grade gap ≥ 8  |  +2 if grade gap ≥ 15
-+1 if edge ≥ 5%      |  +2 if edge ≥ 7%
-−1 if edge < 3%
+## How the model finds edges (calibration philosophy)
+
+The model is **market-anchored**. The Pinnacle-devigged fair price is the
+prior; our model nudges it by a bounded amount based on signals the market
+may not have fully priced (last-start velo drop, bullpen exhaustion,
+late-breaking lineup, weather, umpire). Specifically:
+
+| Market | Prior | Max model deviation |
+|---|---|---|
+| Moneyline | Pinnacle devigged P(home) | ±5pp |
+| Total runs | Pinnacle posted line | ±0.8 runs |
+| F5 total | Pinnacle posted F5 line | ±0.5 runs |
+| NRFI | Pinnacle devigged P(NRFI) | ±6pp |
+
+This is the most important calibration choice in the system. Without the
+market anchor, an unanchored grade model will think every +200 underdog has
+a 50% chance and report fake 30%+ edges — that's textbook overfitting to
+your own model. With the anchor, edges of 2-4% are realistic, 6%+ is rare,
+and >12% is rejected as a sign of a calibration bug.
+
+If a market is missing (rare for h2h, common for F5 / 1st-inning) the model
+falls back to a league-baseline estimate — those constants are also in
+`mlb_grader.py` and should be refreshed yearly via `historical_validate.py`.
+
+## Historical validation (10-year baseline check)
+
+Run `historical_validate.py` once a year to refresh the league constants
+and park factors against actual MLB outcomes. Default window is 2015-2024
+(10 seasons, ~24,000 regular-season games, fetched from statsapi.mlb.com
+directly — no API key required).
+
+```bash
+python historical_validate.py                       # 2015-2024 default
+python historical_validate.py --start 2014 --end 2024
 ```
 
-1 unit = 1% of bankroll. Recalibrate quarterly. Never increase after a loss.
+Output: `mlb_data/historical_report_<start>_<end>.md` with:
+
+- Per-season league total / F5 / NRFI rate / home win pct (so you can spot
+  drift in the constants)
+- Park factors recomputed from the last 3 seasons (compare to PARKS dict)
+- Naive-predictor RMSE per season (the floor any real model must beat)
+- A "**Recommended constants**" code block ready to paste into the grader
+
+The fetched dataset is cached to `mlb_data/_history/` so re-runs are
+instant. CLV (`closing_snapshot.py`) is the *forward-looking* edge proof;
+this report is the *backward-looking* baseline check.
 
 ## Time zones / when the cron actually fires
 
