@@ -3,23 +3,28 @@
   "gameDate": "2026-04-27T23:40:00Z",
   "venue": {
     "available": true,
-    "name": "Fenway Park",
+    "name": "Rate Field",
     "roof": "open",
-    "pf_runs": 105,
-    "pf_hr_lhb": 96,
-    "pf_hr_rhb": 97
+    "pf_runs": 98,
+    "pf_hr_lhb": 109,
+    "pf_hr_rhb": 108
   },
   "weather": {
     "available": true,
     "indoor": false,
-    "park": "Fenway Park",
+    "park": "Rate Field",
     "first_pitch_iso": "2026-04-27T23:40:00Z",
-    "temp_f": 44.6,
-    "humidity_pct": 76,
-    "dew_point_f": 37.5,
-    "wind_mph": 5.1,
-    "wind_dir_deg": 90,
-    "precip_prob_pct": 0
+    "temp_f": 60.3,
+    "humidity_pct": 92,
+    "dew_point_f": 58.0,
+    "wind_mph": 8.3,
+    "wind_dir_deg": 186,
+    "wind_effect": {
+      "effect": "out",
+      "delta_runs": 0.132,
+      "angle_off_cf": 29
+    },
+    "precip_prob_pct": 34
   },
   "away": {
     "team_id": 108,
@@ -30,6 +35,7 @@
       "id": 686799,
       "available": true,
       "window_days": 30,
+      "throws": "R",
       "total_pitches": 461,
       "season_avg_velo": 92.94,
       "starts": [
@@ -106,19 +112,6 @@
       "team_id": 108,
       "window_days": 7,
       "relievers": {
-        "681217": {
-          "name": "Chase Silseth",
-          "appearances": 3,
-          "pitches": 52,
-          "ip": 2.2,
-          "dates": [
-            "2026-04-21",
-            "2026-04-22",
-            "2026-04-25"
-          ],
-          "back_to_back": true,
-          "pitched_yesterday": false
-        },
         "641312": {
           "name": "Shaun Anderson",
           "appearances": 3,
@@ -132,13 +125,26 @@
           "back_to_back": true,
           "pitched_yesterday": false
         },
-        "672282": {
-          "name": "Reid Detmers",
-          "appearances": 2,
-          "pitches": 183,
-          "ip": 11.0,
+        "681217": {
+          "name": "Chase Silseth",
+          "appearances": 3,
+          "pitches": 52,
+          "ip": 2.2,
           "dates": [
             "2026-04-21",
+            "2026-04-22",
+            "2026-04-25"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "696147": {
+          "name": "Sam Bachman",
+          "appearances": 2,
+          "pitches": 36,
+          "ip": 2.1,
+          "dates": [
+            "2026-04-22",
             "2026-04-26"
           ],
           "back_to_back": false,
@@ -156,17 +162,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "686799": {
-          "name": "Jack Kochanowicz",
-          "appearances": 1,
-          "pitches": 88,
-          "ip": 5.2,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "519141": {
           "name": "Drew Pomeranz",
           "appearances": 3,
@@ -179,29 +174,6 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": true
-        },
-        "696147": {
-          "name": "Sam Bachman",
-          "appearances": 2,
-          "pitches": 36,
-          "ip": 2.1,
-          "dates": [
-            "2026-04-22",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
-        "667755": {
-          "name": "Jos\u00e9 Soriano",
-          "appearances": 1,
-          "pitches": 84,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         },
         "666171": {
           "name": "Ryan Zeferjahn",
@@ -240,33 +212,11 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
-        "579328": {
-          "name": "Yusei Kikuchi",
-          "appearances": 1,
-          "pitches": 90,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-24"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "624428": {
           "name": "Adam Frazier",
           "appearances": 1,
           "pitches": 11,
           "ip": 0.1,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "700712": {
-          "name": "Walbert Urena",
-          "appearances": 1,
-          "pitches": 81,
-          "ip": 3.2,
           "dates": [
             "2026-04-25"
           ],
@@ -284,6 +234,13 @@
           "back_to_back": false,
           "pitched_yesterday": true
         }
+      },
+      "quality": {
+        "bp_innings": 22.33,
+        "bp_era": 8.46,
+        "bp_k_pct": 0.173,
+        "bp_bb_pct": 0.136,
+        "bp_whip": 1.97
       }
     },
     "recent_form": {
@@ -339,6 +296,38 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 687263,
+          "name": "Zach Neto",
+          "ab": 29,
+          "ops": 0.768,
+          "avg": 0.241,
+          "obp": 0.389,
+          "slg": 0.379,
+          "woba": 0.439,
+          "k_pct": 0.278
+        },
+        {
+          "id": 545361,
+          "name": "Mike Trout",
+          "ab": 24,
+          "ops": 0.929,
+          "avg": 0.208,
+          "obp": 0.387,
+          "slg": 0.542,
+          "woba": 0.511,
+          "k_pct": 0.258
+        }
+      ],
+      "avg_woba": 0.475,
+      "avg_ops": 0.849,
+      "avg_k_pct": 0.268
     }
   },
   "home": {
@@ -350,6 +339,7 @@
       "id": 641743,
       "available": true,
       "window_days": 30,
+      "throws": "L",
       "total_pitches": 431,
       "season_avg_velo": 90.79,
       "starts": [
@@ -452,34 +442,11 @@
           "back_to_back": true,
           "pitched_yesterday": false
         },
-        "680732": {
-          "name": "Sean Burke",
-          "appearances": 2,
-          "pitches": 177,
-          "ip": 13.1,
-          "dates": [
-            "2026-04-22",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
-        "641743": {
-          "name": "Anthony Kay",
-          "appearances": 1,
-          "pitches": 92,
-          "ip": 3.2,
-          "dates": [
-            "2026-04-23"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "663542": {
-          "name": "Bryan Hudson",
+        "656794": {
+          "name": "Sean Newcomb",
           "appearances": 3,
-          "pitches": 57,
-          "ip": 3.0,
+          "pitches": 58,
+          "ip": 2.3000000000000003,
           "dates": [
             "2026-04-23",
             "2026-04-24",
@@ -488,11 +455,11 @@
           "back_to_back": true,
           "pitched_yesterday": true
         },
-        "656794": {
-          "name": "Sean Newcomb",
+        "663542": {
+          "name": "Bryan Hudson",
           "appearances": 3,
-          "pitches": 58,
-          "ip": 2.3000000000000003,
+          "pitches": 57,
+          "ip": 3.0,
           "dates": [
             "2026-04-23",
             "2026-04-24",
@@ -509,17 +476,6 @@
           "dates": [
             "2026-04-23",
             "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "663436": {
-          "name": "Davis Martin",
-          "appearances": 1,
-          "pitches": 97,
-          "ip": 6.1,
-          "dates": [
-            "2026-04-23"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
@@ -561,28 +517,6 @@
           "back_to_back": true,
           "pitched_yesterday": false
         },
-        "607200": {
-          "name": "Erick Fedde",
-          "appearances": 1,
-          "pitches": 91,
-          "ip": 5.2,
-          "dates": [
-            "2026-04-24"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "702273": {
-          "name": "Noah Schultz",
-          "appearances": 1,
-          "pitches": 85,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "699823": {
           "name": "Tyler Davis",
           "appearances": 1,
@@ -594,6 +528,13 @@
           "back_to_back": false,
           "pitched_yesterday": false
         }
+      },
+      "quality": {
+        "bp_innings": 20.0,
+        "bp_era": 4.95,
+        "bp_k_pct": 0.269,
+        "bp_bb_pct": 0.183,
+        "bp_whip": 1.8
       }
     },
     "recent_form": {
@@ -649,12 +590,165 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 643217,
+          "name": "Andrew Benintendi",
+          "ab": 71,
+          "ops": 0.723,
+          "avg": 0.239,
+          "obp": 0.286,
+          "slg": 0.437,
+          "woba": 0.394,
+          "k_pct": 0.351
+        },
+        {
+          "id": 808959,
+          "name": "Munetaka Murakami",
+          "ab": 69,
+          "ops": 1.042,
+          "avg": 0.275,
+          "obp": 0.419,
+          "slg": 0.623,
+          "woba": 0.569,
+          "k_pct": 0.291
+        },
+        {
+          "id": 678246,
+          "name": "Miguel Vargas",
+          "ab": 67,
+          "ops": 0.597,
+          "avg": 0.164,
+          "obp": 0.313,
+          "slg": 0.284,
+          "woba": 0.344,
+          "k_pct": 0.169
+        }
+      ],
+      "avg_woba": 0.436,
+      "avg_ops": 0.787,
+      "avg_k_pct": 0.27
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 687263,
+        "name": "Zach Neto",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 545361,
+        "name": "Mike Trout",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 687093,
+        "name": "Vaughn Grissom",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 624585,
+        "name": "Jorge Soler",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 666176,
+        "name": "Jo Adell",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 672724,
+        "name": "Oswald Peraza",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 694384,
+        "name": "Nolan Schanuel",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 518595,
+        "name": "Travis d'Arnaud",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 669326,
+        "name": "Bryce Teodosio",
+        "position": "LF",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 643217,
+        "name": "Andrew Benintendi",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 808959,
+        "name": "Munetaka Murakami",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 678246,
+        "name": "Miguel Vargas",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 695657,
+        "name": "Colson Montgomery",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 677592,
+        "name": "Everson Pereira",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 803011,
+        "name": "Sam Antonacci",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 805367,
+        "name": "Chase Meidroth",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 671976,
+        "name": "Tristan Peters",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 700337,
+        "name": "Edgar Quero",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

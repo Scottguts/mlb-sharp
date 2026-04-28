@@ -5,7 +5,7 @@
     "available": true,
     "name": "Rogers Centre",
     "roof": "retractable",
-    "pf_runs": 103,
+    "pf_runs": 98,
     "pf_hr_lhb": 104,
     "pf_hr_rhb": 106
   },
@@ -14,11 +14,16 @@
     "indoor": false,
     "park": "Rogers Centre",
     "first_pitch_iso": "2026-04-27T23:07:00Z",
-    "temp_f": 50.2,
-    "humidity_pct": 66,
-    "dew_point_f": 39.3,
-    "wind_mph": 10.9,
-    "wind_dir_deg": 118,
+    "temp_f": 46.9,
+    "humidity_pct": 78,
+    "dew_point_f": 40.4,
+    "wind_mph": 9.8,
+    "wind_dir_deg": 91,
+    "wind_effect": {
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 89
+    },
     "precip_prob_pct": 0
   },
   "away": {
@@ -30,6 +35,7 @@
       "id": 624133,
       "available": true,
       "window_days": 30,
+      "throws": "L",
       "total_pitches": 401,
       "season_avg_velo": 86.19,
       "starts": [
@@ -108,15 +114,13 @@
       "team_id": 111,
       "window_days": 7,
       "relievers": {
-        "669711": {
-          "name": "Greg Weissert",
-          "appearances": 3,
-          "pitches": 43,
-          "ip": 2.1,
+        "543243": {
+          "name": "Sonny Gray",
+          "appearances": 1,
+          "pitches": 40,
+          "ip": 2.2,
           "dates": [
-            "2026-04-20",
-            "2026-04-23",
-            "2026-04-25"
+            "2026-04-20"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
@@ -134,6 +138,32 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
+        "670245": {
+          "name": "Ryan Watson",
+          "appearances": 3,
+          "pitches": 84,
+          "ip": 3.3,
+          "dates": [
+            "2026-04-20",
+            "2026-04-23",
+            "2026-04-24"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "669711": {
+          "name": "Greg Weissert",
+          "appearances": 3,
+          "pitches": 43,
+          "ip": 2.1,
+          "dates": [
+            "2026-04-20",
+            "2026-04-23",
+            "2026-04-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
         "676477": {
           "name": "Garrett Whitlock",
           "appearances": 2,
@@ -145,29 +175,6 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": true
-        },
-        "543243": {
-          "name": "Sonny Gray",
-          "appearances": 1,
-          "pitches": 40,
-          "ip": 2.2,
-          "dates": [
-            "2026-04-20"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "663558": {
-          "name": "Jovani Mor\u00e1n",
-          "appearances": 2,
-          "pitches": 50,
-          "ip": 2.2,
-          "dates": [
-            "2026-04-20",
-            "2026-04-24"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         },
         "543056": {
           "name": "Danny Coulombe",
@@ -194,40 +201,14 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
-        "670245": {
-          "name": "Ryan Watson",
-          "appearances": 3,
-          "pitches": 84,
-          "ip": 3.3,
+        "663558": {
+          "name": "Jovani Mor\u00e1n",
+          "appearances": 2,
+          "pitches": 50,
+          "ip": 2.2,
           "dates": [
             "2026-04-20",
-            "2026-04-23",
             "2026-04-24"
-          ],
-          "back_to_back": true,
-          "pitched_yesterday": false
-        },
-        "813349": {
-          "name": "Connelly Early",
-          "appearances": 2,
-          "pitches": 184,
-          "ip": 11.3,
-          "dates": [
-            "2026-04-21",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
-        "701719": {
-          "name": "Tyler Samaniego",
-          "appearances": 3,
-          "pitches": 55,
-          "ip": 3.3,
-          "dates": [
-            "2026-04-21",
-            "2026-04-23",
-            "2026-04-25"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
@@ -243,6 +224,19 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
+        "701719": {
+          "name": "Tyler Samaniego",
+          "appearances": 3,
+          "pitches": 55,
+          "ip": 3.3,
+          "dates": [
+            "2026-04-21",
+            "2026-04-23",
+            "2026-04-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
         "700842": {
           "name": "Eduardo Rivera",
           "appearances": 1,
@@ -253,51 +247,14 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": false
-        },
-        "624133": {
-          "name": "Ranger Suarez",
-          "appearances": 1,
-          "pitches": 71,
-          "ip": 4.2,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "801139": {
-          "name": "Payton Tolle",
-          "appearances": 1,
-          "pitches": 93,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-23"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "678394": {
-          "name": "Brayan Bello",
-          "appearances": 1,
-          "pitches": 85,
-          "ip": 3.1,
-          "dates": [
-            "2026-04-24"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "676979": {
-          "name": "Garrett Crochet",
-          "appearances": 1,
-          "pitches": 90,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         }
+      },
+      "quality": {
+        "bp_innings": 30.0,
+        "bp_era": 3.9,
+        "bp_k_pct": 0.24,
+        "bp_bb_pct": 0.054,
+        "bp_whip": 1.4
       }
     },
     "recent_form": {
@@ -353,6 +310,49 @@
           "won": true
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 680776,
+          "name": "Jarren Duran",
+          "ab": 70,
+          "ops": 0.467,
+          "avg": 0.157,
+          "obp": 0.224,
+          "slg": 0.243,
+          "woba": 0.264,
+          "k_pct": 0.276
+        },
+        {
+          "id": 575929,
+          "name": "Willson Contreras",
+          "ab": 71,
+          "ops": 0.834,
+          "avg": 0.268,
+          "obp": 0.369,
+          "slg": 0.465,
+          "woba": 0.464,
+          "k_pct": 0.321
+        },
+        {
+          "id": 701350,
+          "name": "Roman Anthony",
+          "ab": 58,
+          "ops": 0.644,
+          "avg": 0.172,
+          "obp": 0.351,
+          "slg": 0.293,
+          "woba": 0.374,
+          "k_pct": 0.284
+        }
+      ],
+      "avg_woba": 0.367,
+      "avg_ops": 0.648,
+      "avg_k_pct": 0.294
     }
   },
   "home": {
@@ -364,6 +364,7 @@
       "id": 656302,
       "available": true,
       "window_days": 30,
+      "throws": "R",
       "total_pitches": 495,
       "season_avg_velo": 91.91,
       "starts": [
@@ -469,17 +470,6 @@
           "back_to_back": true,
           "pitched_yesterday": true
         },
-        "656302": {
-          "name": "Dylan Cease",
-          "appearances": 1,
-          "pitches": 110,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-21"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "680755": {
           "name": "Braydon Fisher",
           "appearances": 4,
@@ -533,18 +523,6 @@
           "back_to_back": true,
           "pitched_yesterday": false
         },
-        "571578": {
-          "name": "Patrick Corbin",
-          "appearances": 2,
-          "pitches": 149,
-          "ip": 9.2,
-          "dates": [
-            "2026-04-22",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "667297": {
           "name": "Tommy Nance",
           "appearances": 2,
@@ -569,17 +547,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "641778": {
-          "name": "Eric Lauer",
-          "appearances": 1,
-          "pitches": 79,
-          "ip": 5.0,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "453286": {
           "name": "Max Scherzer",
           "appearances": 1,
@@ -590,18 +557,14 @@
           ],
           "back_to_back": false,
           "pitched_yesterday": false
-        },
-        "592332": {
-          "name": "Kevin Gausman",
-          "appearances": 1,
-          "pitches": 91,
-          "ip": 6.2,
-          "dates": [
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
         }
+      },
+      "quality": {
+        "bp_innings": 26.67,
+        "bp_era": 4.72,
+        "bp_k_pct": 0.278,
+        "bp_bb_pct": 0.104,
+        "bp_whip": 1.31
       }
     },
     "recent_form": {
@@ -657,12 +620,154 @@
           "won": true
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 664702,
+          "name": "Myles Straw",
+          "ab": 20,
+          "ops": 0.586,
+          "avg": 0.25,
+          "obp": 0.286,
+          "slg": 0.3,
+          "woba": 0.332,
+          "k_pct": 0.095
+        },
+        {
+          "id": 676391,
+          "name": "Ernie Clement",
+          "ab": 25,
+          "ops": 0.76,
+          "avg": 0.32,
+          "obp": 0.32,
+          "slg": 0.44,
+          "woba": 0.419,
+          "k_pct": 0.04
+        }
+      ],
+      "avg_woba": 0.376,
+      "avg_ops": 0.673,
+      "avg_k_pct": 0.068
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 680776,
+        "name": "Jarren Duran",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 575929,
+        "name": "Willson Contreras",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 701350,
+        "name": "Roman Anthony",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 677800,
+        "name": "Wilyer Abreu",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 596115,
+        "name": "Trevor Story",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 691785,
+        "name": "Marcelo Mayer",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 678882,
+        "name": "Ceddanne Rafaela",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 665966,
+        "name": "Carlos Narv\u00e1ez",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 702332,
+        "name": "Caleb Durbin",
+        "position": "3B",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 664702,
+        "name": "Myles Straw",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 676391,
+        "name": "Ernie Clement",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 665489,
+        "name": "Vladimir Guerrero Jr.",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 672960,
+        "name": "Kazuma Okamoto",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 672820,
+        "name": "Lenyn Sosa",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 650391,
+        "name": "Eloy Jim\u00e9nez",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 660821,
+        "name": "Jes\u00fas S\u00e1nchez",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 676914,
+        "name": "Davis Schneider",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 623168,
+        "name": "Tyler Heineman",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

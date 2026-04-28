@@ -5,7 +5,7 @@
     "available": true,
     "name": "Petco Park",
     "roof": "open",
-    "pf_runs": 97,
+    "pf_runs": 91,
     "pf_hr_lhb": 93,
     "pf_hr_rhb": 95
   },
@@ -15,10 +15,15 @@
     "park": "Petco Park",
     "first_pitch_iso": "2026-04-28T01:40:00Z",
     "temp_f": 57.4,
-    "humidity_pct": 67,
-    "dew_point_f": 46.5,
-    "wind_mph": 3.1,
-    "wind_dir_deg": 4,
+    "humidity_pct": 65,
+    "dew_point_f": 45.7,
+    "wind_mph": 3.7,
+    "wind_dir_deg": 343,
+    "wind_effect": {
+      "effect": "calm",
+      "delta_runs": 0.0,
+      "angle_off_cf": null
+    },
     "precip_prob_pct": 0
   },
   "away": {
@@ -30,6 +35,7 @@
       "id": 571510,
       "available": true,
       "window_days": 30,
+      "throws": "L",
       "total_pitches": 182,
       "season_avg_velo": 86.3,
       "starts": [
@@ -107,18 +113,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "607067": {
-          "name": "Colin Rea",
-          "appearances": 2,
-          "pitches": 184,
-          "ip": 9.3,
-          "dates": [
-            "2026-04-20",
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "702303": {
           "name": "Riley Martin",
           "appearances": 2,
@@ -143,18 +137,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "684007": {
-          "name": "Shota Imanaga",
-          "appearances": 2,
-          "pitches": 187,
-          "ip": 12.1,
-          "dates": [
-            "2026-04-21",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "657097": {
           "name": "Jacob Webb",
           "appearances": 2,
@@ -163,17 +145,6 @@
           "dates": [
             "2026-04-21",
             "2026-04-23"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "571510": {
-          "name": "Matthew Boyd",
-          "appearances": 1,
-          "pitches": 84,
-          "ip": 4.2,
-          "dates": [
-            "2026-04-22"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
@@ -189,17 +160,6 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "665795": {
-          "name": "Edward Cabrera",
-          "appearances": 1,
-          "pitches": 83,
-          "ip": 7.0,
-          "dates": [
-            "2026-04-23"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
         "665871": {
           "name": "Javier Assad",
           "appearances": 2,
@@ -207,17 +167,6 @@
           "ip": 3.1,
           "dates": [
             "2026-04-23",
-            "2026-04-25"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "592791": {
-          "name": "Jameson Taillon",
-          "appearances": 1,
-          "pitches": 85,
-          "ip": 5.0,
-          "dates": [
             "2026-04-25"
           ],
           "back_to_back": false,
@@ -256,6 +205,13 @@
           "back_to_back": false,
           "pitched_yesterday": true
         }
+      },
+      "quality": {
+        "bp_innings": 23.0,
+        "bp_era": 4.3,
+        "bp_k_pct": 0.18,
+        "bp_bb_pct": 0.11,
+        "bp_whip": 1.35
       }
     },
     "recent_form": {
@@ -311,6 +267,49 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 663538,
+          "name": "Nico Hoerner",
+          "ab": 70,
+          "ops": 0.754,
+          "avg": 0.271,
+          "obp": 0.354,
+          "slg": 0.4,
+          "woba": 0.424,
+          "k_pct": 0.085
+        },
+        {
+          "id": 683737,
+          "name": "Michael Busch",
+          "ab": 70,
+          "ops": 0.567,
+          "avg": 0.214,
+          "obp": 0.267,
+          "slg": 0.3,
+          "woba": 0.319,
+          "k_pct": 0.253
+        },
+        {
+          "id": 608324,
+          "name": "Alex Bregman",
+          "ab": 79,
+          "ops": 0.702,
+          "avg": 0.253,
+          "obp": 0.31,
+          "slg": 0.392,
+          "woba": 0.39,
+          "k_pct": 0.126
+        }
+      ],
+      "avg_woba": 0.378,
+      "avg_ops": 0.674,
+      "avg_k_pct": 0.155
     }
   },
   "home": {
@@ -322,6 +321,7 @@
       "id": 681190,
       "available": true,
       "window_days": 30,
+      "throws": "R",
       "total_pitches": 435,
       "season_avg_velo": 90.72,
       "starts": [
@@ -426,41 +426,6 @@
           "back_to_back": true,
           "pitched_yesterday": false
         },
-        "681190": {
-          "name": "Randy V\u00e1squez",
-          "appearances": 1,
-          "pitches": 84,
-          "ip": 7.0,
-          "dates": [
-            "2026-04-22"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": false
-        },
-        "688158": {
-          "name": "David Morgan",
-          "appearances": 2,
-          "pitches": 48,
-          "ip": 1.2000000000000002,
-          "dates": [
-            "2026-04-23",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
-        "593974": {
-          "name": "Wandy Peralta",
-          "appearances": 2,
-          "pitches": 33,
-          "ip": 1.4,
-          "dates": [
-            "2026-04-23",
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
-        },
         "621111": {
           "name": "Walker Buehler",
           "appearances": 1,
@@ -483,28 +448,29 @@
           "back_to_back": false,
           "pitched_yesterday": false
         },
-        "695243": {
-          "name": "Mason Miller",
+        "593974": {
+          "name": "Wandy Peralta",
           "appearances": 2,
-          "pitches": 20,
-          "ip": 2.0,
+          "pitches": 33,
+          "ip": 1.4,
           "dates": [
             "2026-04-23",
-            "2026-04-25"
+            "2026-04-26"
           ],
           "back_to_back": false,
-          "pitched_yesterday": false
+          "pitched_yesterday": true
         },
-        "663362": {
-          "name": "Matt Waldron",
-          "appearances": 1,
-          "pitches": 82,
-          "ip": 5.0,
+        "688158": {
+          "name": "David Morgan",
+          "appearances": 2,
+          "pitches": 48,
+          "ip": 1.2000000000000002,
           "dates": [
-            "2026-04-23"
+            "2026-04-23",
+            "2026-04-26"
           ],
           "back_to_back": false,
-          "pitched_yesterday": false
+          "pitched_yesterday": true
         },
         "676760": {
           "name": "Ron Marinaccio",
@@ -518,27 +484,17 @@
           "back_to_back": false,
           "pitched_yesterday": true
         },
-        "608566": {
-          "name": "Germ\u00e1n M\u00e1rquez",
-          "appearances": 1,
-          "pitches": 75,
-          "ip": 6.0,
+        "695243": {
+          "name": "Mason Miller",
+          "appearances": 2,
+          "pitches": 20,
+          "ip": 2.0,
           "dates": [
+            "2026-04-23",
             "2026-04-25"
           ],
           "back_to_back": false,
           "pitched_yesterday": false
-        },
-        "650633": {
-          "name": "Michael King",
-          "appearances": 1,
-          "pitches": 106,
-          "ip": 6.0,
-          "dates": [
-            "2026-04-26"
-          ],
-          "back_to_back": false,
-          "pitched_yesterday": true
         },
         "699134": {
           "name": "Bradgley Rodriguez",
@@ -551,6 +507,13 @@
           "back_to_back": false,
           "pitched_yesterday": true
         }
+      },
+      "quality": {
+        "bp_innings": 19.0,
+        "bp_era": 9.47,
+        "bp_k_pct": 0.126,
+        "bp_bb_pct": 0.074,
+        "bp_whip": 2.16
       }
     },
     "recent_form": {
@@ -606,12 +569,131 @@
           "won": false
         }
       ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [],
+      "avg_woba": null,
+      "avg_ops": null,
+      "avg_k_pct": null
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 663538,
+        "name": "Nico Hoerner",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 683737,
+        "name": "Michael Busch",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 608324,
+        "name": "Alex Bregman",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 664023,
+        "name": "Ian Happ",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 673548,
+        "name": "Seiya Suzuki",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 694208,
+        "name": "Mois\u00e9s Ballesteros",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 624424,
+        "name": "Michael Conforto",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 621020,
+        "name": "Dansby Swanson",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 691718,
+        "name": "Pete Crow-Armstrong",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 657656,
+        "name": "Ram\u00f3n Laureano",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 665487,
+        "name": "Fernando Tatis Jr.",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 701538,
+        "name": "Jackson Merrill",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 592518,
+        "name": "Manny Machado",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 593428,
+        "name": "Xander Bogaerts",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 609280,
+        "name": "Miguel Andujar",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 664034,
+        "name": "Ty France",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 592206,
+        "name": "Nick Castellanos",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 666023,
+        "name": "Freddy Fermin",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
