@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Great American Ball Park",
     "first_pitch_iso": "2026-04-28T22:40:00Z",
-    "temp_f": 59.8,
-    "humidity_pct": 88,
-    "dew_point_f": 56.2,
-    "wind_mph": 5.8,
-    "wind_dir_deg": 328,
+    "temp_f": 59.4,
+    "humidity_pct": 87,
+    "dew_point_f": 55.6,
+    "wind_mph": 5.2,
+    "wind_dir_deg": 355,
     "wind_effect": {
-      "effect": "cross",
-      "delta_runs": 0.0,
-      "angle_off_cf": 128
+      "effect": "in",
+      "delta_runs": -0.008,
+      "angle_off_cf": 155
     },
-    "precip_prob_pct": 0
+    "precip_prob_pct": 2
   },
   "away": {
     "team_id": 115,
@@ -474,14 +474,108 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": null,
+      "batters": [
+        {
+          "id": 667472,
+          "name": "Dane Myers",
+          "ab": 38,
+          "ops": 0.746,
+          "avg": 0.263,
+          "obp": 0.404,
+          "slg": 0.342,
+          "woba": 0.433,
+          "k_pct": 0.191
+        },
+        {
+          "id": 680574,
+          "name": "Matt McLain",
+          "ab": 101,
+          "ops": 0.684,
+          "avg": 0.218,
+          "obp": 0.347,
+          "slg": 0.337,
+          "woba": 0.391,
+          "k_pct": 0.24
+        },
+        {
+          "id": 682829,
+          "name": "Elly De La Cruz",
+          "ab": 113,
+          "ops": 0.907,
+          "avg": 0.274,
+          "obp": 0.349,
+          "slg": 0.558,
+          "woba": 0.492,
+          "k_pct": 0.286
+        }
+      ],
+      "avg_woba": 0.439,
+      "avg_ops": 0.779,
+      "avg_k_pct": 0.239
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 667472,
+        "name": "Dane Myers",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 680574,
+        "name": "Matt McLain",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 682829,
+        "name": "Elly De La Cruz",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 701398,
+        "name": "Sal Stewart",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 668715,
+        "name": "Spencer Steer",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 663993,
+        "name": "Nathaniel Lowe",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 663886,
+        "name": "Tyler Stephenson",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 677956,
+        "name": "Rece Hinds",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 663647,
+        "name": "Ke'Bryan Hayes",
+        "position": "3B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

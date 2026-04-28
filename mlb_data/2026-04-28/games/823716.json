@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Target Field",
     "first_pitch_iso": "2026-04-28T23:40:00Z",
-    "temp_f": 43.1,
-    "humidity_pct": 78,
-    "dew_point_f": 36.7,
-    "wind_mph": 5.9,
-    "wind_dir_deg": 307,
+    "temp_f": 43.7,
+    "humidity_pct": 74,
+    "dew_point_f": 35.9,
+    "wind_mph": 6.7,
+    "wind_dir_deg": 318,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 127
+      "angle_off_cf": 138
     },
     "precip_prob_pct": 1
   },
@@ -545,14 +545,97 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 621439,
+          "name": "Byron Buxton",
+          "ab": 65,
+          "ops": 0.915,
+          "avg": 0.246,
+          "obp": 0.315,
+          "slg": 0.6,
+          "woba": 0.487,
+          "k_pct": 0.288
+        },
+        {
+          "id": 663616,
+          "name": "Trevor Larnach",
+          "ab": 47,
+          "ops": 0.863,
+          "avg": 0.298,
+          "obp": 0.459,
+          "slg": 0.404,
+          "woba": 0.499,
+          "k_pct": 0.164
+        }
+      ],
+      "avg_woba": 0.493,
+      "avg_ops": 0.889,
+      "avg_k_pct": 0.226
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 621439,
+        "name": "Byron Buxton",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 663616,
+        "name": "Trevor Larnach",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 668885,
+        "name": "Austin Martin",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 605137,
+        "name": "Josh Bell",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 665019,
+        "name": "Kody Clemens",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 605170,
+        "name": "Victor Caratini",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 807712,
+        "name": "Luke Keaschall",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 656484,
+        "name": "Tristan Gray",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 668904,
+        "name": "Royce Lewis",
+        "position": "3B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
