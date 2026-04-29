@@ -1,13 +1,12 @@
 name: Daily MLB Sharp Cards
 
-# Runs every day at 12:00 PM America/New_York.
-# Cron is in UTC. We schedule both 16:00 UTC (covers EDT, March-Nov)
-# and 17:00 UTC (covers EST, Nov-March). The script idempotently writes
-# today's slate, so if both fire one will be a no-op overwrite.
+# Runs every day around 11:00 AM-12:00 PM America/New_York.
+# Cron is in UTC. Scheduled at minute 47 (off-peak) to minimize GitHub's
+# top-of-hour delivery delay; in practice the run starts ~11:15-12:15 PM ET.
 on:
   schedule:
-    - cron: "0 16 * * *"   # 12:00 PM ET during EDT
-    - cron: "0 17 * * *"   # 12:00 PM ET during EST
+    - cron: "47 14 * * *"   # 10:47 AM ET during EDT (Mar-Nov)
+    - cron: "47 15 * * *"   # 10:47 AM ET during EST (Nov-Mar)
   workflow_dispatch:        # allow manual run from the Actions tab
 
 permissions:
