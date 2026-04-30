@@ -1,0 +1,771 @@
+{
+  "gamePk": 824929,
+  "gameDate": "2026-04-30T16:15:00Z",
+  "venue": {
+    "available": true,
+    "name": "Truist Park",
+    "roof": "open",
+    "pf_runs": 100,
+    "pf_hr_lhb": 100,
+    "pf_hr_rhb": 102
+  },
+  "weather": {
+    "available": true,
+    "indoor": false,
+    "park": "Truist Park",
+    "first_pitch_iso": "2026-04-30T16:15:00Z",
+    "temp_f": 72.3,
+    "humidity_pct": 38,
+    "dew_point_f": 45.3,
+    "wind_mph": 12.7,
+    "wind_dir_deg": 321,
+    "wind_effect": {
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 106
+    },
+    "precip_prob_pct": 0
+  },
+  "away": {
+    "team_id": 116,
+    "team_name": "Detroit Tigers",
+    "probable_pitcher_id": 664285,
+    "probable_pitcher_name": "Framber Valdez",
+    "pitcher_profile": {
+      "id": 664285,
+      "available": true,
+      "window_days": 30,
+      "throws": "L",
+      "total_pitches": 452,
+      "season_avg_velo": 87.98,
+      "starts": [
+        {
+          "game_date": "2026-04-24",
+          "pitches": 89,
+          "avg_velo": 87.63595505617978,
+          "max_velo": 96.5,
+          "csw": 0.2808988764044944,
+          "hard_hit": 0.07865168539325842,
+          "barrel": 0.02247191011235955
+        },
+        {
+          "game_date": "2026-04-19",
+          "pitches": 98,
+          "avg_velo": 87.82551020408162,
+          "max_velo": 95.1,
+          "csw": 0.37755102040816324,
+          "hard_hit": 0.09183673469387756,
+          "barrel": 0.02040816326530612
+        },
+        {
+          "game_date": "2026-04-14",
+          "pitches": 87,
+          "avg_velo": 88.73218390804597,
+          "max_velo": 96.2,
+          "csw": 0.20689655172413793,
+          "hard_hit": 0.12643678160919541,
+          "barrel": 0.011494252873563218
+        },
+        {
+          "game_date": "2026-04-08",
+          "pitches": 87,
+          "avg_velo": 87.30114942528735,
+          "max_velo": 94.8,
+          "csw": 0.2413793103448276,
+          "hard_hit": 0.08045977011494253,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-04-03",
+          "pitches": 91,
+          "avg_velo": 88.38901098901098,
+          "max_velo": 96.1,
+          "csw": 0.1978021978021978,
+          "hard_hit": 0.08791208791208792,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.184,
+        "CU": 0.314,
+        "SI": 0.491,
+        "SL": 0.011
+      },
+      "splits": {
+        "L": {
+          "pitches": 84,
+          "avg_velo": 89.09,
+          "csw": 0.226,
+          "xwoba": 0.251,
+          "hard_hit_rate": 0.095
+        },
+        "R": {
+          "pitches": 368,
+          "avg_velo": 87.72,
+          "csw": 0.272,
+          "xwoba": 0.338,
+          "hard_hit_rate": 0.092
+        }
+      }
+    },
+    "bullpen_usage": {
+      "team_id": 116,
+      "window_days": 7,
+      "relievers": {
+        "572143": {
+          "name": "Burch Smith",
+          "appearances": 3,
+          "pitches": 83,
+          "ip": 5.1,
+          "dates": [
+            "2026-04-23",
+            "2026-04-25",
+            "2026-04-28"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "663947": {
+          "name": "Tyler Holton",
+          "appearances": 3,
+          "pitches": 66,
+          "ip": 3.0,
+          "dates": [
+            "2026-04-23",
+            "2026-04-25",
+            "2026-04-28"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "676428": {
+          "name": "Brant Hurter",
+          "appearances": 4,
+          "pitches": 58,
+          "ip": 3.5,
+          "dates": [
+            "2026-04-23",
+            "2026-04-24",
+            "2026-04-26",
+            "2026-04-28"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "640448": {
+          "name": "Kyle Finnegan",
+          "appearances": 3,
+          "pitches": 73,
+          "ip": 3.2,
+          "dates": [
+            "2026-04-24",
+            "2026-04-26",
+            "2026-04-29"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "623454": {
+          "name": "Drew Anderson",
+          "appearances": 2,
+          "pitches": 56,
+          "ip": 3.2,
+          "dates": [
+            "2026-04-24",
+            "2026-04-25"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "445276": {
+          "name": "Kenley Jansen",
+          "appearances": 2,
+          "pitches": 25,
+          "ip": 0.2,
+          "dates": [
+            "2026-04-24",
+            "2026-04-29"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "676684": {
+          "name": "Will Vest",
+          "appearances": 2,
+          "pitches": 30,
+          "ip": 1.2,
+          "dates": [
+            "2026-04-24",
+            "2026-04-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "656427": {
+          "name": "Jack Flaherty",
+          "appearances": 1,
+          "pitches": 68,
+          "ip": 2.0,
+          "dates": [
+            "2026-04-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "657756": {
+          "name": "Connor Seabold",
+          "appearances": 1,
+          "pitches": 17,
+          "ip": 0.1,
+          "dates": [
+            "2026-04-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "669724": {
+          "name": "Brenan Hanifee",
+          "appearances": 1,
+          "pitches": 18,
+          "ip": 1.0,
+          "dates": [
+            "2026-04-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "663554": {
+          "name": "Casey Mize",
+          "appearances": 1,
+          "pitches": 34,
+          "ip": 2.1,
+          "dates": [
+            "2026-04-28"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        }
+      },
+      "quality": {
+        "bp_innings": 28.33,
+        "bp_era": 6.67,
+        "bp_k_pct": 0.262,
+        "bp_bb_pct": 0.115,
+        "bp_whip": 1.66
+      }
+    },
+    "recent_form": {
+      "team_id": 116,
+      "window_days": 14,
+      "games_played": 13,
+      "wins": 6,
+      "losses": 7,
+      "rpg_for": 4.85,
+      "rpg_against": 5.31,
+      "win_pct": 0.462,
+      "results": [
+        {
+          "date": "2026-04-22",
+          "for": 5,
+          "against": 2,
+          "won": true
+        },
+        {
+          "date": "2026-04-23",
+          "for": 5,
+          "against": 4,
+          "won": true
+        },
+        {
+          "date": "2026-04-24",
+          "for": 8,
+          "against": 9,
+          "won": false
+        },
+        {
+          "date": "2026-04-25",
+          "for": 2,
+          "against": 9,
+          "won": false
+        },
+        {
+          "date": "2026-04-26",
+          "for": 8,
+          "against": 3,
+          "won": true
+        },
+        {
+          "date": "2026-04-28",
+          "for": 2,
+          "against": 5,
+          "won": false
+        },
+        {
+          "date": "2026-04-29",
+          "for": 3,
+          "against": 4,
+          "won": false
+        }
+      ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 805808,
+          "name": "Kevin McGonigle",
+          "ab": 87,
+          "ops": 1.026,
+          "avg": 0.356,
+          "obp": 0.44,
+          "slg": 0.586,
+          "woba": 0.567,
+          "k_pct": 0.12
+        },
+        {
+          "id": 650402,
+          "name": "Gleyber Torres",
+          "ab": 83,
+          "ops": 0.733,
+          "avg": 0.277,
+          "obp": 0.384,
+          "slg": 0.349,
+          "woba": 0.422,
+          "k_pct": 0.152
+        },
+        {
+          "id": 690993,
+          "name": "Colt Keith",
+          "ab": 83,
+          "ops": 0.766,
+          "avg": 0.325,
+          "obp": 0.356,
+          "slg": 0.41,
+          "woba": 0.43,
+          "k_pct": 0.207
+        }
+      ],
+      "avg_woba": 0.473,
+      "avg_ops": 0.842,
+      "avg_k_pct": 0.159
+    }
+  },
+  "home": {
+    "team_id": 144,
+    "team_name": "Atlanta Braves",
+    "probable_pitcher_id": 693821,
+    "probable_pitcher_name": "Bryce Elder",
+    "pitcher_profile": {
+      "id": 693821,
+      "available": true,
+      "window_days": 30,
+      "throws": "R",
+      "total_pitches": 434,
+      "season_avg_velo": 88.11,
+      "starts": [
+        {
+          "game_date": "2026-04-25",
+          "pitches": 92,
+          "avg_velo": 88.73804347826086,
+          "max_velo": 94.4,
+          "csw": 0.2608695652173913,
+          "hard_hit": 0.17391304347826086,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-04-20",
+          "pitches": 98,
+          "avg_velo": 88.26020408163265,
+          "max_velo": 93.5,
+          "csw": 0.19387755102040816,
+          "hard_hit": 0.08163265306122448,
+          "barrel": 0.02040816326530612
+        },
+        {
+          "game_date": "2026-04-15",
+          "pitches": 79,
+          "avg_velo": 88.37721518987343,
+          "max_velo": 94.5,
+          "csw": 0.35443037974683544,
+          "hard_hit": 0.05063291139240506,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-04-10",
+          "pitches": 76,
+          "avg_velo": 87.39868421052631,
+          "max_velo": 94.5,
+          "csw": 0.21052631578947367,
+          "hard_hit": 0.11842105263157894,
+          "barrel": 0.013157894736842105
+        },
+        {
+          "game_date": "2026-04-04",
+          "pitches": 89,
+          "avg_velo": 87.66179775280898,
+          "max_velo": 93.4,
+          "csw": 0.25842696629213485,
+          "hard_hit": 0.06741573033707865,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.099,
+        "FC": 0.129,
+        "FF": 0.265,
+        "SI": 0.182,
+        "SL": 0.325
+      },
+      "splits": {
+        "L": {
+          "pitches": 317,
+          "avg_velo": 87.97,
+          "csw": 0.227,
+          "xwoba": 0.27,
+          "hard_hit_rate": 0.088
+        },
+        "R": {
+          "pitches": 117,
+          "avg_velo": 88.5,
+          "csw": 0.325,
+          "xwoba": 0.269,
+          "hard_hit_rate": 0.128
+        }
+      }
+    },
+    "bullpen_usage": {
+      "team_id": 144,
+      "window_days": 7,
+      "relievers": {
+        "669276": {
+          "name": "Dylan Lee",
+          "appearances": 3,
+          "pitches": 57,
+          "ip": 3.2,
+          "dates": [
+            "2026-04-23",
+            "2026-04-25",
+            "2026-04-29"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "471911": {
+          "name": "Carlos Carrasco",
+          "appearances": 1,
+          "pitches": 10,
+          "ip": 1.0,
+          "dates": [
+            "2026-04-23"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "663158": {
+          "name": "Robert Suarez",
+          "appearances": 2,
+          "pitches": 27,
+          "ip": 2.0,
+          "dates": [
+            "2026-04-24",
+            "2026-04-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "606303": {
+          "name": "Joel Payamps",
+          "appearances": 2,
+          "pitches": 36,
+          "ip": 2.0,
+          "dates": [
+            "2026-04-24",
+            "2026-04-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "607481": {
+          "name": "Aaron Bummer",
+          "appearances": 3,
+          "pitches": 59,
+          "ip": 3.0,
+          "dates": [
+            "2026-04-24",
+            "2026-04-26",
+            "2026-04-28"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "660761": {
+          "name": "Jos\u00e9 Suarez",
+          "appearances": 1,
+          "pitches": 31,
+          "ip": 1.0,
+          "dates": [
+            "2026-04-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "641755": {
+          "name": "Tyler Kinley",
+          "appearances": 2,
+          "pitches": 47,
+          "ip": 2.0,
+          "dates": [
+            "2026-04-25",
+            "2026-04-28"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "800311": {
+          "name": "Didier Fuentes",
+          "appearances": 1,
+          "pitches": 22,
+          "ip": 2.0,
+          "dates": [
+            "2026-04-28"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "625643": {
+          "name": "Reynaldo L\u00f3pez",
+          "appearances": 1,
+          "pitches": 17,
+          "ip": 2.0,
+          "dates": [
+            "2026-04-29"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        }
+      },
+      "quality": {
+        "bp_innings": 18.67,
+        "bp_era": 2.89,
+        "bp_k_pct": 0.297,
+        "bp_bb_pct": 0.054,
+        "bp_whip": 0.91
+      }
+    },
+    "recent_form": {
+      "team_id": 144,
+      "window_days": 14,
+      "games_played": 12,
+      "wins": 10,
+      "losses": 2,
+      "rpg_for": 5.75,
+      "rpg_against": 3.67,
+      "win_pct": 0.833,
+      "results": [
+        {
+          "date": "2026-04-22",
+          "for": 8,
+          "against": 6,
+          "won": true
+        },
+        {
+          "date": "2026-04-23",
+          "for": 7,
+          "against": 2,
+          "won": true
+        },
+        {
+          "date": "2026-04-24",
+          "for": 5,
+          "against": 3,
+          "won": true
+        },
+        {
+          "date": "2026-04-25",
+          "for": 5,
+          "against": 8,
+          "won": false
+        },
+        {
+          "date": "2026-04-26",
+          "for": 6,
+          "against": 2,
+          "won": true
+        },
+        {
+          "date": "2026-04-28",
+          "for": 5,
+          "against": 2,
+          "won": true
+        },
+        {
+          "date": "2026-04-29",
+          "for": 4,
+          "against": 3,
+          "won": true
+        }
+      ]
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 660670,
+          "name": "Ronald Acu\u00f1a Jr.",
+          "ab": 36,
+          "ops": 0.643,
+          "avg": 0.194,
+          "obp": 0.31,
+          "slg": 0.333,
+          "woba": 0.364,
+          "k_pct": 0.262
+        },
+        {
+          "id": 686948,
+          "name": "Drake Baldwin",
+          "ab": 45,
+          "ops": 0.934,
+          "avg": 0.333,
+          "obp": 0.423,
+          "slg": 0.511,
+          "woba": 0.522,
+          "k_pct": 0.115
+        },
+        {
+          "id": 645277,
+          "name": "Ozzie Albies",
+          "ab": 48,
+          "ops": 0.985,
+          "avg": 0.354,
+          "obp": 0.36,
+          "slg": 0.625,
+          "woba": 0.53,
+          "k_pct": 0.06
+        }
+      ],
+      "avg_woba": 0.472,
+      "avg_ops": 0.854,
+      "avg_k_pct": 0.146
+    }
+  },
+  "lineups": {
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 805808,
+        "name": "Kevin McGonigle",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 650402,
+        "name": "Gleyber Torres",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 690993,
+        "name": "Colt Keith",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 682985,
+        "name": "Riley Greene",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 679529,
+        "name": "Spencer Torkelson",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 681481,
+        "name": "Kerry Carpenter",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 663837,
+        "name": "Matt Vierling",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 701678,
+        "name": "Hao-Yu  Lee",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 668670,
+        "name": "Jake Rogers",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 660670,
+        "name": "Ronald Acu\u00f1a Jr.",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 686948,
+        "name": "Drake Baldwin",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 645277,
+        "name": "Ozzie Albies",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 621566,
+        "name": "Matt Olson",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 663586,
+        "name": "Austin Riley",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 643289,
+        "name": "Mauricio Dub\u00f3n",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 571657,
+        "name": "Kyle Farmer",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 622761,
+        "name": "Jorge Mateo",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 642201,
+        "name": "Eli White",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
+    "umpires": []
+  }
+}
