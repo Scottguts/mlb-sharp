@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "loanDepot park",
     "first_pitch_iso": "2026-05-02T20:10:00Z",
-    "temp_f": 84.7,
-    "humidity_pct": 49,
-    "dew_point_f": 63.4,
-    "wind_mph": 11.0,
-    "wind_dir_deg": 250,
+    "temp_f": 85.2,
+    "humidity_pct": 50,
+    "dew_point_f": 64.5,
+    "wind_mph": 11.1,
+    "wind_dir_deg": 256,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 70
+      "angle_off_cf": 76
     },
     "precip_prob_pct": 0
   },
@@ -565,14 +565,108 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 805300,
+          "name": "Jakob Marsee",
+          "ab": 91,
+          "ops": 0.523,
+          "avg": 0.176,
+          "obp": 0.292,
+          "slg": 0.231,
+          "woba": 0.305,
+          "k_pct": 0.234
+        },
+        {
+          "id": 669065,
+          "name": "Kyle Stowers",
+          "ab": 30,
+          "ops": 0.694,
+          "avg": 0.233,
+          "obp": 0.361,
+          "slg": 0.333,
+          "woba": 0.399,
+          "k_pct": 0.278
+        },
+        {
+          "id": 672640,
+          "name": "Otto Lopez",
+          "ab": 89,
+          "ops": 0.869,
+          "avg": 0.326,
+          "obp": 0.375,
+          "slg": 0.494,
+          "woba": 0.481,
+          "k_pct": 0.229
+        }
+      ],
+      "avg_woba": 0.395,
+      "avg_ops": 0.695,
+      "avg_k_pct": 0.247
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 805300,
+        "name": "Jakob Marsee",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 669065,
+        "name": "Kyle Stowers",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 672640,
+        "name": "Otto Lopez",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 669364,
+        "name": "Xavier Edwards",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 689414,
+        "name": "Liam Hicks",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 682663,
+        "name": "Agust\u00edn Ram\u00edrez",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 683357,
+        "name": "Owen Caissie",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 688363,
+        "name": "Graham Pauley",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 681393,
+        "name": "Connor Norby",
+        "position": "1B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

@@ -14,10 +14,10 @@
     "indoor": false,
     "park": "Wrigley Field",
     "first_pitch_iso": "2026-05-02T18:20:00Z",
-    "temp_f": 52.4,
-    "humidity_pct": 43,
-    "dew_point_f": 30.5,
-    "wind_mph": 6.1,
+    "temp_f": 53.3,
+    "humidity_pct": 38,
+    "dew_point_f": 28.3,
+    "wind_mph": 5.0,
     "wind_dir_deg": 126,
     "wind_effect": {
       "effect": "cross",
@@ -618,12 +618,51 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 683737,
+          "name": "Michael Busch",
+          "ab": 82,
+          "ops": 0.563,
+          "avg": 0.207,
+          "obp": 0.27,
+          "slg": 0.293,
+          "woba": 0.318,
+          "k_pct": 0.247
+        },
+        {
+          "id": 694208,
+          "name": "Mois\u00e9s Ballesteros",
+          "ab": 68,
+          "ops": 1.013,
+          "avg": 0.338,
+          "obp": 0.395,
+          "slg": 0.618,
+          "woba": 0.551,
+          "k_pct": 0.145
+        },
+        {
+          "id": 608324,
+          "name": "Alex Bregman",
+          "ab": 90,
+          "ops": 0.716,
+          "avg": 0.256,
+          "obp": 0.327,
+          "slg": 0.389,
+          "woba": 0.401,
+          "k_pct": 0.119
+        }
+      ],
+      "avg_woba": 0.423,
+      "avg_ops": 0.764,
+      "avg_k_pct": 0.17
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [
       {
         "id": 606466,
@@ -680,7 +719,62 @@
         "bat_side": null
       }
     ],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 683737,
+        "name": "Michael Busch",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 694208,
+        "name": "Mois\u00e9s Ballesteros",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 608324,
+        "name": "Alex Bregman",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 664023,
+        "name": "Ian Happ",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 673548,
+        "name": "Seiya Suzuki",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 691718,
+        "name": "Pete Crow-Armstrong",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 621020,
+        "name": "Dansby Swanson",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 807713,
+        "name": "Matt Shaw",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 665804,
+        "name": "Miguel Amaya",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
