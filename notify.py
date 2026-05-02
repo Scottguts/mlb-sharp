@@ -30,12 +30,30 @@ import json
 import os
 import smtplib
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import requests
+
+ET = ZoneInfo("America/New_York")
+
+
+def _fmt_et(iso_utc: str) -> str:
+    """Format a UTC ISO timestamp as ET, e.g. '7:40 PM ET'. Returns '' on parse error."""
+    if not iso_utc:
+        return ""
+    try:
+        dt = datetime.fromisoformat(iso_utc.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        et = dt.astimezone(ET)
+        h = et.strftime("%I").lstrip("0") or "12"
+        return f"{h}:{et.strftime('%M %p')} ET"
+    except Exception:
+        return ""
 
 
 # ===========================================================================
@@ -182,8 +200,10 @@ def _post_discord_embeds(url: str, grades: list[dict], summary: str,
         book = BOOK_LABEL.get(c["book"].lower(), c["book"])
         line_str = f" {c['line']}" if c.get("line") is not None else ""
         price = _fmt_price(c["price_american"])
+        et_time = _fmt_et(g.get("gameDate", ""))
+        time_str = f" · {et_time}" if et_time else ""
         quick_lines.append(
-            f"{i}. {emoji} **{c['bet_label']}**{line_str} @ {book} **{price}** — "
+            f"{i}. {emoji} **{c['bet_label']}**{line_str} @ {book} **{price}**{time_str} — "
             f"{c['unit_size']}u ({c['edge']*100:.1f}% edge)"
         )
     requests.post(url, json={"content": "\n".join(quick_lines)},
@@ -227,8 +247,13 @@ def _build_bet_embed(game: dict, card: dict, idx: int) -> dict:
     price_str    = _fmt_price(card["price_american"])
     line_str     = "" if card.get("line") is None else f" @ {card['line']}"
 
+    et_time = _fmt_et(game.get("gameDate", ""))
+    game_value = game["matchup"]
+    if et_time:
+        game_value = f"{game['matchup']}  •  **{et_time}**"
+
     fields = [
-        {"name": "Game",   "value": game["matchup"],         "inline": False},
+        {"name": "Game",   "value": game_value,              "inline": False},
         {"name": "Market", "value": market_label + line_str, "inline": True},
         {"name": "Book",   "value": f"**{book_label}**",     "inline": True},
         {"name": "Price",  "value": f"**{price_str}**",      "inline": True},
