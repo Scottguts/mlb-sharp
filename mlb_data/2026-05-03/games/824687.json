@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Wrigley Field",
     "first_pitch_iso": "2026-05-03T18:20:00Z",
-    "temp_f": 68.4,
-    "humidity_pct": 29,
-    "dew_point_f": 34.9,
-    "wind_mph": 17.2,
-    "wind_dir_deg": 226,
+    "temp_f": 68.1,
+    "humidity_pct": 31,
+    "dew_point_f": 36.3,
+    "wind_mph": 18.2,
+    "wind_dir_deg": 225,
     "wind_effect": {
       "effect": "out",
       "delta_runs": 0.4,
-      "angle_off_cf": 9
+      "angle_off_cf": 8
     },
     "precip_prob_pct": 0
   },
@@ -545,12 +545,51 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 663538,
+          "name": "Nico Hoerner",
+          "ab": 83,
+          "ops": 0.749,
+          "avg": 0.265,
+          "obp": 0.351,
+          "slg": 0.398,
+          "woba": 0.421,
+          "k_pct": 0.072
+        },
+        {
+          "id": 694208,
+          "name": "Mois\u00e9s Ballesteros",
+          "ab": 72,
+          "ops": 0.958,
+          "avg": 0.319,
+          "obp": 0.375,
+          "slg": 0.583,
+          "woba": 0.521,
+          "k_pct": 0.15
+        },
+        {
+          "id": 608324,
+          "name": "Alex Bregman",
+          "ab": 94,
+          "ops": 0.686,
+          "avg": 0.245,
+          "obp": 0.314,
+          "slg": 0.372,
+          "woba": 0.384,
+          "k_pct": 0.133
+        }
+      ],
+      "avg_woba": 0.442,
+      "avg_ops": 0.798,
+      "avg_k_pct": 0.118
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [
       {
         "id": 606466,
@@ -607,7 +646,62 @@
         "bat_side": null
       }
     ],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 663538,
+        "name": "Nico Hoerner",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 694208,
+        "name": "Mois\u00e9s Ballesteros",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 608324,
+        "name": "Alex Bregman",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 664023,
+        "name": "Ian Happ",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 673548,
+        "name": "Seiya Suzuki",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 683737,
+        "name": "Michael Busch",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 608348,
+        "name": "Carson Kelly",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 691718,
+        "name": "Pete Crow-Armstrong",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 621020,
+        "name": "Dansby Swanson",
+        "position": "SS",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

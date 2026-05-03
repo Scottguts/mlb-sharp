@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Coors Field",
     "first_pitch_iso": "2026-05-03T19:10:00Z",
-    "temp_f": 74.4,
+    "temp_f": 74.3,
     "humidity_pct": 10,
-    "dew_point_f": 14.3,
-    "wind_mph": 9.6,
-    "wind_dir_deg": 3,
+    "dew_point_f": 14.2,
+    "wind_mph": 13.7,
+    "wind_dir_deg": 322,
     "wind_effect": {
-      "effect": "in",
-      "delta_runs": -0.184,
-      "angle_off_cf": 173
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 132
     },
     "precip_prob_pct": 4
   },
@@ -221,8 +221,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 643289,
+          "name": "Mauricio Dub\u00f3n",
+          "ab": 43,
+          "ops": 0.66,
+          "avg": 0.279,
+          "obp": 0.311,
+          "slg": 0.349,
+          "woba": 0.372,
+          "k_pct": 0.156
+        },
+        {
+          "id": 686948,
+          "name": "Drake Baldwin",
+          "ab": 51,
+          "ops": 0.973,
+          "avg": 0.333,
+          "obp": 0.424,
+          "slg": 0.549,
+          "woba": 0.54,
+          "k_pct": 0.136
+        },
+        {
+          "id": 645277,
+          "name": "Ozzie Albies",
+          "ab": 55,
+          "ops": 1.059,
+          "avg": 0.382,
+          "obp": 0.386,
+          "slg": 0.673,
+          "woba": 0.569,
+          "k_pct": 0.053
+        }
+      ],
+      "avg_woba": 0.493,
+      "avg_ops": 0.897,
+      "avg_k_pct": 0.115
     }
   },
   "home": {
@@ -455,14 +494,163 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": null,
+      "batters": [
+        {
+          "id": 666397,
+          "name": "Edouard Julien",
+          "ab": 83,
+          "ops": 0.807,
+          "avg": 0.289,
+          "obp": 0.385,
+          "slg": 0.422,
+          "woba": 0.456,
+          "k_pct": 0.26
+        },
+        {
+          "id": 666160,
+          "name": "Mickey Moniak",
+          "ab": 94,
+          "ops": 1.033,
+          "avg": 0.319,
+          "obp": 0.363,
+          "slg": 0.67,
+          "woba": 0.552,
+          "k_pct": 0.245
+        },
+        {
+          "id": 696100,
+          "name": "Hunter Goodman",
+          "ab": 116,
+          "ops": 0.869,
+          "avg": 0.25,
+          "obp": 0.326,
+          "slg": 0.543,
+          "woba": 0.469,
+          "k_pct": 0.38
+        }
+      ],
+      "avg_woba": 0.492,
+      "avg_ops": 0.903,
+      "avg_k_pct": 0.295
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 643289,
+        "name": "Mauricio Dub\u00f3n",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 686948,
+        "name": "Drake Baldwin",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 645277,
+        "name": "Ozzie Albies",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 621566,
+        "name": "Matt Olson",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 663586,
+        "name": "Austin Riley",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 642201,
+        "name": "Eli White",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 641680,
+        "name": "Jonah Heim",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 622761,
+        "name": "Jorge Mateo",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 640492,
+        "name": "Jos\u00e9 Azocar",
+        "position": "RF",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 666397,
+        "name": "Edouard Julien",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 666160,
+        "name": "Mickey Moniak",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 696100,
+        "name": "Hunter Goodman",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 681198,
+        "name": "TJ Rumfield",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 687859,
+        "name": "Troy Johnston",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 650489,
+        "name": "Willi Castro",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 664954,
+        "name": "Brett Sullivan",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 678662,
+        "name": "Ezequiel Tovar",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 664983,
+        "name": "Jake McCarthy",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
