@@ -1,6 +1,6 @@
 # MLB Sharp Betting Cards — 2026-05-05
 
-_Generated 2026-05-05 12:24 _  
+_Generated 2026-05-05 13:12 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  
 _Caps: max 5 plays / 6.0u total exposure_
@@ -70,18 +70,18 @@ _Caps: max 5 plays / 6.0u total exposure_
 
 ## Other graded games (no play)
 
-- **Minnesota Twins @ Washington Nationals** · grade H56.2/A48.2 · xRuns 9.75 · F5 4.95 · NRFI 52.0%
+- **Minnesota Twins @ Washington Nationals** · grade H56.2/A48.2 · xRuns 9.69 · F5 4.94 · NRFI 52.0%
 - **Toronto Blue Jays @ Tampa Bay Rays** · grade H51.0/A52.0 · xRuns 6.89 · F5 4.42 · NRFI 53.8%
-- **Milwaukee Brewers @ St. Louis Cardinals** · grade H48.2/A52.0 · xRuns 7.2 · F5 4.63 · NRFI 51.8%
+- **Milwaukee Brewers @ St. Louis Cardinals** · grade H48.5/A52.3 · xRuns 7.21 · F5 4.62 · NRFI 51.8%
 - **San Diego Padres @ San Francisco Giants** · grade H48.2/A52.8 · xRuns 7.42 · F5 4.32 · NRFI 53.6%
-- **Athletics @ Philadelphia Phillies** · grade H52.0/A45.2 · xRuns 9.3 · F5 4.77 · NRFI 52.8%
-- **Texas Rangers @ New York Yankees** · grade H50.5/A53.2 · xRuns 9.2 · F5 4.64 · NRFI 52.8%
-- **Baltimore Orioles @ Miami Marlins** · grade H42.8/A42.5 · xRuns 8.79 · F5 5.23 · NRFI 51.4%
+- **Athletics @ Philadelphia Phillies** · grade H52.0/A47.5 · xRuns 9.34 · F5 4.77 · NRFI 52.8%
+- **Texas Rangers @ New York Yankees** · grade H50.5/A53.2 · xRuns 9.19 · F5 4.64 · NRFI 52.8%
+- **Baltimore Orioles @ Miami Marlins** · grade H42.8/A42.5 · xRuns 8.78 · F5 5.22 · NRFI 51.4%
 - **Chicago White Sox @ Los Angeles Angels** · grade H50.8/A55.2 · xRuns 8.67 · F5 4.92 · NRFI 51.6%
-- **Cleveland Guardians @ Kansas City Royals** · grade H52.2/A49.2 · xRuns 7.24 · F5 4.88 · NRFI 51.2%
-- **Los Angeles Dodgers @ Houston Astros** · grade H52.2/A56.0 · xRuns 8.53 · F5 4.66 · NRFI 53.3%
-- **Boston Red Sox @ Detroit Tigers** · grade H47.2/A43.5 · xRuns 8.43 · F5 4.9 · NRFI 51.2%
-- **New York Mets @ Colorado Rockies** · grade H48.5/A49.8 · xRuns 8.83 · F5 5.81 · NRFI 48.9%
-- **Pittsburgh Pirates @ Arizona Diamondbacks** · grade H46.8/A49.5 · xRuns 9.02 · F5 5.31 · NRFI 50.3%
+- **Cleveland Guardians @ Kansas City Royals** · grade H52.2/A47.0 · xRuns 7.24 · F5 4.88 · NRFI 51.2%
+- **Los Angeles Dodgers @ Houston Astros** · grade H50.0/A56.0 · xRuns 8.53 · F5 4.66 · NRFI 53.3%
+- **Boston Red Sox @ Detroit Tigers** · grade H45.0/A43.5 · xRuns 8.4 · F5 4.88 · NRFI 51.2%
+- **New York Mets @ Colorado Rockies** · grade H48.5/A52.0 · xRuns 10.68 · F5 5.79 · NRFI 48.9%
+- **Pittsburgh Pirates @ Arizona Diamondbacks** · grade H49.0/A49.5 · xRuns 9.01 · F5 5.3 · NRFI 50.3%
 
 _Total exposure today: **1.0u** across **2** bets._
