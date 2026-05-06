@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Angel Stadium",
     "first_pitch_iso": "2026-05-06T20:07:00Z",
-    "temp_f": 71.6,
-    "humidity_pct": 49,
-    "dew_point_f": 51.5,
-    "wind_mph": 8.9,
-    "wind_dir_deg": 242,
+    "temp_f": 72.0,
+    "humidity_pct": 51,
+    "dew_point_f": 52.9,
+    "wind_mph": 8.5,
+    "wind_dir_deg": 252,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.156,
-      "angle_off_cf": 18
+      "delta_runs": 0.14,
+      "angle_off_cf": 28
     },
     "precip_prob_pct": 0
   },
@@ -264,8 +264,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 803011,
+          "name": "Sam Antonacci",
+          "ab": 46,
+          "ops": 0.951,
+          "avg": 0.326,
+          "obp": 0.429,
+          "slg": 0.522,
+          "woba": 0.531,
+          "k_pct": 0.089
+        },
+        {
+          "id": 808959,
+          "name": "Munetaka Murakami",
+          "ab": 89,
+          "ops": 0.964,
+          "avg": 0.247,
+          "obp": 0.38,
+          "slg": 0.584,
+          "woba": 0.525,
+          "k_pct": 0.306
+        },
+        {
+          "id": 678246,
+          "name": "Miguel Vargas",
+          "ab": 85,
+          "ops": 0.645,
+          "avg": 0.188,
+          "obp": 0.327,
+          "slg": 0.318,
+          "woba": 0.369,
+          "k_pct": 0.183
+        }
+      ],
+      "avg_woba": 0.475,
+      "avg_ops": 0.853,
+      "avg_k_pct": 0.193
     }
   },
   "home": {
@@ -521,14 +560,163 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 687263,
+          "name": "Zach Neto",
+          "ab": 35,
+          "ops": 0.7,
+          "avg": 0.229,
+          "obp": 0.357,
+          "slg": 0.343,
+          "woba": 0.401,
+          "k_pct": 0.31
+        },
+        {
+          "id": 545361,
+          "name": "Mike Trout",
+          "ab": 29,
+          "ops": 1.033,
+          "avg": 0.276,
+          "obp": 0.447,
+          "slg": 0.586,
+          "woba": 0.572,
+          "k_pct": 0.263
+        },
+        {
+          "id": 687093,
+          "name": "Vaughn Grissom",
+          "ab": 23,
+          "ops": 0.792,
+          "avg": 0.304,
+          "obp": 0.357,
+          "slg": 0.435,
+          "woba": 0.442,
+          "k_pct": 0.069
+        }
+      ],
+      "avg_woba": 0.472,
+      "avg_ops": 0.842,
+      "avg_k_pct": 0.214
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 803011,
+        "name": "Sam Antonacci",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 808959,
+        "name": "Munetaka Murakami",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 678246,
+        "name": "Miguel Vargas",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 695657,
+        "name": "Colson Montgomery",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 805367,
+        "name": "Chase Meidroth",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 643217,
+        "name": "Andrew Benintendi",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 672284,
+        "name": "Jarred Kelenic",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 671976,
+        "name": "Tristan Peters",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 691011,
+        "name": "Drew Romo",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 687263,
+        "name": "Zach Neto",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 545361,
+        "name": "Mike Trout",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 687093,
+        "name": "Vaughn Grissom",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 624585,
+        "name": "Jorge Soler",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 666176,
+        "name": "Jo Adell",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 672724,
+        "name": "Oswald Peraza",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 694384,
+        "name": "Nolan Schanuel",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 518595,
+        "name": "Travis d'Arnaud",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 669326,
+        "name": "Bryce Teodosio",
+        "position": "LF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

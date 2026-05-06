@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Oracle Park",
     "first_pitch_iso": "2026-05-06T19:45:00Z",
-    "temp_f": 65.7,
-    "humidity_pct": 71,
-    "dew_point_f": 56.0,
-    "wind_mph": 13.2,
-    "wind_dir_deg": 288,
+    "temp_f": 65.0,
+    "humidity_pct": 68,
+    "dew_point_f": 54.2,
+    "wind_mph": 14.3,
+    "wind_dir_deg": 287,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.328,
-      "angle_off_cf": 18
+      "delta_runs": 0.372,
+      "angle_off_cf": 17
     },
     "precip_prob_pct": 0
   },
@@ -328,8 +328,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 701538,
+          "name": "Jackson Merrill",
+          "ab": 105,
+          "ops": 0.652,
+          "avg": 0.219,
+          "obp": 0.281,
+          "slg": 0.371,
+          "woba": 0.361,
+          "k_pct": 0.224
+        },
+        {
+          "id": 592518,
+          "name": "Manny Machado",
+          "ab": 96,
+          "ops": 0.596,
+          "avg": 0.177,
+          "obp": 0.283,
+          "slg": 0.313,
+          "woba": 0.336,
+          "k_pct": 0.239
+        },
+        {
+          "id": 609280,
+          "name": "Miguel Andujar",
+          "ab": 62,
+          "ops": 0.923,
+          "avg": 0.355,
+          "obp": 0.375,
+          "slg": 0.548,
+          "woba": 0.505,
+          "k_pct": 0.172
+        }
+      ],
+      "avg_woba": 0.401,
+      "avg_ops": 0.724,
+      "avg_k_pct": 0.212
     }
   },
   "home": {
@@ -597,14 +636,163 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 671218,
+          "name": "Heliot Ramos",
+          "ab": 93,
+          "ops": 0.609,
+          "avg": 0.237,
+          "obp": 0.265,
+          "slg": 0.344,
+          "woba": 0.338,
+          "k_pct": 0.286
+        },
+        {
+          "id": 808982,
+          "name": "Jung Hoo Lee",
+          "ab": 90,
+          "ops": 0.738,
+          "avg": 0.278,
+          "obp": 0.327,
+          "slg": 0.411,
+          "woba": 0.411,
+          "k_pct": 0.112
+        },
+        {
+          "id": 669477,
+          "name": "Casey Schmitt",
+          "ab": 74,
+          "ops": 0.897,
+          "avg": 0.27,
+          "obp": 0.329,
+          "slg": 0.568,
+          "woba": 0.483,
+          "k_pct": 0.22
+        }
+      ],
+      "avg_woba": 0.41,
+      "avg_ops": 0.748,
+      "avg_k_pct": 0.206
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 701538,
+        "name": "Jackson Merrill",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 592518,
+        "name": "Manny Machado",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 609280,
+        "name": "Miguel Andujar",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 657757,
+        "name": "Gavin Sheets",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 665487,
+        "name": "Fernando Tatis Jr.",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 657656,
+        "name": "Ram\u00f3n Laureano",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 592206,
+        "name": "Nick Castellanos",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 666023,
+        "name": "Freddy Fermin",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 823550,
+        "name": "Sung-Mun Song",
+        "position": "SS",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 671218,
+        "name": "Heliot Ramos",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 808982,
+        "name": "Jung Hoo Lee",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 669477,
+        "name": "Casey Schmitt",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 656305,
+        "name": "Matt Chapman",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 646240,
+        "name": "Rafael Devers",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 642715,
+        "name": "Willy Adames",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 805811,
+        "name": "Bryce Eldridge",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 683679,
+        "name": "Jesus Rodriguez",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 672275,
+        "name": "Patrick Bailey",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
