@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Chase Field",
     "first_pitch_iso": "2026-05-07T19:40:00Z",
-    "temp_f": 96.0,
-    "humidity_pct": 4,
-    "dew_point_f": 9.2,
-    "wind_mph": 3.0,
-    "wind_dir_deg": 216,
+    "temp_f": 95.7,
+    "humidity_pct": 5,
+    "dew_point_f": 14.1,
+    "wind_mph": 5.7,
+    "wind_dir_deg": 261,
     "wind_effect": {
-      "effect": "calm",
+      "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": null
+      "angle_off_cf": 81
     },
     "precip_prob_pct": 0
   },
@@ -273,8 +273,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 665833,
+          "name": "Oneil Cruz",
+          "ab": 104,
+          "ops": 0.693,
+          "avg": 0.221,
+          "obp": 0.289,
+          "slg": 0.404,
+          "woba": 0.381,
+          "k_pct": 0.325
+        },
+        {
+          "id": 664040,
+          "name": "Brandon Lowe",
+          "ab": 84,
+          "ops": 1.065,
+          "avg": 0.298,
+          "obp": 0.422,
+          "slg": 0.643,
+          "woba": 0.581,
+          "k_pct": 0.167
+        },
+        {
+          "id": 668804,
+          "name": "Bryan Reynolds",
+          "ab": 89,
+          "ops": 0.811,
+          "avg": 0.258,
+          "obp": 0.407,
+          "slg": 0.404,
+          "woba": 0.463,
+          "k_pct": 0.274
+        }
+      ],
+      "avg_woba": 0.475,
+      "avg_ops": 0.856,
+      "avg_k_pct": 0.255
     }
   },
   "home": {
@@ -547,14 +586,163 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 672695,
+          "name": "Geraldo Perdomo",
+          "ab": 71,
+          "ops": 0.705,
+          "avg": 0.225,
+          "obp": 0.353,
+          "slg": 0.352,
+          "woba": 0.402,
+          "k_pct": 0.14
+        },
+        {
+          "id": 606466,
+          "name": "Ketel Marte",
+          "ab": 95,
+          "ops": 0.631,
+          "avg": 0.189,
+          "obp": 0.252,
+          "slg": 0.379,
+          "woba": 0.344,
+          "k_pct": 0.184
+        },
+        {
+          "id": 682998,
+          "name": "Corbin Carroll",
+          "ab": 71,
+          "ops": 0.651,
+          "avg": 0.155,
+          "obp": 0.299,
+          "slg": 0.352,
+          "woba": 0.365,
+          "k_pct": 0.322
+        }
+      ],
+      "avg_woba": 0.37,
+      "avg_ops": 0.662,
+      "avg_k_pct": 0.215
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 665833,
+        "name": "Oneil Cruz",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 664040,
+        "name": "Brandon Lowe",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 668804,
+        "name": "Bryan Reynolds",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 656811,
+        "name": "Ryan O'Hearn",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 687462,
+        "name": "Spencer Horwitz",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 804606,
+        "name": "Konnor Griffin",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 669707,
+        "name": "Jared Triolo",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 663968,
+        "name": "Jake Mangum",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 663698,
+        "name": "Joey Bart",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 672695,
+        "name": "Geraldo Perdomo",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 606466,
+        "name": "Ketel Marte",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 682998,
+        "name": "Corbin Carroll",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 680728,
+        "name": "Adrian Del Castillo",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 545121,
+        "name": "Ildemaro Vargas",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 699912,
+        "name": "Jose Fernandez",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 678489,
+        "name": "Jorge Barrosa",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 543510,
+        "name": "James McCann",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 677950,
+        "name": "Alek Thomas",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
