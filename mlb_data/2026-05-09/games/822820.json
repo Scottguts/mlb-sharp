@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Rogers Centre",
     "first_pitch_iso": "2026-05-09T19:07:00Z",
-    "temp_f": 54.0,
-    "humidity_pct": 81,
+    "temp_f": 55.1,
+    "humidity_pct": 78,
     "dew_point_f": 48.3,
-    "wind_mph": 13.4,
-    "wind_dir_deg": 213,
+    "wind_mph": 10.6,
+    "wind_dir_deg": 185,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.336,
-      "angle_off_cf": 33
+      "delta_runs": 0.224,
+      "angle_off_cf": 5
     },
     "precip_prob_pct": 52
   },
@@ -304,8 +304,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 687263,
+          "name": "Zach Neto",
+          "ab": 117,
+          "ops": 0.713,
+          "avg": 0.214,
+          "obp": 0.311,
+          "slg": 0.402,
+          "woba": 0.395,
+          "k_pct": 0.311
+        },
+        {
+          "id": 545361,
+          "name": "Mike Trout",
+          "ab": 103,
+          "ops": 0.955,
+          "avg": 0.252,
+          "obp": 0.421,
+          "slg": 0.534,
+          "woba": 0.531,
+          "k_pct": 0.241
+        },
+        {
+          "id": 694384,
+          "name": "Nolan Schanuel",
+          "ab": 104,
+          "ops": 0.769,
+          "avg": 0.288,
+          "obp": 0.336,
+          "slg": 0.433,
+          "woba": 0.427,
+          "k_pct": 0.142
+        }
+      ],
+      "avg_woba": 0.451,
+      "avg_ops": 0.812,
+      "avg_k_pct": 0.231
     }
   },
   "home": {
@@ -528,14 +567,152 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 543807,
+          "name": "George Springer",
+          "ab": 54,
+          "ops": 0.594,
+          "avg": 0.185,
+          "obp": 0.279,
+          "slg": 0.315,
+          "woba": 0.334,
+          "k_pct": 0.213
+        },
+        {
+          "id": 665489,
+          "name": "Vladimir Guerrero Jr.",
+          "ab": 108,
+          "ops": 0.753,
+          "avg": 0.315,
+          "obp": 0.383,
+          "slg": 0.37,
+          "woba": 0.431,
+          "k_pct": 0.133
+        }
+      ],
+      "avg_woba": 0.383,
+      "avg_ops": 0.673,
+      "avg_k_pct": 0.173
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 687263,
+        "name": "Zach Neto",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 545361,
+        "name": "Mike Trout",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 694384,
+        "name": "Nolan Schanuel",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 624585,
+        "name": "Jorge Soler",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 666176,
+        "name": "Jo Adell",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 660162,
+        "name": "Yo\u00e1n Moncada",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 687093,
+        "name": "Vaughn Grissom",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 665861,
+        "name": "Sebasti\u00e1n Rivero",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 666139,
+        "name": "Josh Lowe",
+        "position": "LF",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 543807,
+        "name": "George Springer",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 680718,
+        "name": "Addison Barger",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 665489,
+        "name": "Vladimir Guerrero Jr.",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 672960,
+        "name": "Kazuma Okamoto",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 660821,
+        "name": "Jes\u00fas S\u00e1nchez",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 662139,
+        "name": "Daulton Varsho",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 676391,
+        "name": "Ernie Clement",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 665926,
+        "name": "Andr\u00e9s Gim\u00e9nez",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 678218,
+        "name": "Brandon Valenzuela",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
