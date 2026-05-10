@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Oriole Park",
     "first_pitch_iso": "2026-05-10T17:35:00Z",
-    "temp_f": 79.9,
+    "temp_f": 79.3,
     "humidity_pct": 33,
-    "dew_point_f": 48.2,
-    "wind_mph": 5.8,
-    "wind_dir_deg": 144,
+    "dew_point_f": 47.7,
+    "wind_mph": 6.6,
+    "wind_dir_deg": 135,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 75
+      "angle_off_cf": 84
     },
-    "precip_prob_pct": 28
+    "precip_prob_pct": 30
   },
   "away": {
     "team_id": 133,
@@ -603,12 +603,51 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 683002,
+          "name": "Gunnar Henderson",
+          "ab": 125,
+          "ops": 0.667,
+          "avg": 0.208,
+          "obp": 0.259,
+          "slg": 0.408,
+          "woba": 0.362,
+          "k_pct": 0.304
+        },
+        {
+          "id": 621493,
+          "name": "Taylor Ward",
+          "ab": 109,
+          "ops": 0.787,
+          "avg": 0.266,
+          "obp": 0.42,
+          "slg": 0.367,
+          "woba": 0.455,
+          "k_pct": 0.188
+        },
+        {
+          "id": 668939,
+          "name": "Adley Rutschman",
+          "ab": 53,
+          "ops": 0.992,
+          "avg": 0.34,
+          "obp": 0.407,
+          "slg": 0.585,
+          "woba": 0.544,
+          "k_pct": 0.153
+        }
+      ],
+      "avg_woba": 0.454,
+      "avg_ops": 0.815,
+      "avg_k_pct": 0.215
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [
       {
         "id": 701762,
@@ -665,7 +704,62 @@
         "bat_side": null
       }
     ],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 683002,
+        "name": "Gunnar Henderson",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 621493,
+        "name": "Taylor Ward",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 668939,
+        "name": "Adley Rutschman",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 624413,
+        "name": "Pete Alonso",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 694212,
+        "name": "Samuel Basallo",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 665750,
+        "name": "Leody Taveras",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 687637,
+        "name": "Dylan Beavers",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 642215,
+        "name": "Weston Wilson",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 677942,
+        "name": "Blaze Alexander",
+        "position": "2B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
