@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Busch Stadium",
     "first_pitch_iso": "2026-05-16T18:15:00Z",
-    "temp_f": 78.0,
-    "humidity_pct": 60,
-    "dew_point_f": 63.0,
-    "wind_mph": 11.3,
-    "wind_dir_deg": 153,
+    "temp_f": 86.1,
+    "humidity_pct": 49,
+    "dew_point_f": 64.7,
+    "wind_mph": 7.1,
+    "wind_dir_deg": 169,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 87
+      "angle_off_cf": 71
     },
     "precip_prob_pct": 9
   },
@@ -559,12 +559,51 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 691026,
+          "name": "Masyn Winn",
+          "ab": 36,
+          "ops": 0.915,
+          "avg": 0.361,
+          "obp": 0.415,
+          "slg": 0.5,
+          "woba": 0.511,
+          "k_pct": 0.073
+        },
+        {
+          "id": 671056,
+          "name": "Iv\u00e1n Herrera",
+          "ab": 44,
+          "ops": 0.785,
+          "avg": 0.25,
+          "obp": 0.421,
+          "slg": 0.364,
+          "woba": 0.454,
+          "k_pct": 0.123
+        },
+        {
+          "id": 691023,
+          "name": "Jordan Walker",
+          "ab": 37,
+          "ops": 1.006,
+          "avg": 0.27,
+          "obp": 0.357,
+          "slg": 0.649,
+          "woba": 0.538,
+          "k_pct": 0.286
+        }
+      ],
+      "avg_woba": 0.501,
+      "avg_ops": 0.902,
+      "avg_k_pct": 0.161
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [
       {
         "id": 672580,
@@ -621,7 +660,62 @@
         "bat_side": null
       }
     ],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 691026,
+        "name": "Masyn Winn",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 671056,
+        "name": "Iv\u00e1n Herrera",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 691023,
+        "name": "Jordan Walker",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 676475,
+        "name": "Alec Burleson",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 665877,
+        "name": "Jos\u00e9 Ferm\u00edn",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 695336,
+        "name": "Thomas Saggese",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 701675,
+        "name": "Nathan Church",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 686780,
+        "name": "Pedro Pag\u00e9s",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 687363,
+        "name": "Victor Scott II",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

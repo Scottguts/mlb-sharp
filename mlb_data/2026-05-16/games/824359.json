@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Coors Field",
     "first_pitch_iso": "2026-05-16T19:10:00Z",
-    "temp_f": 77.4,
+    "temp_f": 77.7,
     "humidity_pct": 19,
-    "dew_point_f": 31.9,
-    "wind_mph": 12.1,
-    "wind_dir_deg": 208,
+    "dew_point_f": 32.2,
+    "wind_mph": 20.0,
+    "wind_dir_deg": 190,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.284,
-      "angle_off_cf": 18
+      "delta_runs": 0.4,
+      "angle_off_cf": 0
     },
     "precip_prob_pct": 8
   },
@@ -532,14 +532,108 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 650489,
+          "name": "Willi Castro",
+          "ab": 34,
+          "ops": 0.61,
+          "avg": 0.265,
+          "obp": 0.286,
+          "slg": 0.324,
+          "woba": 0.343,
+          "k_pct": 0.314
+        },
+        {
+          "id": 686668,
+          "name": "Brenton Doyle",
+          "ab": 34,
+          "ops": 0.517,
+          "avg": 0.176,
+          "obp": 0.282,
+          "slg": 0.235,
+          "woba": 0.3,
+          "k_pct": 0.282
+        },
+        {
+          "id": 681198,
+          "name": "TJ Rumfield",
+          "ab": 37,
+          "ops": 0.42,
+          "avg": 0.189,
+          "obp": 0.231,
+          "slg": 0.189,
+          "woba": 0.244,
+          "k_pct": 0.154
+        }
+      ],
+      "avg_woba": 0.296,
+      "avg_ops": 0.516,
+      "avg_k_pct": 0.25
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 650489,
+        "name": "Willi Castro",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 686668,
+        "name": "Brenton Doyle",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 681198,
+        "name": "TJ Rumfield",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 696100,
+        "name": "Hunter Goodman",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 666160,
+        "name": "Mickey Moniak",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 678662,
+        "name": "Ezequiel Tovar",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 694514,
+        "name": "Sterlin Thompson",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 691720,
+        "name": "Kyle Karros",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 664983,
+        "name": "Jake McCarthy",
+        "position": "LF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
