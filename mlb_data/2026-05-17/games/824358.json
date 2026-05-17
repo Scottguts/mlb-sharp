@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Coors Field",
     "first_pitch_iso": "2026-05-17T19:10:00Z",
-    "temp_f": 65.0,
-    "humidity_pct": 39,
-    "dew_point_f": 39.4,
-    "wind_mph": 14.9,
-    "wind_dir_deg": 41,
+    "temp_f": 67.1,
+    "humidity_pct": 36,
+    "dew_point_f": 39.3,
+    "wind_mph": 13.0,
+    "wind_dir_deg": 49,
     "wind_effect": {
-      "effect": "in",
-      "delta_runs": -0.396,
-      "angle_off_cf": 149
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 141
     },
-    "precip_prob_pct": 35
+    "precip_prob_pct": 28
   },
   "away": {
     "team_id": 109,
@@ -270,8 +270,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 545121,
+          "name": "Ildemaro Vargas",
+          "ab": 96,
+          "ops": 0.835,
+          "avg": 0.323,
+          "obp": 0.356,
+          "slg": 0.479,
+          "woba": 0.461,
+          "k_pct": 0.118
+        },
+        {
+          "id": 682998,
+          "name": "Corbin Carroll",
+          "ab": 89,
+          "ops": 0.743,
+          "avg": 0.18,
+          "obp": 0.339,
+          "slg": 0.404,
+          "woba": 0.416,
+          "k_pct": 0.259
+        },
+        {
+          "id": 672695,
+          "name": "Geraldo Perdomo",
+          "ab": 94,
+          "ops": 0.652,
+          "avg": 0.213,
+          "obp": 0.333,
+          "slg": 0.319,
+          "woba": 0.373,
+          "k_pct": 0.143
+        }
+      ],
+      "avg_woba": 0.417,
+      "avg_ops": 0.743,
+      "avg_k_pct": 0.173
     }
   },
   "home": {
@@ -545,14 +584,163 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 666397,
+          "name": "Edouard Julien",
+          "ab": 104,
+          "ops": 0.718,
+          "avg": 0.26,
+          "obp": 0.353,
+          "slg": 0.365,
+          "woba": 0.408,
+          "k_pct": 0.261
+        },
+        {
+          "id": 666160,
+          "name": "Mickey Moniak",
+          "ab": 109,
+          "ops": 1.126,
+          "avg": 0.339,
+          "obp": 0.392,
+          "slg": 0.734,
+          "woba": 0.601,
+          "k_pct": 0.208
+        },
+        {
+          "id": 696100,
+          "name": "Hunter Goodman",
+          "ab": 113,
+          "ops": 0.822,
+          "avg": 0.248,
+          "obp": 0.309,
+          "slg": 0.513,
+          "woba": 0.444,
+          "k_pct": 0.317
+        }
+      ],
+      "avg_woba": 0.484,
+      "avg_ops": 0.889,
+      "avg_k_pct": 0.262
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
-    "away_lineup": [],
-    "home_lineup": [],
+    "lineups_confirmed": true,
+    "away_lineup": [
+      {
+        "id": 545121,
+        "name": "Ildemaro Vargas",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 682998,
+        "name": "Corbin Carroll",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 672695,
+        "name": "Geraldo Perdomo",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 571448,
+        "name": "Nolan Arenado",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 666971,
+        "name": "Lourdes Gurriel Jr.",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 680728,
+        "name": "Adrian Del Castillo",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 672515,
+        "name": "Gabriel Moreno",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 699912,
+        "name": "Jose Fernandez",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 814439,
+        "name": "Ryan Waldschmidt",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
+    "home_lineup": [
+      {
+        "id": 666397,
+        "name": "Edouard Julien",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 666160,
+        "name": "Mickey Moniak",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 696100,
+        "name": "Hunter Goodman",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 681198,
+        "name": "TJ Rumfield",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 687859,
+        "name": "Troy Johnston",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 650489,
+        "name": "Willi Castro",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 664983,
+        "name": "Jake McCarthy",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 691720,
+        "name": "Kyle Karros",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 664954,
+        "name": "Brett Sullivan",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }
