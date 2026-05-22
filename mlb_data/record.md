@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-05-21 13:46_  
+_Generated 2026-05-22 13:02_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  114 |  54- 58-  1 |  48.2% |  79.50 |   -5.47 |  -6.88% | 35.08% |
-| moneyline      |   53 |  26- 26-  0 |  50.0% |  34.50 |   -1.11 |  -3.22% | 45.93% |
+| OVERALL        |  116 |  54- 58-  1 |  48.2% |  79.50 |   -5.47 |  -6.88% | 34.57% |
+| moneyline      |   55 |  26- 26-  0 |  50.0% |  34.50 |   -1.11 |  -3.22% | 44.45% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   39 |  18- 20-  1 |  47.4% |  29.00 |   -1.42 |  -4.91% | 19.81% |
 
@@ -19,8 +19,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  114 |  54- 58-  1 |  48.2% |  79.50 |   -5.47 |  -6.88% | 35.08% |
-| moneyline      |   53 |  26- 26-  0 |  50.0% |  34.50 |   -1.11 |  -3.22% | 45.93% |
+| OVERALL        |  116 |  54- 58-  1 |  48.2% |  79.50 |   -5.47 |  -6.88% | 34.57% |
+| moneyline      |   55 |  26- 26-  0 |  50.0% |  34.50 |   -1.11 |  -3.22% | 44.45% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   39 |  18- 20-  1 |  47.4% |  29.00 |   -1.42 |  -4.91% | 19.81% |
 
@@ -29,8 +29,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   10 |   6-  4-  0 |  60.0% |   6.50 |   +1.43 | +22.07% |  4.17% |
-| moneyline      |    9 |   5-  4-  0 |  55.6% |   6.00 |   +0.93 | +15.58% |  4.14% |
+| OVERALL        |   11 |   6-  3-  0 |  66.7% |   5.50 |   +2.43 | +44.27% |  4.22% |
+| moneyline      |   10 |   5-  3-  0 |  62.5% |   5.00 |   +1.93 | +38.69% |  4.20% |
 | total          |    1 |   1-  0-  0 | 100.0% |   0.50 |   +0.50 | +100.00% |  4.49% |
 
 ## By Confidence (All Time)
@@ -38,8 +38,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| 9-10           |    7 |   3-  4-  0 |  42.9% |  10.50 |   -1.32 | -12.60% | 17.66% |
-| 7-8            |   33 |  16- 16-  1 |  50.0% |  32.50 |   -3.50 | -10.77% | 10.88% |
+| 9-10           |    8 |   3-  4-  0 |  42.9% |  10.50 |   -1.32 | -12.60% | 16.10% |
+| 7-8            |   34 |  16- 16-  1 |  50.0% |  32.50 |   -3.50 | -10.77% | 10.71% |
 | 5-6            |   74 |  35- 38-  0 |  47.9% |  36.50 |   -0.65 |  -1.78% | 47.52% |
 
 ## By Book (All Time)
@@ -49,13 +49,15 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | betmgm         |   24 |  11- 13-  0 |  45.8% |  14.50 |   -1.65 | -11.40% | 99.34% |
 | draftkings     |   31 |  16- 13-  1 |  55.2% |  23.50 |   -0.12 |  -0.50% | 22.25% |
-| fanduel        |   59 |  27- 32-  0 |  45.8% |  41.50 |   -3.70 |  -8.92% | 15.68% |
+| fanduel        |   61 |  27- 32-  0 |  45.8% |  41.50 |   -3.70 |  -8.92% | 15.34% |
 
-## Pending (1)
+## Pending (3)
 
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
 | 2026-05-09 | Tampa Bay Rays @ Boston Red Sox | moneyline | away |  | draftkings | 129 | 0.5 |
+| 2026-05-22 | Tampa Bay Rays @ New York Yankees | moneyline | away |  | fanduel | 130 | 1.0 |
+| 2026-05-22 | Texas Rangers @ Los Angeles Angels | moneyline | away |  | fanduel | -162 | 1.0 |
 
 ## Last 10 Settled
 
