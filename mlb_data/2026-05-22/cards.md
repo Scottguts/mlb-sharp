@@ -1,22 +1,52 @@
 # MLB Sharp Betting Cards — 2026-05-22
 
-_Generated 2026-05-22 13:02 _  
+_Generated 2026-05-22 13:32 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  
 _Caps: max 5 plays / 6.0u total exposure_
 
-## TOP 2 PLAYS
+## TOP 3 PLAYS
 
-### Bet #1 — Texas Rangers ML
+### Bet #1 — Tampa Bay Rays ML
+
+| Field | Value |
+|---|---|
+| Game | Tampa Bay Rays @ New York Yankees (2026-05-22T23:05:00Z) |
+| Market | moneyline |
+| Best Book | FANDUEL +130 |
+| Fair Odds | +117 (46.1%) |
+| Edge | 6.12% |
+| Confidence | 8/10 |
+| Risk | Strong |
+| Unit Size | 1.5u |
+
+**Reasoning**
+
+- Bullpen edge (6.0 vs 3.5)
+- Offense edge (5.5 vs 4.0)
+- Market edge (5.0 vs 3.5)
+- home: pitcher profile unavailable — neutral 5
+- away: CSW% L5 starts 27.2%
+- home pen quality: K% 22.1, BB% 9.7, ERA 4.1
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #2 — Texas Rangers ML
 
 | Field | Value |
 |---|---|
 | Game | Texas Rangers @ Los Angeles Angels (2026-05-23T01:38:00Z) |
 | Market | moneyline |
 | Best Book | FANDUEL -162 |
-| Fair Odds | -186 (65.1%) |
-| Edge | 5.22% |
-| Confidence | 9/10 |
+| Fair Odds | -185 (64.9%) |
+| Edge | 4.98% |
+| Confidence | 8/10 |
 | Risk | Standard |
 | Unit Size | 1.0u |
 
@@ -37,27 +67,27 @@ _Caps: max 5 plays / 6.0u total exposure_
 
 ---
 
-### Bet #2 — Tampa Bay Rays ML
+### Bet #3 — Milwaukee Brewers ML
 
 | Field | Value |
 |---|---|
-| Game | Tampa Bay Rays @ New York Yankees (2026-05-22T23:05:00Z) |
+| Game | Los Angeles Dodgers @ Milwaukee Brewers (2026-05-22T23:40:00Z) |
 | Market | moneyline |
-| Best Book | FANDUEL +130 |
-| Fair Odds | +118 (45.8%) |
-| Edge | 5.29% |
-| Confidence | 8/10 |
-| Risk | Standard |
-| Unit Size | 1.0u |
+| Best Book | FANDUEL -104 |
+| Fair Odds | -113 (53.1%) |
+| Edge | 4.26% |
+| Confidence | 7/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
 
 **Reasoning**
 
-- Bullpen edge (6.0 vs 3.5)
-- Offense edge (5.5 vs 4.0)
+- Bullpen edge (9.5 vs 5.0)
 - Market edge (5.0 vs 3.5)
-- home: pitcher profile unavailable — neutral 5
-- away: CSW% L5 starts 27.2%
-- home pen quality: K% 22.1, BB% 9.7, ERA 4.1
+- home: CSW% L3 starts 24.8%
+- away: CSW% L4 starts 24.6%
+- home pen quality: K% 29.1, BB% 5.1, ERA 2.11
+- home: 0 arms gassed, 0 back-to-back, 298 pitches L7d
 
 **Pass triggers**
 
@@ -70,15 +100,17 @@ _Caps: max 5 plays / 6.0u total exposure_
 
 ## Other graded games (no play)
 
-- **Pittsburgh Pirates @ Toronto Blue Jays** · grade H47.5/A52.2 · xRuns 7.83 · F5 4.9 · NRFI 51.1%
-- **Chicago White Sox @ San Francisco Giants** · grade H52.0/A52.2 · xRuns 6.87 · F5 4.18 · NRFI 53.6%
-- **Cleveland Guardians @ Philadelphia Phillies** · grade H58.2/A54.2 · xRuns 6.03 · F5 4.45 · NRFI 52.8%
-- **New York Mets @ Miami Marlins** · grade H49.8/A53.2 · xRuns 8.06 · F5 4.96 · NRFI 52.0%
+- **Pittsburgh Pirates @ Toronto Blue Jays** · grade H45.2/A52.2 · xRuns 7.83 · F5 4.9 · NRFI 51.1%
+- **Chicago White Sox @ San Francisco Giants** · grade H54.2/A52.2 · xRuns 6.87 · F5 4.18 · NRFI 53.6%
+- **Athletics @ San Diego Padres** · grade H48.2/A47.5 · xRuns 7.33 · F5 4.3 · NRFI 53.9%
+- **Cleveland Guardians @ Philadelphia Phillies** · grade H56.0/A54.2 · xRuns 6.03 · F5 4.45 · NRFI 52.8%
+- **New York Mets @ Miami Marlins** · grade H52.0/A53.2 · xRuns 8.06 · F5 4.96 · NRFI 52.0%
 - **Seattle Mariners @ Kansas City Royals** · grade H47.0/A52.8 · xRuns 7.82 · F5 5.16 · NRFI 51.4%
 - **St. Louis Cardinals @ Cincinnati Reds** · grade H50.0/A47.8 · xRuns 9.45 · F5 5.18 · NRFI 51.0%
-- **Houston Astros @ Chicago Cubs** · grade H52.0/A53.2 · xRuns 6.48 · F5 4.44 · NRFI 53.2%
+- **Houston Astros @ Chicago Cubs** · grade H54.2/A55.5 · xRuns 6.48 · F5 4.44 · NRFI 53.2%
 - **Minnesota Twins @ Boston Red Sox** · grade H52.0/A49.5 · xRuns 7.07 · F5 5.36 · NRFI 50.5%
 - **Detroit Tigers @ Baltimore Orioles** · grade H42.3/A48.5 · xRuns 8.31 · F5 4.7 · NRFI 52.8%
-- **Colorado Rockies @ Arizona Diamondbacks** · grade H48.0/A47.0 · xRuns 9.18 · F5 5.51 · NRFI 50.4%
+- **Washington Nationals @ Atlanta Braves** · grade H47.8/A52.2 · xRuns 9.04 · F5 5.0 · NRFI 51.2%
+- **Colorado Rockies @ Arizona Diamondbacks** · grade H50.2/A47.0 · xRuns 9.18 · F5 5.51 · NRFI 50.4%
 
-_Total exposure today: **2.0u** across **2** bets._
+_Total exposure today: **3.0u** across **3** bets._
