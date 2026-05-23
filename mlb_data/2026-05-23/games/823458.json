@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Citizens Bank Park",
     "first_pitch_iso": "2026-05-23T20:05:00Z",
-    "temp_f": 51.5,
+    "temp_f": 51.3,
     "humidity_pct": 89,
-    "dew_point_f": 48.3,
-    "wind_mph": 9.8,
-    "wind_dir_deg": 60,
+    "dew_point_f": 48.2,
+    "wind_mph": 9.0,
+    "wind_dir_deg": 55,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 137
+      "angle_off_cf": 142
     },
-    "precip_prob_pct": 64
+    "precip_prob_pct": 61
   },
   "away": {
     "team_id": 114,
@@ -540,14 +540,108 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 607208,
+          "name": "Trea Turner",
+          "ab": 145,
+          "ops": 0.647,
+          "avg": 0.241,
+          "obp": 0.275,
+          "slg": 0.372,
+          "woba": 0.357,
+          "k_pct": 0.235
+        },
+        {
+          "id": 656941,
+          "name": "Kyle Schwarber",
+          "ab": 115,
+          "ops": 0.96,
+          "avg": 0.217,
+          "obp": 0.343,
+          "slg": 0.617,
+          "woba": 0.514,
+          "k_pct": 0.358
+        },
+        {
+          "id": 547180,
+          "name": "Bryce Harper",
+          "ab": 116,
+          "ops": 0.991,
+          "avg": 0.293,
+          "obp": 0.388,
+          "slg": 0.603,
+          "woba": 0.539,
+          "k_pct": 0.164
+        }
+      ],
+      "avg_woba": 0.47,
+      "avg_ops": 0.866,
+      "avg_k_pct": 0.252
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 607208,
+        "name": "Trea Turner",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 656941,
+        "name": "Kyle Schwarber",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 547180,
+        "name": "Bryce Harper",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 664761,
+        "name": "Alec Bohm",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 669016,
+        "name": "Brandon Marsh",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 681082,
+        "name": "Bryson Stott",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 592663,
+        "name": "J.T. Realmuto",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 666969,
+        "name": "Adolis Garc\u00eda",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 702222,
+        "name": "Justin Crawford",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

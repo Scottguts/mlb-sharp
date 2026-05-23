@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Kauffman Stadium",
     "first_pitch_iso": "2026-05-23T20:10:00Z",
-    "temp_f": 76.9,
-    "humidity_pct": 35,
-    "dew_point_f": 47.2,
+    "temp_f": 77.5,
+    "humidity_pct": 33,
+    "dew_point_f": 46.2,
     "wind_mph": 5.3,
-    "wind_dir_deg": 338,
+    "wind_dir_deg": 332,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 114
+      "angle_off_cf": 108
     },
-    "precip_prob_pct": 1
+    "precip_prob_pct": 2
   },
   "away": {
     "team_id": 136,
@@ -520,14 +520,108 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 672580,
+          "name": "Maikel Garcia",
+          "ab": 156,
+          "ops": 0.63,
+          "avg": 0.237,
+          "obp": 0.297,
+          "slg": 0.333,
+          "woba": 0.355,
+          "k_pct": 0.151
+        },
+        {
+          "id": 677951,
+          "name": "Bobby Witt Jr.",
+          "ab": 160,
+          "ops": 0.794,
+          "avg": 0.281,
+          "obp": 0.35,
+          "slg": 0.444,
+          "woba": 0.441,
+          "k_pct": 0.2
+        },
+        {
+          "id": 686469,
+          "name": "Vinnie Pasquantino",
+          "ab": 125,
+          "ops": 0.724,
+          "avg": 0.232,
+          "obp": 0.324,
+          "slg": 0.4,
+          "woba": 0.404,
+          "k_pct": 0.155
+        }
+      ],
+      "avg_woba": 0.4,
+      "avg_ops": 0.716,
+      "avg_k_pct": 0.169
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 672580,
+        "name": "Maikel Garcia",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 677951,
+        "name": "Bobby Witt Jr.",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 686469,
+        "name": "Vinnie Pasquantino",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 521692,
+        "name": "Salvador Perez",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 695600,
+        "name": "Carter Jensen",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 695506,
+        "name": "Jac Caglianone",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 686555,
+        "name": "Isaac Collins",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 686681,
+        "name": "Michael Massey",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 664728,
+        "name": "Kyle Isbel",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

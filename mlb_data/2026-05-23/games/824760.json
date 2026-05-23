@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Fenway Park",
     "first_pitch_iso": "2026-05-23T20:10:00Z",
-    "temp_f": 55.9,
-    "humidity_pct": 69,
-    "dew_point_f": 45.8,
-    "wind_mph": 6.3,
-    "wind_dir_deg": 84,
+    "temp_f": 56.0,
+    "humidity_pct": 63,
+    "dew_point_f": 43.6,
+    "wind_mph": 7.2,
+    "wind_dir_deg": 94,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 142
+      "angle_off_cf": 132
     },
     "precip_prob_pct": 6
   },
@@ -269,8 +269,36 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 621439,
+          "name": "Byron Buxton",
+          "ab": 55,
+          "ops": 0.615,
+          "avg": 0.236,
+          "obp": 0.288,
+          "slg": 0.327,
+          "woba": 0.346,
+          "k_pct": 0.271
+        },
+        {
+          "id": 668885,
+          "name": "Austin Martin",
+          "ab": 54,
+          "ops": 0.923,
+          "avg": 0.315,
+          "obp": 0.479,
+          "slg": 0.444,
+          "woba": 0.53,
+          "k_pct": 0.096
+        }
+      ],
+      "avg_woba": 0.438,
+      "avg_ops": 0.769,
+      "avg_k_pct": 0.184
     }
   },
   "home": {
@@ -612,7 +640,62 @@
   },
   "lineups": {
     "lineups_confirmed": true,
-    "away_lineup": [],
+    "away_lineup": [
+      {
+        "id": 621439,
+        "name": "Byron Buxton",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 663616,
+        "name": "Trevor Larnach",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 668885,
+        "name": "Austin Martin",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 605137,
+        "name": "Josh Bell",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 665019,
+        "name": "Kody Clemens",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 605170,
+        "name": "Victor Caratini",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 606115,
+        "name": "Orlando Arcia",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 686797,
+        "name": "Brooks Lee",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 668952,
+        "name": "Ryan Kreidler",
+        "position": "SS",
+        "bat_side": null
+      }
+    ],
     "home_lineup": [
       {
         "id": 680776,
