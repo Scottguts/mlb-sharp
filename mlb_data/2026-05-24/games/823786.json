@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "American Family Field",
     "first_pitch_iso": "2026-05-24T18:10:00Z",
-    "temp_f": 66.6,
-    "humidity_pct": 76,
-    "dew_point_f": 58.8,
-    "wind_mph": 8.4,
-    "wind_dir_deg": 112,
+    "temp_f": 67.4,
+    "humidity_pct": 69,
+    "dew_point_f": 56.9,
+    "wind_mph": 9.0,
+    "wind_dir_deg": 104,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 68
+      "angle_off_cf": 76
     },
     "precip_prob_pct": 0
   },
@@ -558,12 +558,51 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 694192,
+          "name": "Jackson Chourio",
+          "ab": 54,
+          "ops": 0.759,
+          "avg": 0.296,
+          "obp": 0.333,
+          "slg": 0.426,
+          "woba": 0.421,
+          "k_pct": 0.281
+        },
+        {
+          "id": 668930,
+          "name": "Brice Turang",
+          "ab": 118,
+          "ops": 1.049,
+          "avg": 0.331,
+          "obp": 0.456,
+          "slg": 0.593,
+          "woba": 0.581,
+          "k_pct": 0.209
+        },
+        {
+          "id": 661388,
+          "name": "William Contreras",
+          "ab": 135,
+          "ops": 0.819,
+          "avg": 0.326,
+          "obp": 0.389,
+          "slg": 0.43,
+          "woba": 0.462,
+          "k_pct": 0.081
+        }
+      ],
+      "avg_woba": 0.488,
+      "avg_ops": 0.876,
+      "avg_k_pct": 0.19
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [
       {
         "id": 660271,
@@ -620,7 +659,62 @@
         "bat_side": null
       }
     ],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 694192,
+        "name": "Jackson Chourio",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 668930,
+        "name": "Brice Turang",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 661388,
+        "name": "William Contreras",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 641343,
+        "name": "Jake Bauers",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 683734,
+        "name": "Andrew Vaughn",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 669003,
+        "name": "Garrett Mitchell",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 686217,
+        "name": "Sal Frelick",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 687401,
+        "name": "Joey Ortiz",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 666152,
+        "name": "David Hamilton",
+        "position": "3B",
+        "bat_side": null
+      }
+    ],
     "umpires": []
   }
 }

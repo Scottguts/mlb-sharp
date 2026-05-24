@@ -14,11 +14,11 @@
     "indoor": false,
     "park": "Great American Ball Park",
     "first_pitch_iso": "2026-05-24T17:40:00Z",
-    "temp_f": 72.0,
-    "humidity_pct": 91,
-    "dew_point_f": 69.3,
-    "wind_mph": 3.4,
-    "wind_dir_deg": 58,
+    "temp_f": 72.3,
+    "humidity_pct": 87,
+    "dew_point_f": 68.2,
+    "wind_mph": 1.1,
+    "wind_dir_deg": 11,
     "wind_effect": {
       "effect": "calm",
       "delta_runs": 0.0,
@@ -29,87 +29,12 @@
   "away": {
     "team_id": 138,
     "team_name": "St. Louis Cardinals",
-    "probable_pitcher_id": 669461,
-    "probable_pitcher_name": "Matthew Liberatore",
+    "probable_pitcher_id": 802408,
+    "probable_pitcher_name": "Brycen Mautz",
     "pitcher_profile": {
-      "id": 669461,
-      "available": true,
-      "window_days": 30,
-      "throws": "L",
-      "total_pitches": 407,
-      "season_avg_velo": 89.13,
-      "starts": [
-        {
-          "game_date": "2026-05-19",
-          "pitches": 77,
-          "avg_velo": 88.94025974025973,
-          "max_velo": 96.5,
-          "csw": 0.2987012987012987,
-          "hard_hit": 0.05194805194805195,
-          "barrel": 0.012987012987012988
-        },
-        {
-          "game_date": "2026-05-13",
-          "pitches": 89,
-          "avg_velo": 89.01348314606741,
-          "max_velo": 96.2,
-          "csw": 0.29213483146067415,
-          "hard_hit": 0.12359550561797752,
-          "barrel": 0.033707865168539325
-        },
-        {
-          "game_date": "2026-05-07",
-          "pitches": 81,
-          "avg_velo": 89.0679012345679,
-          "max_velo": 96.0,
-          "csw": 0.2222222222222222,
-          "hard_hit": 0.06172839506172839,
-          "barrel": 0.012345679012345678
-        },
-        {
-          "game_date": "2026-05-01",
-          "pitches": 96,
-          "avg_velo": 89.346875,
-          "max_velo": 96.5,
-          "csw": 0.2708333333333333,
-          "hard_hit": 0.09375,
-          "barrel": 0.010416666666666666
-        },
-        {
-          "game_date": "2026-04-25",
-          "pitches": 64,
-          "avg_velo": 89.3046875,
-          "max_velo": 95.6,
-          "csw": 0.25,
-          "hard_hit": 0.15625,
-          "barrel": 0.046875
-        }
-      ],
-      "pitch_mix": {
-        "CH": 0.152,
-        "CU": 0.172,
-        "FC": 0.047,
-        "FF": 0.292,
-        "FS": 0.002,
-        "SI": 0.093,
-        "SL": 0.241
-      },
-      "splits": {
-        "L": {
-          "pitches": 109,
-          "avg_velo": 89.31,
-          "csw": 0.229,
-          "xwoba": 0.43,
-          "hard_hit_rate": 0.128
-        },
-        "R": {
-          "pitches": 298,
-          "avg_velo": 89.07,
-          "csw": 0.282,
-          "xwoba": 0.387,
-          "hard_hit_rate": 0.084
-        }
-      }
+      "id": 802408,
+      "available": false,
+      "reason": "no_recent_pitches"
     },
     "bullpen_usage": {
       "team_id": 138,
@@ -594,34 +519,45 @@
     "top_of_order": {
       "available": true,
       "season": 2026,
-      "vs_hand": "L",
+      "vs_hand": null,
       "batters": [
+        {
+          "id": 694362,
+          "name": "Blake Dunn",
+          "ab": 37,
+          "ops": 0.941,
+          "avg": 0.351,
+          "obp": 0.4,
+          "slg": 0.541,
+          "woba": 0.519,
+          "k_pct": 0.225
+        },
         {
           "id": 682829,
           "name": "Elly De La Cruz",
-          "ab": 58,
-          "ops": 0.971,
-          "avg": 0.293,
-          "obp": 0.333,
-          "slg": 0.638,
-          "woba": 0.517,
-          "k_pct": 0.302
+          "ab": 208,
+          "ops": 0.884,
+          "avg": 0.288,
+          "obp": 0.355,
+          "slg": 0.529,
+          "woba": 0.483,
+          "k_pct": 0.281
         },
         {
           "id": 701398,
           "name": "Sal Stewart",
-          "ab": 37,
-          "ops": 1.109,
-          "avg": 0.27,
-          "obp": 0.46,
-          "slg": 0.649,
-          "woba": 0.609,
-          "k_pct": 0.18
+          "ab": 195,
+          "ops": 0.839,
+          "avg": 0.256,
+          "obp": 0.352,
+          "slg": 0.487,
+          "woba": 0.462,
+          "k_pct": 0.189
         }
       ],
-      "avg_woba": 0.563,
-      "avg_ops": 1.04,
-      "avg_k_pct": 0.241
+      "avg_woba": 0.488,
+      "avg_ops": 0.888,
+      "avg_k_pct": 0.232
     }
   },
   "lineups": {

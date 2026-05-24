@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Fenway Park",
     "first_pitch_iso": "2026-05-24T17:35:00Z",
-    "temp_f": 50.8,
+    "temp_f": 50.6,
     "humidity_pct": 93,
-    "dew_point_f": 48.9,
-    "wind_mph": 10.1,
-    "wind_dir_deg": 77,
+    "dew_point_f": 48.6,
+    "wind_mph": 8.8,
+    "wind_dir_deg": 74,
     "wind_effect": {
       "effect": "in",
-      "delta_runs": -0.204,
-      "angle_off_cf": 149
+      "delta_runs": -0.152,
+      "angle_off_cf": 152
     },
-    "precip_prob_pct": 79
+    "precip_prob_pct": 84
   },
   "away": {
     "team_id": 142,
@@ -300,8 +300,47 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 668885,
+          "name": "Austin Martin",
+          "ab": 78,
+          "ops": 0.708,
+          "avg": 0.282,
+          "obp": 0.349,
+          "slg": 0.359,
+          "woba": 0.402,
+          "k_pct": 0.186
+        },
+        {
+          "id": 686797,
+          "name": "Brooks Lee",
+          "ab": 111,
+          "ops": 0.733,
+          "avg": 0.27,
+          "obp": 0.319,
+          "slg": 0.414,
+          "woba": 0.406,
+          "k_pct": 0.168
+        },
+        {
+          "id": 663616,
+          "name": "Trevor Larnach",
+          "ab": 101,
+          "ops": 0.834,
+          "avg": 0.297,
+          "obp": 0.418,
+          "slg": 0.416,
+          "woba": 0.476,
+          "k_pct": 0.156
+        }
+      ],
+      "avg_woba": 0.428,
+      "avg_ops": 0.758,
+      "avg_k_pct": 0.17
     }
   },
   "home": {
@@ -593,7 +632,62 @@
   },
   "lineups": {
     "lineups_confirmed": true,
-    "away_lineup": [],
+    "away_lineup": [
+      {
+        "id": 668885,
+        "name": "Austin Martin",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 686797,
+        "name": "Brooks Lee",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 663616,
+        "name": "Trevor Larnach",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 605137,
+        "name": "Josh Bell",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 665019,
+        "name": "Kody Clemens",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 605170,
+        "name": "Victor Caratini",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 606115,
+        "name": "Orlando Arcia",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 681546,
+        "name": "James Outman",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 668952,
+        "name": "Ryan Kreidler",
+        "position": "SS",
+        "bat_side": null
+      }
+    ],
     "home_lineup": [
       {
         "id": 680776,
