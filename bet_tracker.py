@@ -274,6 +274,9 @@ def _settle_one(row: dict, result: dict) -> tuple[str, float, str]:
     if win:  return ("won", round(_payout_units(price, risk), 4), "")
     return ("lost", -round(risk, 4), "")
 
+STALE_PENDING_DAYS = 3   # void pending bets > N days past first pitch if still not Final
+
+
 def settle_pending(data_root: Path) -> int:
     log = _ensure_log(data_root)
     rows = _read_log(log)
@@ -285,6 +288,7 @@ def settle_pending(data_root: Path) -> int:
     settled = 0
     cache: dict[int, dict] = {}
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    now_dt = datetime.now(timezone.utc)
     for r in pending:
         pk = _i(r["gamePk"])
         if pk is None: continue
@@ -292,6 +296,26 @@ def settle_pending(data_root: Path) -> int:
             cache[pk] = _fetch_game_result(pk) or {}
         result = cache[pk]
         if not result.get("final"):
+            # Auto-void postponed/rescheduled games whose first pitch was
+            # more than STALE_PENDING_DAYS ago and that still aren't Final
+            # (MLB reuses the same gamePk for the make-up date, so the live
+            # feed reports "Preview" again — without this guard the bet
+            # would sit pending forever).
+            fp = r.get("first_pitch")
+            if fp:
+                try:
+                    ts = datetime.fromisoformat(fp.replace("Z", "+00:00"))
+                    days_stale = (now_dt - ts).days
+                    if days_stale >= STALE_PENDING_DAYS:
+                        r["status"] = "void"
+                        r["units_pl"] = "0.0000"
+                        r["settled_at"] = now
+                        r["notes"] = (r.get("notes") or "") + \
+                            f" auto-void: {days_stale}d past first pitch, game not Final (likely postponed)"
+                        settled += 1
+                        print(f"  [void] bet {r['bet_id']} {r['matchup']} — postponed/stale ({days_stale}d)")
+                except Exception:
+                    pass
             continue
         status, units_pl, notes = _settle_one(r, result)
         r["status"] = status
