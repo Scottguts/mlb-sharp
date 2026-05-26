@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-05-26 00:25_  
+_Generated 2026-05-26 13:50_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  126 |  58- 63-  1 |  47.9% |  87.50 |   -7.68 |  -8.78% | 32.28% |
-| moneyline      |   64 |  29- 31-  0 |  48.3% |  42.00 |   -3.79 |  -9.02% | 39.04% |
+| OVERALL        |  127 |  58- 63-  1 |  47.9% |  87.50 |   -7.68 |  -8.78% | 32.07% |
+| moneyline      |   65 |  29- 31-  0 |  48.3% |  42.00 |   -3.79 |  -9.02% | 38.54% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   40 |  19- 20-  1 |  48.7% |  29.50 |   -0.95 |  -3.23% | 19.40% |
 
@@ -19,8 +19,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   82 |  37- 41-  0 |  47.4% |  50.00 |   -4.91 |  -9.82% | 14.27% |
-| moneyline      |   60 |  27- 29-  0 |  48.2% |  39.00 |   -3.20 |  -8.21% | 12.16% |
+| OVERALL        |   83 |  37- 41-  0 |  47.4% |  50.00 |   -4.91 |  -9.82% | 14.18% |
+| moneyline      |   61 |  27- 29-  0 |  48.2% |  39.00 |   -3.20 |  -8.21% | 12.06% |
 | runline        |    5 |   3-  2-  0 |  60.0% |   2.50 |   +0.01 |  +0.51% | 24.88% |
 | total          |   17 |   7- 10-  0 |  41.2% |   8.50 |   -1.72 | -20.24% | 18.61% |
 
@@ -29,8 +29,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   16 |   8-  5-  0 |  61.5% |   9.50 |   -0.38 |  -3.97% |  5.19% |
-| moneyline      |   14 |   6-  5-  0 |  54.5% |   8.50 |   -1.35 | -15.87% |  5.36% |
+| OVERALL        |   17 |   8-  5-  0 |  61.5% |   9.50 |   -0.38 |  -3.97% |  5.26% |
+| moneyline      |   15 |   6-  5-  0 |  54.5% |   8.50 |   -1.35 | -15.87% |  5.43% |
 | total          |    2 |   2-  0-  0 | 100.0% |   1.00 |   +0.97 | +97.17% |  4.00% |
 
 ## By Confidence (All Time)
@@ -39,7 +39,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | 9-10           |   11 |   3-  7-  0 |  30.0% |  14.00 |   -4.82 | -34.45% | 13.97% |
-| 7-8            |   37 |  19- 17-  1 |  52.8% |  35.50 |   -2.18 |  -6.14% | 10.21% |
+| 7-8            |   38 |  19- 17-  1 |  52.8% |  35.50 |   -2.18 |  -6.14% | 10.11% |
 | 5-6            |   78 |  36- 39-  0 |  48.0% |  38.00 |   -0.68 |  -1.78% | 45.33% |
 
 ## By Book (All Time)
@@ -47,17 +47,18 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |   24 |  11- 13-  0 |  45.8% |  14.50 |   -1.65 | -11.40% | 99.34% |
+| betmgm         |   25 |  11- 13-  0 |  45.8% |  14.50 |   -1.65 | -11.40% | 95.63% |
 | draftkings     |   32 |  17- 13-  1 |  56.7% |  24.50 |   +0.35 |  +1.44% | 21.66% |
 | fanduel        |   70 |  30- 37-  0 |  44.8% |  48.50 |   -6.38 | -13.15% | 14.14% |
 
-## Pending (3)
+## Pending (4)
 
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
 | 2026-05-26 | Miami Marlins @ Toronto Blue Jays | moneyline | away |  | fanduel | 116 | 0.5 |
 | 2026-05-26 | Cincinnati Reds @ New York Mets | moneyline | home |  | fanduel | -102 | 0.5 |
 | 2026-05-26 | Washington Nationals @ Cleveland Guardians | moneyline | away |  | fanduel | 118 | 1.5 |
+| 2026-05-26 | Washington Nationals @ Cleveland Guardians | moneyline | away |  | betmgm | 118 | 1.5 |
 
 ## Last 10 Settled
 

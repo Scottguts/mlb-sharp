@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Oriole Park",
     "first_pitch_iso": "2026-05-26T22:35:00Z",
-    "temp_f": 69.2,
-    "humidity_pct": 89,
-    "dew_point_f": 65.9,
-    "wind_mph": 1.9,
-    "wind_dir_deg": 69,
+    "temp_f": 69.3,
+    "humidity_pct": 87,
+    "dew_point_f": 65.3,
+    "wind_mph": 2.1,
+    "wind_dir_deg": 148,
     "wind_effect": {
       "effect": "calm",
       "delta_runs": 0.0,
       "angle_off_cf": null
     },
-    "precip_prob_pct": 7
+    "precip_prob_pct": 6
   },
   "away": {
     "team_id": 139,
@@ -46,6 +46,9 @@
           "max_velo": 97.0,
           "csw": 0.4032258064516129,
           "hard_hit": 0.03225806451612903,
+          "strikeouts": 6,
+          "walks": 1,
+          "batters_faced": 18,
           "barrel": 0.0
         },
         {
@@ -55,6 +58,9 @@
           "max_velo": 97.5,
           "csw": 0.19696969696969696,
           "hard_hit": 0.030303030303030304,
+          "strikeouts": 1,
+          "walks": 4,
+          "batters_faced": 20,
           "barrel": 0.0
         },
         {
@@ -64,6 +70,9 @@
           "max_velo": 97.3,
           "csw": 0.2542372881355932,
           "hard_hit": 0.1016949152542373,
+          "strikeouts": 3,
+          "walks": 1,
+          "batters_faced": 17,
           "barrel": 0.0
         },
         {
@@ -73,6 +82,9 @@
           "max_velo": 96.6,
           "csw": 0.26666666666666666,
           "hard_hit": 0.06666666666666667,
+          "strikeouts": 2,
+          "walks": 1,
+          "batters_faced": 10,
           "barrel": 0.044444444444444446
         },
         {
@@ -82,6 +94,9 @@
           "max_velo": 97.6,
           "csw": 0.25806451612903225,
           "hard_hit": 0.06451612903225806,
+          "strikeouts": 2,
+          "walks": 1,
+          "batters_faced": 8,
           "barrel": 0.0
         }
       ],
@@ -108,7 +123,14 @@
           "xwoba": 0.332,
           "hard_hit_rate": 0.066
         }
-      }
+      },
+      "k_total_window": 14,
+      "bb_total_window": 8,
+      "k_starts_window": 5,
+      "k_per_start": 2.8,
+      "bb_per_start": 1.6,
+      "k_per_bf": 0.192,
+      "bb_per_bf": 0.11
     },
     "bullpen_usage": {
       "team_id": 139,
@@ -277,6 +299,9 @@
           "max_velo": 97.8,
           "csw": 0.24468085106382978,
           "hard_hit": 0.06382978723404255,
+          "strikeouts": 6,
+          "walks": 3,
+          "batters_faced": 22,
           "barrel": 0.02127659574468085
         },
         {
@@ -286,6 +311,9 @@
           "max_velo": 98.9,
           "csw": 0.18518518518518517,
           "hard_hit": 0.12037037037037036,
+          "strikeouts": 4,
+          "walks": 3,
+          "batters_faced": 30,
           "barrel": 0.027777777777777776
         },
         {
@@ -295,6 +323,9 @@
           "max_velo": 98.1,
           "csw": 0.21782178217821782,
           "hard_hit": 0.06930693069306931,
+          "strikeouts": 5,
+          "walks": 3,
+          "batters_faced": 22,
           "barrel": 0.009900990099009901
         },
         {
@@ -304,6 +335,9 @@
           "max_velo": 98.1,
           "csw": 0.2376237623762376,
           "hard_hit": 0.07920792079207921,
+          "strikeouts": 4,
+          "walks": 5,
+          "batters_faced": 26,
           "barrel": 0.039603960396039604
         },
         {
@@ -313,6 +347,9 @@
           "max_velo": 98.6,
           "csw": 0.23232323232323232,
           "hard_hit": 0.0707070707070707,
+          "strikeouts": 6,
+          "walks": 1,
+          "batters_faced": 24,
           "barrel": 0.010101010101010102
         }
       ],
@@ -338,7 +375,14 @@
           "xwoba": 0.313,
           "hard_hit_rate": 0.068
         }
-      }
+      },
+      "k_total_window": 25,
+      "bb_total_window": 15,
+      "k_starts_window": 5,
+      "k_per_start": 5.0,
+      "bb_per_start": 3.0,
+      "k_per_bf": 0.202,
+      "bb_per_bf": 0.121
     },
     "bullpen_usage": {
       "team_id": 110,

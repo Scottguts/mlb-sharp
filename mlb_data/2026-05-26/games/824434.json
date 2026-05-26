@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Progressive Field",
     "first_pitch_iso": "2026-05-26T22:10:00Z",
-    "temp_f": 64.4,
-    "humidity_pct": 60,
-    "dew_point_f": 50.2,
-    "wind_mph": 1.4,
-    "wind_dir_deg": 18,
+    "temp_f": 67.9,
+    "humidity_pct": 39,
+    "dew_point_f": 42.0,
+    "wind_mph": 4.8,
+    "wind_dir_deg": 131,
     "wind_effect": {
       "effect": "calm",
       "delta_runs": 0.0,
       "angle_off_cf": null
     },
-    "precip_prob_pct": 0
+    "precip_prob_pct": 1
   },
   "away": {
     "team_id": 120,
@@ -46,6 +46,9 @@
           "max_velo": 98.4,
           "csw": 0.32142857142857145,
           "hard_hit": 0.08333333333333333,
+          "strikeouts": 9,
+          "walks": 1,
+          "batters_faced": 27,
           "barrel": 0.023809523809523808
         },
         {
@@ -55,6 +58,9 @@
           "max_velo": 99.1,
           "csw": 0.30851063829787234,
           "hard_hit": 0.13829787234042554,
+          "strikeouts": 8,
+          "walks": 0,
+          "batters_faced": 26,
           "barrel": 0.02127659574468085
         },
         {
@@ -64,6 +70,9 @@
           "max_velo": 97.6,
           "csw": 0.25263157894736843,
           "hard_hit": 0.10526315789473684,
+          "strikeouts": 4,
+          "walks": 1,
+          "batters_faced": 25,
           "barrel": 0.021052631578947368
         },
         {
@@ -73,6 +82,9 @@
           "max_velo": 98.5,
           "csw": 0.2236842105263158,
           "hard_hit": 0.07894736842105263,
+          "strikeouts": 2,
+          "walks": 3,
+          "batters_faced": 22,
           "barrel": 0.02631578947368421
         },
         {
@@ -82,6 +94,9 @@
           "max_velo": 97.5,
           "csw": 0.36082474226804123,
           "hard_hit": 0.10309278350515463,
+          "strikeouts": 10,
+          "walks": 2,
+          "batters_faced": 27,
           "barrel": 0.020618556701030927
         }
       ],
@@ -108,7 +123,14 @@
           "xwoba": 0.316,
           "hard_hit_rate": 0.129
         }
-      }
+      },
+      "k_total_window": 33,
+      "bb_total_window": 7,
+      "k_starts_window": 5,
+      "k_per_start": 6.6,
+      "bb_per_start": 1.4,
+      "k_per_bf": 0.26,
+      "bb_per_bf": 0.055
     },
     "bullpen_usage": {
       "team_id": 120,
@@ -310,6 +332,9 @@
           "max_velo": 93.8,
           "csw": 0.29591836734693877,
           "hard_hit": 0.030612244897959183,
+          "strikeouts": 6,
+          "walks": 3,
+          "batters_faced": 23,
           "barrel": 0.0
         },
         {
@@ -319,6 +344,9 @@
           "max_velo": 95.7,
           "csw": 0.28735632183908044,
           "hard_hit": 0.05747126436781609,
+          "strikeouts": 4,
+          "walks": 4,
+          "batters_faced": 22,
           "barrel": 0.011494252873563218
         },
         {
@@ -328,6 +356,9 @@
           "max_velo": 94.7,
           "csw": 0.34408602150537637,
           "hard_hit": 0.12903225806451613,
+          "strikeouts": 4,
+          "walks": 1,
+          "batters_faced": 24,
           "barrel": 0.010752688172043012
         },
         {
@@ -337,6 +368,9 @@
           "max_velo": 92.9,
           "csw": 0.2714285714285714,
           "hard_hit": 0.04285714285714286,
+          "strikeouts": 1,
+          "walks": 3,
+          "batters_faced": 20,
           "barrel": 0.0
         },
         {
@@ -346,14 +380,18 @@
           "max_velo": 93.7,
           "csw": 0.21739130434782608,
           "hard_hit": 0.08695652173913043,
+          "strikeouts": 2,
+          "walks": 3,
+          "batters_faced": 20,
           "barrel": 0.014492753623188406
         }
       ],
       "pitch_mix": {
         "CH": 0.353,
         "CU": 0.194,
-        "FF": 0.398,
-        "SL": 0.055
+        "FC": 0.007,
+        "FF": 0.393,
+        "SL": 0.053
       },
       "splits": {
         "L": {
@@ -370,7 +408,14 @@
           "xwoba": 0.303,
           "hard_hit_rate": 0.07
         }
-      }
+      },
+      "k_total_window": 17,
+      "bb_total_window": 14,
+      "k_starts_window": 5,
+      "k_per_start": 3.4,
+      "bb_per_start": 2.8,
+      "k_per_bf": 0.156,
+      "bb_per_bf": 0.128
     },
     "bullpen_usage": {
       "team_id": 114,

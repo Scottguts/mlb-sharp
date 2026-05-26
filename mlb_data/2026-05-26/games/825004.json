@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Sutter Health Park",
     "first_pitch_iso": "2026-05-27T01:40:00Z",
-    "temp_f": 60.4,
-    "humidity_pct": 61,
-    "dew_point_f": 46.9,
-    "wind_mph": 4.7,
-    "wind_dir_deg": 235,
+    "temp_f": 56.8,
+    "humidity_pct": 84,
+    "dew_point_f": 52.0,
+    "wind_mph": 2.6,
+    "wind_dir_deg": 70,
     "wind_effect": {
       "effect": "calm",
       "delta_runs": 0.0,
       "angle_off_cf": null
     },
-    "precip_prob_pct": 2
+    "precip_prob_pct": 10
   },
   "away": {
     "team_id": 136,
@@ -46,6 +46,9 @@
           "max_velo": 97.5,
           "csw": 0.20930232558139536,
           "hard_hit": 0.08139534883720931,
+          "strikeouts": 4,
+          "walks": 3,
+          "batters_faced": 22,
           "barrel": 0.0
         },
         {
@@ -55,6 +58,9 @@
           "max_velo": 97.1,
           "csw": 0.24175824175824176,
           "hard_hit": 0.14285714285714285,
+          "strikeouts": 6,
+          "walks": 1,
+          "batters_faced": 22,
           "barrel": 0.01098901098901099
         },
         {
@@ -64,6 +70,9 @@
           "max_velo": 96.5,
           "csw": 0.18085106382978725,
           "hard_hit": 0.09574468085106383,
+          "strikeouts": 4,
+          "walks": 3,
+          "batters_faced": 26,
           "barrel": 0.031914893617021274
         },
         {
@@ -73,6 +82,9 @@
           "max_velo": 97.4,
           "csw": 0.3106796116504854,
           "hard_hit": 0.07766990291262135,
+          "strikeouts": 14,
+          "walks": 0,
+          "batters_faced": 27,
           "barrel": 0.0
         },
         {
@@ -82,6 +94,9 @@
           "max_velo": 97.6,
           "csw": 0.18085106382978725,
           "hard_hit": 0.10638297872340426,
+          "strikeouts": 4,
+          "walks": 2,
+          "batters_faced": 27,
           "barrel": 0.02127659574468085
         }
       ],
@@ -108,7 +123,14 @@
           "xwoba": 0.31,
           "hard_hit_rate": 0.084
         }
-      }
+      },
+      "k_total_window": 32,
+      "bb_total_window": 9,
+      "k_starts_window": 5,
+      "k_per_start": 6.4,
+      "bb_per_start": 1.8,
+      "k_per_bf": 0.258,
+      "bb_per_bf": 0.073
     },
     "bullpen_usage": {
       "team_id": 136,
@@ -222,19 +244,13 @@
     "recent_form": {
       "team_id": 136,
       "window_days": 14,
-      "games_played": 12,
-      "wins": 5,
+      "games_played": 13,
+      "wins": 6,
       "losses": 7,
-      "rpg_for": 4.0,
-      "rpg_against": 3.83,
-      "win_pct": 0.417,
+      "rpg_for": 4.38,
+      "rpg_against": 3.69,
+      "win_pct": 0.462,
       "results": [
-        {
-          "date": "2026-05-17",
-          "for": 3,
-          "against": 8,
-          "won": false
-        },
         {
           "date": "2026-05-19",
           "for": 6,
@@ -270,6 +286,12 @@
           "for": 6,
           "against": 8,
           "won": false
+        },
+        {
+          "date": "2026-05-26",
+          "for": 9,
+          "against": 2,
+          "won": true
         }
       ]
     },
@@ -298,6 +320,9 @@
           "max_velo": 98.2,
           "csw": 0.30927835051546393,
           "hard_hit": 0.05154639175257732,
+          "strikeouts": 10,
+          "walks": 0,
+          "batters_faced": 23,
           "barrel": 0.010309278350515464
         },
         {
@@ -307,6 +332,9 @@
           "max_velo": 98.5,
           "csw": 0.23958333333333334,
           "hard_hit": 0.0625,
+          "strikeouts": 7,
+          "walks": 2,
+          "batters_faced": 30,
           "barrel": 0.010416666666666666
         },
         {
@@ -316,6 +344,9 @@
           "max_velo": 98.9,
           "csw": 0.2549019607843137,
           "hard_hit": 0.0784313725490196,
+          "strikeouts": 4,
+          "walks": 4,
+          "batters_faced": 25,
           "barrel": 0.0196078431372549
         },
         {
@@ -325,6 +356,9 @@
           "max_velo": 99.0,
           "csw": 0.20588235294117646,
           "hard_hit": 0.09803921568627451,
+          "strikeouts": 3,
+          "walks": 2,
+          "batters_faced": 24,
           "barrel": 0.0196078431372549
         },
         {
@@ -334,6 +368,9 @@
           "max_velo": 97.8,
           "csw": 0.2815533980582524,
           "hard_hit": 0.04854368932038835,
+          "strikeouts": 8,
+          "walks": 2,
+          "batters_faced": 25,
           "barrel": 0.0
         }
       ],
@@ -360,7 +397,14 @@
           "xwoba": 0.269,
           "hard_hit_rate": 0.063
         }
-      }
+      },
+      "k_total_window": 32,
+      "bb_total_window": 10,
+      "k_starts_window": 5,
+      "k_per_start": 6.4,
+      "bb_per_start": 2.0,
+      "k_per_bf": 0.252,
+      "bb_per_bf": 0.079
     },
     "bullpen_usage": {
       "team_id": 133,
@@ -503,19 +547,13 @@
     "recent_form": {
       "team_id": 133,
       "window_days": 14,
-      "games_played": 13,
+      "games_played": 14,
       "wins": 6,
-      "losses": 7,
-      "rpg_for": 4.31,
-      "rpg_against": 4.38,
-      "win_pct": 0.462,
+      "losses": 8,
+      "rpg_for": 4.14,
+      "rpg_against": 4.71,
+      "win_pct": 0.429,
       "results": [
-        {
-          "date": "2026-05-19",
-          "for": 1,
-          "against": 2,
-          "won": false
-        },
         {
           "date": "2026-05-20",
           "for": 14,
@@ -551,6 +589,12 @@
           "for": 5,
           "against": 2,
           "won": true
+        },
+        {
+          "date": "2026-05-26",
+          "for": 2,
+          "against": 9,
+          "won": false
         }
       ]
     },
