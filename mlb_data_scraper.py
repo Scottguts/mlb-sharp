@@ -692,8 +692,62 @@ FULL_MARKETS    = ("h2h", "spreads", "totals")            # full game ML / RL / 
 F5_MARKETS      = ("totals_1st_5_innings",)               # F5 totals only
 INNING_MARKETS  = ("totals_1st_1_innings",)               # 1st-inning totals → NRFI/YRFI proxy
 
+# Player prop markets — Phase 2 (paper trading)
+# Each event requires its own API call (1 unit each). With ~15 games/day this
+# costs ~450/month against the 500/month free tier — pair with daily odds
+# (~30/month) and we sit just under budget.
+PROP_MARKETS    = ("pitcher_strikeouts", "pitcher_walks", "batter_walks")
+
 ALL_MARKETS     = FULL_MARKETS + F5_MARKETS + INNING_MARKETS
 ALL_BOOKS       = TARGET_BOOKS + SHARP_ANCHORS
+
+
+def fetch_event_player_props(event_id: str, api_key: str | None = None,
+                              markets: tuple[str, ...] = PROP_MARKETS,
+                              books: tuple[str, ...] = ALL_BOOKS) -> dict:
+    """Fetch player-prop odds for ONE event (game) from The Odds API.
+
+    Each call costs one API unit regardless of how many markets are listed.
+    Returns the raw event payload with bookmakers/markets/outcomes.
+    """
+    api_key = api_key or os.environ.get("ODDS_API_KEY")
+    if not api_key:
+        return {"available": False, "reason": "no_key"}
+    url = f"{ODDS_API}/sports/baseball_mlb/events/{event_id}/odds"
+    try:
+        data = _get(url, params={
+            "apiKey":     api_key,
+            "regions":    "us,us2,eu",
+            "markets":    ",".join(markets),
+            "oddsFormat": "american",
+            "bookmakers": ",".join(books),
+        })
+        return {"available": True, "event": data, "markets_requested": list(markets)}
+    except Exception as e:
+        return {"available": False, "error": str(e)}
+
+
+def fetch_all_player_props(events_with_ids: list[tuple[str, dict]],
+                           api_key: str | None = None) -> dict:
+    """Pull props for a list of (event_id, game_meta) tuples.
+
+    Returns a flat dict keyed by event_id with the event payload + a tally of
+    how many calls succeeded so the caller can monitor quota usage.
+    """
+    api_key = api_key or os.environ.get("ODDS_API_KEY")
+    if not api_key:
+        return {"available": False, "reason": "no_key", "events": {}}
+    out: dict[str, Any] = {"available": True, "events": {}, "calls": 0,
+                            "successes": 0, "errors": []}
+    for event_id, meta in events_with_ids:
+        out["calls"] += 1
+        result = fetch_event_player_props(event_id, api_key=api_key)
+        if result.get("available"):
+            out["successes"] += 1
+            out["events"][event_id] = result["event"]
+        else:
+            out["errors"].append({"event_id": event_id, "error": result.get("error", "?")})
+    return out
 
 
 def fetch_odds(api_key: str | None = None,
@@ -839,6 +893,25 @@ def run(target: date, out_root: Path, single_game_pk: int | None = None,
         odds = fetch_odds()
         _save_json(out_dir / "odds.json", odds)
         print(f"[+] Odds: {'OK' if odds.get('available') else 'skipped (' + odds.get('reason','') + ')'}")
+
+        # Player props — Phase 2 paper trading. One API call per event.
+        # Stays well within quota (~450 calls/month + 30 for daily odds).
+        if odds.get("available"):
+            events_with_ids = []
+            seen_team_pairs = set()
+            for og in odds.get("games", []):
+                eid = og.get("id")
+                home = og.get("home_team")
+                away = og.get("away_team")
+                key = (home, away)
+                if not eid or key in seen_team_pairs:
+                    continue
+                seen_team_pairs.add(key)
+                events_with_ids.append((eid, {"home": home, "away": away}))
+            print(f"[+] Fetching player props for {len(events_with_ids)} event(s)...")
+            props = fetch_all_player_props(events_with_ids)
+            _save_json(out_dir / "prop_odds.json", props)
+            print(f"    {props.get('successes', 0)}/{props.get('calls', 0)} successful")
 
     print(f"[done] Wrote data to {out_dir}")
 
