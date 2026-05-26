@@ -512,9 +512,12 @@ def build_report(data_root: Path) -> Path:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("command", choices=["append", "settle", "report", "daily"])
+    ap.add_argument("command", choices=["append", "settle", "report", "daily",
+                                         "settle-paper-props", "paper-report"])
     ap.add_argument("--date", help="YYYY-MM-DD (default: today)")
     ap.add_argument("--data-root", default=str(DATA_ROOT_DEFAULT))
+    ap.add_argument("--window-days", type=int, default=7,
+                    help="window for paper-props P/L report")
     args = ap.parse_args(argv)
     data_root = Path(args.data_root).expanduser().resolve()
     target = (date.fromisoformat(args.date) if args.date else date.today()).isoformat()
@@ -531,6 +534,16 @@ def main(argv=None) -> int:
         settle_pending(data_root)
         append_pending(target, data_root)
         build_report(data_root)
+    elif args.command == "settle-paper-props":
+        from paper_props import settle_paper_props
+        n = settle_paper_props(data_root)
+        print(f"[paper-settle] settled {n} paper prop(s)")
+    elif args.command == "paper-report":
+        from paper_props import paper_pnl_summary, render_pnl_markdown
+        summary = paper_pnl_summary(data_root, window_days=args.window_days)
+        out = data_root / "prop_paper_record.md"
+        out.write_text(render_pnl_markdown(summary))
+        print(f"[paper-report] wrote {out}")
     return 0
 
 

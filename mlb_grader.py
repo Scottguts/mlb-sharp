@@ -1247,6 +1247,20 @@ def run(target, data_root):
     except Exception as e:
         print(f"       [warn] prop_tracking render failed: {e}")
 
+    # Phase 2: paper-trading prop cards. Generates "would-have-bet" rows from
+    # model projection × market line, appends to prop_paper_log.csv. NOT a
+    # real bet — separate log, separate Discord section.
+    try:
+        from paper_props import generate_paper_cards, append_paper_log
+        prop_odds_path = day_dir / "prop_odds.json"
+        if prop_odds_path.exists():
+            prop_odds = json.loads(prop_odds_path.read_text())
+            paper_cards = generate_paper_cards(grades_out, prop_odds)
+            added = append_paper_log(data_root, target.isoformat(), paper_cards)
+            print(f"       paper  → {added} paper prop card(s) (of {len(paper_cards)} candidates)")
+    except Exception as e:
+        print(f"       [warn] paper-props generation failed: {e}")
+
     print(f"[done] {len(grades_out)} games graded, {bet_count} cards ({total_units:.1f}u total)")
     print(f"       grades → {grades_path}")
     print(f"       cards  → {cards_path}")

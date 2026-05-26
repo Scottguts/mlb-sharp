@@ -219,6 +219,11 @@ def _post_discord_embeds(url: str, grades: list[dict], summary: str,
     # 5) Prop tracking (Phase 1: paper-only — verify data quality before
     #    we turn on betting). Posts top projections + data-quality stats.
     _post_prop_tracking(url, grades)
+
+    # 6) Paper-trading P/L summary (Phase 2): comparison of niche-prop ROI
+    #    vs ML/total ROI over a trailing window. Posted as a clearly-labeled
+    #    PAPER embed so it's never confused with the real recommendations.
+    _post_paper_props_pnl(url)
     return True
 
 
@@ -356,6 +361,62 @@ def _build_bet_embed(game: dict, card: dict, idx: int) -> dict:
         "fields": fields,
         "footer": {"text": f"Risk: {risk} • {card['unit_size']}u • Edge {card['edge']*100:.2f}%"},
     }
+
+
+def _post_paper_props_pnl(url: str) -> None:
+    """Post a Paper-Trading P/L summary embed comparing prop ROI vs ML/total ROI."""
+    try:
+        from paper_props import paper_pnl_summary
+        from pathlib import Path
+        # Default data-root same as the workflow
+        data_root = Path("./mlb_data").resolve()
+        summary = paper_pnl_summary(data_root, window_days=7)
+    except Exception as e:
+        print(f"[paper-pnl] could not build summary: {e}")
+        return
+
+    paper = summary["paper"]
+    real  = summary["real"]
+    if not paper and real["all"].bets == 0:
+        return
+
+    desc_lines = [
+        f"_Background backtest — flat 0.5u per paper bet. **Not real money.**_",
+        f"_Window: last {summary['window_days']} days_",
+    ]
+
+    fields = []
+    if paper:
+        lines = []
+        for m, b in sorted(paper.items()):
+            roi_str = f"{b.roi*100:+.1f}%" if b.units_risked else "—"
+            lines.append(f"**{m}** — {b.bets} bets · "
+                         f"{b.won}-{b.lost}-{b.push}-{b.void}-{b.pending} · "
+                         f"{b.units_pl:+.2f}u · ROI {roi_str}")
+        fields.append({"name": "📑 Paper props by market",
+                       "value": "\n".join(lines)[:1000], "inline": False})
+    real_lines = []
+    for m in ("all", "moneyline", "total", "f5_total", "nrfi"):
+        b = real[m]
+        if b.bets == 0: continue
+        roi_str = f"{b.roi*100:+.1f}%" if b.units_risked else "—"
+        real_lines.append(f"**{m}** — {b.bets} · {b.won}-{b.lost}-{b.push} · "
+                          f"{b.units_pl:+.2f}u · ROI {roi_str}")
+    if real_lines:
+        fields.append({"name": "🎯 Real bets (same window)",
+                       "value": "\n".join(real_lines)[:1000], "inline": False})
+
+    embed = {
+        "title": "📊 Paper Props vs Real Bets — 7d backtest",
+        "description": "\n".join(desc_lines),
+        "color": COLORS["neutral"],
+        "fields": fields,
+        "footer": {"text": "Phase 2 paper trading · evaluating niche-prop ROI vs ML/total ROI"},
+    }
+    try:
+        requests.post(url, json={"embeds": [embed]}, timeout=20).raise_for_status()
+    except Exception as e:
+        print(f"[paper-pnl] embed post failed: {e}")
 
 
 def _fmt_price(american: int) -> str:
