@@ -219,17 +219,29 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
     if df is None or df.empty:
         return {"id": mlbam_id, "available": False, "reason": "no_recent_pitches"}
 
-    # Per-start rollup
+    # Per-start rollup — includes K count + estimated batters faced so we can
+    # project per-start strikeout totals for prop bets.
+    has_events = "events" in df.columns
+    agg_kwargs = dict(
+        pitches=("pitch_type", "count"),
+        avg_velo=("release_speed", "mean"),
+        max_velo=("release_speed", "max"),
+        csw=("description", lambda s: ((s == "called_strike") | (s == "swinging_strike")).mean()),
+        hard_hit=("launch_speed", lambda s: (s >= 95).mean(skipna=True)),
+    )
+    if has_events:
+        # Strikeout-ending pitches mark the K. "strikeout" and "strikeout_double_play"
+        # both count as 1 K on the pitcher's stat line.
+        agg_kwargs["strikeouts"] = ("events", lambda s: s.isin(["strikeout", "strikeout_double_play"]).sum())
+        # Walk-ending events for pitcher-walks prop projection
+        agg_kwargs["walks"] = ("events", lambda s: s.isin(["walk", "intent_walk"]).sum())
+        # Plate appearances ended = batters faced (any non-null event row)
+        agg_kwargs["batters_faced"] = ("events", lambda s: s.notna().sum())
+    if "launch_speed_angle" in df.columns:
+        agg_kwargs["barrel"] = ("launch_speed_angle", lambda s: (s == 6).mean(skipna=True))
     starts = (
         df.groupby("game_date")
-          .agg(
-              pitches=("pitch_type", "count"),
-              avg_velo=("release_speed", "mean"),
-              max_velo=("release_speed", "max"),
-              csw=("description", lambda s: ((s == "called_strike") | (s == "swinging_strike")).mean()),
-              hard_hit=("launch_speed", lambda s: (s >= 95).mean(skipna=True)),
-              barrel=("launch_speed_angle", lambda s: (s == 6).mean(skipna=True)) if "launch_speed_angle" in df.columns else None,
-          )
+          .agg(**agg_kwargs)
           .reset_index()
           .sort_values("game_date", ascending=False)
     )
@@ -260,6 +272,16 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
         if vals:
             throws = vals[0]
 
+    # K/BB aggregates over the window (for prop projections).
+    k_total = int(starts["strikeouts"].sum()) if "strikeouts" in starts.columns else None
+    bb_total = int(starts["walks"].sum()) if "walks" in starts.columns else None
+    bf_total = int(starts["batters_faced"].sum()) if "batters_faced" in starts.columns else None
+    n_starts = int(len(starts))
+    k_per_start = round(k_total / n_starts, 2) if (k_total is not None and n_starts) else None
+    bb_per_start = round(bb_total / n_starts, 2) if (bb_total is not None and n_starts) else None
+    k_per_bf = round(k_total / bf_total, 3) if (k_total and bf_total) else None
+    bb_per_bf = round(bb_total / bf_total, 3) if (bb_total and bf_total) else None
+
     return {
         "id": mlbam_id,
         "available": True,
@@ -270,6 +292,14 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
         "starts": starts.to_dict(orient="records"),
         "pitch_mix": mix,
         "splits": splits,
+        # K + BB rate stats for prop tracking
+        "k_total_window":   k_total,
+        "bb_total_window":  bb_total,
+        "k_starts_window":  n_starts,
+        "k_per_start":      k_per_start,
+        "bb_per_start":     bb_per_start,
+        "k_per_bf":         k_per_bf,
+        "bb_per_bf":        bb_per_bf,
     }
 
 
@@ -286,21 +316,26 @@ def fetch_team_offense(team_abbr_or_id: int, season: int) -> dict:
 
 
 def fetch_top_of_order_quality(lineup: list[dict], season: int,
-                                vs_hand: str | None = None) -> dict:
-    """Pull season wOBA/OPS/K% for the top 3 batters in a lineup.
+                                vs_hand: str | None = None,
+                                top_n: int = 5) -> dict:
+    """Pull season wOBA/OPS/K%/BB% for the top N batters in a lineup.
 
     `vs_hand` should be 'L' or 'R' to pull split stats vs LHP/RHP. If splits
     aren't available the season aggregate is returned. Used by NRFI/F5/total
-    models since the top of the order is what scores in early innings.
+    models AND by the batter-walks prop tracker.
+
+    BB% is added so the prop layer can project per-batter walk count.
     """
     if not lineup:
         return {"available": False, "reason": "no_lineup"}
-    top3 = lineup[:3]
+    top3 = lineup[:top_n]
     out = {"available": True, "season": season, "vs_hand": vs_hand,
-           "batters": [], "avg_woba": None, "avg_ops": None, "avg_k_pct": None}
+           "batters": [], "avg_woba": None, "avg_ops": None,
+           "avg_k_pct": None, "avg_bb_pct": None}
     wobas: list[float] = []
     opss:  list[float] = []
     kpcts: list[float] = []
+    bbpcts: list[float] = []
     for b in top3:
         pid = b.get("id")
         if pid is None: continue
@@ -334,6 +369,7 @@ def fetch_top_of_order_quality(lineup: list[dict], season: int,
             ab = float(stat.get("atBats", 0) or 0)
             pa = float(stat.get("plateAppearances", 0) or 0)
             so = float(stat.get("strikeOuts", 0) or 0)
+            bb = float(stat.get("baseOnBalls", 0) or 0)
             ops = float(stat.get("ops", 0) or 0)
             avg = float(stat.get("avg", 0) or 0)
             obp = float(stat.get("obp", 0) or 0)
@@ -346,17 +382,22 @@ def fetch_top_of_order_quality(lineup: list[dict], season: int,
         # wOBA ≈ 0.69·OBP + 0.45·SLG (simplified — real weights have hbp etc.)
         woba = 0.69 * obp + 0.45 * slg
         k_pct = so / pa if pa else 0
+        bb_pct = bb / pa if pa else 0
         out["batters"].append({
             "id": pid, "name": b.get("name"),
-            "ab": int(ab), "ops": ops, "avg": avg,
-            "obp": obp, "slg": slg, "woba": round(woba, 3),
+            "ab": int(ab), "pa": int(pa),
+            "ops": ops, "avg": avg, "obp": obp, "slg": slg,
+            "woba": round(woba, 3),
             "k_pct": round(k_pct, 3),
+            "bb_pct": round(bb_pct, 3),
+            "walks": int(bb),
         })
-        wobas.append(woba); opss.append(ops); kpcts.append(k_pct)
+        wobas.append(woba); opss.append(ops); kpcts.append(k_pct); bbpcts.append(bb_pct)
     if wobas:
         out["avg_woba"] = round(sum(wobas) / len(wobas), 3)
         out["avg_ops"] = round(sum(opss) / len(opss), 3)
         out["avg_k_pct"] = round(sum(kpcts) / len(kpcts), 3)
+        out["avg_bb_pct"] = round(sum(bbpcts) / len(bbpcts), 3)
     return out
 
 
