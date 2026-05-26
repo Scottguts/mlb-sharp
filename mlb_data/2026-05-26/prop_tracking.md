@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 26/27 OK · pitcher walks 26/27 OK · batter walks 0/0 OK
+**Slate-wide data quality:** pitcher Ks 27/28 OK · pitcher walks 27/28 OK · batter walks 5/5 OK
 
 
 ### Miami Marlins @ Toronto Blue Jays
@@ -75,6 +75,18 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Braxton Ashcraft | 5 | 1.4 | 0.054 | — | **1.19** | ok |
 
+### Cincinnati Reds @ New York Mets
+
+**Pitcher K projections**
+| Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
+|---|---|---:|---:|---:|---:|---:|---|
+| AWAY | Chase Burns | 5 | 6.8 | 0.293 | — | **6.45** | ok |
+
+**Pitcher walks projections**
+| Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
+|---|---|---:|---:|---:|---:|---:|---|
+| AWAY | Chase Burns | 5 | 1.4 | 0.06 | — | **1.32** | ok |
+
 ### St. Louis Cardinals @ Milwaukee Brewers
 
 **Pitcher K projections**
@@ -137,13 +149,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Joey Cantillo | 5 | 3.4 | 0.156 | — | **3.43** | ok |
-| AWAY | Cade Cavalli | 5 | 6.6 | 0.26 | — | **5.72** | ok |
+| AWAY | Cade Cavalli | 5 | 6.6 | 0.26 | 21.0% | **5.46** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Joey Cantillo | 5 | 2.8 | 0.128 | — | **2.82** | ok |
-| AWAY | Cade Cavalli | 5 | 1.4 | 0.055 | — | **1.21** | ok |
+| AWAY | Cade Cavalli | 5 | 1.4 | 0.055 | 12.8% | **1.51** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Travis Bazzana | 14.1% | 71 | **0.465** | ok |
+| HOME | 2 | José Ramírez | 15.8% | 177 | **0.51** | ok |
+| HOME | 3 | Chase DeLauter | 13.2% | 151 | **0.416** | ok |
+| HOME | 4 | Kyle Manzardo | 10.1% | 138 | **0.303** | ok |
+| HOME | 5 | Daniel Schneemann | 10.8% | 120 | **0.316** | ok |
 
 ### Minnesota Twins @ Chicago White Sox
 

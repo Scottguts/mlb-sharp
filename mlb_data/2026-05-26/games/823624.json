@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Citi Field",
     "first_pitch_iso": "2026-05-26T23:10:00Z",
-    "temp_f": 61.0,
-    "humidity_pct": 81,
-    "dew_point_f": 55.1,
-    "wind_mph": 5.8,
-    "wind_dir_deg": 180,
+    "temp_f": 63.9,
+    "humidity_pct": 65,
+    "dew_point_f": 51.9,
+    "wind_mph": 7.0,
+    "wind_dir_deg": 186,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.032,
-      "angle_off_cf": 21
+      "delta_runs": 0.08,
+      "angle_off_cf": 15
     },
-    "precip_prob_pct": 0
+    "precip_prob_pct": 1
   },
   "away": {
     "team_id": 113,
@@ -46,6 +46,9 @@
           "max_velo": 100.7,
           "csw": 0.32558139534883723,
           "hard_hit": 0.05813953488372093,
+          "strikeouts": 9,
+          "walks": 0,
+          "batters_faced": 20,
           "barrel": 0.011627906976744186
         },
         {
@@ -55,6 +58,9 @@
           "max_velo": 99.9,
           "csw": 0.2736842105263158,
           "hard_hit": 0.042105263157894736,
+          "strikeouts": 7,
+          "walks": 2,
+          "batters_faced": 23,
           "barrel": 0.010526315789473684
         },
         {
@@ -64,6 +70,9 @@
           "max_velo": 100.2,
           "csw": 0.20689655172413793,
           "hard_hit": 0.06896551724137931,
+          "strikeouts": 2,
+          "walks": 3,
+          "batters_faced": 23,
           "barrel": 0.011494252873563218
         },
         {
@@ -73,6 +82,9 @@
           "max_velo": 100.5,
           "csw": 0.2765957446808511,
           "hard_hit": 0.05319148936170213,
+          "strikeouts": 7,
+          "walks": 1,
+          "batters_faced": 24,
           "barrel": 0.0
         },
         {
@@ -82,6 +94,9 @@
           "max_velo": 100.5,
           "csw": 0.28865979381443296,
           "hard_hit": 0.061855670103092786,
+          "strikeouts": 9,
+          "walks": 1,
+          "batters_faced": 26,
           "barrel": 0.010309278350515464
         }
       ],
@@ -106,7 +121,14 @@
           "xwoba": 0.201,
           "hard_hit_rate": 0.063
         }
-      }
+      },
+      "k_total_window": 34,
+      "bb_total_window": 7,
+      "k_starts_window": 5,
+      "k_per_start": 6.8,
+      "bb_per_start": 1.4,
+      "k_per_bf": 0.293,
+      "bb_per_bf": 0.06
     },
     "bullpen_usage": {
       "team_id": 113,
