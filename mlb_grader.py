@@ -38,6 +38,7 @@ from mlb_data_scraper import (
     american_to_prob, prob_to_american, devig_two_way, edge_pct,
     TARGET_BOOKS, SHARP_ANCHORS,
 )
+from prop_tracking import build_tracked_props, render_markdown as render_props_md
 
 
 # ===========================================================================
@@ -1113,6 +1114,10 @@ def grade_one_game(game, odds_for_game):
         if units_so_far + c.unit_size > MAX_UNITS_PER_GAME: continue
         capped.append(c); units_so_far += c.unit_size
 
+    # Tracked props (Phase 1: data tracking only, no bets fired from these)
+    ump_delta, _ = _umpire_run_delta(game)
+    tracked_props = build_tracked_props(game, ump_run_delta=ump_delta)
+
     return {
         "gamePk": game["gamePk"],
         "matchup": f'{game["away"]["team_name"]} @ {game["home"]["team_name"]}',
@@ -1122,6 +1127,7 @@ def grade_one_game(game, odds_for_game):
         "expected_total": exp_t, "expected_f5_total": exp_f5,
         "nrfi_prob": nrfi_p,
         "bet_cards": [asdict(c) for c in capped],
+        "tracked_props": tracked_props,
     }
 
 def match_odds(odds_root, game):
@@ -1230,6 +1236,17 @@ def run(target, data_root):
     cards_path = day_dir / "cards.md"
     grades_path.write_text(json.dumps(grades_out, indent=2, default=str))
     cards_path.write_text("\n".join(md))
+
+    # Prop tracking (Phase 1: paper only, no bets fired). Written so we can
+    # eyeball data freshness day-over-day before turning on prop betting.
+    try:
+        prop_md = render_props_md(grades_out, target.isoformat())
+        prop_path = day_dir / "prop_tracking.md"
+        prop_path.write_text(prop_md)
+        print(f"       props  → {prop_path}")
+    except Exception as e:
+        print(f"       [warn] prop_tracking render failed: {e}")
+
     print(f"[done] {len(grades_out)} games graded, {bet_count} cards ({total_units:.1f}u total)")
     print(f"       grades → {grades_path}")
     print(f"       cards  → {cards_path}")

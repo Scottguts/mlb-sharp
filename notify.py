@@ -215,7 +215,77 @@ def _post_discord_embeds(url: str, grades: list[dict], summary: str,
         batch = embeds[batch_start:batch_start + 10]
         r = requests.post(url, json={"embeds": batch}, timeout=20)
         r.raise_for_status()
+
+    # 5) Prop tracking (Phase 1: paper-only — verify data quality before
+    #    we turn on betting). Posts top projections + data-quality stats.
+    _post_prop_tracking(url, grades)
     return True
+
+
+def _post_prop_tracking(url: str, grades: list[dict]) -> None:
+    """Render a compact prop-tracking section as a Discord embed.
+    Paper only — nothing here is a bet recommendation yet."""
+    # Aggregate slate-wide data quality
+    tot = {"pk": 0, "pw": 0, "bw": 0, "pk_ok": 0, "pw_ok": 0, "bw_ok": 0}
+    top_ks: list[tuple] = []     # (proj_k, pitcher_name, matchup)
+    top_walks: list[tuple] = []  # (proj_walks, pitcher_name, matchup)
+    top_batter_walks: list[tuple] = []   # (proj, batter_name, matchup)
+    for g in grades:
+        tp = g.get("tracked_props") or {}
+        s = tp.get("summary") or {}
+        tot["pk"]    += s.get("n_pitcher_ks", 0)
+        tot["pw"]    += s.get("n_pitcher_walks", 0)
+        tot["bw"]    += s.get("n_batter_walks", 0)
+        tot["pk_ok"] += s.get("n_pitcher_ks_ok", 0)
+        tot["pw_ok"] += s.get("n_pitcher_walks_ok", 0)
+        tot["bw_ok"] += s.get("n_batter_walks_ok", 0)
+        for p in tp.get("pitcher_ks", []):
+            if p.get("data_quality") == "ok" and p.get("projected_k") is not None:
+                top_ks.append((p["projected_k"], p.get("name", "?"), g["matchup"]))
+        for p in tp.get("pitcher_walks", []):
+            if p.get("data_quality") == "ok" and p.get("projected_walks") is not None:
+                top_walks.append((p["projected_walks"], p.get("name", "?"), g["matchup"]))
+        for b in tp.get("batter_walks", []):
+            if b.get("data_quality") == "ok" and b.get("projected_walks") is not None:
+                top_batter_walks.append((b["projected_walks"], b.get("name", "?"), g["matchup"]))
+
+    if tot["pk"] == 0 and tot["pw"] == 0 and tot["bw"] == 0:
+        return   # nothing to render
+
+    top_ks.sort(reverse=True)
+    top_walks.sort(reverse=True)
+    top_batter_walks.sort(reverse=True)
+
+    desc_lines = [
+        "_Paper-only data tracking. **No bets fired from these markets yet** — "
+        "we are watching that pitcher K/BB rates and batter walk rates track "
+        "cleanly day-over-day before turning on the betting layer._\n",
+        f"**Data quality:** pitcher Ks {tot['pk_ok']}/{tot['pk']} OK · "
+        f"pitcher walks {tot['pw_ok']}/{tot['pw']} OK · "
+        f"batter walks {tot['bw_ok']}/{tot['bw']} OK",
+    ]
+    fields = []
+    if top_ks:
+        v = "\n".join(f"• **{k:.1f} K** — {name} ({m})" for k, name, m in top_ks[:5])
+        fields.append({"name": "🎯 Top pitcher K projections", "value": v[:1000], "inline": False})
+    if top_walks:
+        v = "\n".join(f"• **{bb:.2f} BB** — {name} ({m})" for bb, name, m in top_walks[:5])
+        fields.append({"name": "🚶 Top pitcher walks (allowed)", "value": v[:1000], "inline": False})
+    if top_batter_walks:
+        v = "\n".join(f"• **{bw:.2f} BB** — {name} ({m})" for bw, name, m in top_batter_walks[:5])
+        fields.append({"name": "🪧 Top batter walk projections", "value": v[:1000], "inline": False})
+
+    embed = {
+        "title": "📊 Prop Tracking (paper only)",
+        "description": "\n".join(desc_lines),
+        "color": COLORS["neutral"],
+        "fields": fields,
+        "footer": {"text": "Pitcher Ks · Pitcher walks · Batter walks — verifying data quality before bets fire"},
+    }
+    try:
+        requests.post(url, json={"embeds": [embed]}, timeout=20).raise_for_status()
+    except Exception as e:
+        print(f"[prop-track] embed post failed: {e}")
 
 
 def _build_header_embed(summary_text: str, stats: dict, target_date: str | None,
