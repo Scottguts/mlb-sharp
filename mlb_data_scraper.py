@@ -525,6 +525,57 @@ def _fetch_recent_woba(batter_id: int, season: int, days: int = 7) -> dict:
             "ops": ops, "obp": obp, "slg": slg, "woba": woba}
 
 
+def fetch_team_batting_split_vs_hand(team_id: int, season: int,
+                                     vs_hand: str | None) -> dict:
+    """Season-to-date TEAM batting line vs LHP or RHP.
+
+    Different from fetch_top_of_order_quality (which is the top 5 batters
+    against the opposing starter's hand). This is the full-roster split.
+    """
+    if not vs_hand or vs_hand.upper() not in ("L", "R"):
+        return {"available": False, "reason": "unknown_hand"}
+    split_code = "vl" if vs_hand.upper() == "L" else "vr"
+    try:
+        d = _get(f"https://statsapi.mlb.com/api/v1/teams/{team_id}/stats", params={
+            "stats": "statSplits", "group": "hitting",
+            "sitCodes": split_code, "season": season,
+        })
+    except Exception as e:
+        return {"available": False, "error": str(e)}
+    stat = None
+    for s in d.get("stats", []):
+        for split in s.get("splits", []):
+            if split.get("stat"):
+                stat = split["stat"]; break
+        if stat: break
+    if not stat:
+        return {"available": False, "reason": "no_data"}
+    try:
+        pa = int(stat.get("plateAppearances", 0) or 0)
+        ab = int(stat.get("atBats", 0) or 0)
+        avg = float(stat.get("avg", 0) or 0)
+        obp = float(stat.get("obp", 0) or 0)
+        slg = float(stat.get("slg", 0) or 0)
+        ops = float(stat.get("ops", 0) or 0)
+        so = int(stat.get("strikeOuts", 0) or 0)
+        bb = int(stat.get("baseOnBalls", 0) or 0)
+        hr = int(stat.get("homeRuns", 0) or 0)
+    except (ValueError, TypeError):
+        return {"available": False, "reason": "parse_error"}
+    woba = round(0.69 * obp + 0.45 * slg, 3)
+    return {
+        "available": True,
+        "vs_hand":   vs_hand.upper(),
+        "season":    season,
+        "pa":        pa, "ab": ab,
+        "avg":       round(avg, 3), "obp": round(obp, 3),
+        "slg":       round(slg, 3), "ops": round(ops, 3),
+        "woba":      woba, "hr": hr,
+        "k_pct":     round(so / pa, 3) if pa else 0.0,
+        "bb_pct":    round(bb / pa, 3) if pa else 0.0,
+    }
+
+
 def fetch_top_of_order_quality(lineup: list[dict], season: int,
                                 vs_hand: str | None = None,
                                 top_n: int = 5) -> dict:
@@ -1170,6 +1221,11 @@ def assemble_game_payload(game: dict, fetch_pitchers: bool = True,
         home_lineup, season, vs_hand=away_starter_throws)
     payload["away"]["top_of_order"] = fetch_top_of_order_quality(
         away_lineup, season, vs_hand=home_starter_throws)
+    # Full-team batting split vs opposing starter's hand
+    payload["home"]["team_split_vs_opp_hand"] = fetch_team_batting_split_vs_hand(
+        game["home"]["team_id"], season, vs_hand=away_starter_throws)
+    payload["away"]["team_split_vs_opp_hand"] = fetch_team_batting_split_vs_hand(
+        game["away"]["team_id"], season, vs_hand=home_starter_throws)
     return payload
 
 

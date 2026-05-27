@@ -112,6 +112,7 @@ def _trim_game(game: dict) -> dict:
             "probable_pitcher_name": side.get("probable_pitcher_name"),
             "pitcher_profile":     trim_pitcher(side.get("pitcher_profile")),
             "top_of_order":        trim_top_of_order(side.get("top_of_order")),
+            "team_split_vs_opp_hand": side.get("team_split_vs_opp_hand"),
             "bullpen_usage":       trim_bullpen(side.get("bullpen_usage")),
             "recent_form":         side.get("recent_form"),
             "travel":              side.get("travel"),
@@ -992,6 +993,32 @@ function teamCardHTML(side, label, gm) {
         <div class="stat-line"><span class="k">RPG for / against</span><span class="v">${recent.rpg_for ?? '—'} / ${recent.rpg_against ?? '—'}</span></div>
       </div>` : ''}
     ${travelLine}
+    ${(() => {
+      const ts = t.team_split_vs_opp_hand;
+      if (!ts || !ts.available) return '';
+      return `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Team batting vs ${ts.vs_hand}HP — season</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">wOBA</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${ts.woba.toFixed(3)}</div>
+          </div>
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">OPS</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${ts.ops.toFixed(3)}</div>
+          </div>
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">BB%</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${(ts.bb_pct*100).toFixed(1)}%</div>
+          </div>
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">K%</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${(ts.k_pct*100).toFixed(1)}%</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--muted-2);margin-top:4px;text-align:right;">${ts.pa} PA · .${(ts.avg*1000).toFixed(0)}/.${(ts.obp*1000).toFixed(0)}/.${(ts.slg*1000).toFixed(0)} · ${ts.hr} HR</div>
+      </div>`;
+    })()}
     ${batters.length ? `
       <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Top of order ${too.vs_hand ? '(vs '+too.vs_hand+'HP)' : ''}</div>
