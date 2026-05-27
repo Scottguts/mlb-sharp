@@ -48,18 +48,114 @@ def _read_csv(path: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def _trim_game(game: dict) -> dict:
+    """Trim a per-game JSON to just the fields the drill-down needs.
+
+    Drops big arrays (every pitch/start of statcast data) and full lineups
+    that aren't needed for the modal view. Keeps the rich per-side stat
+    summaries the user wants to click into.
+    """
+    def trim_pitcher(p: dict | None) -> dict | None:
+        if not p or not p.get("available"): return p
+        return {
+            "available": True,
+            "throws": p.get("throws"),
+            "season_avg_velo": p.get("season_avg_velo"),
+            "k_per_start": p.get("k_per_start"),
+            "bb_per_start": p.get("bb_per_start"),
+            "k_per_bf": p.get("k_per_bf"),
+            "bb_per_bf": p.get("bb_per_bf"),
+            "k_starts_window": p.get("k_starts_window"),
+            "movement_flags": p.get("movement_flags") or [],
+            # Keep ONLY the most recent 3 starts (each as a compact dict)
+            "recent_starts": [
+                {k: v for k, v in s.items() if k in ("game_date", "pitches", "avg_velo",
+                                                       "strikeouts", "walks", "batters_faced", "csw")}
+                for s in (p.get("starts") or [])[:3]
+            ],
+            "splits": p.get("splits") or {},
+            "pitch_mix": p.get("pitch_mix") or {},
+        }
+
+    def trim_top_of_order(t: dict | None) -> dict | None:
+        if not t or not t.get("available"): return t
+        out = {k: t.get(k) for k in ("season", "vs_hand", "avg_woba", "avg_ops", "avg_k_pct", "avg_bb_pct")}
+        out["available"] = True
+        # Trim batters — keep name + key stats only
+        out["batters"] = [
+            {
+                "name": b.get("name"),
+                "pa": b.get("pa"),
+                "woba": b.get("woba"),
+                "ops": b.get("ops"),
+                "k_pct": b.get("k_pct"),
+                "bb_pct": b.get("bb_pct"),
+                "recent_7d": b.get("recent_7d"),
+            }
+            for b in (t.get("batters") or [])
+        ]
+        return out
+
+    def trim_bullpen(bp: dict | None) -> dict | None:
+        if not bp: return bp
+        return {
+            "quality": bp.get("quality") or {},
+            "n_relievers": len(bp.get("relievers") or {}),
+        }
+
+    def trim_side(side: dict | None) -> dict:
+        if not side: return {}
+        return {
+            "team_name":           side.get("team_name"),
+            "team_id":             side.get("team_id"),
+            "probable_pitcher_id": side.get("probable_pitcher_id"),
+            "probable_pitcher_name": side.get("probable_pitcher_name"),
+            "pitcher_profile":     trim_pitcher(side.get("pitcher_profile")),
+            "top_of_order":        trim_top_of_order(side.get("top_of_order")),
+            "bullpen_usage":       trim_bullpen(side.get("bullpen_usage")),
+            "recent_form":         side.get("recent_form"),
+            "travel":              side.get("travel"),
+        }
+
+    return {
+        "gamePk":    game.get("gamePk"),
+        "gameDate":  game.get("gameDate"),
+        "venue":     game.get("venue"),
+        "weather":   game.get("weather"),
+        "lineups":   {
+            "confirmed":      ((game.get("lineups") or {}).get("lineups_confirmed")),
+            "hp_ump_tendency": ((game.get("lineups") or {}).get("hp_ump_tendency")),
+            "umpires":         ((game.get("lineups") or {}).get("umpires") or []),
+        },
+        "catcher_framing": game.get("catcher_framing"),
+        "home":     trim_side(game.get("home")),
+        "away":     trim_side(game.get("away")),
+    }
+
+
 def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
-    """Bundle one day's graded games + cards + tracked props into one JSON."""
+    """Bundle one day's graded games + cards + tracked props + per-game
+    rich data into one JSON suitable for the drill-down view."""
     day_dir = data_root / date_iso
     if not day_dir.exists():
         return None
     grades = _load_json(day_dir / "grades.json") or []
     cards_md = (day_dir / "cards.md").read_text() if (day_dir / "cards.md").exists() else ""
     prop_md  = (day_dir / "prop_tracking.md").read_text() if (day_dir / "prop_tracking.md").exists() else ""
+    # Load + trim per-game data
+    games_dir = day_dir / "games"
+    games_by_pk: dict[str, dict] = {}
+    if games_dir.exists():
+        for gp in games_dir.glob("*.json"):
+            data = _load_json(gp)
+            if not data: continue
+            trimmed = _trim_game(data)
+            games_by_pk[str(data.get("gamePk"))] = trimmed
     return {
         "date": date_iso,
         "n_games": len(grades),
         "grades": grades,
+        "games": games_by_pk,
         "cards_markdown": cards_md,
         "prop_tracking_markdown": prop_md,
     }
@@ -388,6 +484,87 @@ tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.
 .disclaimer { background: var(--amber-bg); border: 1px solid var(--amber-bd); color: var(--amber);
               padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
 .disclaimer b { color: var(--amber); }
+
+/* CLICK AFFORDANCE */
+.clickable { cursor: pointer; transition: all 0.15s; position: relative; }
+.clickable:hover { border-color: var(--blue-bd) !important; }
+.click-hint { position: absolute; top: 12px; right: 16px; font-size: 10px; color: var(--muted-2);
+              font-weight: 600; opacity: 0; transition: opacity 0.15s; letter-spacing: 0.06em; text-transform: uppercase; }
+.clickable:hover .click-hint { opacity: 1; }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(2,6,15,0.78); backdrop-filter: blur(8px);
+                 z-index: 100; display: none; align-items: flex-start; justify-content: center;
+                 padding: 20px; overflow-y: auto; }
+.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease-out; }
+.modal { background: var(--bg-1); border: 1px solid var(--border-strong); border-radius: 20px;
+         max-width: 980px; width: 100%; margin: auto; padding: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+         max-height: 92vh; display: flex; flex-direction: column; }
+.modal-head { padding: 22px 24px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+              position: sticky; top: 0; background: linear-gradient(180deg, var(--bg-1) 80%, transparent 100%);
+              z-index: 5; border-radius: 20px 20px 0 0; }
+.modal-head .head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.modal-head h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+.modal-head .when { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.modal-close { background: transparent; color: var(--muted); border: 1px solid var(--border);
+               border-radius: 10px; padding: 8px 14px; cursor: pointer; font-size: 13px; font-weight: 600;
+               transition: all 0.15s; flex-shrink: 0; }
+.modal-close:hover { background: var(--bg-2); color: var(--fg); border-color: var(--border-strong); }
+.modal-body { padding: 20px 24px 24px; overflow-y: auto; flex: 1; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0; }
+@media (max-width: 640px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+.kpi { padding: 12px 14px; background: var(--bg-2); border-radius: 12px; border: 1px solid var(--border); }
+.kpi .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.kpi .v { font-size: 18px; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
+
+.section-h { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+             letter-spacing: 0.1em; margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+.matchup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .matchup-grid { grid-template-columns: 1fr; } }
+.team-card { padding: 16px; background: var(--bg-2); border-radius: 14px; border: 1px solid var(--border); }
+.team-card .team-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.01em; }
+.team-card .side-pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 9px;
+                        font-weight: 800; background: rgba(96,165,250,0.15); color: var(--blue);
+                        letter-spacing: 0.06em; margin-left: 6px; vertical-align: middle; }
+.team-card .pitcher-name { font-size: 13px; color: var(--fg-dim); margin-bottom: 12px; }
+.stat-line { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; border-bottom: 1px solid rgba(148,163,184,0.06); }
+.stat-line:last-child { border-bottom: none; }
+.stat-line .k { color: var(--muted); }
+.stat-line .v { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--fg); }
+.stat-line .v.warn { color: var(--amber); }
+.stat-line .v.bad  { color: var(--red); }
+.stat-line .v.good { color: var(--green); }
+
+.cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 640px) { .cat-grid { grid-template-columns: 1fr; } }
+.cat-card { padding: 12px 14px; background: var(--bg-2); border-radius: 12px; border: 1px solid var(--border); }
+.cat-card .name { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+.cat-card .scores { display: flex; gap: 10px; margin-top: 6px; }
+.cat-card .scores .s { font-size: 17px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+.cat-card .scores .s.home { color: var(--blue); }
+.cat-card .scores .s.away { color: var(--purple); }
+.cat-card .scores .lbl { font-size: 10px; color: var(--muted); font-weight: 600; }
+.cat-card ul { list-style: none; padding: 0; margin-top: 8px; }
+.cat-card li { font-size: 11px; color: var(--fg-dim); padding: 2px 0 2px 12px; position: relative; line-height: 1.5; }
+.cat-card li::before { content: "·"; position: absolute; left: 4px; color: var(--muted); }
+
+.batter-table { font-size: 12px; }
+.batter-table td, .batter-table th { padding: 5px 8px; }
+.batter-table th { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.batter-table .hot  { color: var(--green); }
+.batter-table .cold { color: var(--red); }
+
+.bet-block { background: linear-gradient(135deg, rgba(52,211,153,0.10), rgba(16,185,129,0.04)), var(--bg-2);
+             border: 1px solid var(--green-bd); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+.bet-block .ttl { font-size: 16px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.01em; }
+.bet-block .meta { font-size: 12px; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.bet-block .meta b { color: var(--fg); font-family: 'JetBrains Mono', monospace; }
+.bet-block .why { font-size: 12px; color: var(--fg-dim); }
+.bet-block .why ul { list-style: none; padding-left: 14px; margin-top: 4px; }
+.bet-block .why li { padding: 2px 0; position: relative; }
+.bet-block .why li::before { content: "•"; position: absolute; left: -10px; color: var(--green); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -549,6 +726,22 @@ tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.
   <div class="footer" id="footer">Updated daily by the GitHub Actions cron · last build: loading…</div>
 </div>
 
+<!-- Game detail modal -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="head-row">
+        <div>
+          <h2 id="modal-title">—</h2>
+          <div class="when" id="modal-when">—</div>
+        </div>
+        <button class="modal-close" id="modal-close">✕ Close</button>
+      </div>
+    </div>
+    <div class="modal-body" id="modal-body">Loading…</div>
+  </div>
+</div>
+
 <script>
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
@@ -616,11 +809,30 @@ function fmtGameTimeET(iso) {
   } catch { return ''; }
 }
 
+function winProbBlockHTML(gm) {
+  // Flat team-by-team win probability — extract team names from the matchup string
+  const parts = gm.matchup.split(' @ ');
+  const awayName = parts[0] || 'Away';
+  const homeName = parts[1] || 'Home';
+  const ah = gm.win_prob.home, aa = gm.win_prob.away;
+  return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+    <div style="padding:8px 10px;background:rgba(96,165,250,0.10);border:1px solid var(--blue-bd);border-radius:10px;">
+      <div style="font-size:10px;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;">Away</div>
+      <div style="font-size:13px;font-weight:700;margin-top:1px;">${awayName}</div>
+      <div style="font-size:18px;font-weight:800;font-family:'JetBrains Mono',monospace;margin-top:2px;">${(aa*100).toFixed(1)}%</div>
+    </div>
+    <div style="padding:8px 10px;background:rgba(167,139,250,0.10);border:1px solid rgba(167,139,250,0.30);border-radius:10px;">
+      <div style="font-size:10px;color:var(--purple);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;">Home</div>
+      <div style="font-size:13px;font-weight:700;margin-top:1px;">${homeName}</div>
+      <div style="font-size:18px;font-weight:800;font-family:'JetBrains Mono',monospace;margin-top:2px;">${(ah*100).toFixed(1)}%</div>
+    </div>
+  </div>`;
+}
+
 function heroCardHTML(gm, c) {
   const edge = (c.edge * 100).toFixed(2);
   const price = fmtPrice(c.price_american);
   const lineStr = (c.line !== null && c.line !== undefined) ? `  @ ${c.line}` : '';
-  const fairPct = (c.fair_prob * 100).toFixed(1);
   const market = MARKET_LABEL[c.market] || c.market;
   const time = fmtGameTimeET(gm.gameDate);
   let reasonHTML = '';
@@ -630,7 +842,8 @@ function heroCardHTML(gm, c) {
       <ul>${c.reasoning.slice(0, 5).map(r => `<li>${r}</li>`).join('')}</ul>
     </div>`;
   }
-  return `<div class="hero-play">
+  return `<div class="hero-play clickable" data-pk="${gm.gamePk}">
+    <div class="click-hint">tap for full breakdown →</div>
     <div class="game-label">${market} • ${time}</div>
     <div class="game-matchup">${gm.matchup}</div>
     <div class="bet-label">${c.bet_label}${lineStr}</div>
@@ -640,6 +853,7 @@ function heroCardHTML(gm, c) {
       <div class="item"><div class="l">Edge</div><div class="v green">${edge}%</div></div>
       <div class="item"><div class="l">Size</div><div class="v">${c.unit_size}u <span style="font-size:12px;color:var(--muted);font-weight:600;">${c.risk}</span></div></div>
     </div>
+    ${winProbBlockHTML(gm)}
     ${reasonHTML}
   </div>`;
 }
@@ -652,12 +866,15 @@ function playCardHTML(gm, c) {
   const time = fmtGameTimeET(gm.gameDate);
   const confSegs = Array.from({length: 10}, (_, i) =>
     `<div class="seg${i < c.confidence ? ' on' : ''}"></div>`).join('');
-  return `<div class="play-card ${RISK(c.risk)}">
+  const wpH = (gm.win_prob.home*100).toFixed(0);
+  const wpA = (gm.win_prob.away*100).toFixed(0);
+  return `<div class="play-card clickable ${RISK(c.risk)}" data-pk="${gm.gamePk}">
+    <div class="click-hint">tap →</div>
     <div class="ph">
       <div class="ph-l">
         <div class="ph-mu">${market} · ${time}</div>
         <div class="ph-lbl">${c.bet_label}${lineStr}</div>
-        <div style="font-size:12px; color:var(--muted); margin-top:4px;">${gm.matchup}</div>
+        <div style="font-size:12px; color:var(--muted); margin-top:4px;">${gm.matchup} · <span style="color:var(--fg-dim);">WP ${wpA}/${wpH}%</span></div>
       </div>
       <div class="risk-badge">${c.risk} · ${c.unit_size}u</div>
     </div>
@@ -673,16 +890,235 @@ function playCardHTML(gm, c) {
 
 function noPlayRowHTML(gm) {
   const time = fmtGameTimeET(gm.gameDate);
-  return `<div class="noplay-row">
+  return `<div class="noplay-row clickable" data-pk="${gm.gamePk}">
     <div class="matchup">${gm.matchup}<div style="font-size:11px; color:var(--muted-2); margin-top:2px; font-weight: 500;">${time}</div></div>
     <div class="stats">
+      <span>WP <b>${(gm.win_prob.away*100).toFixed(0)}/${(gm.win_prob.home*100).toFixed(0)}%</b></span>
       <span>Grade <b>H${fmt(gm.grade.home,1)}/A${fmt(gm.grade.away,1)}</b></span>
-      <span>WP <b>${(gm.win_prob.home*100).toFixed(0)}/${(gm.win_prob.away*100).toFixed(0)}%</b></span>
       <span>xRuns <b>${gm.expected_total}</b></span>
       <span>NRFI <b>${(gm.nrfi_prob*100).toFixed(0)}%</b></span>
     </div>
   </div>`;
 }
+
+// ===== GAME DETAIL MODAL =====
+let currentDateGames = null;   // map: gamePk -> rich game data
+let currentDateGrades = null;  // list of grade entries
+
+function teamCardHTML(side, label, gm) {
+  const t = gm.games?.[gm.gamePk]?.[side] || {};
+  const grade = side === 'home' ? gm.grade.home : gm.grade.away;
+  const wp = (side === 'home' ? gm.win_prob.home : gm.win_prob.away) * 100;
+  const prof = t.pitcher_profile || {};
+  const too  = t.top_of_order || {};
+  const bp   = t.bullpen_usage || {};
+  const bpq  = bp.quality || {};
+  const travel = t.travel || {};
+  const recent = t.recent_form || {};
+  const sideColor = side === 'home' ? 'var(--purple)' : 'var(--blue)';
+  const teamName = t.team_name || (gm.matchup.split(' @ ')[side === 'home' ? 1 : 0]);
+  const veloFlag = (prof.season_avg_velo && prof.season_avg_velo < 90) ? 'warn' : '';
+  const kbf = prof.k_per_bf; const kbfStr = kbf ? `${(kbf*100).toFixed(1)}%` : '—';
+  const bbbf = prof.bb_per_bf; const bbbfStr = bbbf ? `${(bbbf*100).toFixed(1)}%` : '—';
+
+  // Top-of-order batter mini-table
+  let battersTbl = '';
+  const batters = (too.batters || []).slice(0, 5);
+  if (batters.length) {
+    battersTbl = `<table class="batter-table" style="width:100%;margin-top:8px;">
+      <thead><tr><th>#</th><th>Batter</th><th>wOBA</th><th>BB%</th><th>K%</th><th>7d wOBA</th></tr></thead><tbody>`;
+    batters.forEach((b, i) => {
+      const r7 = (b.recent_7d && b.recent_7d.available) ? (b.recent_7d.woba) : null;
+      const diff = (r7 !== null && b.woba) ? (r7 - b.woba) : null;
+      const cls = diff === null ? '' : (diff > 0.04 ? 'hot' : (diff < -0.04 ? 'cold' : ''));
+      const r7str = r7 === null ? '—' : `<span class="${cls}">${r7.toFixed(3)}</span>`;
+      battersTbl += `<tr><td>${i+1}</td><td class="text">${b.name||'—'}</td>
+        <td>${(b.woba||0).toFixed(3)}</td>
+        <td>${((b.bb_pct||0)*100).toFixed(1)}%</td>
+        <td>${((b.k_pct||0)*100).toFixed(1)}%</td>
+        <td>${r7str}</td></tr>`;
+    });
+    battersTbl += '</tbody></table>';
+  }
+
+  // Travel
+  let travelLine = '';
+  if (travel && travel.available) {
+    const rest = travel.days_rest;
+    const miles = travel.miles_traveled;
+    const cc = travel.cross_country;
+    travelLine = `<div class="stat-line"><span class="k">Rest</span><span class="v">${rest}d ${cc ? ' · cross-country' : ''}${miles ? ' · ' + Math.round(miles) + 'mi' : ''}</span></div>`;
+  }
+
+  const splits = prof.splits || {};
+  const splitL = splits.L ? `vs LHB: xwOBA ${(splits.L.xwoba ?? '—')}, CSW% ${((splits.L.csw||0)*100).toFixed(1)}` : null;
+  const splitR = splits.R ? `vs RHB: xwOBA ${(splits.R.xwoba ?? '—')}, CSW% ${((splits.R.csw||0)*100).toFixed(1)}` : null;
+  const movementFlags = (prof.movement_flags || []);
+
+  return `<div class="team-card">
+    <div class="team-name">${teamName}<span class="side-pill" style="background:${side==='home'?'rgba(167,139,250,0.15)':'rgba(96,165,250,0.15)'};color:${sideColor};">${side === 'home' ? 'HOME' : 'AWAY'}</span></div>
+    <div style="display:flex;gap:12px;margin-bottom:10px;">
+      <div style="flex:1;padding:8px;background:rgba(5,9,19,0.4);border-radius:8px;text-align:center;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">Win Prob</div>
+        <div style="font-size:22px;font-weight:800;color:${sideColor};font-family:'JetBrains Mono',monospace;">${wp.toFixed(1)}%</div>
+      </div>
+      <div style="flex:1;padding:8px;background:rgba(5,9,19,0.4);border-radius:8px;text-align:center;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">Grade</div>
+        <div style="font-size:22px;font-weight:800;font-family:'JetBrains Mono',monospace;">${fmt(grade,1)}</div>
+      </div>
+    </div>
+    ${t.probable_pitcher_name ? `<div class="pitcher-name"><b>${t.probable_pitcher_name}</b> (${prof.throws||'?'}HP)</div>` : '<div class="pitcher-name muted">no probable starter</div>'}
+    ${prof.available ? `
+      <div class="stat-line"><span class="k">Velo (season avg)</span><span class="v ${veloFlag}">${prof.season_avg_velo ?? '—'} mph</span></div>
+      <div class="stat-line"><span class="k">K%</span><span class="v">${kbfStr}</span></div>
+      <div class="stat-line"><span class="k">BB%</span><span class="v">${bbbfStr}</span></div>
+      <div class="stat-line"><span class="k">K/start (last ${prof.k_starts_window || 0})</span><span class="v">${prof.k_per_start ?? '—'}</span></div>
+      <div class="stat-line"><span class="k">BB/start</span><span class="v">${prof.bb_per_start ?? '—'}</span></div>
+      ${splitL ? `<div class="stat-line"><span class="k">${splitL.split(':')[0]}</span><span class="v">${splitL.split(':')[1]}</span></div>` : ''}
+      ${splitR ? `<div class="stat-line"><span class="k">${splitR.split(':')[0]}</span><span class="v">${splitR.split(':')[1]}</span></div>` : ''}
+      ${movementFlags.length ? `<div class="stat-line"><span class="k">⚠ Movement flag</span><span class="v warn">${movementFlags[0]}</span></div>` : ''}
+    ` : '<div class="muted" style="font-size:12px;margin-bottom:8px;">Pitcher data not available</div>'}
+    ${bpq.bp_era !== undefined && bpq.bp_era !== null ? `
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Bullpen (L7d)</div>
+        <div class="stat-line"><span class="k">ERA</span><span class="v ${bpq.bp_era < 3 ? 'good' : (bpq.bp_era > 5 ? 'bad' : '')}">${bpq.bp_era}</span></div>
+        <div class="stat-line"><span class="k">K% / BB%</span><span class="v">${((bpq.bp_k_pct||0)*100).toFixed(1)}% / ${((bpq.bp_bb_pct||0)*100).toFixed(1)}%</span></div>
+        <div class="stat-line"><span class="k">Innings / Relievers</span><span class="v">${bpq.bp_innings ?? '—'} / ${bp.n_relievers ?? '—'}</span></div>
+      </div>` : ''}
+    ${recent && recent.rpg_for !== undefined ? `
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Last 14 days</div>
+        <div class="stat-line"><span class="k">Record</span><span class="v">${recent.wins||0}-${recent.losses||0}</span></div>
+        <div class="stat-line"><span class="k">RPG for / against</span><span class="v">${recent.rpg_for ?? '—'} / ${recent.rpg_against ?? '—'}</span></div>
+      </div>` : ''}
+    ${travelLine}
+    ${batters.length ? `
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Top of order ${too.vs_hand ? '(vs '+too.vs_hand+'HP)' : ''}</div>
+        ${battersTbl}
+      </div>` : ''}
+  </div>`;
+}
+
+function categoryGridHTML(gm) {
+  const cats = gm.categories || {};
+  const order = ["pitching","bullpen","offense","weather_park","market","situational","injury_lineup"];
+  return order.map(cat => {
+    const v = cats[cat]; if (!v) return '';
+    const notes = (v.notes || []).slice(0, 4);
+    return `<div class="cat-card">
+      <div class="name">${cat.replace(/_/g,' ')}</div>
+      <div class="scores"><span class="lbl">H</span><span class="s home">${fmt(v.home,1)}</span><span class="lbl">A</span><span class="s away">${fmt(v.away,1)}</span></div>
+      ${notes.length ? `<ul>${notes.map(n => `<li>${n}</li>`).join('')}</ul>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function betsForGameHTML(gm) {
+  const cards = gm.bet_cards || [];
+  if (!cards.length) return '';
+  let html = '';
+  for (const c of cards) {
+    const edge = (c.edge * 100).toFixed(2);
+    const price = fmtPrice(c.price_american);
+    const lineStr = (c.line !== null && c.line !== undefined) ? ` @ ${c.line}` : '';
+    const reasonList = (c.reasoning||[]).slice(0,5).map(r => `<li>${r}</li>`).join('');
+    html += `<div class="bet-block">
+      <div class="ttl">${c.bet_label}${lineStr}</div>
+      <div class="meta">
+        <span>Best <b>${c.book.toUpperCase()}</b></span>
+        <span>Price <b>${price}</b></span>
+        <span>Edge <b style="color:var(--green);">${edge}%</b></span>
+        <span>Conf <b>${c.confidence}/10</b></span>
+        <span>Size <b>${c.unit_size}u ${c.risk}</b></span>
+      </div>
+      ${reasonList ? `<div class="why"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:4px;">Why</div><ul>${reasonList}</ul></div>` : ''}
+    </div>`;
+  }
+  return html;
+}
+
+function openGameDetail(gamePk) {
+  const gm = (currentDateGrades || []).find(g => String(g.gamePk) === String(gamePk));
+  if (!gm) return;
+  // Attach the rich data to the grade entry for the team-card lookup
+  gm.games = {[gm.gamePk]: (currentDateGames || {})[String(gamePk)] || {}};
+  const time = fmtGameTimeET(gm.gameDate);
+
+  $('#modal-title').textContent = gm.matchup;
+  $('#modal-when').textContent = `${time} · gamePk ${gm.gamePk}`;
+
+  const venue = (gm.games[gm.gamePk] || {}).venue || {};
+  const weather = (gm.games[gm.gamePk] || {}).weather || {};
+  const ump = ((gm.games[gm.gamePk] || {}).lineups || {}).hp_ump_tendency || {};
+  const cf  = (gm.games[gm.gamePk] || {}).catcher_framing || {};
+
+  const wxHTML = weather.indoor
+    ? `<div class="stat-line"><span class="k">Conditions</span><span class="v">Indoor / closed roof</span></div>`
+    : `
+      ${weather.temp_f !== undefined ? `<div class="stat-line"><span class="k">Temp</span><span class="v">${weather.temp_f}°F</span></div>` : ''}
+      ${weather.wind_mph !== undefined ? `<div class="stat-line"><span class="k">Wind</span><span class="v">${weather.wind_mph} mph from ${weather.wind_dir_deg}°${(weather.wind_effect||{}).effect ? ' · '+(weather.wind_effect.effect)+' to CF' : ''}</span></div>` : ''}
+      ${weather.precip_prob_pct !== undefined ? `<div class="stat-line"><span class="k">Rain risk</span><span class="v ${weather.precip_prob_pct>=50?'warn':''}">${weather.precip_prob_pct}%</span></div>` : ''}`;
+
+  const umpHTML = ump.available
+    ? `<div class="stat-line"><span class="k">HP ump (last ${ump.n_games}g)</span><span class="v ${ump.run_delta < -0.2 ? 'good' : (ump.run_delta > 0.2 ? 'bad' : '')}">${ump.run_delta >= 0 ? '+' : ''}${ump.run_delta}r vs lg</span></div>`
+    : '<div class="stat-line"><span class="k">HP ump</span><span class="v" style="color:var(--muted);">not yet assigned</span></div>';
+
+  const cfHTML = cf.available && (cf.home || cf.away)
+    ? `<div class="stat-line"><span class="k">Catcher framing</span><span class="v">H ${(cf.home||{}).season_runs ?? 0}r / A ${(cf.away||{}).season_runs ?? 0}r</span></div>` : '';
+
+  const body = `
+    <div class="kpis">
+      <div class="kpi"><div class="l">Away WP</div><div class="v" style="color:var(--blue);">${(gm.win_prob.away*100).toFixed(1)}%</div></div>
+      <div class="kpi"><div class="l">Home WP</div><div class="v" style="color:var(--purple);">${(gm.win_prob.home*100).toFixed(1)}%</div></div>
+      <div class="kpi"><div class="l">xRuns</div><div class="v">${gm.expected_total}</div></div>
+      <div class="kpi"><div class="l">F5 / NRFI</div><div class="v">${gm.expected_f5_total} / ${(gm.nrfi_prob*100).toFixed(1)}%</div></div>
+    </div>
+
+    ${cards_section_html(gm)}
+
+    <div class="section-h">Matchup</div>
+    <div class="matchup-grid">
+      ${teamCardHTML('away', 'AWAY', gm)}
+      ${teamCardHTML('home', 'HOME', gm)}
+    </div>
+
+    <div class="section-h">Environment</div>
+    <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:14px;">
+      ${venue.name ? `<div class="stat-line"><span class="k">Venue</span><span class="v">${venue.name} (PF ${venue.pf_runs ?? 100})</span></div>` : ''}
+      ${wxHTML}
+      ${umpHTML}
+      ${cfHTML}
+    </div>
+
+    <div class="section-h">Grading breakdown</div>
+    <div class="cat-grid">${categoryGridHTML(gm)}</div>
+  `;
+  $('#modal-body').innerHTML = body;
+  $('#modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cards_section_html(gm) {
+  const cards = gm.bet_cards || [];
+  if (!cards.length) return '';
+  return `<div class="section-h">Recommended plays (${cards.length})</div>${betsForGameHTML(gm)}`;
+}
+
+function closeModal() {
+  $('#modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+$('#modal-close').addEventListener('click', closeModal);
+$('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// Delegated click handlers — any element with data-pk opens the modal
+document.body.addEventListener('click', (e) => {
+  const trg = e.target.closest('[data-pk]');
+  if (!trg) return;
+  openGameDetail(trg.dataset.pk);
+});
 
 async function loadDate(dateIso, targetId) {
   const isToday = targetId.startsWith('today');
@@ -694,6 +1130,9 @@ async function loadDate(dateIso, targetId) {
   playsEl.innerHTML = '<div class="loading">Loading…</div>';
   try {
     const d = await fetchJSON(`${DATA}/${dateIso}.json`);
+    // Cache for the drill-down modal
+    currentDateGrades = d.grades || [];
+    currentDateGames  = d.games || {};
     if (isToday) $('#today-date').textContent = `Slate of ${dateIso}`;
     const allCards = [];
     const noPlayGames = [];
