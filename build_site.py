@@ -198,100 +198,196 @@ INDEX_HTML = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MLB Sharp — Predictions & Track Record</title>
+<title>MLB Sharp — Daily Picks & Track Record</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #020617; --fg: #e2e8f0; --muted: #94a3b8; --border: rgba(148,163,184,0.12);
-  --green: #22C55E; --red: #EF4444; --amber: #F59E0B; --blue: #3B82F6; --indigo: #4F46E5;
-  --emerald: #10B981; --slate: #6B7280;
+  --bg-0: #050913; --bg-1: #0b1220; --bg-2: #111a2e; --bg-3: #1a2543;
+  --fg: #f1f5f9; --fg-dim: #cbd5e1; --muted: #8a99b3; --muted-2: #64748b;
+  --border: rgba(148,163,184,0.14); --border-strong: rgba(148,163,184,0.28);
+  --green: #34d399; --green-bg: rgba(52,211,153,0.13); --green-bd: rgba(52,211,153,0.32);
+  --red: #fb7185; --red-bg: rgba(251,113,133,0.13); --red-bd: rgba(251,113,133,0.30);
+  --amber: #fbbf24; --amber-bg: rgba(251,191,36,0.13); --amber-bd: rgba(251,191,36,0.30);
+  --blue: #60a5fa; --blue-bg: rgba(96,165,250,0.12); --blue-bd: rgba(96,165,250,0.32);
+  --purple: #a78bfa; --emerald: #10b981; --slate: #94a3b8;
+  --max-w: 1080px;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', system-ui, sans-serif; min-height: 100vh; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+html, body { background: var(--bg-0); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
 body {
   background:
-    radial-gradient(circle at 15% 0%, rgba(14,165,233,0.05), transparent 50%),
-    radial-gradient(circle at 85% 100%, rgba(124,58,237,0.05), transparent 50%);
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(14,165,233,0.08), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 100% 100%, rgba(168,85,247,0.06), transparent 60%),
+    var(--bg-0);
 }
-.container { max-width: 1100px; margin: 0 auto; padding: 16px 12px; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 20px 16px 60px; }
 .muted { color: var(--muted); }
-.glass { background: rgba(15,23,42,0.6); border: 1px solid var(--border); border-radius: 16px; backdrop-filter: blur(8px); padding: 20px; }
-a { color: #38bdf8; text-decoration: none; }
-a:hover { text-decoration: underline; }
+.dim   { color: var(--fg-dim); }
+a { color: #60a5fa; text-decoration: none; transition: color 0.15s; }
+a:hover { color: #93c5fd; }
+b { font-weight: 700; }
 
-/* Header */
-header { padding: 24px 20px; margin-bottom: 16px;
-  background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(15,23,42,0.7) 40%, rgba(124,58,237,0.06) 100%);
-  border-radius: 16px; border: 1px solid var(--border); }
-.brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.brand-name { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+/* HEADER */
+header { padding: 28px 24px; margin-bottom: 20px;
+  background: linear-gradient(135deg, rgba(56,189,248,0.07) 0%, rgba(11,18,32,0.85) 50%, rgba(168,85,247,0.06) 100%);
+  border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+header::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(56,189,248,0.10), transparent 60%); pointer-events: none; }
+.brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1; }
+.brand-left { display: flex; align-items: center; gap: 12px; }
+.brand-mark { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #0ea5e9, #a855f7);
+              display: grid; place-items: center; font-size: 22px; box-shadow: 0 8px 24px rgba(14,165,233,0.30); }
+.brand-name { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
 .brand-sub { color: var(--muted); margin-top: 4px; font-size: 13px; }
-.pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; background: rgba(167,139,250,0.18); color: #a78bfa; }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
-@media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-.stat-card { padding: 12px; background: rgba(15,23,42,0.55); border-radius: 12px; text-align: center; border: 1px solid var(--border); }
-.stat-card .v { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-.stat-card .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.live-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-size: 11px;
+                  font-weight: 700; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* Tabs */
-.tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
-.tab { padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
-       border: 1px solid var(--border); background: rgba(15,23,42,0.5); color: var(--muted); user-select: none; }
-.tab:hover { background: rgba(15,23,42,0.75); color: var(--fg); }
-.tab.active { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; border-color: transparent;
-              box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; position: relative; z-index: 1; }
+@media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-card { padding: 14px 16px; background: rgba(17,26,46,0.65); border-radius: 14px;
+             border: 1px solid var(--border); transition: transform 0.2s, border-color 0.2s; }
+.stat-card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+.stat-card .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.stat-card .v { font-size: 24px; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-top: 4px; line-height: 1.1; }
+.stat-card .sub { font-size: 11px; color: var(--muted-2); margin-top: 4px; }
 
-/* Sections */
-.section { display: none; }
+/* TABS */
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; padding: 4px; background: rgba(17,26,46,0.6); border-radius: 14px; border: 1px solid var(--border); }
+.tab { flex: 1; min-width: 80px; padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600;
+       cursor: pointer; transition: all 0.18s; color: var(--muted); user-select: none; text-align: center;
+       display: flex; align-items: center; justify-content: center; gap: 6px; }
+.tab:hover { background: rgba(26,37,67,0.6); color: var(--fg); }
+.tab.active { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff;
+              box-shadow: 0 6px 16px rgba(14,165,233,0.32); }
+.tab .badge { padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700;
+              background: rgba(255,255,255,0.18); color: #fff; }
+
+/* SECTIONS */
+.section { display: none; animation: fadeIn 0.25s ease-out; }
 .section.active { display: block; }
-.section-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: rgba(17,26,46,0.7); border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 16px; }
+.card-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.card-title h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+.card-title .meta { font-size: 12px; color: var(--muted); }
 
-/* Date picker */
-.date-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
-.date-bar select { background: rgba(15,23,42,0.6); color: var(--fg); border: 1px solid var(--border);
-                    border-radius: 10px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
-                    cursor: pointer; }
-.date-bar .nav-btn { padding: 8px 12px; background: rgba(15,23,42,0.6); color: var(--fg); border: 1px solid var(--border);
-                     border-radius: 10px; cursor: pointer; font-size: 13px; }
-.date-bar .nav-btn:hover { background: rgba(15,23,42,0.9); }
+/* DATE BAR */
+.date-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.date-bar select { background: var(--bg-2); color: var(--fg); border: 1px solid var(--border-strong);
+                    border-radius: 12px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+                    cursor: pointer; flex: 1; min-width: 200px; transition: border-color 0.15s; }
+.date-bar select:hover { border-color: var(--blue); }
+.date-bar .nav-btn { padding: 10px 14px; background: var(--bg-2); color: var(--fg); border: 1px solid var(--border-strong);
+                     border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.15s; }
+.date-bar .nav-btn:hover { background: var(--bg-3); border-color: var(--blue); }
 
-/* Game / play cards */
-.game-row { padding: 14px; margin-bottom: 10px; background: rgba(15,23,42,0.4); border-radius: 12px;
-            border: 1px solid var(--border); border-left: 4px solid var(--slate); }
-.game-row.has-bet { border-left-color: var(--emerald); }
-.game-row.no-bet { opacity: 0.78; }
-.game-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-.game-title { font-weight: 700; font-size: 15px; }
-.game-time { font-size: 12px; color: var(--muted); }
-.game-stats { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
-.game-stats b { color: var(--fg); font-family: 'JetBrains Mono', monospace; }
-.bet-pill { display: inline-block; padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.3); margin-top: 6px; }
+/* TODAY — HERO PLAY */
+.hero-play { background: linear-gradient(135deg, rgba(52,211,153,0.10), rgba(16,185,129,0.04)) , rgba(17,26,46,0.7);
+             border: 1px solid var(--green-bd); border-radius: 20px; padding: 24px; margin-bottom: 18px;
+             position: relative; overflow: hidden; }
+.hero-play::before { content: "TOP PLAY"; position: absolute; top: 12px; right: 16px; font-size: 10px; font-weight: 800;
+                     letter-spacing: 0.12em; color: var(--green); background: var(--green-bg); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--green-bd); }
+.hero-play .game-label { color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.hero-play .game-matchup { font-size: 14px; color: var(--fg-dim); margin-bottom: 14px; }
+.hero-play .bet-label { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.1; }
+.hero-play .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+@media (max-width: 600px) { .hero-play .stat-row { grid-template-columns: repeat(2, 1fr); } }
+.hero-play .stat-row .item { padding: 12px; background: rgba(5,9,19,0.45); border-radius: 10px; border: 1px solid var(--border); }
+.hero-play .stat-row .item .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.hero-play .stat-row .item .v { font-size: 18px; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+.hero-play .stat-row .item .v.green { color: var(--green); }
+.hero-play .reasoning { background: rgba(5,9,19,0.4); border-radius: 12px; padding: 14px 16px; border: 1px solid var(--border); }
+.hero-play .reasoning-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.hero-play .reasoning ul { list-style: none; padding: 0; }
+.hero-play .reasoning li { color: var(--fg-dim); font-size: 13px; padding: 3px 0 3px 18px; position: relative; }
+.hero-play .reasoning li::before { content: "•"; color: var(--green); position: absolute; left: 4px; font-weight: 700; }
 
-/* Tables */
-.table-wrap { overflow-x: auto; margin: 12px 0; }
+/* PLAY CARDS (non-hero) */
+.play-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+@media (max-width: 760px) { .play-grid { grid-template-columns: 1fr; } }
+.play-card { padding: 18px; background: rgba(17,26,46,0.7); border-radius: 16px; border: 1px solid var(--border);
+             border-left: 4px solid var(--blue); transition: transform 0.18s, border-left-color 0.18s; }
+.play-card:hover { transform: translateY(-2px); }
+.play-card.risk-Strong  { border-left-color: var(--green); }
+.play-card.risk-Standard { border-left-color: var(--amber); }
+.play-card.risk-Lean    { border-left-color: var(--blue); }
+.play-card.risk-Max     { border-left-color: var(--emerald); }
+.play-card .ph { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.play-card .ph-l { flex: 1; min-width: 0; }
+.play-card .ph-mu { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.play-card .ph-lbl { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+.play-card .risk-badge { padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; flex-shrink: 0; }
+.play-card.risk-Strong .risk-badge   { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+.play-card.risk-Standard .risk-badge { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+.play-card.risk-Lean .risk-badge     { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-bd); }
+.play-card.risk-Max .risk-badge      { background: var(--green-bg); color: var(--emerald); border: 1px solid var(--green-bd); }
+.play-card .stats-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; font-size: 12px; }
+.play-card .stats-row .s { display: flex; flex-direction: column; gap: 2px; }
+.play-card .stats-row .s .l { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.play-card .stats-row .s .v { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--fg); font-size: 14px; }
+.play-card .conf-bar { margin-top: 10px; display: flex; gap: 3px; }
+.play-card .conf-bar .seg { flex: 1; height: 4px; background: rgba(148,163,184,0.18); border-radius: 2px; }
+.play-card .conf-bar .seg.on { background: linear-gradient(90deg, var(--blue), var(--green)); }
+
+/* NO-PLAY GAMES */
+.noplay-section { margin-top: 24px; }
+.noplay-title { font-size: 13px; color: var(--muted); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.noplay-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
+.noplay-row { padding: 12px 16px; background: rgba(17,26,46,0.4); border-radius: 10px; border: 1px solid var(--border);
+              display: grid; grid-template-columns: 2fr 3fr; gap: 16px; align-items: center; }
+@media (max-width: 600px) { .noplay-row { grid-template-columns: 1fr; gap: 8px; } }
+.noplay-row .matchup { font-size: 14px; font-weight: 600; }
+.noplay-row .stats { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--muted); }
+.noplay-row .stats b { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+
+/* NO-PLAY EMPTY STATE */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
+.empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+.empty-state .h { font-size: 18px; font-weight: 700; color: var(--fg); margin-bottom: 6px; }
+.empty-state .p { font-size: 13px; }
+
+/* TABLES */
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
-td { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
-td.text { font-family: 'DM Sans', sans-serif; }
-tr.overall td { font-weight: 800; }
-.pos { color: var(--green); }
-.neg { color: var(--red); }
+thead { background: rgba(11,18,32,0.65); }
+th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+td { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--fg-dim); }
+td.text { font-family: 'Inter', sans-serif; color: var(--fg); }
+tbody tr:hover { background: rgba(26,37,67,0.4); }
+tbody tr:last-child td { border-bottom: none; }
+tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.4); }
+.pos { color: var(--green); font-weight: 700; }
+.neg { color: var(--red); font-weight: 700; }
 
-/* Filter chips */
-.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-.chip { padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; background: rgba(15,23,42,0.5); color: var(--muted); cursor: pointer; border: 1px solid var(--border); }
-.chip.active { background: rgba(14,165,233,0.18); color: #38bdf8; border-color: rgba(14,165,233,0.3); }
+/* SUBHEAD */
+.subhead { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 22px 0 10px; }
 
-/* About */
-.about p { margin-bottom: 12px; line-height: 1.6; color: #cbd5e1; }
-.about h3 { margin: 18px 0 8px; font-size: 15px; }
-.about ul { padding-left: 22px; margin-bottom: 12px; color: #cbd5e1; }
-.about li { margin-bottom: 4px; }
+/* FILTER CHIPS */
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.chip { padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+        background: var(--bg-2); color: var(--muted); cursor: pointer; border: 1px solid var(--border); transition: all 0.15s; }
+.chip:hover { color: var(--fg); border-color: var(--border-strong); }
+.chip.active { background: var(--blue-bg); color: var(--blue); border-color: var(--blue-bd); }
 
-.footer { text-align: center; margin-top: 24px; padding: 16px; font-size: 11px; color: #475569; }
-.loading { text-align: center; padding: 40px; color: var(--muted); }
+/* ABOUT */
+.about p { margin-bottom: 14px; line-height: 1.7; color: var(--fg-dim); font-size: 14px; }
+.about h3 { margin: 24px 0 10px; font-size: 16px; font-weight: 700; }
+.about ul { padding-left: 22px; margin-bottom: 12px; color: var(--fg-dim); }
+.about li { margin-bottom: 6px; line-height: 1.6; font-size: 14px; }
+.about li b { color: var(--fg); }
+
+.footer { text-align: center; margin-top: 28px; padding: 16px; font-size: 12px; color: var(--muted-2); }
+.loading { text-align: center; padding: 60px 20px; color: var(--muted); }
+.loading::before { content: "⏳ "; }
+
+/* PAPER DISCLAIMER */
+.disclaimer { background: var(--amber-bg); border: 1px solid var(--amber-bd); color: var(--amber);
+              padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
+.disclaimer b { color: var(--amber); }
 </style>
 </head>
 <body>
@@ -299,17 +395,36 @@ tr.overall td { font-weight: 800; }
 
   <header>
     <div class="brand">
-      <div>
-        <div class="brand-name">⚾ MLB Sharp</div>
-        <div class="brand-sub">Market-anchored model · automated daily · open methodology</div>
+      <div class="brand-left">
+        <div class="brand-mark">⚾</div>
+        <div>
+          <div class="brand-name">MLB Sharp</div>
+          <div class="brand-sub">Market-anchored daily picks · automated · open methodology</div>
+        </div>
       </div>
-      <span class="pill" id="generated-label">loading…</span>
+      <div class="live-indicator"><span class="live-dot"></span><span id="live-label">Live</span></div>
     </div>
     <div class="stats-grid" id="hero-stats">
-      <div class="stat-card"><div class="v" id="hero-record">—</div><div class="l">All-Time Record</div></div>
-      <div class="stat-card"><div class="v" id="hero-roi">—</div><div class="l">All-Time ROI</div></div>
-      <div class="stat-card"><div class="v" id="hero-pl">—</div><div class="l">All-Time P/L</div></div>
-      <div class="stat-card"><div class="v" id="hero-edge">—</div><div class="l">Avg Predicted Edge</div></div>
+      <div class="stat-card">
+        <div class="l">All-Time Record</div>
+        <div class="v" id="hero-record">—</div>
+        <div class="sub" id="hero-record-sub">total bets settled</div>
+      </div>
+      <div class="stat-card">
+        <div class="l">All-Time ROI</div>
+        <div class="v" id="hero-roi">—</div>
+        <div class="sub" id="hero-roi-sub">return on units risked</div>
+      </div>
+      <div class="stat-card">
+        <div class="l">All-Time P/L</div>
+        <div class="v" id="hero-pl">—</div>
+        <div class="sub" id="hero-pl-sub">cumulative units</div>
+      </div>
+      <div class="stat-card">
+        <div class="l">Last 7-Day Window</div>
+        <div class="v" id="hero-recent">—</div>
+        <div class="sub" id="hero-recent-sub">recent form</div>
+      </div>
     </div>
   </header>
 
@@ -324,25 +439,30 @@ tr.overall td { font-weight: 800; }
 
   <!-- Today -->
   <section class="section active" id="today">
-    <div class="glass">
-      <div class="section-title">⚡ Today's Slate</div>
-      <div class="date-bar">
-        <span class="muted">Showing:</span>
-        <span id="today-date" style="font-family: 'JetBrains Mono', monospace;">—</span>
+    <div class="card">
+      <div class="card-title">
+        <h2>⚡ Today's Recommendations</h2>
+        <span class="meta" id="today-date">—</span>
       </div>
-      <div id="today-games" class="loading">Loading today's games…</div>
+      <div id="today-plays"><div class="loading">Loading today's plays…</div></div>
+      <div class="noplay-section" id="today-noplay-section" style="display:none;">
+        <div class="noplay-title">📋 Other graded games (no-play)</div>
+        <div class="noplay-grid" id="today-noplay"></div>
+      </div>
     </div>
   </section>
 
   <!-- History -->
   <section class="section" id="history">
-    <div class="glass">
-      <div class="section-title">📆 Historical Slate Browser</div>
+    <div class="card">
+      <div class="card-title">
+        <h2>📆 Historical Slate Browser</h2>
+        <span class="meta" id="hist-count"></span>
+      </div>
       <div class="date-bar">
-        <button class="nav-btn" id="hist-prev">← Prev</button>
+        <button class="nav-btn" id="hist-prev" title="Older date">←</button>
         <select id="hist-select"></select>
-        <button class="nav-btn" id="hist-next">Next →</button>
-        <span class="muted" id="hist-count" style="margin-left: auto; font-size: 12px;"></span>
+        <button class="nav-btn" id="hist-next" title="Newer date">→</button>
       </div>
       <div id="hist-content" class="loading">Pick a date.</div>
     </div>
@@ -350,23 +470,27 @@ tr.overall td { font-weight: 800; }
 
   <!-- Record -->
   <section class="section" id="record">
-    <div class="glass">
-      <div class="section-title">📊 Track Record</div>
+    <div class="card">
+      <div class="card-title"><h2>📊 Track Record</h2></div>
       <div id="record-content" class="loading">Loading record…</div>
     </div>
   </section>
 
   <!-- Bets -->
   <section class="section" id="bets">
-    <div class="glass">
-      <div class="section-title">📝 Full Bet Log</div>
+    <div class="card">
+      <div class="card-title">
+        <h2>📝 Full Bet Log</h2>
+        <span class="meta" id="bets-count"></span>
+      </div>
       <div class="chips" id="bets-filter">
         <div class="chip active" data-filter="all">All</div>
         <div class="chip" data-filter="won">Won</div>
         <div class="chip" data-filter="lost">Lost</div>
         <div class="chip" data-filter="pending">Pending</div>
-        <div class="chip" data-filter="moneyline">Moneyline</div>
+        <div class="chip" data-filter="moneyline">ML</div>
         <div class="chip" data-filter="total">Total</div>
+        <div class="chip" data-filter="runline">Run line</div>
       </div>
       <div id="bets-content" class="loading">Loading…</div>
     </div>
@@ -374,48 +498,50 @@ tr.overall td { font-weight: 800; }
 
   <!-- Paper Props -->
   <section class="section" id="props">
-    <div class="glass">
-      <div class="section-title">🎯 Paper Trading — Player Props</div>
-      <p class="muted" style="margin-bottom: 16px; font-size: 13px;">
-        Phase 2 backtest. Pitcher strikeouts, pitcher walks, and batter walks tracked
-        with 0.5u paper sizing. <b>No real money is bet from these markets yet</b> —
-        we're testing whether prop edges sustain higher ROI than ML/total before promoting.
-      </p>
+    <div class="card">
+      <div class="card-title"><h2>🎯 Paper Trading — Player Props</h2></div>
+      <div class="disclaimer">
+        <b>Backtest only.</b> Pitcher strikeouts, pitcher walks, and batter walks are tracked
+        with 0.5u paper sizing. No real money is bet on these markets yet — we're verifying
+        whether the model's prop edges sustain higher ROI than the main ML/total bets before
+        we promote them to the live layer.
+      </div>
       <div id="props-content" class="loading">Loading…</div>
     </div>
   </section>
 
   <!-- About -->
   <section class="section" id="about">
-    <div class="glass about">
-      <div class="section-title">ℹ️ About this system</div>
-      <p>An end-to-end automated MLB sharp betting system. Every day at ~11 AM ET, GitHub Actions
-        scrapes the slate, grades every game across 7 categories, anchors the model to Pinnacle's
-        no-vig fair price, and pushes a sized betting card to Discord when (and only when) the
-        edges clear strict gates.</p>
-      <h3>How a play earns its way onto the card</h3>
+    <div class="card about">
+      <div class="card-title"><h2>ℹ️ About this system</h2></div>
+      <p>An end-to-end automated MLB betting system. Every day around 11 AM ET, GitHub Actions
+        scrapes the day's slate, grades every game across seven categories, anchors the model
+        against Pinnacle's no-vig fair price, and pushes sized recommendations to Discord when
+        (and only when) the edges clear strict gates.</p>
+      <h3>What earns a play onto the card</h3>
       <ul>
-        <li>Model probability must clear the per-market <b>MIN_EDGE</b> threshold (2.5–3.5%).</li>
-        <li>Confidence must be ≥6/10 — combines grade-gap and edge-size, both axes required.</li>
-        <li>Edge must be ≤12% (anything higher = calibration bug, rejected).</li>
-        <li>Max 5 plays per slate, 6u total exposure, 1 play per game.</li>
-        <li>Plausibility guards filter out misclassified DH games / alt-line markets.</li>
+        <li><b>Edge ≥ market floor</b> — 2.5–3.5% depending on market (moneyline 2.5%, total 3%, NRFI 3.5%).</li>
+        <li><b>Confidence ≥ 6/10</b> — combines grade gap with edge size. Both axes must contribute.</li>
+        <li><b>Edge ≤ 12%</b> — anything above this is treated as a calibration bug and rejected.</li>
+        <li><b>Slate-wide caps</b> — max 5 plays/day, 6 units total exposure, 1 play per game.</li>
+        <li><b>Plausibility guards</b> — DH 7-inning games and alt-line markets get filtered out.</li>
       </ul>
       <h3>Signals the model uses</h3>
       <ul>
-        <li><b>Pitching:</b> velocity trend, CSW%, pitch movement shifts, splits vs hand</li>
-        <li><b>Bullpen:</b> usage fatigue + K%/BB%/ERA quality + handedness availability</li>
-        <li><b>Offense:</b> platoon edges, recent RPG, top-of-order wOBA, 7-day rolling form</li>
-        <li><b>Weather/park:</b> 10-yr calibrated park factors, wind × CF orientation, temp</li>
-        <li><b>Catcher framing:</b> elite framers boost K projections, soft framers cost runs</li>
+        <li><b>Pitching:</b> velocity trend, CSW%, pitch-movement shifts, splits vs handedness</li>
+        <li><b>Bullpen:</b> recent usage / fatigue + K%/BB%/ERA quality + handedness availability</li>
+        <li><b>Offense:</b> platoon edges, top-of-order wOBA, 7-day rolling form</li>
+        <li><b>Weather + park:</b> 10-yr calibrated park factors, wind direction relative to CF, temperature</li>
+        <li><b>Catcher framing:</b> elite framers boost K projections; soft framers cost expected runs</li>
         <li><b>Umpire:</b> live 60-day K-tendency from MLB Stats API</li>
-        <li><b>Travel:</b> cross-country flights flag the offense</li>
-        <li><b>Market anchor:</b> Pinnacle devigged fair price as Bayesian prior (capped ±5pp)</li>
+        <li><b>Travel:</b> cross-country flights flag the affected offense</li>
+        <li><b>Market anchor:</b> Pinnacle devigged price is the prior — model only nudges within ±5pp</li>
       </ul>
-      <h3>What it is — and isn't</h3>
-      <p>It is a research / paper-trading system with a real-money betting layer running on the
-        same model. All numbers shown are <b>recommended</b> bets — actual results depend on whether
-        the user placed them. Past performance does not guarantee future results.</p>
+      <h3>Honest limits</h3>
+      <p>This is a research and paper-trading system with a real-money layer riding on the same
+        model. All numbers are <b>recommended</b> bets. The CLV tracker (closing-line value) is
+        the only durable short-term proof of edge — win/loss over hundreds of bets is high-variance
+        noise. Past performance does not predict future results.</p>
       <p>Source: <a href="https://github.com/Scottguts/mlb-sharp" target="_blank">github.com/Scottguts/mlb-sharp</a></p>
     </div>
   </section>
@@ -461,15 +587,16 @@ async function fetchJSON(url) {
 
 async function loadManifest() {
   manifest = await fetchJSON(`${DATA}/manifest.json`);
-  $('#generated-label').textContent = `updated ${manifest.generated_at.replace('T', ' ')}`;
-  $('#footer').textContent = `Updated daily by GitHub Actions · last build: ${manifest.generated_at.replace('T', ' ')}`;
-  // Date picker
+  const built = manifest.generated_at.replace('T', ' ');
+  $('#live-label').textContent = `Updated ${built}`;
+  $('#footer').textContent = `Updated daily by the GitHub Actions cron · last build: ${built}`;
   const sel = $('#hist-select');
   sel.innerHTML = '';
   manifest.dates.forEach(d => {
     const opt = document.createElement('option');
     opt.value = d.date;
-    opt.textContent = `${d.date} — ${d.n_games} games, ${d.n_cards} plays (${d.units_recommended}u)`;
+    const plays = d.n_cards === 0 ? 'no plays' : `${d.n_cards} play${d.n_cards>1?'s':''}`;
+    opt.textContent = `${d.date}  •  ${d.n_games} games  •  ${plays} (${d.units_recommended}u)`;
     sel.appendChild(opt);
   });
   $('#hist-count').textContent = `${manifest.dates.length} dates archived`;
@@ -478,48 +605,149 @@ async function loadManifest() {
   $('#hist-next').addEventListener('click', () => { sel.selectedIndex = Math.max(sel.selectedIndex - 1, 0); sel.dispatchEvent(new Event('change')); });
 }
 
-function gameCardHTML(gm) {
-  const cards = gm.bet_cards || [];
-  const hasBet = cards.length > 0;
-  const klass = hasBet ? 'game-row has-bet' : 'game-row no-bet';
-  const time = gm.gameDate ? new Date(gm.gameDate).toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York'}) + ' ET' : '';
-  let betsHTML = '';
-  for (const c of cards) {
-    const edge = (c.edge * 100).toFixed(2);
-    const price = fmtPrice(c.price_american);
-    const line = (c.line !== null && c.line !== undefined) ? ` ${c.line}` : '';
-    betsHTML += `<span class="bet-pill">${c.bet_label}${line} @ ${c.book.toUpperCase()} ${price} · ${edge}% edge · ${c.unit_size}u · conf ${c.confidence}/10</span> `;
-  }
-  return `
-    <div class="${klass}">
-      <div class="game-head">
-        <div>
-          <div class="game-title">${gm.matchup}</div>
-          <div class="game-time">${time}</div>
-        </div>
-        <div class="game-stats">
-          <span>Grade <b>H${fmt(gm.grade.home, 1)} / A${fmt(gm.grade.away, 1)}</b></span>
-          <span>WP <b>${(gm.win_prob.home*100).toFixed(1)}% / ${(gm.win_prob.away*100).toFixed(1)}%</b></span>
-          <span>xRuns <b>${gm.expected_total}</b></span>
-          <span>F5 <b>${gm.expected_f5_total}</b></span>
-          <span>NRFI <b>${(gm.nrfi_prob*100).toFixed(1)}%</b></span>
-        </div>
-      </div>
-      ${betsHTML}
+const RISK = (r) => ({Strong:'risk-Strong', Standard:'risk-Standard', Lean:'risk-Lean', Max:'risk-Max', Low:'risk-Lean', Medium:'risk-Standard'})[r] || 'risk-Lean';
+const MARKET_LABEL = {moneyline:'Moneyline', total:'Full-Game Total', f5_total:'First-5 Total', runline:'Run Line', nrfi:'NRFI/YRFI'};
+
+function fmtGameTimeET(iso) {
+  if (!iso) return '';
+  try {
+    const d = new Date(iso);
+    return d.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York'}) + ' ET';
+  } catch { return ''; }
+}
+
+function heroCardHTML(gm, c) {
+  const edge = (c.edge * 100).toFixed(2);
+  const price = fmtPrice(c.price_american);
+  const lineStr = (c.line !== null && c.line !== undefined) ? `  @ ${c.line}` : '';
+  const fairPct = (c.fair_prob * 100).toFixed(1);
+  const market = MARKET_LABEL[c.market] || c.market;
+  const time = fmtGameTimeET(gm.gameDate);
+  let reasonHTML = '';
+  if (c.reasoning && c.reasoning.length) {
+    reasonHTML = `<div class="reasoning">
+      <div class="reasoning-title">Why this play</div>
+      <ul>${c.reasoning.slice(0, 5).map(r => `<li>${r}</li>`).join('')}</ul>
     </div>`;
+  }
+  return `<div class="hero-play">
+    <div class="game-label">${market} • ${time}</div>
+    <div class="game-matchup">${gm.matchup}</div>
+    <div class="bet-label">${c.bet_label}${lineStr}</div>
+    <div class="stat-row">
+      <div class="item"><div class="l">Best book</div><div class="v">${c.book.toUpperCase()}</div></div>
+      <div class="item"><div class="l">Price</div><div class="v">${price}</div></div>
+      <div class="item"><div class="l">Edge</div><div class="v green">${edge}%</div></div>
+      <div class="item"><div class="l">Size</div><div class="v">${c.unit_size}u <span style="font-size:12px;color:var(--muted);font-weight:600;">${c.risk}</span></div></div>
+    </div>
+    ${reasonHTML}
+  </div>`;
+}
+
+function playCardHTML(gm, c) {
+  const edge = (c.edge * 100).toFixed(2);
+  const price = fmtPrice(c.price_american);
+  const lineStr = (c.line !== null && c.line !== undefined) ? ` ${c.line}` : '';
+  const market = MARKET_LABEL[c.market] || c.market;
+  const time = fmtGameTimeET(gm.gameDate);
+  const confSegs = Array.from({length: 10}, (_, i) =>
+    `<div class="seg${i < c.confidence ? ' on' : ''}"></div>`).join('');
+  return `<div class="play-card ${RISK(c.risk)}">
+    <div class="ph">
+      <div class="ph-l">
+        <div class="ph-mu">${market} · ${time}</div>
+        <div class="ph-lbl">${c.bet_label}${lineStr}</div>
+        <div style="font-size:12px; color:var(--muted); margin-top:4px;">${gm.matchup}</div>
+      </div>
+      <div class="risk-badge">${c.risk} · ${c.unit_size}u</div>
+    </div>
+    <div class="stats-row">
+      <div class="s"><div class="l">Book</div><div class="v">${c.book.toUpperCase()}</div></div>
+      <div class="s"><div class="l">Price</div><div class="v">${price}</div></div>
+      <div class="s"><div class="l">Edge</div><div class="v" style="color:var(--green);">${edge}%</div></div>
+      <div class="s"><div class="l">Conf</div><div class="v">${c.confidence}/10</div></div>
+    </div>
+    <div class="conf-bar" title="Confidence: ${c.confidence}/10">${confSegs}</div>
+  </div>`;
+}
+
+function noPlayRowHTML(gm) {
+  const time = fmtGameTimeET(gm.gameDate);
+  return `<div class="noplay-row">
+    <div class="matchup">${gm.matchup}<div style="font-size:11px; color:var(--muted-2); margin-top:2px; font-weight: 500;">${time}</div></div>
+    <div class="stats">
+      <span>Grade <b>H${fmt(gm.grade.home,1)}/A${fmt(gm.grade.away,1)}</b></span>
+      <span>WP <b>${(gm.win_prob.home*100).toFixed(0)}/${(gm.win_prob.away*100).toFixed(0)}%</b></span>
+      <span>xRuns <b>${gm.expected_total}</b></span>
+      <span>NRFI <b>${(gm.nrfi_prob*100).toFixed(0)}%</b></span>
+    </div>
+  </div>`;
 }
 
 async function loadDate(dateIso, targetId) {
-  const el = $(`#${targetId}`);
-  el.innerHTML = '<div class="loading">Loading…</div>';
+  const isToday = targetId.startsWith('today');
+  const playsEl = isToday ? $('#today-plays') : $(`#${targetId}`);
+  if (isToday) {
+    $('#today-noplay-section').style.display = 'none';
+    $('#today-noplay').innerHTML = '';
+  }
+  playsEl.innerHTML = '<div class="loading">Loading…</div>';
   try {
     const d = await fetchJSON(`${DATA}/${dateIso}.json`);
-    if (targetId === 'today-games') $('#today-date').textContent = dateIso;
-    let html = '';
-    for (const gm of d.grades) html += gameCardHTML(gm);
-    el.innerHTML = html || '<div class="muted">No games this date.</div>';
+    if (isToday) $('#today-date').textContent = `Slate of ${dateIso}`;
+    const allCards = [];
+    const noPlayGames = [];
+    for (const gm of d.grades) {
+      const cards = gm.bet_cards || [];
+      if (cards.length === 0) noPlayGames.push(gm);
+      else cards.forEach(c => allCards.push({gm, c}));
+    }
+    // Sort by edge × confidence
+    allCards.sort((a, b) => (b.c.edge * b.c.confidence) - (a.c.edge * a.c.confidence));
+
+    if (isToday) {
+      // Today: hero + grid
+      let html = '';
+      if (allCards.length === 0) {
+        html = `<div class="empty-state">
+          <div class="emoji">😴</div>
+          <div class="h">No plays today</div>
+          <div class="p">No game cleared the edge + confidence filters.<br/>Sharp betting means most days you don't play.</div>
+        </div>`;
+      } else {
+        const [hero, ...rest] = allCards;
+        html += heroCardHTML(hero.gm, hero.c);
+        if (rest.length) {
+          html += '<div class="subhead">Other plays</div>';
+          html += '<div class="play-grid">';
+          for (const {gm, c} of rest) html += playCardHTML(gm, c);
+          html += '</div>';
+        }
+      }
+      playsEl.innerHTML = html;
+      if (noPlayGames.length) {
+        $('#today-noplay-section').style.display = '';
+        $('#today-noplay').innerHTML = noPlayGames.map(noPlayRowHTML).join('');
+      }
+    } else {
+      // History: all games shown, plays first, then no-play
+      let html = '';
+      if (allCards.length === 0) {
+        html += `<div class="empty-state" style="padding: 24px;"><div class="emoji">😴</div><div class="h">No plays this date</div><div class="p">${noPlayGames.length} game(s) graded, none cleared the filters.</div></div>`;
+      } else {
+        html += '<div class="play-grid">';
+        for (const {gm, c} of allCards) html += playCardHTML(gm, c);
+        html += '</div>';
+      }
+      if (noPlayGames.length) {
+        html += '<div class="noplay-section"><div class="noplay-title">Other graded games (no play)</div><div class="noplay-grid">';
+        html += noPlayGames.map(noPlayRowHTML).join('');
+        html += '</div></div>';
+      }
+      playsEl.innerHTML = html;
+    }
   } catch (e) {
-    el.innerHTML = `<div class="muted">Could not load ${dateIso}: ${e.message}</div>`;
+    playsEl.innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><div class="h">Could not load ${dateIso}</div><div class="p">${e.message}</div></div>`;
   }
 }
 
@@ -528,15 +756,23 @@ async function loadRecord() {
   // Hero
   const at = record.all_time;
   $('#hero-record').textContent = `${at.won}-${at.lost}-${at.push}`;
+  $('#hero-record-sub').textContent = `${at.bets} bets logged · ${at.pending} pending`;
   $('#hero-roi').innerHTML = fmtPct(at.roi);
+  $('#hero-roi-sub').textContent = `over ${fmt(at.units_risked,1)}u risked`;
   $('#hero-pl').innerHTML = fmtPL(at.units_pl);
-  $('#hero-edge').textContent = `${fmt(at.avg_edge, 1)}%`;
-  // Table builder
+  $('#hero-pl-sub').textContent = `at 1u = 1% bankroll`;
+  const r7 = record.last_7;
+  $('#hero-recent').innerHTML = `${r7.won}-${r7.lost}-${r7.push} · ${fmtPct(r7.roi)}`;
+  $('#hero-recent-sub').textContent = `${r7.bets} bets, last 7 days`;
+
   function tbl(title, buckets) {
-    let html = `<h3 style="margin: 16px 0 8px;">${title}</h3><div class="table-wrap"><table><thead><tr>
+    let html = `<div class="subhead">${title}</div><div class="table-wrap"><table><thead><tr>
       <th>Bucket</th><th>Bets</th><th>W-L-P</th><th>Win%</th><th>Risked</th><th>P/L</th><th>ROI</th><th>Avg Edge</th></tr></thead><tbody>`;
+    let first = true;
     for (const [name, b] of buckets) {
-      html += `<tr><td class="text">${name}</td><td>${b.bets}</td><td>${b.won}-${b.lost}-${b.push}</td>
+      const cls = first && (title.startsWith('Time') || title.startsWith('Overall')) ? ' class="overall"' : '';
+      first = false;
+      html += `<tr${cls}><td class="text">${name}</td><td>${b.bets}</td><td>${b.won}-${b.lost}-${b.push}</td>
         <td>${fmt(b.win_pct,1)}%</td><td>${fmt(b.units_risked,1)}u</td><td>${fmtPL(b.units_pl)}</td>
         <td>${fmtPct(b.roi)}</td><td>${fmt(b.avg_edge,2)}%</td></tr>`;
     }
@@ -546,8 +782,8 @@ async function loadRecord() {
   let html = '';
   html += tbl('Time windows', [['All-Time', record.all_time], ['Last 30 days', record.last_30], ['Last 7 days', record.last_7]]);
   html += tbl('By market', Object.entries(record.by_market));
-  html += tbl('By confidence', Object.entries(record.by_confidence));
-  html += tbl('By book', Object.entries(record.by_book));
+  html += tbl('By confidence tier', Object.entries(record.by_confidence));
+  html += tbl('By book shopped', Object.entries(record.by_book));
   $('#record-content').innerHTML = html;
 }
 
@@ -556,6 +792,18 @@ async function loadBets() {
   if (betLog === null) betLog = await fetchJSON(`${DATA}/bet_log.json`);
   renderBets();
 }
+function statusBadge(st) {
+  const map = {
+    won: ['var(--green)', 'var(--green-bg)', 'var(--green-bd)', 'Won'],
+    lost: ['var(--red)', 'var(--red-bg)', 'var(--red-bd)', 'Lost'],
+    pending: ['var(--blue)', 'var(--blue-bg)', 'var(--blue-bd)', 'Pending'],
+    push: ['var(--muted)', 'rgba(148,163,184,0.12)', 'var(--border)', 'Push'],
+    void: ['var(--muted)', 'rgba(148,163,184,0.12)', 'var(--border)', 'Void'],
+  };
+  const [c, bg, bd, label] = map[st] || ['var(--muted)', 'rgba(148,163,184,0.12)', 'var(--border)', st];
+  return `<span style="display:inline-block;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:700;color:${c};background:${bg};border:1px solid ${bd};">${label}</span>`;
+}
+
 function renderBets() {
   let rows = betLog || [];
   if (betsFilter !== 'all') {
@@ -563,19 +811,19 @@ function renderBets() {
     else rows = rows.filter(r => r.market === betsFilter);
   }
   rows = rows.slice().reverse();
-  let html = `<div class="muted" style="margin-bottom: 8px; font-size: 12px;">${rows.length} rows</div>
-    <div class="table-wrap"><table><thead><tr>
-      <th>Date</th><th>Matchup</th><th>Market</th><th>Side</th><th>Line</th><th>Book</th>
-      <th>Price</th><th>Edge</th><th>Conf</th><th>Units</th><th>Status</th><th>P/L</th></tr></thead><tbody>`;
+  $('#bets-count').textContent = `${rows.length} bets`;
+  let html = `<div class="table-wrap"><table><thead><tr>
+    <th>Date</th><th>Matchup</th><th>Market</th><th>Side</th><th>Line</th><th>Book</th>
+    <th>Price</th><th>Edge</th><th>Conf</th><th>Units</th><th>Status</th><th>P/L</th></tr></thead><tbody>`;
   for (const r of rows.slice(0, 300)) {
     const edge = r.edge_pred ? `${(Number(r.edge_pred)*100).toFixed(2)}%` : '—';
     const pl = (r.units_pl !== '' && r.units_pl !== undefined) ? fmtPL(Number(r.units_pl)) : '—';
-    html += `<tr><td>${r.date||''}</td><td class="text">${r.matchup||''}</td><td>${r.market}</td>
-      <td>${r.side}</td><td>${r.line||''}</td><td>${r.book}</td><td>${fmtPrice(Number(r.price))}</td>
-      <td>${edge}</td><td>${r.confidence}</td><td>${r.units_risked}u</td>
-      <td>${r.status}</td><td>${pl}</td></tr>`;
+    html += `<tr><td>${r.date||''}</td><td class="text">${r.matchup||''}</td><td>${r.market||''}</td>
+      <td>${r.side||''}</td><td>${r.line||''}</td><td>${(r.book||'').toUpperCase()}</td><td>${fmtPrice(Number(r.price))}</td>
+      <td>${edge}</td><td>${r.confidence||''}</td><td>${r.units_risked||''}u</td>
+      <td>${statusBadge(r.status)}</td><td>${pl}</td></tr>`;
   }
-  if (rows.length > 300) html += `<tr><td colspan="12" class="muted text">… ${rows.length - 300} more rows (showing latest 300) …</td></tr>`;
+  if (rows.length > 300) html += `<tr><td colspan="12" class="muted text" style="text-align:center;">… ${rows.length - 300} older rows hidden (showing latest 300) …</td></tr>`;
   html += '</tbody></table></div>';
   $('#bets-content').innerHTML = html;
 }
@@ -590,11 +838,22 @@ $('#bets-filter').addEventListener('click', (e) => {
 async function loadProps() {
   if (paperData === null) paperData = await fetchJSON(`${DATA}/paper_log.json`);
   const p = paperData;
+  if (p.all_time.bets === 0) {
+    $('#props-content').innerHTML = `<div class="empty-state">
+      <div class="emoji">⏳</div>
+      <div class="h">Paper trading just started</div>
+      <div class="p">Bets generated today are still pending. Settled results will populate this view as games finish — meaningful ROI comparison kicks in around 50+ settled bets per market (about 2-3 weeks).</div>
+    </div>`;
+    return;
+  }
   function tbl(title, buckets) {
-    let html = `<h3 style="margin: 16px 0 8px;">${title}</h3><div class="table-wrap"><table><thead><tr>
+    let html = `<div class="subhead">${title}</div><div class="table-wrap"><table><thead><tr>
       <th>Bucket</th><th>Bets</th><th>W-L-P-V-Pen</th><th>Win%</th><th>Risked</th><th>P/L</th><th>ROI</th></tr></thead><tbody>`;
+    let first = true;
     for (const [name, b] of buckets) {
-      html += `<tr><td class="text">${name}</td><td>${b.bets}</td>
+      const cls = first ? ' class="overall"' : '';
+      first = false;
+      html += `<tr${cls}><td class="text">${name}</td><td>${b.bets}</td>
         <td>${b.won}-${b.lost}-${b.push}-${b.void}-${b.pending}</td>
         <td>${fmt(b.win_pct,1)}%</td><td>${fmt(b.units_risked,1)}u</td>
         <td>${fmtPL(b.units_pl)}</td><td>${fmtPct(b.roi)}</td></tr>`;
@@ -605,15 +864,15 @@ async function loadProps() {
   let html = '';
   html += tbl('Time windows', [['All-Time', p.all_time], ['Last 7 days', p.last_7]]);
   html += tbl('By market', Object.entries(p.by_market));
-  html += `<h3 style="margin: 16px 0 8px;">Last paper bets</h3><div class="table-wrap"><table><thead><tr>
+  html += `<div class="subhead">Recent paper bets</div><div class="table-wrap"><table><thead><tr>
     <th>Date</th><th>Market</th><th>Player</th><th>Side</th><th>Line</th><th>Book</th><th>Price</th>
     <th>Edge</th><th>Status</th><th>Actual</th><th>P/L</th></tr></thead><tbody>`;
   for (const r of (p.rows || []).slice().reverse().slice(0, 200)) {
     const edge = r.edge_pred ? `${(Number(r.edge_pred)*100).toFixed(2)}%` : '—';
     const pl = (r.units_pl !== '' && r.units_pl !== undefined) ? fmtPL(Number(r.units_pl)) : '—';
-    html += `<tr><td>${r.date||''}</td><td>${r.market}</td><td class="text">${r.player_name||''}</td>
-      <td>${r.side}</td><td>${r.line||''}</td><td>${r.book}</td><td>${fmtPrice(Number(r.price))}</td>
-      <td>${edge}</td><td>${r.status}</td><td>${r.actual_result||''}</td><td>${pl}</td></tr>`;
+    html += `<tr><td>${r.date||''}</td><td>${(r.market||'').replace(/_/g, ' ')}</td><td class="text">${r.player_name||''}</td>
+      <td>${r.side||''}</td><td>${r.line||''}</td><td>${(r.book||'').toUpperCase()}</td><td>${fmtPrice(Number(r.price))}</td>
+      <td>${edge}</td><td>${statusBadge(r.status)}</td><td>${r.actual_result||''}</td><td>${pl}</td></tr>`;
   }
   html += '</tbody></table></div>';
   $('#props-content').innerHTML = html;
@@ -623,10 +882,10 @@ async function loadProps() {
   try {
     await loadManifest();
     await loadRecord();
-    if (manifest.latest) await loadDate(manifest.latest, 'today-games');
+    if (manifest.latest) await loadDate(manifest.latest, 'today-plays');
     if (manifest.dates.length > 0) await loadDate(manifest.dates[0].date, 'hist-content');
   } catch (e) {
-    $('#today-games').innerHTML = `<div class="muted">Boot error: ${e.message}</div>`;
+    $('#today-plays').innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><div class="h">Boot error</div><div class="p">${e.message}</div></div>`;
   }
   // Lazy-load the heavier tabs on click
   $$('.tab').forEach(t => {
