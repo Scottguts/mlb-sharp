@@ -894,7 +894,7 @@ function noPlayRowHTML(gm) {
     <div class="matchup">${gm.matchup}<div style="font-size:11px; color:var(--muted-2); margin-top:2px; font-weight: 500;">${time}</div></div>
     <div class="stats">
       <span>WP <b>${(gm.win_prob.away*100).toFixed(0)}/${(gm.win_prob.home*100).toFixed(0)}%</b></span>
-      <span>Grade <b>H${fmt(gm.grade.home,1)}/A${fmt(gm.grade.away,1)}</b></span>
+      <span>Grade <b>A${fmt(gm.grade.away,1)}/H${fmt(gm.grade.home,1)}</b></span>
       <span>xRuns <b>${gm.expected_total}</b></span>
       <span>NRFI <b>${(gm.nrfi_prob*100).toFixed(0)}%</b></span>
     </div>
@@ -1008,7 +1008,7 @@ function categoryGridHTML(gm) {
     const notes = (v.notes || []).slice(0, 4);
     return `<div class="cat-card">
       <div class="name">${cat.replace(/_/g,' ')}</div>
-      <div class="scores"><span class="lbl">H</span><span class="s home">${fmt(v.home,1)}</span><span class="lbl">A</span><span class="s away">${fmt(v.away,1)}</span></div>
+      <div class="scores"><span class="lbl">A</span><span class="s away">${fmt(v.away,1)}</span><span class="lbl">H</span><span class="s home">${fmt(v.home,1)}</span></div>
       ${notes.length ? `<ul>${notes.map(n => `<li>${n}</li>`).join('')}</ul>` : ''}
     </div>`;
   }).join('');
