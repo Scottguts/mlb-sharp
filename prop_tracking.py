@@ -191,6 +191,16 @@ def build_tracked_props(game: dict, ump_run_delta: float = 0.0) -> dict:
     """
     out = {"pitcher_ks": [], "pitcher_walks": [], "batter_walks": []}
 
+    # Catcher framing adjustment — applies to the pitcher's OWN catcher.
+    # Elite framer steals ~0.5-0.8 K per game; poor framer costs the same.
+    cf = game.get("catcher_framing") or {}
+    framing_k_bump = {"home": 0.0, "away": 0.0}
+    if cf.get("available"):
+        for s in ("home", "away"):
+            runs = (cf.get(s) or {}).get("season_runs", 0.0) or 0.0
+            # Empirical: +10 framing runs ≈ +0.6 K per start
+            framing_k_bump[s] = runs * 0.06
+
     for side in ("home", "away"):
         opp = "away" if side == "home" else "home"
         prof = game.get(side, {}).get("pitcher_profile") or {}
@@ -203,6 +213,11 @@ def build_tracked_props(game: dict, ump_run_delta: float = 0.0) -> dict:
             k_proj["side"] = side
             k_proj["name"] = game.get(side, {}).get("probable_pitcher_name")
             k_proj["id"]   = game.get(side, {}).get("probable_pitcher_id")
+            # Apply catcher-framing bump to projected K count
+            bump = framing_k_bump.get(side, 0.0)
+            if abs(bump) >= 0.1 and k_proj.get("projected_k") is not None:
+                k_proj["projected_k"] = round(k_proj["projected_k"] + bump, 2)
+                k_proj["catcher_framing_bump"] = round(bump, 2)
             out["pitcher_ks"].append(k_proj)
 
         bb_proj = project_pitcher_walks(prof, opp_bb, ump_run_delta=ump_run_delta)
