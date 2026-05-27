@@ -241,6 +241,15 @@ def grade_pitching(game: dict) -> CategoryScore:
             if hh <= 0.33: s += 0.5
             elif hh >= 0.40: s -= 1.0
 
+        # Pitch movement red flag — if a primary pitch's break shifted
+        # materially in the last start, the starter is either injured,
+        # mechanically off, or working on something new. Either way, it
+        # raises variance and slightly hurts our expected line.
+        mov_flags = prof.get("movement_flags") or []
+        if mov_flags:
+            s -= min(0.8, 0.4 * len(mov_flags))
+            notes.append(f"{side}: {mov_flags[0]}")
+
         out[side] = _clip(s, 0, 10)
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
 
@@ -295,6 +304,24 @@ def grade_bullpen(game: dict) -> CategoryScore:
             notes.append(f"{side} pen quality: K% {k_pct*100:.1f}, BB% {bb_pct*100:.1f}, ERA {era}"
                          if (k_pct is not None and bb_pct is not None and era is not None)
                          else f"{side} pen quality partial")
+        # Bullpen handedness vs opposing lineup's primary hand.
+        opp = "away" if side == "home" else "home"
+        by_hand = quality.get("by_hand") or {}
+        opp_lineup = _safe(game, "lineups", f"{opp}_lineup") or []
+        opp_hand = _dominant_hand(opp_lineup)
+        if opp_hand and by_hand:
+            # We want the same hand as the opposing lineup's MAJORITY hand
+            # (e.g. RHB-heavy lineup → we want LHP relievers to be available
+            # because lefty arms are typically reverse-platoon-safe; but in
+            # practice the SAME-hand path is the standard sharp angle:
+            # RHB lineup → RHP reliever has the platoon edge).
+            edge_hand = "R" if opp_hand == "R" else "L"
+            edge_avail = (by_hand.get(edge_hand) or {}).get("fresh_count", 0)
+            if edge_avail >= 3:
+                s += 0.4
+            elif edge_avail == 0:
+                s -= 0.5
+                notes.append(f"{side}: no fresh same-hand relievers vs {opp_hand}HB-heavy lineup")
         out[side] = _clip(s, 0, 10)
         notes.append(f"{side}: {gassed} arms gassed, {b2b} back-to-back, {total_pitches} pitches L7d")
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
@@ -344,6 +371,26 @@ def grade_offense(game: dict) -> CategoryScore:
             elif avg_woba >= 0.355: s += 0.8; notes.append(f"{side}: strong top-of-order wOBA {avg_woba:.3f}")
             elif avg_woba <= 0.290: s -= 1.5; notes.append(f"{side}: weak top-of-order wOBA {avg_woba:.3f}")
             elif avg_woba <= 0.310: s -= 0.8; notes.append(f"{side}: soft top-of-order wOBA {avg_woba:.3f}")
+
+        # 7-day rolling streak: avg recent wOBA across batters with sample.
+        recent_wobas: list[float] = []
+        for b in too.get("batters", []):
+            r = b.get("recent_7d") or {}
+            if r.get("available") and r.get("woba") is not None and r.get("pa", 0) >= 8:
+                recent_wobas.append(r["woba"])
+        if recent_wobas and avg_woba:
+            avg_recent = sum(recent_wobas) / len(recent_wobas)
+            delta = avg_recent - avg_woba
+            if   delta >= +0.060: s += 0.7; notes.append(f"{side}: top-of-order heating up (7d wOBA {avg_recent:.3f})")
+            elif delta >= +0.030: s += 0.3
+            elif delta <= -0.060: s -= 0.7; notes.append(f"{side}: top-of-order cooling (7d wOBA {avg_recent:.3f})")
+            elif delta <= -0.030: s -= 0.3
+
+        # Travel penalty — long cross-country flights drag the bats.
+        travel = _safe(game, side, "travel") or {}
+        if travel.get("cross_country"):
+            s -= 0.4
+            notes.append(f"{side}: travel — {travel.get('miles_traveled')}mi since last game")
 
         out[side] = _clip(s, 0, 10)
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
@@ -411,6 +458,15 @@ def grade_situational(game: dict) -> CategoryScore:
         if not _safe(game, side, "probable_pitcher_id"):
             out[side] -= 1.5
             notes.append(f"{side}: no probable starter (bullpen game?)")
+    # Catcher framing note — boosts the home pitcher's K projection if home
+    # catcher is elite, hurts the away pitcher if away catcher is below avg.
+    cf = game.get("catcher_framing") or {}
+    if cf.get("available"):
+        for side in ("home", "away"):
+            runs = (cf.get(side) or {}).get("season_runs")
+            if runs is None: continue
+            if runs >= +6:    notes.append(f"{side} catcher: elite framer (+{runs:.0f} runs/season)")
+            elif runs <= -5:  notes.append(f"{side} catcher: poor framer ({runs:.0f} runs/season)")
     return CategoryScore(home=out["home"], away=out["away"], notes=notes)
 
 
@@ -669,12 +725,22 @@ UMPIRE_TENDENCIES = {
 
 
 def _umpire_run_delta(game: dict) -> tuple[float, str | None]:
-    """Returns (run_adjustment, ump_name) based on home plate umpire."""
+    """Returns (run_adjustment, ump_name) based on home plate umpire.
+
+    Prefers the live 60-day tendency from MLB Stats API (`hp_ump_tendency`)
+    over the hand-curated UMPIRE_TENDENCIES table — the live data captures
+    ump drift and stays current automatically.
+    """
     umps = _safe(game, "lineups", "umpires") or []
     hp = next((u for u in umps if (u.get("type") or "").lower() in
                ("home plate", "home", "hp", "plate")), None)
     if not hp: return 0.0, None
     name = hp.get("name", "")
+    # Prefer dynamic tendency when we have a meaningful sample
+    dyn = _safe(game, "lineups", "hp_ump_tendency") or {}
+    if dyn.get("available") and dyn.get("n_games", 0) >= 5:
+        # Clamp the live delta — extreme small-sample noise gets capped.
+        return _clip(float(dyn["run_delta"]), -0.55, +0.55), name
     info = UMPIRE_TENDENCIES.get(name)
     if not info: return 0.0, name
     return info["run_delta"], name
@@ -710,6 +776,26 @@ def _grade_run_delta(game, catscores, weight_pitch=0.5, weight_pen=0.25, weight_
     delta += (avg_off - 5) * GRADE_TO_RUNS * weight_off * 4
     ump_delta, _ = _umpire_run_delta(game)
     delta += ump_delta
+
+    # Catcher framing: combined effect of both catchers on total runs.
+    # A great-framing catcher behind plate steals strikes → fewer hits/runs.
+    cf = game.get("catcher_framing") or {}
+    if cf.get("available"):
+        home_pg = (cf.get("home") or {}).get("per_game", 0.0) or 0.0
+        away_pg = (cf.get("away") or {}).get("per_game", 0.0) or 0.0
+        # Each catcher only frames for their own team's pitcher, so the
+        # combined impact on total runs is the SUM (both are run-suppressing
+        # when positive).
+        delta -= (home_pg + away_pg)
+
+    # Travel + rest: long cross-country flights cost the offense ~0.1-0.2 r.
+    # If BOTH teams flew, effects roughly cancel.
+    home_t = (game.get("home") or {}).get("travel") or {}
+    away_t = (game.get("away") or {}).get("travel") or {}
+    travel_penalty = 0.0
+    if home_t.get("cross_country"): travel_penalty -= 0.10
+    if away_t.get("cross_country"): travel_penalty -= 0.15   # away takes the hit more
+    delta += travel_penalty
     return delta
 
 

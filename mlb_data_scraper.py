@@ -163,6 +163,132 @@ def fetch_schedule(target: date) -> list[dict]:
     return games
 
 
+# Catcher framing runs above/below average (2024 season Statcast leaderboard
+# extract — refresh annually). Source: Baseball Savant "Catcher Framing".
+# Positive = steals more strikes (good for K projections, lowers run total).
+# Approximate: top framers worth +6 to +12 runs/season; bottom -8 to -10.
+CATCHER_FRAMING: dict[int, float] = {
+    # Elite framers (refresh from baseballsavant.mlb.com/catcher_framing)
+    669127: 12.0,  # Patrick Bailey (SFG)
+    668939: 9.4,   # Adley Rutschman (BAL)
+    641598: 8.5,   # Cal Raleigh (SEA)
+    687462: 7.8,   # Austin Wells (NYY)
+    669004: 7.4,   # Sean Murphy (ATL)
+    656629: 7.2,   # Jonah Heim (TEX)
+    669221: 7.0,   # Tyler Heineman / others
+    642336: 6.7,   # Iván Herrera
+    669911: 6.5,   # Joey Bart
+    608348: 6.0,   # J.T. Realmuto (PHI)
+    608360: 5.6,   # Logan O'Hoppe (LAA)
+    641857: 5.1,   # Travis d'Arnaud
+    641941: 4.7,   # James McCann
+    643327: 4.5,   # Will Smith (LAD)
+    643446: 4.0,   # Carson Kelly
+    660688: 3.8,   # Yainer Diaz
+    642708: 3.3,   # Christian Vazquez
+    641778: 3.0,   # Tomas Nido
+    642054: 2.6,   # Christian Bethancourt
+    660644: 2.0,   # Francisco Alvarez
+    # Below-average framers
+    682928: -2.5,  # Bo Naylor
+    669456: -3.0,  # Henry Davis
+    608986: -3.5,  # Tom Murphy
+    572020: -4.0,  # Yan Gomes
+    605137: -4.5,  # Salvador Perez
+    624431: -5.0,  # Willson Contreras
+    605204: -6.0,  # Martin Maldonado
+    608841: -7.0,  # Gary Sanchez
+    518960: -8.5,  # Kurt Suzuki (retired but stat carries)
+    458015: -10.0, # Yasmani Grandal
+}
+
+
+def _starting_catcher(box_teams: dict, side: str) -> int | None:
+    """Identify the team's catcher (position code '2') from box-score players."""
+    players = (box_teams or {}).get(side, {}).get("players", {})
+    for _, p in players.items():
+        pos = (p.get("position") or {}).get("code") or (p.get("position") or {}).get("abbreviation")
+        if pos == "2" or pos == "C":
+            return p.get("person", {}).get("id")
+    return None
+
+
+def fetch_umpire_recent_tendency(umpire_id: int, days: int = 60) -> dict:
+    """Compute K-rate + scoring tendency for a home-plate umpire over recent
+    games. Replaces the hand-curated UMPIRE_TENDENCIES table with live data.
+
+    Method: pull every game this ump was behind the plate for in the last
+    N days. For each, take total K count and total runs scored. Compare to
+    league averages of the same window. Returns:
+        k_delta:    Ks per 9 above league average
+        run_delta:  runs per game above league average (negative = K-friendly)
+    """
+    end = date.today()
+    start = end - timedelta(days=days)
+    # Find games this ump worked
+    try:
+        sched = _get(f"{MLB_API}/schedule", params={
+            "sportId": 1,
+            "startDate": start.isoformat(), "endDate": end.isoformat(),
+            "hydrate": "officials,linescore",
+        })
+    except Exception:
+        return {"available": False}
+    ump_games = []
+    league_runs = []
+    league_ks = []
+    league_games = 0
+    for d in sched.get("dates", []):
+        for g in d.get("games", []):
+            if g["status"]["abstractGameState"] != "Final": continue
+            ls = g.get("linescore") or {}
+            home_r = ls.get("teams", {}).get("home", {}).get("runs")
+            away_r = ls.get("teams", {}).get("away", {}).get("runs")
+            if home_r is None or away_r is None: continue
+            league_runs.append(home_r + away_r)
+            league_games += 1
+            # Identify HP ump
+            hp = next((o for o in g.get("officials", []) or []
+                       if (o.get("officialType") or "").lower() in
+                          ("home plate", "home", "hp", "plate")), None)
+            if hp and hp.get("official", {}).get("id") == umpire_id:
+                ump_games.append(home_r + away_r)
+    if not ump_games or len(ump_games) < 3:
+        return {"available": False, "reason": "small_sample", "n_games": len(ump_games)}
+    league_avg_runs = sum(league_runs) / len(league_runs) if league_runs else 8.8
+    ump_avg_runs = sum(ump_games) / len(ump_games)
+    run_delta = round(ump_avg_runs - league_avg_runs, 2)
+    return {
+        "available": True,
+        "n_games":  len(ump_games),
+        "ump_avg_runs":    round(ump_avg_runs, 2),
+        "league_avg_runs": round(league_avg_runs, 2),
+        "run_delta":       run_delta,
+    }
+
+
+def fetch_catcher_framing_for_game(game_pk: int) -> dict:
+    """Pull each side's starting catcher (when lineups confirmed) and look up
+    their framing run value. Returns a tilt-per-side in runs/game."""
+    try:
+        url = f"https://statsapi.mlb.com/api/v1.1/game/{game_pk}/feed/live"
+        data = _get(url)
+    except Exception as e:
+        return {"available": False, "error": str(e)}
+    box_teams = data.get("liveData", {}).get("boxscore", {}).get("teams", {})
+    out: dict[str, Any] = {"available": True}
+    for side in ("home", "away"):
+        cid = _starting_catcher(box_teams, side)
+        # Per-game framing impact: season runs / ~140 games behind plate
+        framing_runs = CATCHER_FRAMING.get(cid, 0.0) if cid else 0.0
+        out[side] = {
+            "catcher_id":   cid,
+            "season_runs":  framing_runs,
+            "per_game":     round(framing_runs / 140.0, 3),
+        }
+    return out
+
+
 def fetch_lineups_and_umpire(game_pk: int) -> dict:
     """Confirmed lineups + umpires from live feed (only available close to/at game time)."""
     url = f"https://statsapi.mlb.com/api/v1.1/game/{game_pk}/feed/live"
@@ -189,18 +315,32 @@ def fetch_lineups_and_umpire(game_pk: int) -> dict:
         return out
 
     umps = []
+    hp_ump_id = None
     for o in game_data.get("officials", []) or []:
-        umps.append({
+        u = {
             "type": o.get("officialType"),
             "id": o.get("official", {}).get("id"),
             "name": o.get("official", {}).get("fullName"),
-        })
+        }
+        umps.append(u)
+        if (u["type"] or "").lower() in ("home plate", "home", "hp", "plate"):
+            hp_ump_id = u["id"]
+
+    # Pull dynamic tendency for the home plate umpire when known. Falls back
+    # to the hardcoded table later in grader if this returns unavailable.
+    hp_tendency = None
+    if hp_ump_id:
+        try:
+            hp_tendency = fetch_umpire_recent_tendency(hp_ump_id, days=60)
+        except Exception:
+            hp_tendency = {"available": False}
 
     return {
         "lineups_confirmed": bool(box.get("teams", {}).get("home", {}).get("battingOrder")),
         "away_lineup": _lineup("away"),
         "home_lineup": _lineup("home"),
         "umpires": umps,
+        "hp_ump_tendency": hp_tendency,
     }
 
 
@@ -251,6 +391,37 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
         df.groupby("pitch_type").size().div(len(df)).round(3).to_dict()
     )
 
+    # Pitch movement trends — compare last start to window average per pitch
+    # type for `pfx_x` (horizontal break) and `pfx_z` (vertical break). A drop
+    # of >=1.5 inches in either dimension on a primary pitch type is a
+    # red flag — the pitcher's arm slot or stuff has changed.
+    movement_flags: list[str] = []
+    if {"pitch_type", "pfx_x", "pfx_z", "game_date"}.issubset(df.columns):
+        # Average movement per pitch type over the window
+        window_mov = df.groupby("pitch_type").agg(
+            avg_pfx_x=("pfx_x", "mean"), avg_pfx_z=("pfx_z", "mean"),
+            count=("pfx_x", "count"),
+        ).reset_index()
+        # Last start
+        last_date = df["game_date"].max()
+        last = df[df["game_date"] == last_date]
+        last_mov = last.groupby("pitch_type").agg(
+            last_pfx_x=("pfx_x", "mean"), last_pfx_z=("pfx_z", "mean"),
+            last_count=("pfx_x", "count"),
+        ).reset_index()
+        joined = window_mov.merge(last_mov, on="pitch_type", how="inner")
+        # Convert from feet → inches (Statcast pfx_x / pfx_z are in feet)
+        # Only flag for primary pitches (>=8 in the window AND >=5 last start)
+        for _, row in joined.iterrows():
+            if row["count"] < 8 or row["last_count"] < 5: continue
+            dx_in = (float(row["last_pfx_x"]) - float(row["avg_pfx_x"])) * 12.0
+            dz_in = (float(row["last_pfx_z"]) - float(row["avg_pfx_z"])) * 12.0
+            if abs(dx_in) >= 1.5 or abs(dz_in) >= 1.5:
+                movement_flags.append(
+                    f"{row['pitch_type']} movement shift "
+                    f"({dx_in:+.1f}\" horiz, {dz_in:+.1f}\" vert) last start"
+                )
+
     # Splits vs LHB / RHB
     splits = {}
     for stand in ("L", "R"):
@@ -292,6 +463,7 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
         "starts": starts.to_dict(orient="records"),
         "pitch_mix": mix,
         "splits": splits,
+        "movement_flags": movement_flags,
         # K + BB rate stats for prop tracking
         "k_total_window":   k_total,
         "bb_total_window":  bb_total,
@@ -313,6 +485,44 @@ def fetch_team_offense(team_abbr_or_id: int, season: int) -> dict:
         return {"available": True, "rows": len(df), "note": "filter columns by team in your model"}
     except Exception as e:
         return {"available": False, "error": str(e)}
+
+
+def _fetch_recent_woba(batter_id: int, season: int, days: int = 7) -> dict:
+    """Pull recent (last N days) hitter stats and compute a rough wOBA.
+
+    Uses /api/v1/people/{id}/stats?stats=byDateRange. Returns None values
+    if no PA in the window (cold or injured)."""
+    end = date.today()
+    start = end - timedelta(days=days)
+    try:
+        d = _get(f"https://statsapi.mlb.com/api/v1/people/{batter_id}/stats", params={
+            "stats": "byDateRange", "group": "hitting",
+            "startDate": start.isoformat(), "endDate": end.isoformat(),
+            "season": season,
+        })
+    except Exception:
+        return {"available": False}
+    stat = None
+    for s in d.get("stats", []):
+        for split in s.get("splits", []):
+            if split.get("stat"):
+                stat = split["stat"]; break
+        if stat: break
+    if not stat:
+        return {"available": False}
+    try:
+        pa = float(stat.get("plateAppearances", 0) or 0)
+        ab = float(stat.get("atBats", 0) or 0)
+        obp = float(stat.get("obp", 0) or 0)
+        slg = float(stat.get("slg", 0) or 0)
+        ops = float(stat.get("ops", 0) or 0)
+    except (ValueError, TypeError):
+        return {"available": False}
+    if pa < 12:   # need ~3 games of PA before "recent" is meaningful
+        return {"available": False, "reason": "small_sample", "pa": int(pa)}
+    woba = round(0.69 * obp + 0.45 * slg, 3)
+    return {"available": True, "days": days, "pa": int(pa), "ab": int(ab),
+            "ops": ops, "obp": obp, "slg": slg, "woba": woba}
 
 
 def fetch_top_of_order_quality(lineup: list[dict], season: int,
@@ -383,6 +593,9 @@ def fetch_top_of_order_quality(lineup: list[dict], season: int,
         woba = 0.69 * obp + 0.45 * slg
         k_pct = so / pa if pa else 0
         bb_pct = bb / pa if pa else 0
+        # 7-day rolling wOBA — catches hot / cold streaks the season aggregate
+        # smooths over.
+        recent = _fetch_recent_woba(pid, season, days=7)
         out["batters"].append({
             "id": pid, "name": b.get("name"),
             "ab": int(ab), "pa": int(pa),
@@ -391,6 +604,7 @@ def fetch_top_of_order_quality(lineup: list[dict], season: int,
             "k_pct": round(k_pct, 3),
             "bb_pct": round(bb_pct, 3),
             "walks": int(bb),
+            "recent_7d": recent,
         })
         wobas.append(woba); opss.append(ops); kpcts.append(k_pct); bbpcts.append(bb_pct)
     if wobas:
@@ -399,6 +613,69 @@ def fetch_top_of_order_quality(lineup: list[dict], season: int,
         out["avg_k_pct"] = round(sum(kpcts) / len(kpcts), 3)
         out["avg_bb_pct"] = round(sum(bbpcts) / len(bbpcts), 3)
     return out
+
+
+def _haversine_miles(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
+    """Great-circle distance in miles between two lat/lng points."""
+    import math
+    R = 3959.0  # Earth radius in miles
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlam = math.radians(lng2 - lng1)
+    a = math.sin(dphi/2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlam/2)**2
+    return 2 * R * math.asin(math.sqrt(a))
+
+
+def fetch_team_travel(team_id: int, today_venue_id: int, today_iso: str,
+                      lookback_days: int = 5) -> dict:
+    """Compute days rest + travel distance since the team's last game.
+
+    Long-distance travel (>1500 mi, especially east<->west cross-country)
+    correlates with ~3-5% expected run drop the next game. Days rest matters
+    in the opposite direction (extra rest is mildly positive).
+    """
+    today = date.fromisoformat(today_iso)
+    start = today - timedelta(days=lookback_days)
+    sched = _get(f"{MLB_API}/schedule", params={
+        "sportId": 1, "teamId": team_id,
+        "startDate": start.isoformat(), "endDate": (today - timedelta(days=1)).isoformat(),
+        "hydrate": "venue",
+    })
+    last_game = None
+    for d in sched.get("dates", []):
+        for g in d.get("games", []):
+            if g["status"]["abstractGameState"] != "Final": continue
+            last_game = g   # keep iterating to find the most recent
+    if not last_game:
+        return {"available": False, "days_rest": None, "miles_traveled": None,
+                "cross_country": False, "notes": []}
+    last_date = date.fromisoformat(last_game["gameDate"][:10])
+    days_rest = (today - last_date).days
+    last_venue_id = last_game.get("venue", {}).get("id")
+    miles = None
+    cross_country = False
+    notes: list[str] = []
+    if last_venue_id and today_venue_id:
+        from_park = PARKS.get(last_venue_id)
+        to_park   = PARKS.get(today_venue_id)
+        if from_park and to_park:
+            miles = _haversine_miles(from_park["lat"], from_park["lng"],
+                                      to_park["lat"], to_park["lng"])
+            cross_country = miles >= 1500
+            if cross_country:
+                notes.append(f"long flight {miles:.0f}mi since last game")
+    if days_rest >= 2:
+        notes.append(f"{days_rest} days rest")
+    elif days_rest == 0:
+        notes.append("back-to-back day game after night game")
+    return {
+        "available": True,
+        "days_rest": days_rest,
+        "miles_traveled": round(miles, 0) if miles is not None else None,
+        "cross_country": cross_country,
+        "last_venue_id": last_venue_id,
+        "notes": notes,
+    }
 
 
 def fetch_team_recent_form(team_id: int, days: int = 14) -> dict:
@@ -473,7 +750,11 @@ def fetch_bullpen_usage(team_id: int, days: int = 7) -> dict:
         for g in d.get("games", []):
             if g["status"]["abstractGameState"] != "Final":
                 continue
-            box = _get(f"{MLB_API}/game/{g['gamePk']}/boxscore")
+            # Use the live feed instead of plain boxscore — gameData.players
+            # includes pitchHand which we need for handedness splits.
+            live = _get(f"https://statsapi.mlb.com/api/v1.1/game/{g['gamePk']}/feed/live")
+            gd_players = live.get("gameData", {}).get("players", {})
+            box = live.get("liveData", {}).get("boxscore", {})
             side = "home" if g["teams"]["home"]["team"]["id"] == team_id else "away"
             players = box.get("teams", {}).get(side, {}).get("players", {})
             # Identify the starter (highest IP among pitchers, usually)
@@ -493,9 +774,12 @@ def fetch_bullpen_usage(team_id: int, days: int = 7) -> dict:
                 pid = p["person"]["id"]
                 if is_starter:
                     continue   # only count bullpen
-                # Per-pitcher usage
+                # Throw hand from gameData.players (richer than boxscore)
+                gd_p = gd_players.get(f"ID{pid}") or {}
+                throws = (gd_p.get("pitchHand") or {}).get("code")
                 usage.setdefault(pid, {
                     "name": p["person"]["fullName"],
+                    "throws": throws,
                     "appearances": 0, "pitches": 0, "ip": 0.0,
                     "dates": [],
                 })
@@ -530,6 +814,23 @@ def fetch_bullpen_usage(team_id: int, days: int = 7) -> dict:
         "bp_bb_pct":  round(bp_bb / bp_bf, 3) if bp_bf else None,
         "bp_whip":    round((bp_h + bp_bb) / bp_ip, 2) if bp_ip > 0 else None,
     }
+    # Split by handedness: count fresh-and-recent relievers by L/R so the grader
+    # can match availability against the opposing lineup's handedness mix.
+    by_hand: dict[str, dict] = {"L": {"count": 0, "pitches": 0, "appearances": 0,
+                                       "fresh_count": 0},
+                                 "R": {"count": 0, "pitches": 0, "appearances": 0,
+                                       "fresh_count": 0}}
+    for pid, info in usage.items():
+        th = (info.get("throws") or "").upper()
+        if th not in ("L", "R"): continue
+        b = by_hand[th]
+        b["count"]       += 1
+        b["pitches"]     += info["pitches"]
+        b["appearances"] += info["appearances"]
+        # "Fresh" = didn't pitch yesterday AND not back-to-back
+        if not info.get("pitched_yesterday") and not info.get("back_to_back"):
+            b["fresh_count"] += 1
+    quality["by_hand"] = by_hand
     return {"team_id": team_id, "window_days": days, "relievers": usage,
             "quality": quality}
 
@@ -853,6 +1154,12 @@ def assemble_game_payload(game: dict, fetch_pitchers: bool = True,
     # Recent form for both teams
     payload["away"]["recent_form"] = fetch_team_recent_form(game["away"]["team_id"])
     payload["home"]["recent_form"] = fetch_team_recent_form(game["home"]["team_id"])
+    # Travel + rest since last game
+    today_iso = game["gameDate"][:10]
+    payload["away"]["travel"] = fetch_team_travel(game["away"]["team_id"], game["venue_id"], today_iso)
+    payload["home"]["travel"] = fetch_team_travel(game["home"]["team_id"], game["venue_id"], today_iso)
+    # Catcher framing (per game framing run impact, when lineups confirmed)
+    payload["catcher_framing"] = fetch_catcher_framing_for_game(pk)
     # Top-of-order quality vs opposing starter's hand (uses confirmed lineups)
     season = datetime.fromisoformat(game["gameDate"].replace("Z", "+00:00")).year
     home_lineup = (payload["lineups"] or {}).get("home_lineup") or []
