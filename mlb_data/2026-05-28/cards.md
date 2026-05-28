@@ -1,13 +1,42 @@
 # MLB Sharp Betting Cards — 2026-05-28
 
-_Generated 2026-05-28 13:53 _  
+_Generated 2026-05-28 14:28 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  
 _Caps: max 5 plays / 6.0u total exposure_
 
-## TOP 1 PLAYS
+## TOP 2 PLAYS
 
-### Bet #1 — Chicago Cubs ML
+### Bet #1 — FG Under 7.5
+
+| Field | Value |
+|---|---|
+| Game | Minnesota Twins @ Chicago White Sox (2026-05-28T18:10:00Z) |
+| Market | total |
+| Best Book | BETMGM +105 (line 7.5) |
+| Fair Odds | -107 (51.6%) |
+| Edge | 5.84% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- Expected total 7.23 vs market 7.5
+- home: CSW% L5 starts 30.2%
+- home: CH movement shift (+2.1" horiz, +0.7" vert) last start
+- wind 13.8mph IN from CF (Δ -0.35r) — suppresses totals
+- home pen quality: K% 25.0, BB% 4.5, ERA 2.86
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #2 — Chicago Cubs ML
 
 | Field | Value |
 |---|---|
@@ -41,9 +70,8 @@ _Caps: max 5 plays / 6.0u total exposure_
 ## Other graded games (no play)
 
 - **Houston Astros @ Texas Rangers** · grade H46.5/A48.0 · xRuns 7.61 · F5 5.26 · NRFI 51.2%
-- **Los Angeles Angels @ Detroit Tigers** · grade H45.5/A60.8 · xRuns 7.06 · F5 4.63 · NRFI 52.5%
-- **Minnesota Twins @ Chicago White Sox** · grade H56.5/A44.5 · xRuns 7.77 · F5 5.07 · NRFI 49.7%
-- **Atlanta Braves @ Boston Red Sox** · grade H52.8/A49.0 · xRuns 6.92 · F5 5.46 · NRFI 50.0%
+- **Los Angeles Angels @ Detroit Tigers** · grade H53.0/A53.2 · xRuns 8.37 · F5 4.63 · NRFI 52.5%
+- **Atlanta Braves @ Boston Red Sox** · grade H52.8/A49.0 · xRuns 6.42 · F5 5.46 · NRFI 50.0%
 - **Toronto Blue Jays @ Baltimore Orioles** · grade H49.5/A48.5 · xRuns 8.36 · F5 4.72 · NRFI 52.3%
 
-_Total exposure today: **0.5u** across **1** bets._
+_Total exposure today: **1.0u** across **2** bets._
