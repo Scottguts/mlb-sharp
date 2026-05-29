@@ -701,6 +701,32 @@ function teamCardHTML(side, label, gm) {
         <div class="stat-line"><span class="k">RPG for / against</span><span class="v">${recent.rpg_for ?? '—'} / ${recent.rpg_against ?? '—'}</span></div>
       </div>` : ''}
     ${travelLine}
+    ${(() => {
+      const ts = t.team_split_vs_opp_hand;
+      if (!ts || !ts.available) return '';
+      return `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Team batting vs ${ts.vs_hand}HP — season</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">wOBA</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${ts.woba.toFixed(3)}</div>
+          </div>
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">OPS</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${ts.ops.toFixed(3)}</div>
+          </div>
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">BB%</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${(ts.bb_pct*100).toFixed(1)}%</div>
+          </div>
+          <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+            <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">K%</div>
+            <div style="font-size:15px;font-weight:800;font-family:'JetBrains Mono',monospace;">${(ts.k_pct*100).toFixed(1)}%</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--muted-2);margin-top:4px;text-align:right;">${ts.pa} PA · .${(ts.avg*1000).toFixed(0)}/.${(ts.obp*1000).toFixed(0)}/.${(ts.slg*1000).toFixed(0)} · ${ts.hr} HR</div>
+      </div>`;
+    })()}
     ${batters.length ? `
       <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Top of order ${too.vs_hand ? '(vs '+too.vs_hand+'HP)' : ''}</div>
@@ -845,16 +871,21 @@ async function loadDate(dateIso, targetId) {
     if (isToday) $('#today-date').textContent = `Slate of ${dateIso}`;
     const allCards = [];
     const noPlayGames = [];
+    // d.grades is already in chronological order from the build (by gameDate).
     for (const gm of d.grades) {
       const cards = gm.bet_cards || [];
       if (cards.length === 0) noPlayGames.push(gm);
       else cards.forEach(c => allCards.push({gm, c}));
     }
-    // Sort by edge × confidence
-    allCards.sort((a, b) => (b.c.edge * b.c.confidence) - (a.c.edge * a.c.confidence));
+    // Chronological sort for plays (preserves first-pitch order)
+    const chronCards = allCards.slice().sort((a, b) =>
+      (a.gm.gameDate || '').localeCompare(b.gm.gameDate || ''));
+    // Top play (by edge × confidence) is the hero
+    const heroPlay = allCards.slice().sort((a, b) =>
+      (b.c.edge * b.c.confidence) - (a.c.edge * a.c.confidence))[0];
 
     if (isToday) {
-      // Today: hero + grid
+      // Today: hero is the top play (best edge × conf); everything else chronological
       let html = '';
       if (allCards.length === 0) {
         html = `<div class="empty-state">
@@ -863,10 +894,11 @@ async function loadDate(dateIso, targetId) {
           <div class="p">No game cleared the edge + confidence filters.<br/>Sharp betting means most days you don't play.</div>
         </div>`;
       } else {
-        const [hero, ...rest] = allCards;
-        html += heroCardHTML(hero.gm, hero.c);
+        html += heroCardHTML(heroPlay.gm, heroPlay.c);
+        // Other plays in chronological order, excluding the hero
+        const rest = chronCards.filter(x => !(x.gm.gamePk === heroPlay.gm.gamePk && x.c.bet_label === heroPlay.c.bet_label));
         if (rest.length) {
-          html += '<div class="subhead">Other plays</div>';
+          html += '<div class="subhead">Other plays · in first-pitch order</div>';
           html += '<div class="play-grid">';
           for (const {gm, c} of rest) html += playCardHTML(gm, c);
           html += '</div>';
@@ -878,17 +910,17 @@ async function loadDate(dateIso, targetId) {
         $('#today-noplay').innerHTML = noPlayGames.map(noPlayRowHTML).join('');
       }
     } else {
-      // History: all games shown, plays first, then no-play
+      // History: all plays in chronological order, then no-plays chronological
       let html = '';
-      if (allCards.length === 0) {
+      if (chronCards.length === 0) {
         html += `<div class="empty-state" style="padding: 24px;"><div class="emoji">😴</div><div class="h">No plays this date</div><div class="p">${noPlayGames.length} game(s) graded, none cleared the filters.</div></div>`;
       } else {
         html += '<div class="play-grid">';
-        for (const {gm, c} of allCards) html += playCardHTML(gm, c);
+        for (const {gm, c} of chronCards) html += playCardHTML(gm, c);
         html += '</div>';
       }
       if (noPlayGames.length) {
-        html += '<div class="noplay-section"><div class="noplay-title">Other graded games (no play)</div><div class="noplay-grid">';
+        html += '<div class="noplay-section"><div class="noplay-title">Other graded games (no play) · in first-pitch order</div><div class="noplay-grid">';
         html += noPlayGames.map(noPlayRowHTML).join('');
         html += '</div></div>';
       }
