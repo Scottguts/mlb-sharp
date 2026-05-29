@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-05-29 11:52_  
+_Generated 2026-05-29 13:59_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  133 |  62- 67-  1 |  48.1% |  93.50 |   -4.99 |  -5.33% | 30.84% |
-| moneyline      |   70 |  33- 34-  0 |  49.3% |  47.50 |   -0.60 |  -1.26% | 36.10% |
+| OVERALL        |  134 |  62- 67-  1 |  48.1% |  93.50 |   -4.99 |  -5.33% | 30.63% |
+| moneyline      |   71 |  33- 34-  0 |  49.3% |  47.50 |   -0.60 |  -1.26% | 35.64% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   41 |  19- 21-  1 |  47.5% |  30.00 |   -1.45 |  -4.84% | 19.07% |
 
@@ -19,8 +19,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   60 |  28- 29-  0 |  49.1% |  41.00 |   -1.41 |  -3.45% |  5.04% |
-| moneyline      |   54 |  26- 25-  0 |  51.0% |  38.00 |   -0.38 |  -1.01% |  4.99% |
+| OVERALL        |   61 |  28- 29-  0 |  49.1% |  41.00 |   -1.41 |  -3.45% |  5.01% |
+| moneyline      |   55 |  26- 25-  0 |  51.0% |  38.00 |   -0.38 |  -1.01% |  4.96% |
 | total          |    6 |   2-  4-  0 |  33.3% |   3.00 |   -1.03 | -34.28% |  5.51% |
 
 ## Last 7 Days
@@ -28,8 +28,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   19 |   8-  9-  0 |  47.1% |  13.50 |   +0.49 |  +3.60% |  5.38% |
-| moneyline      |   17 |   7-  8-  0 |  46.7% |  12.50 |   +0.51 |  +4.12% |  5.46% |
+| OVERALL        |   20 |   8-  9-  0 |  47.1% |  13.50 |   +0.49 |  +3.60% |  5.26% |
+| moneyline      |   18 |   7-  8-  0 |  46.7% |  12.50 |   +0.51 |  +4.12% |  5.33% |
 | total          |    2 |   1-  1-  0 |  50.0% |   1.00 |   -0.03 |  -2.83% |  4.68% |
 
 ## By Confidence (All Time)
@@ -39,7 +39,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | 9-10           |   11 |   4-  7-  0 |  36.4% |  15.50 |   -3.05 | -19.70% | 13.97% |
 | 7-8            |   41 |  21- 17-  1 |  55.3% |  37.50 |   +0.02 |  +0.04% |  9.71% |
-| 5-6            |   81 |  37- 43-  0 |  46.2% |  40.50 |   -1.95 |  -4.81% | 43.82% |
+| 5-6            |   82 |  37- 43-  0 |  46.2% |  40.50 |   -1.95 |  -4.81% | 43.33% |
 
 ## By Book (All Time)
 
@@ -48,14 +48,15 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | betmgm         |   28 |  13- 15-  0 |  46.4% |  17.50 |   -0.46 |  -2.63% | 85.90% |
 | draftkings     |   32 |  17- 13-  1 |  56.7% |  24.50 |   +0.35 |  +1.44% | 21.66% |
-| fanduel        |   73 |  32- 39-  0 |  45.1% |  51.50 |   -4.88 |  -9.47% | 13.74% |
+| fanduel        |   74 |  32- 39-  0 |  45.1% |  51.50 |   -4.88 |  -9.47% | 13.60% |
 
-## Pending (2)
+## Pending (3)
 
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
 | 2026-05-29 | San Diego Padres @ Washington Nationals | moneyline | home |  | fanduel | -110 | 0.5 |
 | 2026-05-29 | Arizona Diamondbacks @ Seattle Mariners | moneyline | away |  | fanduel | 128 | 1.0 |
+| 2026-05-29 | Detroit Tigers @ Chicago White Sox | moneyline | home |  | fanduel | 102 | 0.5 |
 
 ## Last 10 Settled
 

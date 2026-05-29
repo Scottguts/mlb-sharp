@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 24/28 OK · pitcher walks 24/27 OK · batter walks 0/0 OK
+**Slate-wide data quality:** pitcher Ks 25/29 OK · pitcher walks 24/27 OK · batter walks 0/0 OK
 
 
 ### San Diego Padres @ Washington Nationals
@@ -192,6 +192,7 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Trevor Rogers | 3 | 2.67 | 0.127 | — | **2.79** | ok |
+| AWAY | Adam Macko | 6 | 0.67 | 0.222 | — | **4.88** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |

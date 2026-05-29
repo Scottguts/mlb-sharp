@@ -14,11 +14,11 @@
     "indoor": false,
     "park": "Oriole Park",
     "first_pitch_iso": "2026-05-29T23:05:00Z",
-    "temp_f": 64.8,
-    "humidity_pct": 75,
-    "dew_point_f": 56.7,
-    "wind_mph": 4.3,
-    "wind_dir_deg": 242,
+    "temp_f": 64.6,
+    "humidity_pct": 73,
+    "dew_point_f": 55.7,
+    "wind_mph": 4.9,
+    "wind_dir_deg": 240,
     "wind_effect": {
       "effect": "calm",
       "delta_runs": 0.0,
@@ -29,11 +29,119 @@
   "away": {
     "team_id": 141,
     "team_name": "Toronto Blue Jays",
-    "probable_pitcher_id": null,
-    "probable_pitcher_name": null,
+    "probable_pitcher_id": 671936,
+    "probable_pitcher_name": "Adam Macko",
     "pitcher_profile": {
-      "id": null,
-      "available": false
+      "id": 671936,
+      "available": true,
+      "window_days": 30,
+      "throws": "L",
+      "total_pitches": 78,
+      "season_avg_velo": 88.18,
+      "starts": [
+        {
+          "game_date": "2026-05-26",
+          "pitches": 9,
+          "avg_velo": 88.35555555555555,
+          "max_velo": 95.7,
+          "csw": 0.2222222222222222,
+          "hard_hit": 0.0,
+          "strikeouts": 0,
+          "walks": 0,
+          "batters_faced": 2,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-05-25",
+          "pitches": 10,
+          "avg_velo": 89.72999999999999,
+          "max_velo": 95.2,
+          "csw": 0.5,
+          "hard_hit": 0.1,
+          "strikeouts": 1,
+          "walks": 0,
+          "batters_faced": 3,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-05-23",
+          "pitches": 10,
+          "avg_velo": 89.12,
+          "max_velo": 95.7,
+          "csw": 0.2,
+          "hard_hit": 0.0,
+          "strikeouts": 0,
+          "walks": 0,
+          "batters_faced": 2,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-05-21",
+          "pitches": 20,
+          "avg_velo": 87.755,
+          "max_velo": 95.4,
+          "csw": 0.25,
+          "hard_hit": 0.15,
+          "strikeouts": 2,
+          "walks": 0,
+          "batters_faced": 5,
+          "barrel": 0.05
+        },
+        {
+          "game_date": "2026-05-19",
+          "pitches": 14,
+          "avg_velo": 88.71428571428571,
+          "max_velo": 95.3,
+          "csw": 0.35714285714285715,
+          "hard_hit": 0.0,
+          "strikeouts": 1,
+          "walks": 0,
+          "batters_faced": 3,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-05-18",
+          "pitches": 15,
+          "avg_velo": 86.46000000000001,
+          "max_velo": 95.3,
+          "csw": 0.4,
+          "hard_hit": 0.13333333333333333,
+          "strikeouts": 0,
+          "walks": 0,
+          "batters_faced": 3,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.128,
+        "FF": 0.359,
+        "KC": 0.115,
+        "SL": 0.397
+      },
+      "splits": {
+        "L": {
+          "pitches": 47,
+          "avg_velo": 88.08,
+          "csw": 0.34,
+          "xwoba": 0.37,
+          "hard_hit_rate": 0.085
+        },
+        "R": {
+          "pitches": 31,
+          "avg_velo": 88.33,
+          "csw": 0.29,
+          "xwoba": 0.215,
+          "hard_hit_rate": 0.065
+        }
+      },
+      "movement_flags": [],
+      "k_total_window": 4,
+      "bb_total_window": 0,
+      "k_starts_window": 6,
+      "k_per_start": 0.67,
+      "bb_per_start": 0.0,
+      "k_per_bf": 0.222,
+      "bb_per_bf": null
     },
     "bullpen_usage": {
       "team_id": 141,
@@ -583,8 +691,19 @@
       "reason": "no_lineup"
     },
     "team_split_vs_opp_hand": {
-      "available": false,
-      "reason": "unknown_hand"
+      "available": true,
+      "vs_hand": "L",
+      "season": 2026,
+      "pa": 650,
+      "ab": 572,
+      "avg": 0.22,
+      "obp": 0.303,
+      "slg": 0.358,
+      "ops": 0.661,
+      "woba": 0.37,
+      "hr": 19,
+      "k_pct": 0.246,
+      "bb_pct": 0.102
     }
   },
   "lineups": {
