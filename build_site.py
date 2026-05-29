@@ -136,11 +136,16 @@ def _trim_game(game: dict) -> dict:
 
 def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
     """Bundle one day's graded games + cards + tracked props + per-game
-    rich data into one JSON suitable for the drill-down view."""
+    rich data into one JSON suitable for the drill-down view.
+
+    Games are sorted chronologically by first-pitch time so the slate
+    reads earliest → latest on the site."""
     day_dir = data_root / date_iso
     if not day_dir.exists():
         return None
     grades = _load_json(day_dir / "grades.json") or []
+    # Chronological sort by gameDate (ISO timestamp, sorts correctly as string)
+    grades.sort(key=lambda g: g.get("gameDate", ""))
     cards_md = (day_dir / "cards.md").read_text() if (day_dir / "cards.md").exists() else ""
     prop_md  = (day_dir / "prop_tracking.md").read_text() if (day_dir / "prop_tracking.md").exists() else ""
     # Load + trim per-game data
@@ -1163,16 +1168,21 @@ async function loadDate(dateIso, targetId) {
     if (isToday) $('#today-date').textContent = `Slate of ${dateIso}`;
     const allCards = [];
     const noPlayGames = [];
+    // d.grades is already in chronological order from the build (by gameDate).
     for (const gm of d.grades) {
       const cards = gm.bet_cards || [];
       if (cards.length === 0) noPlayGames.push(gm);
       else cards.forEach(c => allCards.push({gm, c}));
     }
-    // Sort by edge × confidence
-    allCards.sort((a, b) => (b.c.edge * b.c.confidence) - (a.c.edge * a.c.confidence));
+    // Chronological sort for plays (preserves first-pitch order)
+    const chronCards = allCards.slice().sort((a, b) =>
+      (a.gm.gameDate || '').localeCompare(b.gm.gameDate || ''));
+    // Top play (by edge × confidence) is the hero
+    const heroPlay = allCards.slice().sort((a, b) =>
+      (b.c.edge * b.c.confidence) - (a.c.edge * a.c.confidence))[0];
 
     if (isToday) {
-      // Today: hero + grid
+      // Today: hero is the top play (best edge × conf); everything else chronological
       let html = '';
       if (allCards.length === 0) {
         html = `<div class="empty-state">
@@ -1181,10 +1191,11 @@ async function loadDate(dateIso, targetId) {
           <div class="p">No game cleared the edge + confidence filters.<br/>Sharp betting means most days you don't play.</div>
         </div>`;
       } else {
-        const [hero, ...rest] = allCards;
-        html += heroCardHTML(hero.gm, hero.c);
+        html += heroCardHTML(heroPlay.gm, heroPlay.c);
+        // Other plays in chronological order, excluding the hero
+        const rest = chronCards.filter(x => !(x.gm.gamePk === heroPlay.gm.gamePk && x.c.bet_label === heroPlay.c.bet_label));
         if (rest.length) {
-          html += '<div class="subhead">Other plays</div>';
+          html += '<div class="subhead">Other plays · in first-pitch order</div>';
           html += '<div class="play-grid">';
           for (const {gm, c} of rest) html += playCardHTML(gm, c);
           html += '</div>';
@@ -1196,17 +1207,17 @@ async function loadDate(dateIso, targetId) {
         $('#today-noplay').innerHTML = noPlayGames.map(noPlayRowHTML).join('');
       }
     } else {
-      // History: all games shown, plays first, then no-play
+      // History: all plays in chronological order, then no-plays chronological
       let html = '';
-      if (allCards.length === 0) {
+      if (chronCards.length === 0) {
         html += `<div class="empty-state" style="padding: 24px;"><div class="emoji">😴</div><div class="h">No plays this date</div><div class="p">${noPlayGames.length} game(s) graded, none cleared the filters.</div></div>`;
       } else {
         html += '<div class="play-grid">';
-        for (const {gm, c} of allCards) html += playCardHTML(gm, c);
+        for (const {gm, c} of chronCards) html += playCardHTML(gm, c);
         html += '</div>';
       }
       if (noPlayGames.length) {
-        html += '<div class="noplay-section"><div class="noplay-title">Other graded games (no play)</div><div class="noplay-grid">';
+        html += '<div class="noplay-section"><div class="noplay-title">Other graded games (no play) · in first-pitch order</div><div class="noplay-grid">';
         html += noPlayGames.map(noPlayRowHTML).join('');
         html += '</div></div>';
       }
