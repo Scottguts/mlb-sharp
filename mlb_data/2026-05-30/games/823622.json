@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Citi Field",
     "first_pitch_iso": "2026-05-30T20:10:00Z",
-    "temp_f": 56.4,
+    "temp_f": 57.4,
     "humidity_pct": 55,
-    "dew_point_f": 40.4,
-    "wind_mph": 8.4,
-    "wind_dir_deg": 48,
+    "dew_point_f": 41.3,
+    "wind_mph": 7.3,
+    "wind_dir_deg": 12,
     "wind_effect": {
       "effect": "in",
-      "delta_runs": -0.136,
-      "angle_off_cf": 153
+      "delta_runs": -0.092,
+      "angle_off_cf": 171
     },
     "precip_prob_pct": 0
   },
@@ -682,8 +682,130 @@
       "notes": []
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 701807,
+          "name": "Carson Benge",
+          "ab": 155,
+          "pa": 167,
+          "ops": 0.604,
+          "avg": 0.226,
+          "obp": 0.281,
+          "slg": 0.323,
+          "woba": 0.339,
+          "k_pct": 0.198,
+          "bb_pct": 0.066,
+          "walks": 11,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 23,
+            "ops": 0.389,
+            "obp": 0.259,
+            "slg": 0.13,
+            "woba": 0.237
+          }
+        },
+        {
+          "id": 666182,
+          "name": "Bo Bichette",
+          "ab": 169,
+          "pa": 181,
+          "ops": 0.514,
+          "avg": 0.219,
+          "obp": 0.26,
+          "slg": 0.254,
+          "woba": 0.294,
+          "k_pct": 0.182,
+          "bb_pct": 0.055,
+          "walks": 10,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 25,
+            "ab": 23,
+            "ops": 0.581,
+            "obp": 0.32,
+            "slg": 0.261,
+            "woba": 0.338
+          }
+        },
+        {
+          "id": 665742,
+          "name": "Juan Soto",
+          "ab": 88,
+          "pa": 106,
+          "ops": 1.104,
+          "avg": 0.33,
+          "obp": 0.434,
+          "slg": 0.67,
+          "woba": 0.601,
+          "k_pct": 0.142,
+          "bb_pct": 0.16,
+          "walks": 17,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 17,
+            "ab": 14,
+            "ops": 1.089,
+            "obp": 0.375,
+            "slg": 0.714,
+            "woba": 0.58
+          }
+        },
+        {
+          "id": 676724,
+          "name": "Jared Young",
+          "ab": 24,
+          "pa": 29,
+          "ops": 0.831,
+          "avg": 0.333,
+          "obp": 0.414,
+          "slg": 0.417,
+          "woba": 0.473,
+          "k_pct": 0.207,
+          "bb_pct": 0.138,
+          "walks": 4,
+          "recent_7d": {
+            "available": false,
+            "reason": "small_sample",
+            "pa": 7
+          }
+        },
+        {
+          "id": 668901,
+          "name": "Mark Vientos",
+          "ab": 111,
+          "pa": 119,
+          "ops": 0.604,
+          "avg": 0.198,
+          "obp": 0.244,
+          "slg": 0.36,
+          "woba": 0.33,
+          "k_pct": 0.21,
+          "bb_pct": 0.05,
+          "walks": 6,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 22,
+            "ab": 21,
+            "ops": 0.56,
+            "obp": 0.227,
+            "slg": 0.333,
+            "woba": 0.306
+          }
+        }
+      ],
+      "avg_woba": 0.408,
+      "avg_ops": 0.731,
+      "avg_k_pct": 0.188,
+      "avg_bb_pct": 0.094
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -702,9 +824,64 @@
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 701807,
+        "name": "Carson Benge",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 666182,
+        "name": "Bo Bichette",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 665742,
+        "name": "Juan Soto",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 676724,
+        "name": "Jared Young",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 668901,
+        "name": "Mark Vientos",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 805999,
+        "name": "A.J. Ewing",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 543760,
+        "name": "Marcus Semien",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 660644,
+        "name": "Vidal Bruj\u00e1n",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 663584,
+        "name": "Hayden Senger",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": [],
     "hp_ump_tendency": null
   },

@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Daikin Park",
     "first_pitch_iso": "2026-05-30T20:10:00Z",
-    "temp_f": 82.6,
+    "temp_f": 82.9,
     "humidity_pct": 71,
-    "dew_point_f": 72.2,
-    "wind_mph": 7.8,
-    "wind_dir_deg": 147,
+    "dew_point_f": 72.5,
+    "wind_mph": 8.1,
+    "wind_dir_deg": 143,
     "wind_effect": {
-      "effect": "out",
-      "delta_runs": 0.112,
-      "angle_off_cf": 33
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 37
     },
     "precip_prob_pct": 2
   },
@@ -635,8 +635,135 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 665161,
+          "name": "Jeremy Pe\u00f1a",
+          "ab": 68,
+          "pa": 74,
+          "ops": 0.608,
+          "avg": 0.235,
+          "obp": 0.284,
+          "slg": 0.324,
+          "woba": 0.342,
+          "k_pct": 0.135,
+          "bb_pct": 0.041,
+          "walks": 3,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 24,
+            "ops": 0.833,
+            "obp": 0.333,
+            "slg": 0.5,
+            "woba": 0.455
+          }
+        },
+        {
+          "id": 670541,
+          "name": "Yordan Alvarez",
+          "ab": 143,
+          "pa": 178,
+          "ops": 1.035,
+          "avg": 0.294,
+          "obp": 0.427,
+          "slg": 0.608,
+          "woba": 0.568,
+          "k_pct": 0.18,
+          "bb_pct": 0.185,
+          "walks": 33,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 21,
+            "ops": 1.407,
+            "obp": 0.407,
+            "slg": 1.0,
+            "woba": 0.731
+          }
+        },
+        {
+          "id": 572233,
+          "name": "Christian Walker",
+          "ab": 169,
+          "pa": 184,
+          "ops": 0.853,
+          "avg": 0.266,
+          "obp": 0.326,
+          "slg": 0.527,
+          "woba": 0.462,
+          "k_pct": 0.196,
+          "bb_pct": 0.071,
+          "walks": 13,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 24,
+            "ops": 1.083,
+            "obp": 0.333,
+            "slg": 0.75,
+            "woba": 0.567
+          }
+        },
+        {
+          "id": 666211,
+          "name": "Taylor Trammell",
+          "ab": 36,
+          "pa": 40,
+          "ops": 0.869,
+          "avg": 0.361,
+          "obp": 0.425,
+          "slg": 0.444,
+          "woba": 0.493,
+          "k_pct": 0.325,
+          "bb_pct": 0.1,
+          "walks": 4,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 15,
+            "ab": 14,
+            "ops": 0.857,
+            "obp": 0.357,
+            "slg": 0.5,
+            "woba": 0.471
+          }
+        },
+        {
+          "id": 670623,
+          "name": "Isaac Paredes",
+          "ab": 143,
+          "pa": 163,
+          "ops": 0.664,
+          "avg": 0.21,
+          "obp": 0.307,
+          "slg": 0.357,
+          "woba": 0.372,
+          "k_pct": 0.16,
+          "bb_pct": 0.092,
+          "walks": 15,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 24,
+            "ops": 0.592,
+            "obp": 0.259,
+            "slg": 0.333,
+            "woba": 0.329
+          }
+        }
+      ],
+      "avg_woba": 0.448,
+      "avg_ops": 0.806,
+      "avg_k_pct": 0.199,
+      "avg_bb_pct": 0.098
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -655,9 +782,64 @@
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 665161,
+        "name": "Jeremy Pe\u00f1a",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 670541,
+        "name": "Yordan Alvarez",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 572233,
+        "name": "Christian Walker",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 666211,
+        "name": "Taylor Trammell",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 670623,
+        "name": "Isaac Paredes",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 701358,
+        "name": "Cam Smith",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 669699,
+        "name": "Braden Shewmake",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 676694,
+        "name": "Jake Meyers",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 543877,
+        "name": "Christian V\u00e1zquez",
+        "position": "C",
+        "bat_side": null
+      }
+    ],
     "umpires": [],
     "hp_ump_tendency": null
   },

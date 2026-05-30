@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Nationals Park",
     "first_pitch_iso": "2026-05-30T20:05:00Z",
-    "temp_f": 67.6,
+    "temp_f": 67.7,
     "humidity_pct": 39,
     "dew_point_f": 41.8,
-    "wind_mph": 7.8,
-    "wind_dir_deg": 3,
+    "wind_mph": 8.9,
+    "wind_dir_deg": 12,
     "wind_effect": {
       "effect": "in",
-      "delta_runs": -0.112,
-      "angle_off_cf": 153
+      "delta_runs": -0.156,
+      "angle_off_cf": 162
     },
     "precip_prob_pct": 0
   },
@@ -690,8 +690,130 @@
       "notes": []
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 695578,
+          "name": "James Wood",
+          "ab": 142,
+          "pa": 179,
+          "ops": 1.021,
+          "avg": 0.289,
+          "obp": 0.436,
+          "slg": 0.585,
+          "woba": 0.564,
+          "k_pct": 0.268,
+          "bb_pct": 0.19,
+          "walks": 34,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 19,
+            "ops": 1.472,
+            "obp": 0.63,
+            "slg": 0.842,
+            "woba": 0.814
+          }
+        },
+        {
+          "id": 671277,
+          "name": "Luis Garc\u00eda Jr.",
+          "ab": 151,
+          "pa": 158,
+          "ops": 0.696,
+          "avg": 0.258,
+          "obp": 0.285,
+          "slg": 0.411,
+          "woba": 0.382,
+          "k_pct": 0.152,
+          "bb_pct": 0.038,
+          "walks": 6,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 18,
+            "ab": 18,
+            "ops": 0.889,
+            "obp": 0.333,
+            "slg": 0.556,
+            "woba": 0.48
+          }
+        },
+        {
+          "id": 695734,
+          "name": "Daylen Lile",
+          "ab": 161,
+          "pa": 176,
+          "ops": 0.785,
+          "avg": 0.261,
+          "obp": 0.307,
+          "slg": 0.478,
+          "woba": 0.427,
+          "k_pct": 0.188,
+          "bb_pct": 0.068,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 26,
+            "ab": 23,
+            "ops": 0.535,
+            "obp": 0.231,
+            "slg": 0.304,
+            "woba": 0.296
+          }
+        },
+        {
+          "id": 682928,
+          "name": "CJ Abrams",
+          "ab": 138,
+          "pa": 169,
+          "ops": 1.023,
+          "avg": 0.297,
+          "obp": 0.414,
+          "slg": 0.609,
+          "woba": 0.56,
+          "k_pct": 0.178,
+          "bb_pct": 0.124,
+          "walks": 21,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 25,
+            "ab": 19,
+            "ops": 0.821,
+            "obp": 0.4,
+            "slg": 0.421,
+            "woba": 0.465
+          }
+        },
+        {
+          "id": 677588,
+          "name": "Jos\u00e9 Tena",
+          "ab": 99,
+          "pa": 105,
+          "ops": 0.69,
+          "avg": 0.232,
+          "obp": 0.276,
+          "slg": 0.414,
+          "woba": 0.377,
+          "k_pct": 0.314,
+          "bb_pct": 0.057,
+          "walks": 6,
+          "recent_7d": {
+            "available": false,
+            "reason": "small_sample",
+            "pa": 10
+          }
+        }
+      ],
+      "avg_woba": 0.462,
+      "avg_ops": 0.843,
+      "avg_k_pct": 0.22,
+      "avg_bb_pct": 0.096
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -710,9 +832,64 @@
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 695578,
+        "name": "James Wood",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 671277,
+        "name": "Luis Garc\u00eda Jr.",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 695734,
+        "name": "Daylen Lile",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 682928,
+        "name": "CJ Abrams",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 677588,
+        "name": "Jos\u00e9 Tena",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 678391,
+        "name": "Jorbit Vivas",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 686611,
+        "name": "Dylan Crews",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 686452,
+        "name": "Drew Millas",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 683083,
+        "name": "Nasim Nu\u00f1ez",
+        "position": "2B",
+        "bat_side": null
+      }
+    ],
     "umpires": [],
     "hp_ump_tendency": null
   },

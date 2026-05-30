@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Globe Life Field",
     "first_pitch_iso": "2026-05-30T20:05:00Z",
-    "temp_f": 86.9,
+    "temp_f": 87.9,
     "humidity_pct": 50,
-    "dew_point_f": 66.0,
-    "wind_mph": 10.6,
-    "wind_dir_deg": 172,
+    "dew_point_f": 66.9,
+    "wind_mph": 11.8,
+    "wind_dir_deg": 170,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.224,
-      "angle_off_cf": 8
+      "delta_runs": 0.272,
+      "angle_off_cf": 10
     },
     "precip_prob_pct": 2
   },
@@ -712,8 +712,135 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 592626,
+          "name": "Joc Pederson",
+          "ab": 130,
+          "pa": 157,
+          "ops": 0.78,
+          "avg": 0.246,
+          "obp": 0.357,
+          "slg": 0.423,
+          "woba": 0.437,
+          "k_pct": 0.223,
+          "bb_pct": 0.146,
+          "walks": 23,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 24,
+            "ab": 22,
+            "ops": 1.151,
+            "obp": 0.333,
+            "slg": 0.818,
+            "woba": 0.598
+          }
+        },
+        {
+          "id": 673962,
+          "name": "Josh Jung",
+          "ab": 158,
+          "pa": 171,
+          "ops": 0.857,
+          "avg": 0.316,
+          "obp": 0.363,
+          "slg": 0.494,
+          "woba": 0.473,
+          "k_pct": 0.17,
+          "bb_pct": 0.058,
+          "walks": 10,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 19,
+            "ab": 17,
+            "ops": 0.897,
+            "obp": 0.368,
+            "slg": 0.529,
+            "woba": 0.492
+          }
+        },
+        {
+          "id": 607043,
+          "name": "Brandon Nimmo",
+          "ab": 154,
+          "pa": 175,
+          "ops": 0.784,
+          "avg": 0.26,
+          "obp": 0.349,
+          "slg": 0.435,
+          "woba": 0.437,
+          "k_pct": 0.189,
+          "bb_pct": 0.103,
+          "walks": 18,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 29,
+            "ab": 25,
+            "ops": 0.596,
+            "obp": 0.276,
+            "slg": 0.32,
+            "woba": 0.334
+          }
+        },
+        {
+          "id": 669394,
+          "name": "Jake Burger",
+          "ab": 169,
+          "pa": 179,
+          "ops": 0.693,
+          "avg": 0.237,
+          "obp": 0.279,
+          "slg": 0.414,
+          "woba": 0.379,
+          "k_pct": 0.263,
+          "bb_pct": 0.05,
+          "walks": 9,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 25,
+            "ab": 24,
+            "ops": 0.533,
+            "obp": 0.2,
+            "slg": 0.333,
+            "woba": 0.288
+          }
+        },
+        {
+          "id": 677649,
+          "name": "Ezequiel Duran",
+          "ab": 124,
+          "pa": 135,
+          "ops": 0.804,
+          "avg": 0.298,
+          "obp": 0.336,
+          "slg": 0.468,
+          "woba": 0.442,
+          "k_pct": 0.237,
+          "bb_pct": 0.059,
+          "walks": 8,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 24,
+            "ab": 22,
+            "ops": 0.697,
+            "obp": 0.333,
+            "slg": 0.364,
+            "woba": 0.394
+          }
+        }
+      ],
+      "avg_woba": 0.433,
+      "avg_ops": 0.784,
+      "avg_k_pct": 0.216,
+      "avg_bb_pct": 0.083
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -732,9 +859,64 @@
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 592626,
+        "name": "Joc Pederson",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 673962,
+        "name": "Josh Jung",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 607043,
+        "name": "Brandon Nimmo",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 669394,
+        "name": "Jake Burger",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 677649,
+        "name": "Ezequiel Duran",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 696030,
+        "name": "Alejandro Osuna",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 643376,
+        "name": "Danny Jansen",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 670032,
+        "name": "Nicky Lopez",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 680737,
+        "name": "Michael Helman",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": [],
     "hp_ump_tendency": null
   },

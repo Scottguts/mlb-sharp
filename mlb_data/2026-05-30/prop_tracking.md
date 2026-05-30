@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 29/29 OK · pitcher walks 29/29 OK · batter walks 7/9 OK
+**Slate-wide data quality:** pitcher Ks 29/29 OK · pitcher walks 29/29 OK · batter walks 43/49 OK
 
 
 ### San Diego Padres @ Washington Nationals
@@ -13,13 +13,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Foster Griffin | 5 | 6.0 | 0.246 | — | **5.41** | ok |
-| AWAY | Michael King | 5 | 5.8 | 0.252 | — | **5.54** | ok |
+| AWAY | Michael King | 5 | 5.8 | 0.252 | 22.0% | **5.54** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Foster Griffin | 5 | 1.8 | 0.074 | — | **1.63** | ok |
-| AWAY | Michael King | 5 | 2.6 | 0.113 | — | **2.49** | ok |
+| AWAY | Michael King | 5 | 2.6 | 0.113 | 9.6% | **2.81** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | James Wood | 19.0% | 179 | **1.045** | ok |
+| HOME | 2 | Luis García Jr. | 3.8% | 158 | **0.204** | ok |
+| HOME | 3 | Daylen Lile | 6.8% | 176 | **0.357** | ok |
+| HOME | 4 | CJ Abrams | 12.4% | 169 | **0.62** | ok |
+| HOME | 5 | José Tena | 5.7% | 105 | **0.278** | ok |
 
 ### Kansas City Royals @ Texas Rangers
 
@@ -27,13 +36,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Kumar Rocker | 5 | 4.0 | 0.198 | — | **4.36** | ok |
-| AWAY | Seth Lugo | 5 | 4.6 | 0.184 | — | **4.05** | ok |
+| AWAY | Seth Lugo | 5 | 4.6 | 0.184 | 21.6% | **3.97** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Kumar Rocker | 5 | 2.4 | 0.119 | — | **2.62** | ok |
-| AWAY | Seth Lugo | 5 | 2.4 | 0.096 | — | **2.11** | ok |
+| AWAY | Seth Lugo | 5 | 2.4 | 0.096 | 8.3% | **2.06** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Joc Pederson | 14.6% | 157 | **0.726** | ok |
+| HOME | 2 | Josh Jung | 5.8% | 171 | **0.282** | ok |
+| HOME | 3 | Brandon Nimmo | 10.3% | 175 | **0.489** | ok |
+| HOME | 4 | Jake Burger | 5.0% | 179 | **0.226** | ok |
+| HOME | 5 | Ezequiel Duran | 5.9% | 135 | **0.26** | ok |
 
 ### Los Angeles Angels @ Tampa Bay Rays
 
@@ -41,13 +59,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Drew Rasmussen | 4 | 4.75 | 0.198 | — | **4.36** | ok |
-| AWAY | Reid Detmers | 5 | 7.8 | 0.315 | — | **6.93** | ok |
+| AWAY | Reid Detmers | 5 | 7.8 | 0.315 | 17.1% | **5.89** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Drew Rasmussen | 4 | 1.25 | 0.052 | — | **1.14** | ok |
-| AWAY | Reid Detmers | 5 | 2.0 | 0.081 | — | **1.78** | ok |
+| AWAY | Reid Detmers | 5 | 2.0 | 0.081 | 9.9% | **2.08** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Yandy Díaz | 5.4% | 56 | **0.226** | small_sample |
+| HOME | 2 | Jonathan Aranda | 15.6% | 64 | **0.639** | ok |
+| HOME | 3 | Junior Caminero | 17.5% | 63 | **0.7** | ok |
+| HOME | 4 | Ryan Vilade | 9.4% | 53 | **0.358** | small_sample |
+| HOME | 5 | Chandler Simpson | 1.4% | 71 | **0.052** | ok |
 
 ### Chicago Cubs @ St. Louis Cardinals
 
@@ -82,14 +109,28 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Mitch Keller | 5 | 4.2 | 0.175 | — | **3.85** | ok |
-| AWAY | Bailey Ober | 5 | 3.2 | 0.132 | — | **2.9** | ok |
+| HOME | Mitch Keller | 5 | 4.2 | 0.175 | 22.5% | **3.94** | ok |
+| AWAY | Bailey Ober | 5 | 3.2 | 0.132 | 20.7% | **2.73** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Mitch Keller | 5 | 1.6 | 0.067 | — | **1.47** | ok |
-| AWAY | Bailey Ober | 5 | 1.2 | 0.05 | — | **1.1** | ok |
+| HOME | Mitch Keller | 5 | 1.6 | 0.067 | 9.1% | **1.58** | ok |
+| AWAY | Bailey Ober | 5 | 1.2 | 0.05 | 11.3% | **1.38** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Spencer Horwitz | 14.4% | 167 | **0.475** | ok |
+| HOME | 2 | Brandon Lowe | 12.9% | 163 | **0.416** | ok |
+| HOME | 3 | Bryan Reynolds | 16.0% | 163 | **0.504** | ok |
+| HOME | 4 | Nick Gonzales | 4.3% | 140 | **0.129** | ok |
+| HOME | 5 | Oneil Cruz | 9.1% | 175 | **0.266** | ok |
+| AWAY | 1 | Byron Buxton | 6.9% | 160 | **0.239** | ok |
+| AWAY | 2 | Trevor Larnach | 14.2% | 141 | **0.481** | ok |
+| AWAY | 3 | Josh Bell | 8.5% | 142 | **0.281** | ok |
+| AWAY | 4 | Kody Clemens | 7.9% | 140 | **0.249** | ok |
+| AWAY | 5 | Austin Martin | 8.0% | 100 | **0.246** | ok |
 
 ### Miami Marlins @ New York Mets
 
@@ -97,13 +138,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Christian Scott | 5 | 5.8 | 0.279 | — | **6.14** | ok |
-| AWAY | Tyler Phillips | 6 | 2.0 | 0.185 | — | **4.07** | ok |
+| AWAY | Tyler Phillips | 6 | 2.0 | 0.185 | 18.8% | **3.48** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Christian Scott | 5 | 1.8 | 0.087 | — | **1.91** | ok |
-| AWAY | Tyler Phillips | 6 | 1.0 | 0.092 | — | **2.02** | ok |
+| AWAY | Tyler Phillips | 6 | 1.0 | 0.092 | 9.4% | **2.24** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Carson Benge | 6.6% | 167 | **0.314** | ok |
+| HOME | 2 | Bo Bichette | 5.5% | 181 | **0.256** | ok |
+| HOME | 3 | Juan Soto | 16.0% | 106 | **0.727** | ok |
+| HOME | 4 | Jared Young | 13.8% | 29 | **0.597** | small_sample |
+| HOME | 5 | Mark Vientos | 5.0% | 119 | **0.211** | ok |
 
 ### Philadelphia Phillies @ Los Angeles Dodgers
 
@@ -125,13 +175,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Peter Lambert | 5 | 4.8 | 0.2 | — | **4.4** | ok |
-| AWAY | Brandon Sproat | 4 | 5.75 | 0.284 | — | **6.25** | ok |
+| AWAY | Brandon Sproat | 4 | 5.75 | 0.284 | 19.9% | **5.65** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Peter Lambert | 5 | 2.8 | 0.117 | — | **2.57** | ok |
-| AWAY | Brandon Sproat | 4 | 3.0 | 0.148 | — | **3.26** | ok |
+| AWAY | Brandon Sproat | 4 | 3.0 | 0.148 | 9.8% | **3.75** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Jeremy Peña | 4.1% | 74 | **0.226** | ok |
+| HOME | 2 | Yordan Alvarez | 18.5% | 178 | **0.994** | ok |
+| HOME | 3 | Christian Walker | 7.1% | 184 | **0.373** | ok |
+| HOME | 4 | Taylor Trammell | 10.0% | 40 | **0.5** | small_sample |
+| HOME | 5 | Isaac Paredes | 9.2% | 163 | **0.449** | ok |
 
 ### San Francisco Giants @ Colorado Rockies
 
@@ -151,13 +210,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Parker Messick | 5 | 6.4 | 0.278 | — | **6.12** | ok |
-| AWAY | Sonny Gray | 4 | 5.25 | 0.253 | — | **5.57** | ok |
+| AWAY | Sonny Gray | 4 | 5.25 | 0.253 | 19.8% | **5.01** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Parker Messick | 5 | 1.8 | 0.078 | — | **1.72** | ok |
-| AWAY | Sonny Gray | 4 | 1.5 | 0.072 | — | **1.58** | ok |
+| AWAY | Sonny Gray | 4 | 1.5 | 0.072 | 11.3% | **1.98** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Travis Bazzana | 15.0% | 80 | **0.559** | ok |
+| HOME | 2 | José Ramírez | 15.1% | 186 | **0.55** | ok |
+| HOME | 3 | Chase DeLauter | 12.6% | 159 | **0.448** | ok |
+| HOME | 4 | Kyle Manzardo | 10.2% | 147 | **0.346** | ok |
+| HOME | 5 | Angel Martínez | 3.8% | 130 | **0.126** | ok |
 
 ### Atlanta Braves @ Cincinnati Reds
 
