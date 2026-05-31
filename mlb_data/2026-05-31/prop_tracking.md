@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 27/28 OK · pitcher walks 27/28 OK · batter walks 70/84 OK
+**Slate-wide data quality:** pitcher Ks 29/30 OK · pitcher walks 29/30 OK · batter walks 90/104 OK
 
 
 ### San Diego Padres @ Washington Nationals
@@ -13,17 +13,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Zack Littell | 5 | 2.8 | 0.143 | 21.8% | **3.12** | ok |
-| AWAY | Griffin Canning | 5 | 4.8 | 0.242 | — | **5.32** | ok |
+| AWAY | Griffin Canning | 5 | 4.8 | 0.242 | 18.5% | **4.53** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Zack Littell | 5 | 1.2 | 0.061 | 10.3% | **1.63** | ok |
-| AWAY | Griffin Canning | 5 | 2.6 | 0.131 | — | **2.88** | ok |
+| AWAY | Griffin Canning | 5 | 2.6 | 0.131 | 12.0% | **3.6** | ok |
 
 **Top batter walk projections**
 | Side | Order | Batter | BB% | PA | Proj BB | Quality |
 |---|---:|---|---:|---:|---:|---|
+| HOME | 1 | James Wood | 18.6% | 183 | **1.023** | ok |
+| HOME | 2 | Luis García Jr. | 3.7% | 162 | **0.199** | ok |
+| HOME | 3 | Curtis Mead | 19.0% | 79 | **0.998** | ok |
+| HOME | 4 | CJ Abrams | 12.1% | 173 | **0.605** | ok |
+| HOME | 5 | Daylen Lile | 6.7% | 180 | **0.327** | ok |
 | AWAY | 1 | Fernando Tatis Jr. | 9.9% | 192 | **0.327** | ok |
 | AWAY | 2 | Gavin Sheets | 11.1% | 153 | **0.358** | ok |
 | AWAY | 3 | Manny Machado | 12.4% | 178 | **0.391** | ok |
@@ -100,32 +105,55 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | Matthew Liberatore | 5 | 2.2 | 0.096 | — | **2.11** | ok |
 | AWAY | Jordan Wicks | 1 | 1.0 | 0.042 | — | **0.92** | stale |
 
+### Arizona Diamondbacks @ Seattle Mariners
+
+**Pitcher K projections**
+| Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
+|---|---|---:|---:|---:|---:|---:|---|
+| HOME | Bryce Miller | 3 | 4.67 | 0.226 | — | **4.97** | ok |
+| AWAY | Merrill Kelly | 5 | 4.4 | 0.165 | — | **3.63** | ok |
+
+**Pitcher walks projections**
+| Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
+|---|---|---:|---:|---:|---:|---:|---|
+| HOME | Bryce Miller | 3 | 0.67 | 0.032 | — | **0.7** | ok |
+| AWAY | Merrill Kelly | 5 | 1.6 | 0.06 | — | **1.32** | ok |
+
 ### Minnesota Twins @ Pittsburgh Pirates
 
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Braxton Ashcraft | 5 | 6.2 | 0.226 | — | **4.97** | ok |
+| HOME | Braxton Ashcraft | 5 | 6.2 | 0.226 | 20.9% | **4.72** | ok |
 | AWAY | Zebby Matthews | 3 | 5.67 | 0.233 | — | **5.13** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Braxton Ashcraft | 5 | 1.0 | 0.036 | — | **0.79** | ok |
+| HOME | Braxton Ashcraft | 5 | 1.0 | 0.036 | 8.7% | **0.81** | ok |
 | AWAY | Zebby Matthews | 3 | 0.67 | 0.027 | — | **0.59** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| AWAY | 1 | Austin Martin | 7.7% | 104 | **0.254** | ok |
+| AWAY | 2 | Brooks Lee | 5.8% | 137 | **0.187** | ok |
+| AWAY | 3 | Kody Clemens | 7.7% | 143 | **0.243** | ok |
+| AWAY | 4 | Josh Bell | 8.3% | 145 | **0.249** | ok |
+| AWAY | 5 | Trevor Larnach | 13.9% | 144 | **0.407** | ok |
 
 ### Miami Marlins @ New York Mets
 
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Nolan McLean | 5 | 6.0 | 0.254 | — | **5.59** | ok |
+| HOME | Nolan McLean | 5 | 6.0 | 0.254 | 14.9% | **4.75** | ok |
 | AWAY | John King | 11 | 0.45 | 0.135 | 18.1% | **2.52** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Nolan McLean | 5 | 1.8 | 0.076 | — | **1.67** | ok |
+| HOME | Nolan McLean | 5 | 1.8 | 0.076 | 8.3% | **1.63** | ok |
 | AWAY | John King | 11 | 0.27 | 0.081 | 7.6% | **1.59** | ok |
 
 **Top batter walk projections**
@@ -135,6 +163,11 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | 2 | Bo Bichette | 10.1% | 69 | **0.414** | ok |
 | HOME | 3 | Juan Soto | 9.1% | 66 | **0.364** | ok |
 | HOME | 4 | Mark Vientos | 1.5% | 65 | **0.057** | ok |
+| AWAY | 1 | Xavier Edwards | 13.0% | 193 | **0.511** | ok |
+| AWAY | 2 | Liam Hicks | 8.5% | 176 | **0.327** | ok |
+| AWAY | 3 | Otto Lopez | 3.8% | 183 | **0.143** | ok |
+| AWAY | 4 | Kyle Stowers | 9.6% | 115 | **0.343** | ok |
+| AWAY | 5 | Javier Sanoja | 6.7% | 89 | **0.234** | ok |
 
 ### Philadelphia Phillies @ Los Angeles Dodgers
 
@@ -183,13 +216,13 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Tanner Gordon | 5 | 4.0 | 0.222 | — | **4.88** | ok |
+| HOME | Tanner Gordon | 5 | 4.0 | 0.222 | 18.5% | **4.15** | ok |
 | AWAY | Robbie Ray | 5 | 3.6 | 0.157 | 27.8% | **3.97** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Tanner Gordon | 5 | 0.6 | 0.033 | — | **0.73** | ok |
+| HOME | Tanner Gordon | 5 | 0.6 | 0.033 | 5.1% | **0.58** | ok |
 | AWAY | Robbie Ray | 5 | 3.0 | 0.13 | 5.4% | **2.29** | ok |
 
 **Top batter walk projections**
@@ -200,6 +233,11 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | 3 | TJ Rumfield | 7.7% | 52 | **0.404** | small_sample |
 | HOME | 4 | Hunter Goodman | 6.5% | 62 | **0.325** | ok |
 | HOME | 5 | Ezequiel Tovar | 6.4% | 47 | **0.312** | small_sample |
+| AWAY | 1 | Casey Schmitt | 4.1% | 148 | **0.135** | ok |
+| AWAY | 2 | Rafael Devers | 5.5% | 165 | **0.177** | ok |
+| AWAY | 3 | Luis Arraez | 7.2% | 166 | **0.227** | ok |
+| AWAY | 4 | Willy Adames | 3.8% | 182 | **0.114** | ok |
+| AWAY | 5 | Jung Hoo Lee | 4.8% | 145 | **0.14** | ok |
 
 ### Boston Red Sox @ Cleveland Guardians
 

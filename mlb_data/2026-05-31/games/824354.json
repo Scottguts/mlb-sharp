@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Coors Field",
     "first_pitch_iso": "2026-05-31T19:10:00Z",
-    "temp_f": 80.5,
+    "temp_f": 80.7,
     "humidity_pct": 12,
-    "dew_point_f": 23.2,
-    "wind_mph": 11.0,
-    "wind_dir_deg": 63,
+    "dew_point_f": 23.4,
+    "wind_mph": 12.4,
+    "wind_dir_deg": 70,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 127
+      "angle_off_cf": 120
     },
     "precip_prob_pct": 3
   },
@@ -332,8 +332,130 @@
       ]
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 669477,
+          "name": "Casey Schmitt",
+          "ab": 136,
+          "pa": 148,
+          "ops": 0.798,
+          "avg": 0.243,
+          "obp": 0.291,
+          "slg": 0.507,
+          "woba": 0.429,
+          "k_pct": 0.216,
+          "bb_pct": 0.041,
+          "walks": 6,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 26,
+            "ops": 0.95,
+            "obp": 0.296,
+            "slg": 0.654,
+            "woba": 0.499
+          }
+        },
+        {
+          "id": 646240,
+          "name": "Rafael Devers",
+          "ab": 154,
+          "pa": 165,
+          "ops": 0.752,
+          "avg": 0.253,
+          "obp": 0.291,
+          "slg": 0.461,
+          "woba": 0.408,
+          "k_pct": 0.309,
+          "bb_pct": 0.055,
+          "walks": 9,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 25,
+            "ab": 23,
+            "ops": 0.929,
+            "obp": 0.32,
+            "slg": 0.609,
+            "woba": 0.495
+          }
+        },
+        {
+          "id": 650333,
+          "name": "Luis Arraez",
+          "ab": 149,
+          "pa": 166,
+          "ops": 0.805,
+          "avg": 0.336,
+          "obp": 0.382,
+          "slg": 0.423,
+          "woba": 0.454,
+          "k_pct": 0.024,
+          "bb_pct": 0.072,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 23,
+            "ab": 19,
+            "ops": 0.777,
+            "obp": 0.409,
+            "slg": 0.368,
+            "woba": 0.448
+          }
+        },
+        {
+          "id": 642715,
+          "name": "Willy Adames",
+          "ab": 173,
+          "pa": 182,
+          "ops": 0.753,
+          "avg": 0.26,
+          "obp": 0.291,
+          "slg": 0.462,
+          "woba": 0.409,
+          "k_pct": 0.28,
+          "bb_pct": 0.038,
+          "walks": 7,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 24,
+            "ops": 0.879,
+            "obp": 0.296,
+            "slg": 0.583,
+            "woba": 0.467
+          }
+        },
+        {
+          "id": 808982,
+          "name": "Jung Hoo Lee",
+          "ab": 135,
+          "pa": 145,
+          "ops": 0.782,
+          "avg": 0.296,
+          "obp": 0.338,
+          "slg": 0.444,
+          "woba": 0.433,
+          "k_pct": 0.097,
+          "bb_pct": 0.048,
+          "walks": 7,
+          "recent_7d": {
+            "available": false,
+            "reason": "small_sample",
+            "pa": 9
+          }
+        }
+      ],
+      "avg_woba": 0.427,
+      "avg_ops": 0.778,
+      "avg_k_pct": 0.185,
+      "avg_bb_pct": 0.051
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -839,7 +961,62 @@
   },
   "lineups": {
     "lineups_confirmed": true,
-    "away_lineup": [],
+    "away_lineup": [
+      {
+        "id": 669477,
+        "name": "Casey Schmitt",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 646240,
+        "name": "Rafael Devers",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 650333,
+        "name": "Luis Arraez",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 642715,
+        "name": "Willy Adames",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 808982,
+        "name": "Jung Hoo Lee",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 656305,
+        "name": "Matt Chapman",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 805811,
+        "name": "Bryce Eldridge",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 691740,
+        "name": "Daniel Susac",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 687551,
+        "name": "Drew Gilbert",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "home_lineup": [
       {
         "id": 650489,
