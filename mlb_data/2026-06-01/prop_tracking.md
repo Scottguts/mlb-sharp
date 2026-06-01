@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 16/17 OK · pitcher walks 16/16 OK · batter walks 24/25 OK
+**Slate-wide data quality:** pitcher Ks 16/17 OK · pitcher walks 16/16 OK · batter walks 42/44 OK
 
 
 ### Miami Marlins @ Washington Nationals
@@ -12,13 +12,13 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Cade Cavalli | 5 | 6.0 | 0.24 | — | **5.28** | ok |
+| HOME | Cade Cavalli | 5 | 6.0 | 0.24 | 14.3% | **4.49** | ok |
 | AWAY | Sandy Alcantara | 5 | 4.2 | 0.162 | 18.4% | **3.03** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Cade Cavalli | 5 | 1.4 | 0.056 | — | **1.23** | ok |
+| HOME | Cade Cavalli | 5 | 1.4 | 0.056 | 9.9% | **1.43** | ok |
 | AWAY | Sandy Alcantara | 5 | 1.2 | 0.046 | 11.8% | **1.26** | ok |
 
 **Top batter walk projections**
@@ -29,6 +29,11 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | 3 | Curtis Mead | 18.3% | 82 | **0.576** | ok |
 | HOME | 4 | CJ Abrams | 11.9% | 176 | **0.357** | ok |
 | HOME | 5 | Daylen Lile | 6.6% | 183 | **0.193** | ok |
+| AWAY | 1 | Liam Hicks | 8.9% | 179 | **0.294** | ok |
+| AWAY | 2 | Otto Lopez | 3.8% | 186 | **0.123** | ok |
+| AWAY | 3 | Kyle Stowers | 9.3% | 118 | **0.293** | ok |
+| AWAY | 4 | Xavier Edwards | 13.3% | 196 | **0.399** | ok |
+| AWAY | 5 | Leo Jiménez | 14.3% | 28 | **0.418** | small_sample |
 
 ### Detroit Tigers @ Tampa Bay Rays
 
@@ -63,14 +68,27 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Michael McGreevy | 5 | 4.4 | 0.196 | — | **4.31** | ok |
-| AWAY | Jacob deGrom | 5 | 6.0 | 0.261 | — | **5.74** | ok |
+| HOME | Michael McGreevy | 5 | 4.4 | 0.196 | 21.8% | **4.27** | ok |
+| AWAY | Jacob deGrom | 5 | 6.0 | 0.261 | 19.9% | **5.19** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Michael McGreevy | 5 | 2.0 | 0.089 | — | **1.96** | ok |
-| AWAY | Jacob deGrom | 5 | 1.0 | 0.043 | — | **0.95** | ok |
+| HOME | Michael McGreevy | 5 | 2.0 | 0.089 | 8.5% | **1.96** | ok |
+| AWAY | Jacob deGrom | 5 | 1.0 | 0.043 | 9.8% | **1.09** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | JJ Wetherholt | 9.9% | 172 | **0.327** | ok |
+| HOME | 2 | Iván Herrera | 10.3% | 184 | **0.332** | ok |
+| HOME | 3 | Alec Burleson | 10.9% | 174 | **0.343** | ok |
+| HOME | 4 | Jordan Walker | 8.2% | 182 | **0.246** | ok |
+| AWAY | 1 | Joc Pederson | 15.0% | 167 | **0.691** | ok |
+| AWAY | 2 | Josh Jung | 6.1% | 181 | **0.275** | ok |
+| AWAY | 3 | Brandon Nimmo | 9.8% | 183 | **0.431** | ok |
+| AWAY | 4 | Jake Burger | 5.9% | 187 | **0.247** | ok |
+| AWAY | 5 | Ezequiel Duran | 5.6% | 143 | **0.229** | ok |
 
 ### New York Mets @ Seattle Mariners
 
@@ -97,6 +115,15 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Joe Ryan | 5 | 1.0 | 0.05 | — | **1.1** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Byron Buxton | 7.4% | 229 | **0.326** | ok |
+| HOME | 2 | Brooks Lee | 6.5% | 217 | **0.279** | ok |
+| HOME | 3 | Kody Clemens | 7.1% | 183 | **0.298** | ok |
+| HOME | 4 | Josh Bell | 7.4% | 229 | **0.296** | ok |
+| HOME | 5 | Trevor Larnach | 13.5% | 171 | **0.526** | ok |
 
 ### San Francisco Giants @ Milwaukee Brewers
 
