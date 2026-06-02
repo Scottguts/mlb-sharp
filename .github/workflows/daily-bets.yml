@@ -54,6 +54,10 @@ jobs:
         run: python bet_tracker.py settle --data-root ./mlb_data
         continue-on-error: true
 
+      - name: Settle yesterday's paper prop bets
+        run: python bet_tracker.py settle-paper-props --data-root ./mlb_data
+        continue-on-error: true
+
       - name: Scrape MLB data
         run: python mlb_data_scraper.py --date ${{ steps.date.outputs.value }} --out ./mlb_data
 
@@ -65,6 +69,10 @@ jobs:
 
       - name: Rebuild record.md
         run: python bet_tracker.py report --data-root ./mlb_data
+
+      - name: Rebuild paper-props P/L report
+        run: python bet_tracker.py paper-report --window-days 7 --data-root ./mlb_data
+        continue-on-error: true
 
       - name: Rebuild bankroll simulation
         run: python bankroll_sim.py --data-root ./mlb_data
@@ -93,6 +101,7 @@ jobs:
           git add mlb_data/${{ steps.date.outputs.value }}/ \
                   mlb_data/bet_log.csv mlb_data/record.md mlb_data/bankroll_sim.md \
                   mlb_data/dashboard.html \
+                  mlb_data/prop_paper_log.csv mlb_data/prop_paper_record.md \
                   docs/
           if git diff --staged --quiet; then
             echo "No changes to commit"
