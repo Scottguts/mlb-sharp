@@ -46,15 +46,24 @@ from prop_tracking import build_tracked_props, render_markdown as render_props_m
 # ===========================================================================
 
 # Category weights (must sum to 100)
+# Rebalanced 2026-06-02: starter quality + team offense should drive most
+# of the prediction in MLB. Bullpen is a tiebreaker for late innings, not
+# the lead signal. 'Market' was 15 but it's also baked into the win-prob
+# anchor — partial double-count, so trimmed.
+#
+# Old (pitching 25 / bullpen 15 / offense 15 / market 15)
+# New (pitching 32 / bullpen 10 / offense 22 / market 10)
 WEIGHTS = {
-    "pitching":      25,
-    "bullpen":       15,
-    "offense":       15,
+    "pitching":      32,   # +7  — starter quality is the #1 driver
+    "bullpen":       10,   # -5  — usage/quality matters but secondary
+    "offense":       22,   # +7  — team hitting + matchup hand splits
     "weather_park":  10,
-    "market":        15,
-    "situational":   10,
-    "injury_lineup": 10,
+    "market":        10,   # -5  — market signal already in win-prob anchor
+    "situational":    8,   # -2
+    "injury_lineup":  8,   # -2
 }
+# Sanity: must sum to 100
+assert sum(WEIGHTS.values()) == 100, f"WEIGHTS sum = {sum(WEIGHTS.values())}"
 
 # Win-prob model parameters
 # CALIBRATION PHILOSOPHY: anchor to the market, not to absolute probabilities.
@@ -92,7 +101,8 @@ MAX_NRFI_SHIFT   = 0.06    # cap deviation from market-implied NRFI prob at +/-6
 # we disagree heavily with the market. So we LOWER min edge and TIGHTEN max
 # edge, capturing more small-edge plays and killing the trap-line zone.
 MIN_EDGE = {
-    "moneyline":  0.020,    # lowered from 0.025 — small-edge bucket is winning
+    "moneyline":  0.018,    # lowered to recapture daily play volume after
+                             # rebalancing weights away from bullpen
     "runline":    0.035,
     "total":      0.025,
     "f5_total":   0.035,
@@ -147,7 +157,7 @@ MIN_CONFIDENCE = 6   # only publish bets we genuinely believe in
 UNIT_LADDER = [
     (0.050, 8, 1.5, "Strong"),    # 5%+ edge, 8/10 conf — near the new edge cap
     (0.035, 7, 1.0, "Standard"),  # 3.5%+ edge, 7/10 conf
-    (0.020, 6, 0.5, "Lean"),      # 2%+ edge, 6/10 conf — the bread-and-butter
+    (0.018, 6, 0.5, "Lean"),      # 1.8%+ edge, 6/10 conf — daily-volume tier
 ]
 
 # Hard caps — calibration phase: max 5 best-edge plays per day until the
@@ -945,7 +955,7 @@ def confidence_from(grade_diff, edge):
     # 2.5-4% edge bucket is the model's most profitable zone.
     edge_score  = (3 if edge >= 0.045 else
                    2 if edge >= 0.025 else
-                   1 if edge >= 0.020 else 0)
+                   1 if edge >= 0.018 else 0)
     # Both axes must contribute. Single-axis ceiling is 6.
     if grade_score == 0 or edge_score == 0:
         return int(_clip(4 + max(grade_score, edge_score), 1, 6))
