@@ -8,7 +8,7 @@ _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 | Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |
 |---|---:|:---:|---:|---:|---:|---:|
-| pitcher_strikeouts | 24 | 0-0-0-0-24 | 0.0% | 0.0u | +0.00u | +0.00% |
+| pitcher_strikeouts | 28 | 0-0-0-0-28 | 0.0% | 0.0u | +0.00u | +0.00% |
 
 ## Real bets by market (same window, for comparison)
 
