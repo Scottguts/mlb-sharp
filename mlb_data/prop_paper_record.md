@@ -8,14 +8,14 @@ _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 | Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |
 |---|---:|:---:|---:|---:|---:|---:|
-| pitcher_strikeouts | 19 | 0-0-0-0-19 | 0.0% | 0.0u | +0.00u | +0.00% |
+| pitcher_strikeouts | 24 | 0-0-0-0-24 | 0.0% | 0.0u | +0.00u | +0.00% |
 
 ## Real bets by market (same window, for comparison)
 
 | Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |
 |---|---:|:---:|---:|---:|---:|---:|
-| all | 15 | 5-9-0-0-1 | 35.7% | 10.5u | -0.80u | -7.58% |
-| moneyline | 14 | 5-8-0-0-1 | 38.5% | 10.0u | -0.30u | -2.96% |
+| all | 16 | 5-9-0-0-2 | 35.7% | 10.5u | -0.80u | -7.58% |
+| moneyline | 15 | 5-8-0-0-2 | 38.5% | 10.0u | -0.30u | -2.96% |
 | total | 1 | 0-1-0-0-0 | 0.0% | 0.5u | -0.50u | -100.00% |
 | runline | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
 | f5_total | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
