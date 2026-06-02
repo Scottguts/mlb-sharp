@@ -84,21 +84,41 @@ MAX_NRFI_SHIFT   = 0.06    # cap deviation from market-implied NRFI prob at +/-6
 # `historical_report_<startYear>_<endYear>.md` for the latest numbers.
 
 # Minimum edge to publish a bet card by market type.
-# These thresholds assume MARKET-ANCHORED probability estimates (see
-# grade_to_win_prob / expected_total_runs). When the model deviates from the
-# market within a small bounded window, edges of 2-4% are realistic and 6%+
-# is rare. Anything claiming >10% edge means a calibration bug, not a play.
+# Calibrated 2026-06-02 from 64 settled post-fix bets in bet_log.csv.
+#
+# Key empirical finding: the 2.5-4% edge bucket actually WINS (52% W, +4.5%
+# ROI), while the 8-12% bucket loses badly (25% W, -77% ROI). Higher edges
+# correlate with worse outcomes — classic model overconfidence on bets where
+# we disagree heavily with the market. So we LOWER min edge and TIGHTEN max
+# edge, capturing more small-edge plays and killing the trap-line zone.
 MIN_EDGE = {
-    "moneyline":  0.025,
+    "moneyline":  0.020,    # lowered from 0.025 — small-edge bucket is winning
     "runline":    0.035,
-    "total":      0.030,
-    "f5_total":   0.035,    # F5 markets are softer but high variance
+    "total":      0.025,
+    "f5_total":   0.035,
     "nrfi":       0.035,
 }
 
-# Cap on advertised edge — if the model claims more than this, treat it as a
-# calibration bug rather than a real edge and SKIP the play.
-MAX_REASONABLE_EDGE = 0.12
+# Cap on advertised edge — anything above this is treated as a calibration
+# bug rather than a real edge. Tightened from 0.12 to 0.06 after seeing
+# the 8-12% bucket go 25% W / -77% ROI on 4 bets, including multiple
+# FanDuel plus-money "edges" that turned into 1.5u losers.
+MAX_REASONABLE_EDGE = 0.06
+
+# Win-prob bias: never bet a team rated below this. Plus-money underdog
+# "edges" where the model gives the dog <45% chance to actually win have
+# been a disaster (FanDuel +130 dogs at 0-3 in the 8%+ edge bucket).
+MIN_TEAM_WIN_PROB = 0.45
+
+# Price range guard — no deep favorites (need 60%+ win rate to break even
+# at -150 and worse) and no long dogs (variance hell).
+MIN_AMERICAN_PRICE = -180
+MAX_AMERICAN_PRICE = +180
+
+# Two-book confirmation: the "best price" must also be available within this
+# many cents at another target book. Kills FanDuel-only trap lines where
+# their juiciest plus-money looks like edge but is just promo pricing.
+BOOK_CONFIRMATION_TOLERANCE_CENTS = 8
 
 # Markets to actually generate cards for. Setting False here suppresses
 # the entire market type even if the threshold above would qualify.
@@ -119,12 +139,15 @@ UMPIRE_TOTAL_ADJUST = 0.30   # ~0.3 runs per std dev of ump K%
 MIN_CONFIDENCE = 6   # only publish bets we genuinely believe in
 
 # Unit sizing rules. 1u = 1% of bankroll.
-# Calibrated for a MARKET-ANCHORED model where 5% edge is exceptional.
+# Re-calibrated 2026-06-02 from the bet-log analysis. Note that with
+# MAX_REASONABLE_EDGE = 0.06, the old "Strong 6%+/8 conf" tier is now
+# the ceiling. We also shift more volume to the small-edge bucket since
+# that's where the model actually wins.
 # (edge_floor, confidence_floor, units, risk_label)
 UNIT_LADDER = [
-    (0.060, 8, 1.5, "Strong"),    # rare — 6%+ edge AND 8/10 conf
-    (0.045, 7, 1.0, "Standard"),  # solid play — 4.5%+ edge, 7/10 conf
-    (0.030, 6, 0.5, "Lean"),      # smaller play — must clear MIN_EDGE per market
+    (0.050, 8, 1.5, "Strong"),    # 5%+ edge, 8/10 conf — near the new edge cap
+    (0.035, 7, 1.0, "Standard"),  # 3.5%+ edge, 7/10 conf
+    (0.020, 6, 0.5, "Lean"),      # 2%+ edge, 6/10 conf — the bread-and-butter
 ]
 
 # Hard caps — calibration phase: max 5 best-edge plays per day until the
@@ -549,14 +572,25 @@ def _pinnacle_fair_h2h(odds_for_game):
 def _best_h2h_price(odds_for_game, side):
     target = odds_for_game.get("home_team" if side == "home" else "away_team")
     best_price, best_book = None, ""
+    prices: list[int] = []   # all target-book prices for this outcome
     for b in _book_iter(odds_for_game):
         h2h = next((m for m in b.get("markets", []) if m["key"] == "h2h"), None)
         if not h2h: continue
         for o in h2h["outcomes"]:
             if o["name"] == target:
                 p = int(o["price"])
+                prices.append(p)
                 if best_price is None or p > best_price:
                     best_price, best_book = p, b["key"]
+    # Two-book confirmation: require at least one OTHER book within tolerance
+    # of the best price. Kills FanDuel-only promo lines that aren't real edge.
+    if best_price is not None and len(prices) >= 2:
+        others = [p for p in prices if p != best_price]
+        if not any(abs(p - best_price) <= BOOK_CONFIRMATION_TOLERANCE_CENTS for p in others):
+            return None, ""   # no confirmation → no play
+    elif best_price is not None and len(prices) < 2:
+        # Only one book carrying this market — too thin, skip
+        return None, ""
     return best_price, best_book
 
 def _best_runline_price(odds_for_game, side):
@@ -576,10 +610,10 @@ def _best_runline_price(odds_for_game, side):
 
 def _best_total_price(odds_for_game, side, market_key="totals", target_line=None):
     """Best price across target books. If target_line is provided, only
-    consider outcomes at that exact line — prevents alt-line markets from
-    hijacking 'best price' shopping (e.g. an Under 4.5 alt at +116 would
-    otherwise fake-beat the consensus 8.5 line)."""
+    consider outcomes at that exact line. Requires two-book confirmation
+    (a second book within tolerance) to filter out single-book trap lines."""
     best = (None, None, "")
+    prices: list[int] = []
     for b in _book_iter(odds_for_game):
         t = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
         if not t: continue
@@ -587,9 +621,17 @@ def _best_total_price(odds_for_game, side, market_key="totals", target_line=None
             if o["name"].lower() != side.lower(): continue
             p, line = int(o["price"]), float(o.get("point", 0))
             if target_line is not None and abs(line - target_line) > 0.001:
-                continue   # skip alt lines
+                continue
+            prices.append(p)
             if best[0] is None or p > best[0]:
                 best = (p, line, b["key"])
+    # Two-book confirmation
+    if best[0] is not None and len(prices) >= 2:
+        others = [p for p in prices if p != best[0]]
+        if not any(abs(p - best[0]) <= BOOK_CONFIRMATION_TOLERANCE_CENTS for p in others):
+            return (None, None, "")
+    elif best[0] is not None and len(prices) < 2:
+        return (None, None, "")
     return best
 
 
@@ -884,23 +926,26 @@ def estimate_nrfi_prob(game, catscores, odds_for_game=None) -> tuple[float, list
 # ===========================================================================
 
 def confidence_from(grade_diff, edge):
-    """Confidence requires BOTH a real grade gap AND a meaningful edge.
-    Either alone earns at most a 6/10. To hit 8+ you need both axes strong.
+    """Confidence calibrated from the bet-log analysis (2026-06-02).
 
-    Calibrated for the MARKET-ANCHORED model where typical real edges are
-    1-4%, 5%+ is rare, and anything >8% suggests a missing market signal
-    rather than a true edge.
+    Key empirical finding: bets in the 9-10 confidence tier had a 30% win
+    rate vs 51.7% in the 7-8 tier — the OLD formula was over-rewarding
+    large edges, which correlated with the model being wrong. Now edge
+    is capped at MAX_REASONABLE_EDGE=0.06 so edge_score tops out at 3.
+    Combined with grade_score 0-3, max confidence is 4+3+3 = 10 only when
+    BOTH a real grade gap AND a top-end edge are present.
     """
     abs_diff = abs(grade_diff)
     # Grade-gap sub-score (0-3)
     grade_score = (3 if abs_diff >= 18 else
                    2 if abs_diff >= 12 else
                    1 if abs_diff >=  6 else 0)
-    # Edge sub-score (0-4) — thresholds tightened for anchored model
-    edge_score  = (4 if edge >= 0.070 else
-                   3 if edge >= 0.050 else
-                   2 if edge >= 0.035 else
-                   1 if edge >= 0.025 else 0)
+    # Edge sub-score (0-3) — calibrated so a 3%+ edge can clear MIN_CONFIDENCE
+    # on its own (was requiring 3.5%), since the bet-log analysis shows the
+    # 2.5-4% edge bucket is the model's most profitable zone.
+    edge_score  = (3 if edge >= 0.045 else
+                   2 if edge >= 0.025 else
+                   1 if edge >= 0.020 else 0)
     # Both axes must contribute. Single-axis ceiling is 6.
     if grade_score == 0 or edge_score == 0:
         return int(_clip(4 + max(grade_score, edge_score), 1, 6))
@@ -938,8 +983,13 @@ def _default_pass(side="generic"):
     ]
 
 def make_ml_card(game, side, fair_prob, odds, cats, hg, ag):
+    # Win-prob bias: don't bet teams we rate below MIN_TEAM_WIN_PROB to win.
+    # Filters out the empirically-disastrous plus-money "trap" plays.
+    if fair_prob < MIN_TEAM_WIN_PROB: return None
     price, book = _best_h2h_price(odds, side)
     if price is None: return None
+    # Price range guard — no deep favorites or long dogs
+    if price < MIN_AMERICAN_PRICE or price > MAX_AMERICAN_PRICE: return None
     edge = edge_pct(fair_prob, price)
     if edge < MIN_EDGE["moneyline"]: return None
     if edge > MAX_REASONABLE_EDGE: return None   # calibration sanity check
@@ -969,6 +1019,8 @@ def make_runline_card(game, side, win_prob, odds, cats, hg, ag):
     else:
         cover_p = 1 - (1 - win_prob) * 0.55
     cover_p = _clip(cover_p, 0.05, 0.95)
+    if cover_p < MIN_TEAM_WIN_PROB: return None
+    if price < MIN_AMERICAN_PRICE or price > MAX_AMERICAN_PRICE: return None
     edge = edge_pct(cover_p, price)
     if edge < MIN_EDGE["runline"]: return None
     if edge > MAX_REASONABLE_EDGE: return None
