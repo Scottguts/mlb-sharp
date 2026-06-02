@@ -5,11 +5,11 @@
     "gameDate": "2026-06-02T22:45:00Z",
     "categories": {
       "pitching": {
-        "home": 4.6,
+        "home": 6.1,
         "away": 3.2,
         "notes": [
-          "home: CSW% L5 starts 24.5%",
-          "home: CU movement shift (+1.7\" horiz, -0.2\" vert) last start",
+          "home: CSW% L12 starts 29.2%",
+          "home: ST movement shift (+0.6\" horiz, +2.0\" vert) last start",
           "away: velo down -1.5 mph \u2014 RED FLAG",
           "away: CSW% L9 starts 28.3%",
           "away: CU movement shift (-0.4\" horiz, +3.8\" vert) last start"
@@ -26,11 +26,12 @@
         ]
       },
       "offense": {
-        "home": 5.5,
+        "home": 6.2,
         "away": 4.0,
         "notes": [
-          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: 0/9 platoon edge vs RHP",
           "home: solid form (5.0 RPG L14d)",
+          "home: elite top-of-order wOBA 0.486",
           "away: lineup not confirmed \u2014 neutral baseline",
           "away: cold bats (3.38 RPG L14d)"
         ]
@@ -44,7 +45,7 @@
         "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -112@fanduel; fair -108 (51.9%); gap -0.96%"
+          "home best -112@fanduel; fair -107 (51.7%); gap -1.08%"
         ]
       },
       "situational": {
@@ -53,68 +54,40 @@
         "notes": []
       },
       "injury_lineup": {
-        "home": 5.0,
-        "away": 5.0,
+        "home": 6.5,
+        "away": 6.5,
         "notes": [
-          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+          "lineups confirmed"
         ]
       }
     },
     "grade": {
-      "home": 47.8,
-      "away": 40.5
+      "home": 55.4,
+      "away": 41.7
     },
     "win_prob": {
-      "home": 0.5443,
-      "away": 0.4557
+      "home": 0.5654,
+      "away": 0.4346
     },
-    "expected_total": 9.16,
-    "expected_f5_total": 5.43,
-    "nrfi_prob": 0.5003,
-    "bet_cards": [
-      {
-        "bet_label": "Washington Nationals ML",
-        "market": "moneyline",
-        "side": "home",
-        "book": "fanduel",
-        "price_american": -112,
-        "line": null,
-        "fair_prob": 0.5443,
-        "fair_american": -119,
-        "edge": 0.030282142857142924,
-        "confidence": 7,
-        "unit_size": 0.5,
-        "risk": "Lean",
-        "reasoning": [
-          "Pitching edge (4.6 vs 3.2)",
-          "Offense edge (5.5 vs 4.0)",
-          "home: CSW% L5 starts 24.5%",
-          "home: CU movement shift (+1.7\" horiz, -0.2\" vert) last start",
-          "home pen quality: K% 19.6, BB% 13.1, ERA 4.07",
-          "home: 3 arms gassed, 1 back-to-back, 427 pitches L7d"
-        ],
-        "pass_triggers": [
-          "Key bat scratched at lineup release",
-          "Line moves through your fair value",
-          "Weather forecast worsens (rain >50% or wind reversal)"
-        ]
-      }
-    ],
+    "expected_total": 9.09,
+    "expected_f5_total": 5.2,
+    "nrfi_prob": 0.5065,
+    "bet_cards": [],
     "tracked_props": {
       "pitcher_ks": [
         {
           "available": true,
           "data_quality": "ok",
-          "starts_in_window": 5,
-          "k_per_start_avg": 2.6,
-          "k_per_bf": 0.14,
+          "starts_in_window": 12,
+          "k_per_start_avg": 0.75,
+          "k_per_bf": 0.176,
           "opp_lineup_k_pct": null,
           "lineup_adjustment": 1.0,
           "ump_k_bump": -0.0,
-          "projected_k": 3.08,
+          "projected_k": 3.87,
           "side": "home",
-          "name": "Miles Mikolas",
-          "id": 571945
+          "name": "Richard Lovelady",
+          "id": 663992
         },
         {
           "available": true,
@@ -122,10 +95,10 @@
           "starts_in_window": 9,
           "k_per_start_avg": 1.44,
           "k_per_bf": 0.241,
-          "opp_lineup_k_pct": null,
-          "lineup_adjustment": 1.0,
+          "opp_lineup_k_pct": 0.184,
+          "lineup_adjustment": 0.85,
           "ump_k_bump": -0.0,
-          "projected_k": 5.3,
+          "projected_k": 4.51,
           "side": "away",
           "name": "Lake Bachar",
           "id": 669199
@@ -135,16 +108,16 @@
         {
           "available": true,
           "data_quality": "ok",
-          "starts_in_window": 5,
-          "bb_per_start_avg": 0.6,
-          "bb_per_bf": 0.032,
+          "starts_in_window": 12,
+          "bb_per_start_avg": 0.58,
+          "bb_per_bf": 0.137,
           "opp_lineup_bb_pct": null,
           "lineup_adjustment": 1.0,
           "ump_bb_bump": 0.0,
-          "projected_walks": 0.7,
+          "projected_walks": 3.01,
           "side": "home",
-          "name": "Miles Mikolas",
-          "id": 571945
+          "name": "Richard Lovelady",
+          "id": 663992
         },
         {
           "available": true,
@@ -152,23 +125,89 @@
           "starts_in_window": 9,
           "bb_per_start_avg": 0.33,
           "bb_per_bf": 0.056,
-          "opp_lineup_bb_pct": null,
-          "lineup_adjustment": 1.0,
+          "opp_lineup_bb_pct": 0.116,
+          "lineup_adjustment": 1.25,
           "ump_bb_bump": 0.0,
-          "projected_walks": 1.23,
+          "projected_walks": 1.54,
           "side": "away",
           "name": "Lake Bachar",
           "id": 669199
         }
       ],
-      "batter_walks": [],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 695578,
+          "name": "James Wood",
+          "bb_pct": 0.184,
+          "pa_sample": 190,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.607,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 671277,
+          "name": "Luis Garc\u00eda Jr.",
+          "bb_pct": 0.041,
+          "pa_sample": 169,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.132,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 678554,
+          "name": "Curtis Mead",
+          "bb_pct": 0.174,
+          "pa_sample": 86,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.548,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 682928,
+          "name": "CJ Abrams",
+          "bb_pct": 0.117,
+          "pa_sample": 180,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.351,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 695734,
+          "name": "Daylen Lile",
+          "bb_pct": 0.064,
+          "pa_sample": 187,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.187,
+          "side": "home",
+          "order": 5
+        }
+      ],
       "summary": {
         "n_pitcher_ks": 2,
         "n_pitcher_walks": 2,
-        "n_batter_walks": 0,
+        "n_batter_walks": 5,
         "n_pitcher_ks_ok": 2,
         "n_pitcher_walks_ok": 2,
-        "n_batter_walks_ok": 0,
+        "n_batter_walks_ok": 5,
         "n_pitcher_ks_stale": 0,
         "n_pitcher_walks_stale": 0,
         "n_batter_walks_small": 0,
@@ -221,10 +260,9 @@
       },
       "market": {
         "home": 5.0,
-        "away": 3.5,
+        "away": 5.0,
         "notes": [
-          "home best -138@fanduel; fair -131 (56.8%); gap -1.23%",
-          "away best +119@draftkings; fair +131 (43.2%); gap -2.41%"
+          "away best +125@betmgm; fair +132 (43.2%); gap -1.27%"
         ]
       },
       "situational": {
@@ -242,11 +280,11 @@
     },
     "grade": {
       "home": 44.2,
-      "away": 43.9
+      "away": 45.4
     },
     "win_prob": {
-      "home": 0.5686,
-      "away": 0.4314
+      "home": 0.5641,
+      "away": 0.4359
     },
     "expected_total": 8.65,
     "expected_f5_total": 4.72,
@@ -367,9 +405,7 @@
       "weather_park": {
         "home": 5.0,
         "away": 5.0,
-        "notes": [
-          "wind 5.8mph IN from CF (\u0394 -0.03r) \u2014 suppresses totals"
-        ]
+        "notes": []
       },
       "market": {
         "home": 5.0,
@@ -399,7 +435,7 @@
       "home": 0.4923,
       "away": 0.5077
     },
-    "expected_total": 6.93,
+    "expected_total": 6.96,
     "expected_f5_total": 4.81,
     "nrfi_prob": 0.5266,
     "bet_cards": [],
@@ -525,8 +561,8 @@
         "home": 3.5,
         "away": 5.0,
         "notes": [
-          "home best -149@draftkings; fair -136 (57.6%); gap -2.22%",
-          "away best +130@fanduel; fair +136 (42.4%); gap -1.09%"
+          "home best -149@draftkings; fair -137 (57.7%); gap -2.12%",
+          "away best +130@fanduel; fair +137 (42.3%); gap -1.20%"
         ]
       },
       "situational": {
@@ -549,8 +585,8 @@
       "away": 50.7
     },
     "win_prob": {
-      "home": 0.5856,
-      "away": 0.4144
+      "home": 0.5867,
+      "away": 0.4133
     },
     "expected_total": 7.28,
     "expected_f5_total": 4.21,
@@ -646,7 +682,9 @@
       "weather_park": {
         "home": 5.0,
         "away": 5.0,
-        "notes": []
+        "notes": [
+          "wind 5.0mph IN from CF (\u0394 -0.00r) \u2014 suppresses totals"
+        ]
       },
       "market": {
         "home": 5.0,
@@ -830,8 +868,8 @@
       "home": 0.6992,
       "away": 0.3008
     },
-    "expected_total": 7.38,
-    "expected_f5_total": 4.99,
+    "expected_total": 7.4,
+    "expected_f5_total": 5.0,
     "nrfi_prob": 0.5172,
     "bet_cards": [],
     "tracked_props": {
@@ -955,8 +993,8 @@
         "home": 3.5,
         "away": 5.0,
         "notes": [
-          "home best +105@betmgm; fair +118 (45.8%); gap -3.01%",
-          "away best -120@fanduel; fair -118 (54.2%); gap -0.32%"
+          "home best +109@draftkings; fair +119 (45.7%); gap -2.19%",
+          "away best -124@fanduel; fair -119 (54.3%); gap -1.02%"
         ]
       },
       "situational": {
@@ -977,11 +1015,11 @@
       "away": 53.8
     },
     "win_prob": {
-      "home": 0.4255,
-      "away": 0.5745
+      "home": 0.4244,
+      "away": 0.5756
     },
-    "expected_total": 8.1,
-    "expected_f5_total": 4.87,
+    "expected_total": 8.09,
+    "expected_f5_total": 4.86,
     "nrfi_prob": 0.5194,
     "bet_cards": [
       {
@@ -989,14 +1027,14 @@
         "market": "moneyline",
         "side": "away",
         "book": "fanduel",
-        "price_american": -120,
+        "price_american": -124,
         "line": null,
-        "fair_prob": 0.5745,
-        "fair_american": -135,
-        "edge": 0.05325000000000002,
-        "confidence": 8,
-        "unit_size": 1.5,
-        "risk": "Strong",
+        "fair_prob": 0.5756,
+        "fair_american": -136,
+        "edge": 0.03979354838709681,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
         "reasoning": [
           "Bullpen edge (5.5 vs 0.5)",
           "Market edge (5.0 vs 3.5)",
@@ -1134,8 +1172,8 @@
         "home": 3.5,
         "away": 5.0,
         "notes": [
-          "home best -270@fanduel; fair -234 (70.1%); gap -2.88%",
-          "away best +220@fanduel; fair +234 (29.9%); gap -1.34%"
+          "home best -270@fanduel; fair -235 (70.1%); gap -2.86%",
+          "away best +220@fanduel; fair +235 (29.9%); gap -1.37%"
         ]
       },
       "situational": {
@@ -1156,11 +1194,11 @@
       "away": 49.7
     },
     "win_prob": {
-      "home": 0.6932,
-      "away": 0.3068
+      "home": 0.6935,
+      "away": 0.3065
     },
-    "expected_total": 7.41,
-    "expected_f5_total": 4.69,
+    "expected_total": 7.42,
+    "expected_f5_total": 4.7,
     "nrfi_prob": 0.5162,
     "bet_cards": [],
     "tracked_props": {
@@ -1284,7 +1322,7 @@
         "home": 5.0,
         "away": 5.0,
         "notes": [
-          "away best +140@betmgm; fair +148 (40.3%); gap -1.36%"
+          "away best +140@betmgm; fair +149 (40.2%); gap -1.46%"
         ]
       },
       "situational": {
@@ -1305,11 +1343,11 @@
       "away": 47.5
     },
     "win_prob": {
-      "home": 0.6102,
-      "away": 0.3898
+      "home": 0.6112,
+      "away": 0.3888
     },
-    "expected_total": 8.51,
-    "expected_f5_total": 4.98,
+    "expected_total": 8.53,
+    "expected_f5_total": 4.99,
     "nrfi_prob": 0.5099,
     "bet_cards": [],
     "tracked_props": {
@@ -1433,8 +1471,8 @@
         "home": 3.5,
         "away": 5.0,
         "notes": [
-          "home best -112@fanduel; fair -103 (50.7%); gap -2.12%",
-          "away best -104@fanduel; fair +103 (49.3%); gap -1.69%"
+          "home best -112@fanduel; fair -102 (50.5%); gap -2.36%",
+          "away best -104@fanduel; fair +102 (49.5%); gap -1.45%"
         ]
       },
       "situational": {
@@ -1455,8 +1493,8 @@
       "away": 52.7
     },
     "win_prob": {
-      "home": 0.5029,
-      "away": 0.4971
+      "home": 0.5005,
+      "away": 0.4995
     },
     "expected_total": 8.93,
     "expected_f5_total": 4.84,
@@ -1565,11 +1603,12 @@
         ]
       },
       "offense": {
-        "home": 4.5,
+        "home": 5.5,
         "away": 4.0,
         "notes": [
-          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: 0/9 platoon edge vs LHP",
           "home: slow form (3.85 RPG L14d)",
+          "home: elite top-of-order wOBA 0.498",
           "away: lineup not confirmed \u2014 neutral baseline",
           "away: cold bats (3.33 RPG L14d)"
         ]
@@ -1579,15 +1618,15 @@
         "away": 5.0,
         "notes": [
           "hitter park (pf_runs 108)",
-          "wind 7.9mph IN from CF (\u0394 -0.12r) \u2014 suppresses totals"
+          "wind 6.7mph IN from CF (\u0394 -0.07r) \u2014 suppresses totals"
         ]
       },
       "market": {
         "home": 5.0,
         "away": 3.5,
         "notes": [
-          "home best -122@fanduel; fair -115 (53.5%); gap -1.45%",
-          "away best +105@betmgm; fair +115 (46.5%); gap -2.29%"
+          "home best -120@betmgm; fair -113 (53.1%); gap -1.47%",
+          "away best +104@fanduel; fair +113 (46.9%); gap -2.10%"
         ]
       },
       "situational": {
@@ -1596,25 +1635,53 @@
         "notes": []
       },
       "injury_lineup": {
-        "home": 5.0,
-        "away": 5.0,
+        "home": 6.5,
+        "away": 6.5,
         "notes": [
-          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+          "lineups confirmed"
         ]
       }
     },
     "grade": {
-      "home": 48.0,
-      "away": 41.2
+      "home": 51.4,
+      "away": 42.4
     },
     "win_prob": {
-      "home": 0.5589,
-      "away": 0.4411
+      "home": 0.5623,
+      "away": 0.4377
     },
-    "expected_total": 8.94,
+    "expected_total": 9.02,
     "expected_f5_total": 5.34,
-    "nrfi_prob": 0.51,
-    "bet_cards": [],
+    "nrfi_prob": 0.506,
+    "bet_cards": [
+      {
+        "bet_label": "Cincinnati Reds ML",
+        "market": "moneyline",
+        "side": "home",
+        "book": "betmgm",
+        "price_american": -120,
+        "line": null,
+        "fair_prob": 0.5623,
+        "fair_american": -128,
+        "edge": 0.030883333333333374,
+        "confidence": 7,
+        "unit_size": 0.5,
+        "risk": "Lean",
+        "reasoning": [
+          "Pitching edge (5.5 vs 4.5)",
+          "Bullpen edge (2.5 vs 1.5)",
+          "Offense edge (5.5 vs 4.0)",
+          "Market edge (5.0 vs 3.5)",
+          "home: CSW% L5 starts 25.6%",
+          "away: velo soft (-1.4 mph)"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ]
+      }
+    ],
     "tracked_props": {
       "pitcher_ks": [
         {
@@ -1637,10 +1704,10 @@
           "starts_in_window": 4,
           "k_per_start_avg": 5.0,
           "k_per_bf": 0.233,
-          "opp_lineup_k_pct": null,
-          "lineup_adjustment": 1.0,
+          "opp_lineup_k_pct": 0.244,
+          "lineup_adjustment": 1.109,
           "ump_k_bump": -0.0,
-          "projected_k": 5.13,
+          "projected_k": 5.69,
           "side": "away",
           "name": "Noah Cameron",
           "id": 702070
@@ -1667,26 +1734,92 @@
           "starts_in_window": 4,
           "bb_per_start_avg": 1.5,
           "bb_per_bf": 0.07,
-          "opp_lineup_bb_pct": null,
-          "lineup_adjustment": 1.0,
+          "opp_lineup_bb_pct": 0.132,
+          "lineup_adjustment": 1.25,
           "ump_bb_bump": 0.0,
-          "projected_walks": 1.54,
+          "projected_walks": 1.93,
           "side": "away",
           "name": "Noah Cameron",
           "id": 702070
         }
       ],
-      "batter_walks": [],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 667472,
+          "name": "Dane Myers",
+          "bb_pct": 0.102,
+          "pa_sample": 59,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.37,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 668709,
+          "name": "JJ Bleday",
+          "bb_pct": 0.114,
+          "pa_sample": 35,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.404,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 701398,
+          "name": "Sal Stewart",
+          "bb_pct": 0.22,
+          "pa_sample": 59,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.761,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 553993,
+          "name": "Eugenio Su\u00e1rez",
+          "bb_pct": 0.097,
+          "pa_sample": 31,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.32,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 668715,
+          "name": "Spencer Steer",
+          "bb_pct": 0.125,
+          "pa_sample": 56,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.401,
+          "side": "home",
+          "order": 5
+        }
+      ],
       "summary": {
         "n_pitcher_ks": 2,
         "n_pitcher_walks": 2,
-        "n_batter_walks": 0,
+        "n_batter_walks": 5,
         "n_pitcher_ks_ok": 2,
         "n_pitcher_walks_ok": 2,
         "n_batter_walks_ok": 0,
         "n_pitcher_ks_stale": 0,
         "n_pitcher_walks_stale": 0,
-        "n_batter_walks_small": 0,
+        "n_batter_walks_small": 5,
         "n_pitcher_ks_missing": 0,
         "n_pitcher_walks_missing": 0,
         "n_batter_walks_missing": 0
@@ -1731,15 +1864,15 @@
         "away": 5.0,
         "notes": [
           "pitcher park (pf_runs 95)",
-          "wind 6.2mph IN from CF (\u0394 -0.05r) \u2014 suppresses totals"
+          "wind 6.4mph IN from CF (\u0394 -0.06r) \u2014 suppresses totals"
         ]
       },
       "market": {
         "home": 5.0,
         "away": 3.5,
         "notes": [
-          "home best -120@fanduel; fair -117 (53.8%); gap -0.73%",
-          "away best +105@draftkings; fair +117 (46.2%); gap -2.59%"
+          "home best -120@fanduel; fair -117 (53.9%); gap -0.62%",
+          "away best +105@draftkings; fair +117 (46.1%); gap -2.71%"
         ]
       },
       "situational": {
@@ -1762,8 +1895,8 @@
       "away": 47.2
     },
     "win_prob": {
-      "home": 0.5493,
-      "away": 0.4507
+      "home": 0.5505,
+      "away": 0.4495
     },
     "expected_total": 7.02,
     "expected_f5_total": 4.48,
@@ -1873,11 +2006,12 @@
         ]
       },
       "offense": {
-        "home": 6.0,
+        "home": 7.3,
         "away": 5.0,
         "notes": [
-          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: 0/9 platoon edge vs RHP",
           "home: hot bats (5.55 RPG L14d)",
+          "home: elite top-of-order wOBA 0.403",
           "away: lineup not confirmed \u2014 neutral baseline"
         ]
       },
@@ -1892,8 +2026,7 @@
         "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -132@fanduel; fair -125 (55.6%); gap -1.28%",
-          "away best +118@betmgm; fair +125 (44.4%); gap -1.49%"
+          "away best +119@draftkings; fair +125 (44.4%); gap -1.28%"
         ]
       },
       "situational": {
@@ -1902,24 +2035,24 @@
         "notes": []
       },
       "injury_lineup": {
-        "home": 5.0,
-        "away": 5.0,
+        "home": 6.5,
+        "away": 6.5,
         "notes": [
-          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+          "lineups confirmed"
         ]
       }
     },
     "grade": {
-      "home": 53.0,
-      "away": 48.0
+      "home": 57.1,
+      "away": 49.2
     },
     "win_prob": {
-      "home": 0.5737,
-      "away": 0.4263
+      "home": 0.5839,
+      "away": 0.4161
     },
-    "expected_total": 8.43,
+    "expected_total": 8.47,
     "expected_f5_total": 5.43,
-    "nrfi_prob": 0.4961,
+    "nrfi_prob": 0.4909,
     "bet_cards": [],
     "tracked_props": {
       "pitcher_ks": [
@@ -1943,10 +2076,10 @@
           "starts_in_window": 5,
           "k_per_start_avg": 5.6,
           "k_per_bf": 0.217,
-          "opp_lineup_k_pct": null,
-          "lineup_adjustment": 1.0,
+          "opp_lineup_k_pct": 0.206,
+          "lineup_adjustment": 0.936,
           "ump_k_bump": -0.0,
-          "projected_k": 4.77,
+          "projected_k": 4.47,
           "side": "away",
           "name": "Shane Baz",
           "id": 669358
@@ -1973,23 +2106,89 @@
           "starts_in_window": 5,
           "bb_per_start_avg": 3.2,
           "bb_per_bf": 0.124,
-          "opp_lineup_bb_pct": null,
-          "lineup_adjustment": 1.0,
+          "opp_lineup_bb_pct": 0.084,
+          "lineup_adjustment": 0.988,
           "ump_bb_bump": 0.0,
-          "projected_walks": 2.73,
+          "projected_walks": 2.7,
           "side": "away",
           "name": "Shane Baz",
           "id": 669358
         }
       ],
-      "batter_walks": [],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 680776,
+          "name": "Jarren Duran",
+          "bb_pct": 0.067,
+          "pa_sample": 180,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.369,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 678882,
+          "name": "Ceddanne Rafaela",
+          "bb_pct": 0.069,
+          "pa_sample": 159,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.371,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 677800,
+          "name": "Wilyer Abreu",
+          "bb_pct": 0.099,
+          "pa_sample": 172,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.52,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 575929,
+          "name": "Willson Contreras",
+          "bb_pct": 0.077,
+          "pa_sample": 169,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.385,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 807799,
+          "name": "Masataka Yoshida",
+          "bb_pct": 0.109,
+          "pa_sample": 110,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.531,
+          "side": "home",
+          "order": 5
+        }
+      ],
       "summary": {
         "n_pitcher_ks": 2,
         "n_pitcher_walks": 2,
-        "n_batter_walks": 0,
+        "n_batter_walks": 5,
         "n_pitcher_ks_ok": 2,
         "n_pitcher_walks_ok": 2,
-        "n_batter_walks_ok": 0,
+        "n_batter_walks_ok": 5,
         "n_pitcher_ks_stale": 0,
         "n_pitcher_walks_stale": 0,
         "n_batter_walks_small": 0,
@@ -2036,15 +2235,14 @@
         "home": 5.0,
         "away": 5.0,
         "notes": [
-          "wind 7.0mph IN from CF (\u0394 -0.08r) \u2014 suppresses totals"
+          "wind 5.9mph IN from CF (\u0394 -0.04r) \u2014 suppresses totals"
         ]
       },
       "market": {
-        "home": 3.5,
+        "home": 5.0,
         "away": 5.0,
         "notes": [
-          "home best -120@draftkings; fair -109 (52.2%); gap -2.35%",
-          "away best +104@fanduel; fair +109 (47.8%); gap -1.22%"
+          "home best -118@betmgm; fair -109 (52.2%); gap -1.93%"
         ]
       },
       "situational": {
@@ -2061,15 +2259,15 @@
       }
     },
     "grade": {
-      "home": 53.8,
+      "home": 55.3,
       "away": 51.5
     },
     "win_prob": {
-      "home": 0.5301,
-      "away": 0.4699
+      "home": 0.5353,
+      "away": 0.4647
     },
-    "expected_total": 7.25,
-    "expected_f5_total": 4.8,
+    "expected_total": 7.27,
+    "expected_f5_total": 4.79,
     "nrfi_prob": 0.52,
     "bet_cards": [],
     "tracked_props": {
@@ -2189,7 +2387,7 @@
         "away": 5.0,
         "notes": [
           "hitter park (pf_runs 107)",
-          "warm (86.5\u00b0F) \u2014 ball carries"
+          "warm (86.1\u00b0F) \u2014 ball carries"
         ]
       },
       "market": {
@@ -2220,7 +2418,7 @@
       "home": 0.4876,
       "away": 0.5124
     },
-    "expected_total": 9.73,
+    "expected_total": 9.72,
     "expected_f5_total": 5.61,
     "nrfi_prob": 0.4973,
     "bet_cards": [],

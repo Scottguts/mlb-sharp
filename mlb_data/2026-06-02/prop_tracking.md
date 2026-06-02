@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 28/29 OK · pitcher walks 28/29 OK · batter walks 0/0 OK
+**Slate-wide data quality:** pitcher Ks 28/29 OK · pitcher walks 28/29 OK · batter walks 10/15 OK
 
 
 ### Miami Marlins @ Washington Nationals
@@ -12,14 +12,23 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Miles Mikolas | 5 | 2.6 | 0.14 | — | **3.08** | ok |
-| AWAY | Lake Bachar | 9 | 1.44 | 0.241 | — | **5.3** | ok |
+| HOME | Richard Lovelady | 12 | 0.75 | 0.176 | — | **3.87** | ok |
+| AWAY | Lake Bachar | 9 | 1.44 | 0.241 | 18.4% | **4.51** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Miles Mikolas | 5 | 0.6 | 0.032 | — | **0.7** | ok |
-| AWAY | Lake Bachar | 9 | 0.33 | 0.056 | — | **1.23** | ok |
+| HOME | Richard Lovelady | 12 | 0.58 | 0.137 | — | **3.01** | ok |
+| AWAY | Lake Bachar | 9 | 0.33 | 0.056 | 11.6% | **1.54** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | James Wood | 18.4% | 190 | **0.607** | ok |
+| HOME | 2 | Luis García Jr. | 4.1% | 169 | **0.132** | ok |
+| HOME | 3 | Curtis Mead | 17.4% | 86 | **0.548** | ok |
+| HOME | 4 | CJ Abrams | 11.7% | 180 | **0.351** | ok |
+| HOME | 5 | Daylen Lile | 6.4% | 187 | **0.187** | ok |
 
 ### Detroit Tigers @ Tampa Bay Rays
 
@@ -151,13 +160,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Andrew Abbott | 5 | 3.6 | 0.159 | — | **3.5** | ok |
-| AWAY | Noah Cameron | 4 | 5.0 | 0.233 | — | **5.13** | ok |
+| AWAY | Noah Cameron | 4 | 5.0 | 0.233 | 24.4% | **5.69** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Andrew Abbott | 5 | 2.4 | 0.106 | — | **2.33** | ok |
-| AWAY | Noah Cameron | 4 | 1.5 | 0.07 | — | **1.54** | ok |
+| AWAY | Noah Cameron | 4 | 1.5 | 0.07 | 13.2% | **1.93** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Dane Myers | 10.2% | 59 | **0.37** | small_sample |
+| HOME | 2 | JJ Bleday | 11.4% | 35 | **0.404** | small_sample |
+| HOME | 3 | Sal Stewart | 22.0% | 59 | **0.761** | small_sample |
+| HOME | 4 | Eugenio Suárez | 9.7% | 31 | **0.32** | small_sample |
+| HOME | 5 | Spencer Steer | 12.5% | 56 | **0.401** | small_sample |
 
 ### Athletics @ Chicago Cubs
 
@@ -179,13 +197,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Connelly Early | 4 | 6.5 | 0.252 | — | **5.54** | ok |
-| AWAY | Shane Baz | 5 | 5.6 | 0.217 | — | **4.77** | ok |
+| AWAY | Shane Baz | 5 | 5.6 | 0.217 | 20.6% | **4.47** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Connelly Early | 4 | 1.25 | 0.049 | — | **1.08** | ok |
-| AWAY | Shane Baz | 5 | 3.2 | 0.124 | — | **2.73** | ok |
+| AWAY | Shane Baz | 5 | 3.2 | 0.124 | 8.4% | **2.7** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Jarren Duran | 6.7% | 180 | **0.369** | ok |
+| HOME | 2 | Ceddanne Rafaela | 6.9% | 159 | **0.371** | ok |
+| HOME | 3 | Wilyer Abreu | 9.9% | 172 | **0.52** | ok |
+| HOME | 4 | Willson Contreras | 7.7% | 169 | **0.385** | ok |
+| HOME | 5 | Masataka Yoshida | 10.9% | 110 | **0.531** | ok |
 
 ### Toronto Blue Jays @ Atlanta Braves
 
