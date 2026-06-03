@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Force browsers to revalidate so daily updates are picked up immediately -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>MLB Sharp — Daily Picks & Track Record</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -614,8 +618,16 @@ let currentDateData = null;
 
 const DATA = 'data';
 
+// Cache-bust every JSON fetch with the page-load timestamp so the browser
+// never serves a stale snapshot. The manifest is the first thing we fetch
+// (no cache busting needed — fresh on every page load via meta no-cache),
+// then everything else uses the manifest's generated_at as a stable version
+// token. Bypass any intermediate cache layers explicitly.
+const PAGE_LOAD_TS = Date.now();
 async function fetchJSON(url) {
-  const r = await fetch(url);
+  const sep = url.includes('?') ? '&' : '?';
+  const v = (manifest && manifest.generated_at) || PAGE_LOAD_TS;
+  const r = await fetch(`${url}${sep}v=${encodeURIComponent(v)}`, {cache: 'no-store'});
   if (!r.ok) throw new Error(`${url}: ${r.status}`);
   return r.json();
 }
@@ -623,8 +635,9 @@ async function fetchJSON(url) {
 async function loadManifest() {
   manifest = await fetchJSON(`${DATA}/manifest.json`);
   const built = manifest.generated_at.replace('T', ' ');
-  $('#live-label').textContent = `Updated ${built}`;
-  $('#footer').textContent = `Updated daily by the GitHub Actions cron · last build: ${built}`;
+  $('#live-label').textContent = `🟢 ${built} UTC`;
+  $('#live-label').setAttribute('title', 'Last server-side rebuild (UTC). If you see stale data, hard-refresh (Cmd/Ctrl+Shift+R).');
+  $('#footer').textContent = `Updated daily by the GitHub Actions cron · last build: ${built} UTC · client loaded at ${new Date().toISOString().replace('T',' ').slice(0,16)}`;
   const sel = $('#hist-select');
   sel.innerHTML = '';
   manifest.dates.forEach(d => {
