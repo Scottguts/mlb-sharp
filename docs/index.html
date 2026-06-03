@@ -365,6 +365,23 @@ tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.
 
 .pb-bottom { display: grid; grid-template-columns: 1fr 320px; gap: 16px; margin-top: 12px; }
 @media (max-width: 800px) { .pb-bottom { grid-template-columns: 1fr; } }
+
+.pb-last5 { background: rgba(5,9,19,0.4); border: 1px solid var(--border); border-radius: 12px;
+            padding: 12px; margin: 12px 0; }
+.pb-last5 .l { font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 0.10em;
+               text-transform: uppercase; margin-bottom: 8px; }
+.pb-last5 table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.pb-last5 th { text-align: right; padding: 4px 6px; color: var(--muted); font-weight: 700;
+               font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase;
+               border-bottom: 1px solid var(--border); }
+.pb-last5 th:first-child { text-align: left; }
+.pb-last5 td { text-align: right; padding: 5px 6px; color: var(--fg); font-weight: 600;
+               border-bottom: 1px solid rgba(255,255,255,0.04); }
+.pb-last5 td:first-child { text-align: left; color: var(--muted); }
+.pb-last5 td.hi { color: var(--green); }
+.pb-last5 td.lo { color: var(--red); }
+.pb-last5 .avg td { background: rgba(255,255,255,0.04); font-weight: 800; color: var(--fg); }
+.pb-last5 .avg td:first-child { color: var(--fg); }
 .pb-books { background: rgba(5,9,19,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
 .pb-books .l { font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 0.10em;
                 text-transform: uppercase; margin-bottom: 8px; }
@@ -1234,6 +1251,55 @@ function propBoardHTML(p) {
   const fairOverAmer = p.our_over >= 0.5 ? Math.round(-100*p.our_over/(1-p.our_over)) : Math.round(100*(1-p.our_over)/p.our_over);
   const fairUnderAmer = (1-p.our_over) >= 0.5 ? Math.round(-100*(1-p.our_over)/p.our_over) : Math.round(100*p.our_over/(1-p.our_over));
 
+  // Last 5 starts table — highlights the stat that matches this prop's market
+  const starts5 = (p.last_5_starts || []);
+  const propKey = (p.market_key === 'pitcher_walks') ? 'bb' : 'k';
+  const lineFloorVal = Math.floor(p.consensus_line);
+  let last5HTML = '';
+  if (starts5.length) {
+    const dateFmt = ds => { if (!ds) return '—'; const [y,m,d] = ds.split('-'); return `${parseInt(m)}/${parseInt(d)}`; };
+    const rows = starts5.map(s => {
+      const v = s[propKey];
+      let cls = '';
+      if (v != null) cls = (v > lineFloorVal) ? 'hi' : 'lo';
+      const kCls = propKey === 'k' ? cls : '';
+      const bbCls = propKey === 'bb' ? cls : '';
+      return `<tr>
+        <td>${dateFmt(s.date)}</td>
+        <td>${s.ip != null ? s.ip.toFixed(1) : '—'}</td>
+        <td>${s.bf ?? '—'}</td>
+        <td>${s.pitches ?? '—'}</td>
+        <td class="${kCls}">${s.k ?? '—'}</td>
+        <td class="${bbCls}">${s.bb ?? '—'}</td>
+        <td>${s.csw ? s.csw.toFixed(0)+'%' : '—'}</td>
+        <td>${s.velo ? s.velo.toFixed(1) : '—'}</td>
+      </tr>`;
+    }).join('');
+    const n = starts5.length;
+    const avg = (key) => {
+      const vals = starts5.map(s => s[key]).filter(v => v != null);
+      return vals.length ? (vals.reduce((a,b)=>a+b,0) / vals.length) : null;
+    };
+    const avgK = avg('k'), avgBB = avg('bb'), avgPitches = avg('pitches'), avgBF = avg('bf'), avgIP = avg('ip'), avgCSW = avg('csw'), avgVelo = avg('velo');
+    const avgRow = `<tr class="avg">
+      <td>AVG (${n})</td>
+      <td>${avgIP != null ? avgIP.toFixed(1) : '—'}</td>
+      <td>${avgBF != null ? avgBF.toFixed(1) : '—'}</td>
+      <td>${avgPitches != null ? avgPitches.toFixed(0) : '—'}</td>
+      <td>${avgK != null ? avgK.toFixed(1) : '—'}</td>
+      <td>${avgBB != null ? avgBB.toFixed(1) : '—'}</td>
+      <td>${avgCSW != null ? avgCSW.toFixed(0)+'%' : '—'}</td>
+      <td>${avgVelo != null ? avgVelo.toFixed(1) : '—'}</td>
+    </tr>`;
+    last5HTML = `<div class="pb-last5">
+      <div class="l">Last ${n} Starts · green = beat ${p.consensus_line.toFixed(1)} line, red = under</div>
+      <table>
+        <thead><tr><th>Date</th><th>IP</th><th>BF</th><th>Pit</th><th>K</th><th>BB</th><th>CSW</th><th>Velo</th></tr></thead>
+        <tbody>${rows}${avgRow}</tbody>
+      </table>
+    </div>`;
+  }
+
   return `<div class="prop-board ${sideClass}">
     <div class="pb-top">
       <div class="pb-left">
@@ -1286,6 +1352,8 @@ function propBoardHTML(p) {
       <div class="pb-bars">${barsHTML}</div>
       <div class="pb-xaxis">${xAxisHTML}</div>
     </div>
+
+    ${last5HTML}
 
     <div class="pb-bottom">
       <div class="pb-books">
