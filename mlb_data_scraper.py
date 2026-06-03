@@ -213,19 +213,18 @@ def _starting_catcher(box_teams: dict, side: str) -> int | None:
     return None
 
 
-def fetch_umpire_recent_tendency(umpire_id: int, days: int = 60) -> dict:
-    """Compute K-rate + scoring tendency for a home-plate umpire over recent
-    games. Replaces the hand-curated UMPIRE_TENDENCIES table with live data.
+# Module-level cache for the 60-day schedule pull used by ump-tendency lookups.
+# Without this we re-fetch 60 days of schedule 15+ times per slate (once per
+# game's HP ump lookup), which was the single biggest scraper bottleneck.
+_UMP_SCHEDULE_CACHE: dict[int, dict] = {}
 
-    Method: pull every game this ump was behind the plate for in the last
-    N days. For each, take total K count and total runs scored. Compare to
-    league averages of the same window. Returns:
-        k_delta:    Ks per 9 above league average
-        run_delta:  runs per game above league average (negative = K-friendly)
-    """
+
+def _ump_schedule(days: int) -> dict:
+    """Schedule + linescore + officials for the last N days. Cached per-run."""
+    if days in _UMP_SCHEDULE_CACHE:
+        return _UMP_SCHEDULE_CACHE[days]
     end = date.today()
     start = end - timedelta(days=days)
-    # Find games this ump worked
     try:
         sched = _get(f"{MLB_API}/schedule", params={
             "sportId": 1,
@@ -233,38 +232,54 @@ def fetch_umpire_recent_tendency(umpire_id: int, days: int = 60) -> dict:
             "hydrate": "officials,linescore",
         })
     except Exception:
-        return {"available": False}
+        sched = {"dates": []}
+    _UMP_SCHEDULE_CACHE[days] = sched
+    return sched
+
+
+# Per-ump tendency cache. Populated lazily from the shared schedule pull.
+_UMP_TENDENCY_CACHE: dict[tuple[int, int], dict] = {}
+
+
+def fetch_umpire_recent_tendency(umpire_id: int, days: int = 60) -> dict:
+    """Compute K-rate + scoring tendency for a home-plate umpire over recent
+    games. Uses the cached shared schedule pull so 15 lookups in one slate
+    cost ~one schedule fetch instead of fifteen.
+    """
+    key = (umpire_id, days)
+    if key in _UMP_TENDENCY_CACHE:
+        return _UMP_TENDENCY_CACHE[key]
+
+    sched = _ump_schedule(days)
     ump_games = []
     league_runs = []
-    league_ks = []
-    league_games = 0
     for d in sched.get("dates", []):
         for g in d.get("games", []):
-            if g["status"]["abstractGameState"] != "Final": continue
+            if g.get("status", {}).get("abstractGameState") != "Final": continue
             ls = g.get("linescore") or {}
             home_r = ls.get("teams", {}).get("home", {}).get("runs")
             away_r = ls.get("teams", {}).get("away", {}).get("runs")
             if home_r is None or away_r is None: continue
             league_runs.append(home_r + away_r)
-            league_games += 1
-            # Identify HP ump
             hp = next((o for o in g.get("officials", []) or []
                        if (o.get("officialType") or "").lower() in
                           ("home plate", "home", "hp", "plate")), None)
             if hp and hp.get("official", {}).get("id") == umpire_id:
                 ump_games.append(home_r + away_r)
     if not ump_games or len(ump_games) < 3:
-        return {"available": False, "reason": "small_sample", "n_games": len(ump_games)}
-    league_avg_runs = sum(league_runs) / len(league_runs) if league_runs else 8.8
-    ump_avg_runs = sum(ump_games) / len(ump_games)
-    run_delta = round(ump_avg_runs - league_avg_runs, 2)
-    return {
-        "available": True,
-        "n_games":  len(ump_games),
-        "ump_avg_runs":    round(ump_avg_runs, 2),
-        "league_avg_runs": round(league_avg_runs, 2),
-        "run_delta":       run_delta,
-    }
+        out = {"available": False, "reason": "small_sample", "n_games": len(ump_games)}
+    else:
+        league_avg = sum(league_runs) / len(league_runs) if league_runs else 8.8
+        ump_avg = sum(ump_games) / len(ump_games)
+        out = {
+            "available": True,
+            "n_games":  len(ump_games),
+            "ump_avg_runs":    round(ump_avg, 2),
+            "league_avg_runs": round(league_avg, 2),
+            "run_delta":       round(ump_avg - league_avg, 2),
+        }
+    _UMP_TENDENCY_CACHE[key] = out
+    return out
 
 
 def fetch_catcher_framing_for_game(game_pk: int) -> dict:
@@ -487,11 +502,18 @@ def fetch_team_offense(team_abbr_or_id: int, season: int) -> dict:
         return {"available": False, "error": str(e)}
 
 
+# Cache for per-batter 7-day wOBA lookups (called 10x per game in the worst case).
+_RECENT_WOBA_CACHE: dict[tuple[int, int, int], dict] = {}
+
+
 def _fetch_recent_woba(batter_id: int, season: int, days: int = 7) -> dict:
     """Pull recent (last N days) hitter stats and compute a rough wOBA.
 
     Uses /api/v1/people/{id}/stats?stats=byDateRange. Returns None values
     if no PA in the window (cold or injured)."""
+    key = (batter_id, season, days)
+    if key in _RECENT_WOBA_CACHE:
+        return _RECENT_WOBA_CACHE[key]
     end = date.today()
     start = end - timedelta(days=days)
     try:
@@ -519,21 +541,29 @@ def _fetch_recent_woba(batter_id: int, season: int, days: int = 7) -> dict:
     except (ValueError, TypeError):
         return {"available": False}
     if pa < 12:   # need ~3 games of PA before "recent" is meaningful
-        return {"available": False, "reason": "small_sample", "pa": int(pa)}
+        out = {"available": False, "reason": "small_sample", "pa": int(pa)}
+        _RECENT_WOBA_CACHE[key] = out
+        return out
     woba = round(0.69 * obp + 0.45 * slg, 3)
-    return {"available": True, "days": days, "pa": int(pa), "ab": int(ab),
-            "ops": ops, "obp": obp, "slg": slg, "woba": woba}
+    out = {"available": True, "days": days, "pa": int(pa), "ab": int(ab),
+           "ops": ops, "obp": obp, "slg": slg, "woba": woba}
+    _RECENT_WOBA_CACHE[key] = out
+    return out
+
+
+# Cache for team batting splits — called 2× per game (one per side)
+# but same key recurs across all games where the team plays.
+_TEAM_SPLIT_CACHE: dict[tuple[int, int, str], dict] = {}
 
 
 def fetch_team_batting_split_vs_hand(team_id: int, season: int,
                                      vs_hand: str | None) -> dict:
-    """Season-to-date TEAM batting line vs LHP or RHP.
-
-    Different from fetch_top_of_order_quality (which is the top 5 batters
-    against the opposing starter's hand). This is the full-roster split.
-    """
+    """Season-to-date TEAM batting line vs LHP or RHP. Cached per run."""
     if not vs_hand or vs_hand.upper() not in ("L", "R"):
         return {"available": False, "reason": "unknown_hand"}
+    key = (team_id, season, vs_hand.upper())
+    if key in _TEAM_SPLIT_CACHE:
+        return _TEAM_SPLIT_CACHE[key]
     split_code = "vl" if vs_hand.upper() == "L" else "vr"
     try:
         d = _get(f"https://statsapi.mlb.com/api/v1/teams/{team_id}/stats", params={
@@ -563,7 +593,7 @@ def fetch_team_batting_split_vs_hand(team_id: int, season: int,
     except (ValueError, TypeError):
         return {"available": False, "reason": "parse_error"}
     woba = round(0.69 * obp + 0.45 * slg, 3)
-    return {
+    out = {
         "available": True,
         "vs_hand":   vs_hand.upper(),
         "season":    season,
@@ -574,6 +604,8 @@ def fetch_team_batting_split_vs_hand(team_id: int, season: int,
         "k_pct":     round(so / pa, 3) if pa else 0.0,
         "bb_pct":    round(bb / pa, 3) if pa else 0.0,
     }
+    _TEAM_SPLIT_CACHE[key] = out
+    return out
 
 
 def fetch_top_of_order_quality(lineup: list[dict], season: int,
