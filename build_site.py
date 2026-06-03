@@ -134,6 +134,214 @@ def _trim_game(game: dict) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# Rich pitcher-K prop projections (for the Props tab on the site)
+# ---------------------------------------------------------------------------
+
+def _poisson_pmf(k: int, lam: float) -> float:
+    """P(X = k) for X ~ Poisson(lam). Iterative to avoid factorial overflow."""
+    if lam <= 0: return 1.0 if k == 0 else 0.0
+    import math
+    if k < 0: return 0.0
+    term = math.exp(-lam)
+    for i in range(1, k + 1):
+        term *= lam / i
+    return term
+
+
+def _poisson_cdf(k: int, lam: float) -> float:
+    """P(X <= k)."""
+    if k < 0: return 0.0
+    s = 0.0
+    import math
+    term = math.exp(-lam)
+    s += term
+    for i in range(1, k + 1):
+        term *= lam / i
+        s += term
+    return min(1.0, s)
+
+
+def _decimal_from_american(american: int) -> float:
+    return (american / 100 + 1) if american > 0 else (100 / -american + 1)
+
+
+def _devig_two(american_a: int, american_b: int) -> tuple[float, float]:
+    pa = (-american_a) / ((-american_a) + 100) if american_a < 0 else 100 / (american_a + 100)
+    pb = (-american_b) / ((-american_b) + 100) if american_b < 0 else 100 / (american_b + 100)
+    s = pa + pb
+    return pa / s, pb / s
+
+
+def build_rich_pitcher_k_prop(side_key: str, pitcher_data: dict, prop_event: dict,
+                               game_grade: dict, game_payload: dict) -> dict | None:
+    """Build the rich card data for one pitcher's K prop, in the style of the
+    'Wizard Analytics' reference. Returns None if not enough data or if
+    data quality flags suggest the projection is unreliable."""
+    import math
+    lam = pitcher_data.get("projected_k")
+    name = pitcher_data.get("name")
+    pid  = pitcher_data.get("id")
+    if not (lam and lam > 0 and name and pid): return None
+    # Trust check: only fire cards for pitchers with enough Statcast history.
+    # Rookies / spot starters / recent-call-ups have thin data and produce
+    # huge fake edges (the model's lambda is way off).
+    if pitcher_data.get("data_quality") != "ok": return None
+    starts = pitcher_data.get("starts_in_window") or 0
+    if starts < 3: return None
+    if lam < 3.0: return None   # implausibly low projection — probably bad data
+
+    # Poisson distribution over 0..16 Ks
+    distribution = []
+    for k in range(17):
+        distribution.append({"k": k, "pmf": round(_poisson_pmf(k, lam), 4)})
+
+    # Per-line probability table (standard book lines)
+    line_table = []
+    for line in [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5]:
+        k_floor = int(line)
+        p_over = 1.0 - _poisson_cdf(k_floor, lam)
+        line_table.append({
+            "line": line,
+            "over": round(p_over, 3),
+            "under": round(1 - p_over, 3),
+        })
+
+    # Find this pitcher's offers across books
+    target = name.lower()
+    book_offers: list[dict] = []
+    for b in (prop_event or {}).get("bookmakers", []):
+        m = next((m for m in b.get("markets", []) if m["key"] == "pitcher_strikeouts"), None)
+        if not m: continue
+        # Group outcomes by (line, over/under) for this player
+        by_line: dict[float, dict] = {}
+        for o in m.get("outcomes", []):
+            if (o.get("description") or "").lower() != target: continue
+            pt = o.get("point")
+            if pt is None: continue
+            d = by_line.setdefault(float(pt), {})
+            d[o.get("name", "").lower()] = int(o.get("price"))
+        for line_val, sides in by_line.items():
+            if "over" in sides and "under" in sides:
+                fo, fu = _devig_two(sides["over"], sides["under"])
+                book_offers.append({
+                    "book": b.get("key"),
+                    "line": line_val,
+                    "over_price": sides["over"],
+                    "under_price": sides["under"],
+                    "fair_over": round(fo, 3),
+                    "fair_under": round(fu, 3),
+                })
+
+    if not book_offers:
+        return None
+
+    # Consensus line = mode across all (line, side-pair) offers
+    from collections import Counter
+    line_counts = Counter(o["line"] for o in book_offers)
+    consensus_line = line_counts.most_common(1)[0][0]
+    consensus_offers = [o for o in book_offers if o["line"] == consensus_line]
+
+    # Our P(over) at consensus line
+    k_floor = int(consensus_line)
+    our_over = 1.0 - _poisson_cdf(k_floor, lam)
+
+    # Pick the side our model favors
+    side = "over" if our_over >= 0.50 else "under"
+    our_prob = our_over if side == "over" else (1.0 - our_over)
+
+    # Best book for our chosen side (highest American price across target books)
+    target_books = ("fanduel", "draftkings", "betmgm", "caesars")
+    best = None
+    for o in consensus_offers:
+        if o["book"] not in target_books: continue
+        price = o["over_price"] if side == "over" else o["under_price"]
+        if best is None or price > best["price"]:
+            best = {"book": o["book"], "price": price}
+    if best is None:
+        # Fall back to anything we have
+        for o in consensus_offers:
+            price = o["over_price"] if side == "over" else o["under_price"]
+            if best is None or price > best["price"]:
+                best = {"book": o["book"], "price": price}
+
+    # Edge & Kelly
+    decimal = _decimal_from_american(best["price"])
+    edge = our_prob * decimal - 1
+    # Sanity cap — edges > 15% on props almost always mean the lambda is off
+    if edge > 0.15: return None
+    if edge < 0.005: return None   # below noise floor, not a play
+    b_ = decimal - 1
+    kelly = max(0.0, (our_prob * decimal - 1) / b_) if b_ > 0 else 0.0
+
+    # Bet size: half-Kelly capped at 1.5u, floored at 0.25u
+    half_kelly_units = kelly * 0.5 * 100   # treat 1u = 1% bankroll
+    bet_size_units = max(0.25, min(1.5, round(half_kelly_units * 4) / 4))   # round to 0.25u
+
+    # Park factor + matchup metadata
+    venue = (game_payload or {}).get("venue") or {}
+    pf_runs = venue.get("pf_runs", 100)
+    park_factor = round(pf_runs / 100.0, 3)
+
+    # Expected batters faced (~22-24 for a typical start)
+    bf = 22 + (3 if (pitcher_data.get("k_per_bf") or 0) > 0.25 else 0)
+
+    # Median K (Poisson median ≈ floor(lambda + 1/3 - 0.02/lambda))
+    median = int(round(lam))
+
+    # Pull throws hand from the game payload's pitcher_profile (not on the
+    # projection dict itself).
+    throws = (((game_payload or {}).get(side_key) or {}).get("pitcher_profile") or {}).get("throws")
+
+    # Team identifiers for logos / opponent display
+    away_name, home_name = game_grade["matchup"].split(" @ ")
+    team_name = home_name if side_key == "home" else away_name
+    opp_name  = away_name if side_key == "home" else home_name
+    team_id   = ((game_payload or {}).get(side_key) or {}).get("team_id")
+    opp_team_id = ((game_payload or {}).get("away" if side_key == "home" else "home") or {}).get("team_id")
+
+    return {
+        "name": name, "id": pid,
+        "team_side":  side_key,   # 'home' or 'away'
+        "team_name":  team_name,
+        "team_id":    team_id,
+        "opp_name":   opp_name,
+        "opp_team_id": opp_team_id,
+        "matchup":    game_grade["matchup"],
+        "game_pk":    game_grade["gamePk"],
+        "game_date":  game_grade.get("gameDate"),
+        "throws":     throws,
+
+        # Core projection
+        "consensus_line": consensus_line,
+        "projection":     round(lam, 2),
+        "median":         median,
+        "sigma":          round(math.sqrt(lam), 2),
+        "side":           side,           # "over" or "under"
+
+        # Sided metrics
+        "our_prob":       round(our_prob, 4),
+        "our_over":       round(our_over, 4),
+        "best_book":      best["book"],
+        "best_price":     best["price"],
+        "edge":           round(edge, 4),
+        "kelly_pct":      round(kelly * 100, 2),
+        "bet_size_units": bet_size_units,
+
+        # Contextual stats
+        "park_factor":    park_factor,
+        "expected_pa":    bf,
+        "starts_window":  pitcher_data.get("starts_in_window"),
+        "k_per_start":    pitcher_data.get("k_per_start_avg"),
+        "k_per_bf":       pitcher_data.get("k_per_bf"),
+
+        # Distribution + line table + all book offers
+        "distribution":   distribution,
+        "line_table":     line_table,
+        "book_offers":    consensus_offers,
+    }
+
+
 def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
     """Bundle one day's graded games + cards + tracked props + per-game
     rich data into one JSON suitable for the drill-down view.
@@ -151,17 +359,42 @@ def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
     # Load + trim per-game data
     games_dir = day_dir / "games"
     games_by_pk: dict[str, dict] = {}
+    raw_games_by_pk: dict[str, dict] = {}   # full game payload for rich-prop calc
     if games_dir.exists():
         for gp in games_dir.glob("*.json"):
             data = _load_json(gp)
             if not data: continue
             trimmed = _trim_game(data)
             games_by_pk[str(data.get("gamePk"))] = trimmed
+            raw_games_by_pk[str(data.get("gamePk"))] = data
+
+    # Rich pitcher-K props for the Props tab
+    prop_odds = _load_json(day_dir / "prop_odds.json") or {}
+    events = prop_odds.get("events", {})
+    # Map event -> game by team-pair
+    events_by_pair = {}
+    for eid, ev in events.items():
+        events_by_pair[(ev.get("home_team"), ev.get("away_team"))] = ev
+    rich_props: list[dict] = []
+    for gm in grades:
+        away, home = gm["matchup"].split(" @ ")
+        ev = events_by_pair.get((home, away))
+        if not ev: continue
+        raw = raw_games_by_pk.get(str(gm.get("gamePk"))) or {}
+        for side in ("home", "away"):
+            pitchers = (gm.get("tracked_props") or {}).get("pitcher_ks") or []
+            for p in pitchers:
+                if p.get("side") != side: continue
+                rich = build_rich_pitcher_k_prop(side, p, ev, gm, raw)
+                if rich: rich_props.append(rich)
+    rich_props.sort(key=lambda r: -r["edge"])
+
     return {
         "date": date_iso,
         "n_games": len(grades),
         "grades": grades,
         "games": games_by_pk,
+        "rich_pitcher_ks": rich_props,
         "cards_markdown": cards_md,
         "prop_tracking_markdown": prop_md,
     }
@@ -571,6 +804,122 @@ tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.
 .bet-block .why ul { list-style: none; padding-left: 14px; margin-top: 4px; }
 .bet-block .why li { padding: 2px 0; position: relative; }
 .bet-block .why li::before { content: "•"; position: absolute; left: -10px; color: var(--green); font-weight: 700; }
+
+/* === PROP BOARD CARDS (Wizard Analytics style) === */
+.prop-board { background: linear-gradient(180deg, rgba(20,15,15,0.95), rgba(11,18,32,0.95));
+              border: 1px solid var(--border-strong); border-radius: 18px; padding: 20px;
+              margin-bottom: 16px; position: relative; overflow: hidden; }
+.prop-board.side-over  { background: linear-gradient(135deg, rgba(52,211,153,0.06), rgba(11,18,32,0.95)); }
+.prop-board.side-under { background: linear-gradient(135deg, rgba(251,113,133,0.08), rgba(11,18,32,0.95)); }
+.pb-top { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: flex-start; }
+@media (max-width: 800px) { .pb-top { grid-template-columns: 1fr; } }
+.pb-left { display: flex; align-items: flex-start; gap: 16px; }
+.pb-photo { width: 96px; height: 96px; border-radius: 14px; background: var(--bg-3); flex-shrink: 0;
+            overflow: hidden; border: 1px solid var(--border); }
+.pb-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pb-info { flex: 1; min-width: 0; }
+.pb-market-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: var(--muted);
+                    text-transform: uppercase; margin-bottom: 4px; }
+.pb-name { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.0; margin-bottom: 8px; }
+@media (max-width: 600px) { .pb-name { font-size: 26px; } }
+.pb-matchup { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+.pb-matchup .team-logo { width: 18px; height: 18px; border-radius: 4px; }
+.pb-tape { display: inline-flex; align-items: center; gap: 10px; }
+.pb-tape .num-box { padding: 12px 18px; background: rgba(5,9,19,0.65); border-radius: 10px;
+                    border: 1px solid var(--border); min-width: 84px; text-align: center; }
+.pb-tape .num-box .val { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; line-height: 1; }
+.pb-tape .num-box .lbl { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.10em; text-transform: uppercase; margin-top: 4px; }
+.pb-tape .arrow { font-size: 20px; color: var(--muted); }
+.pb-tape .proj-box { padding: 12px 18px; border-radius: 10px; min-width: 84px; text-align: center;
+                     border: 1px solid; }
+.side-over .pb-tape .proj-box  { background: rgba(52,211,153,0.10); border-color: var(--green-bd); color: var(--green); }
+.side-under .pb-tape .proj-box { background: rgba(251,113,133,0.10); border-color: var(--red-bd); color: var(--red); }
+.pb-tape .side-pill { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 800;
+                       letter-spacing: 0.05em; border: 1.5px solid; }
+.side-over .pb-tape .side-pill  { color: var(--green); border-color: var(--green-bd); background: rgba(52,211,153,0.10); }
+.side-under .pb-tape .side-pill { color: var(--red); border-color: var(--red-bd); background: rgba(251,113,133,0.10); }
+
+.pb-right { display: flex; flex-direction: column; gap: 8px; }
+.pb-line-table { background: rgba(5,9,19,0.55); border: 1px solid var(--border); border-radius: 12px;
+                  padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.pb-line-table .h { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 4px 0;
+                    font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+                    border-bottom: 1px solid var(--border); }
+.pb-line-table .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 3px 0; }
+.pb-line-table .row.consensus { background: linear-gradient(90deg, rgba(251,113,133,0.10), transparent);
+                                font-weight: 700; }
+.pb-line-table .ovr { color: var(--green); }
+.pb-line-table .und { color: var(--red); }
+.pb-kpis { display: flex; flex-direction: column; gap: 4px; padding-left: 6px; }
+.pb-kpi-row { display: flex; align-items: baseline; gap: 8px; }
+.pb-kpi-row .val { font-size: 28px; font-weight: 900; font-family: 'JetBrains Mono', monospace; line-height: 1; }
+.pb-kpi-row .val.green { color: var(--green); }
+.pb-kpi-row .val.red   { color: var(--red); }
+.pb-kpi-row .lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+
+.pb-stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin: 14px 0;
+            background: rgba(5,9,19,0.45); border-radius: 10px; border: 1px solid var(--border);
+            overflow: hidden; }
+@media (max-width: 760px) { .pb-stats { grid-template-columns: repeat(3, 1fr); } }
+.pb-stats .stat { padding: 10px 8px; text-align: center; border-right: 1px solid var(--border); }
+.pb-stats .stat:last-child { border-right: none; }
+.pb-stats .stat .v { font-size: 16px; font-weight: 800; font-family: 'JetBrains Mono', monospace; line-height: 1; }
+.pb-stats .stat .l { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+.side-over .pb-stats .stat .v.colored { color: var(--green); }
+.side-under .pb-stats .stat .v.colored { color: var(--red); }
+
+.pb-hist { background: rgba(5,9,19,0.4); border: 1px solid var(--border); border-radius: 12px;
+            padding: 14px; margin: 12px 0; }
+.pb-hist .label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.pb-hist .label-row .l { font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 0.10em; text-transform: uppercase; }
+.pb-hist .label-row .probs { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--fg-dim); }
+.pb-bars { display: flex; align-items: flex-end; gap: 4px; height: 130px; position: relative; }
+.pb-bar { flex: 1; min-width: 14px; background: var(--bg-3); border-radius: 4px 4px 0 0;
+           position: relative; transition: all 0.2s; }
+.pb-bar.in-side.side-over { background: var(--green); }
+.pb-bar.in-side.side-under { background: var(--red); }
+.pb-bar.line-marker::before { content: ""; position: absolute; left: 50%; top: -10px; bottom: 0;
+                                width: 2px; background: rgba(255,255,255,0.65); transform: translateX(-50%); }
+.pb-bar.line-marker::after { content: attr(data-label); position: absolute; left: 50%; top: -22px;
+                              transform: translateX(-50%); padding: 2px 6px; border-radius: 4px;
+                              background: rgba(251,113,133,0.85); color: #fff; font-size: 9px;
+                              font-weight: 800; white-space: nowrap; }
+.side-over .pb-bar.line-marker::after { background: rgba(52,211,153,0.85); }
+.pb-xaxis { display: flex; gap: 4px; margin-top: 4px; }
+.pb-xaxis .tick { flex: 1; min-width: 14px; text-align: center; font-size: 9px; color: var(--muted);
+                  font-family: 'JetBrains Mono', monospace; }
+
+.pb-bottom { display: grid; grid-template-columns: 1fr 320px; gap: 16px; margin-top: 12px; }
+@media (max-width: 800px) { .pb-bottom { grid-template-columns: 1fr; } }
+.pb-books { background: rgba(5,9,19,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
+.pb-books .l { font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 0.10em;
+                text-transform: uppercase; margin-bottom: 8px; }
+.pb-books-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 6px; }
+.pb-book-box { padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: rgba(11,18,32,0.6);
+                font-size: 11px; }
+.pb-book-box.best { border-color: var(--green); background: rgba(52,211,153,0.06); }
+.pb-book-box .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;
+                      font-size: 10px; font-weight: 700; }
+.pb-book-box .head .name { color: var(--fg); text-transform: uppercase; letter-spacing: 0.04em; }
+.pb-book-box .head .edge { color: var(--green); font-family: 'JetBrains Mono', monospace; font-weight: 800; }
+.pb-book-box .head .edge.neg { color: var(--red); }
+.pb-book-box .head .ref { color: var(--green); background: rgba(52,211,153,0.15); padding: 1px 5px; border-radius: 4px;
+                          font-size: 9px; letter-spacing: 0.06em; }
+.pb-book-box .prices { font-family: 'JetBrains Mono', monospace; color: var(--fg-dim); font-size: 11px; }
+.pb-book-box .prices .o { color: var(--green); }
+.pb-book-box .prices .u { color: var(--red); }
+.pb-book-box .kelly { font-size: 9px; color: var(--muted); margin-top: 2px; letter-spacing: 0.04em; font-weight: 600; }
+
+.pb-projection { background: rgba(5,9,19,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.pb-projection .l { font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 0.10em;
+                    text-transform: uppercase; margin-bottom: 6px; }
+.pb-projection .row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px;
+                       border-bottom: 1px solid rgba(148,163,184,0.06); }
+.pb-projection .row:last-child { border-bottom: none; }
+.pb-projection .row .k { color: var(--muted); }
+.pb-projection .row .v { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.side-over .pb-projection .row .v.colored { color: var(--green); }
+.side-under .pb-projection .row .v.colored { color: var(--red); }
 </style>
 </head>
 <body>
@@ -613,10 +962,11 @@ tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.
 
   <div class="tabs" role="tablist">
     <div class="tab active" data-tab="today">📅 Today</div>
+    <div class="tab" data-tab="propboards">🎯 Prop Boards</div>
     <div class="tab" data-tab="history">📆 History</div>
     <div class="tab" data-tab="record">📊 Track Record</div>
     <div class="tab" data-tab="bets">📝 Bet Log</div>
-    <div class="tab" data-tab="props">🎯 Paper Props</div>
+    <div class="tab" data-tab="props">📑 Paper Log</div>
     <div class="tab" data-tab="about">ℹ️ About</div>
   </div>
 
@@ -632,6 +982,22 @@ tr.overall td { font-weight: 800; color: var(--fg); background: rgba(26,37,67,0.
         <div class="noplay-title">📋 Other graded games (no-play)</div>
         <div class="noplay-grid" id="today-noplay"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- Prop Boards -->
+  <section class="section" id="propboards">
+    <div class="card">
+      <div class="card-title">
+        <h2>🎯 Pitcher Strikeout Boards</h2>
+        <span class="meta" id="propboards-date">—</span>
+      </div>
+      <div class="disclaimer" style="margin-bottom: 12px;">
+        Model projection vs. book-implied K total. <b>Edge = our P(side) × decimal odds − 1</b>.
+        Lower-confidence props (data_quality &lt; ok, &lt; 3 starts in window, projection &lt; 3.0 K)
+        are filtered out. Edges above 15% rejected as calibration-suspicious.
+      </div>
+      <div id="propboards-list"><div class="loading">Loading prop boards…</div></div>
     </div>
   </section>
 
@@ -1312,6 +1678,170 @@ $('#bets-filter').addEventListener('click', (e) => {
   renderBets();
 });
 
+// === PROP BOARDS (Wizard-style pitcher K cards) ===
+
+const MLB_HEADSHOT = (id) => `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${id}/headshot/67/current`;
+const MLB_TEAM_LOGO = (id) => `https://www.mlbstatic.com/team-logos/${id}.svg`;
+const BOOK_DISPLAY = {fanduel:'FanDuel', draftkings:'DraftKings', betmgm:'BetMGM', caesars:'Caesars', pinnacle:'Pinnacle'};
+
+function propBoardHTML(p) {
+  const sideClass = p.side === 'over' ? 'side-over' : 'side-under';
+  const sideTeam = p.team_side === 'home' ? 'HOME' : 'AWAY';
+  const time = p.game_date ? new Date(p.game_date).toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York'}) + ' ET' : '';
+
+  // Distribution bars (k from 0 to 12 — beyond is rare)
+  const maxBins = 13;
+  const dist = p.distribution.slice(0, maxBins);
+  const maxPmf = Math.max(...dist.map(d => d.pmf));
+  const inOver = p.side === 'over';
+  const lineFloor = Math.floor(p.consensus_line);   // e.g. 4.5 → 4
+  // bars indexed by k. "in-side" means part of the winning side.
+  let barsHTML = '';
+  let xAxisHTML = '';
+  for (let k = 0; k < maxBins; k++) {
+    const height = maxPmf > 0 ? Math.max(2, (dist[k].pmf / maxPmf) * 100) : 0;
+    const isWinSide = inOver ? k > lineFloor : k <= lineFloor;
+    const isLineBar = k === lineFloor + 1;   // the leftmost over bar OR rightmost under bar marker
+    let cls = 'pb-bar';
+    if (isWinSide) cls += ' in-side ' + sideClass;
+    if (k === lineFloor) {
+      // place the line marker on the right edge of this bar (between k=floor and k=floor+1)
+      cls += ' line-marker';
+    }
+    const label = k === lineFloor ? `data-label="${p.consensus_line}K LINE"` : '';
+    barsHTML += `<div class="${cls}" ${label} style="height: ${height}%;" title="${k} K: ${(dist[k].pmf*100).toFixed(1)}%"></div>`;
+    xAxisHTML += `<div class="tick">${[0,3,6,9,12].includes(k) ? k : ''}</div>`;
+  }
+
+  // Line table — show all lines but highlight the consensus
+  const lineRows = p.line_table.map(lt => {
+    const isCons = Math.abs(lt.line - p.consensus_line) < 0.001;
+    return `<div class="row ${isCons ? 'consensus' : ''}">
+      <div>${lt.line.toFixed(1)}</div>
+      <div class="ovr">${(lt.over*100).toFixed(0)}%</div>
+      <div class="und">${(lt.under*100).toFixed(0)}%</div>
+    </div>`;
+  }).join('');
+
+  // Book offers: sort by edge for our side. Compute per-book edge.
+  const bookRows = p.book_offers.map(o => {
+    const price = p.side === 'over' ? o.over_price : o.under_price;
+    const decimal = price > 0 ? (price/100 + 1) : (100/-price + 1);
+    const edge = p.our_prob * decimal - 1;
+    const isBest = o.book === p.best_book;
+    return {o, price, edge, isBest};
+  }).sort((a, b) => b.edge - a.edge);
+
+  const bookBoxes = bookRows.map(({o, price, edge, isBest}) => `
+    <div class="pb-book-box ${isBest ? 'best' : ''}">
+      <div class="head">
+        <span class="name">${BOOK_DISPLAY[o.book] || o.book}</span>
+        ${isBest ? '<span class="ref">BEST</span>' : ''}
+        <span class="edge ${edge >= 0 ? '' : 'neg'}">${(edge*100).toFixed(1)}%</span>
+      </div>
+      <div class="prices"><span class="o">O ${fmtPrice(o.over_price)}</span> / <span class="u">U ${fmtPrice(o.under_price)}</span></div>
+      <div class="kelly">Fair O ${fmtPrice(Math.round((o.fair_over>=0.5 ? -100*o.fair_over/(1-o.fair_over) : 100*(1-o.fair_over)/o.fair_over)))} / U ${fmtPrice(Math.round((o.fair_under>=0.5 ? -100*o.fair_under/(1-o.fair_under) : 100*(1-o.fair_under)/o.fair_under)))}</div>
+    </div>
+  `).join('');
+
+  const fairOverAmer = p.our_over >= 0.5 ? Math.round(-100*p.our_over/(1-p.our_over)) : Math.round(100*(1-p.our_over)/p.our_over);
+  const fairUnderAmer = (1-p.our_over) >= 0.5 ? Math.round(-100*(1-p.our_over)/p.our_over) : Math.round(100*p.our_over/(1-p.our_over));
+
+  return `<div class="prop-board ${sideClass}">
+    <div class="pb-top">
+      <div class="pb-left">
+        ${p.id ? `<div class="pb-photo"><img src="${MLB_HEADSHOT(p.id)}" alt="${p.name}" onerror="this.style.display='none'" /></div>` : ''}
+        <div class="pb-info">
+          <div class="pb-market-label">Pitcher Strikeouts</div>
+          <div class="pb-name">${p.name}</div>
+          <div class="pb-matchup">
+            ${p.team_id ? `<img class="team-logo" src="${MLB_TEAM_LOGO(p.team_id)}" alt="" onerror="this.style.display='none'" />` : ''}
+            <span>${p.team_name}</span>
+            <span class="muted">vs ${p.opp_name}</span>
+            ${time ? `<span class="muted">· ${time}</span>` : ''}
+          </div>
+          <div class="pb-tape">
+            <div class="num-box"><div class="val">${p.consensus_line.toFixed(1)}</div><div class="lbl">K · Line</div></div>
+            <div class="arrow">→</div>
+            <div class="proj-box"><div class="val">${p.projection.toFixed(1)}</div><div class="lbl">Projection</div></div>
+            <div class="side-pill">${p.side.toUpperCase()}</div>
+          </div>
+        </div>
+      </div>
+      <div class="pb-right">
+        <div class="pb-line-table">
+          <div class="h"><div>LINE</div><div>OVR</div><div>UND</div></div>
+          ${lineRows}
+        </div>
+        <div class="pb-kpis">
+          <div class="pb-kpi-row"><span class="val green">+${(p.edge*100).toFixed(1)}%</span><span class="lbl">Model Edge</span></div>
+          <div class="pb-kpi-row"><span class="val">${p.bet_size_units}u</span><span class="lbl">Bet Size</span></div>
+          <div class="pb-kpi-row"><span class="val">${(p.our_prob*100).toFixed(0)}%</span><span class="lbl">Win Prob</span></div>
+          <div class="pb-kpi-row"><span class="val">${p.kelly_pct.toFixed(1)}%</span><span class="lbl">Kelly %</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-stats">
+      <div class="stat"><div class="v">${p.expected_pa}</div><div class="l">Exp BF</div></div>
+      <div class="stat"><div class="v">${p.median}</div><div class="l">Median K</div></div>
+      <div class="stat"><div class="v colored">×${p.park_factor.toFixed(3)}</div><div class="l">Park Factor</div></div>
+      <div class="stat"><div class="v">${p.sigma.toFixed(2)} K</div><div class="l">Spread ±</div></div>
+      <div class="stat"><div class="v">${p.throws || '?'}</div><div class="l">Throws</div></div>
+      <div class="stat"><div class="v">${sideTeam}</div><div class="l">Home / Away</div></div>
+    </div>
+
+    <div class="pb-hist">
+      <div class="label-row">
+        <div class="l">K Distribution</div>
+        <div class="probs">P(K&gt;${p.consensus_line}) = <b>${(p.our_over*100).toFixed(0)}%</b> · P(K≤${p.consensus_line}) = <b>${((1-p.our_over)*100).toFixed(0)}%</b></div>
+      </div>
+      <div class="pb-bars">${barsHTML}</div>
+      <div class="pb-xaxis">${xAxisHTML}</div>
+    </div>
+
+    <div class="pb-bottom">
+      <div class="pb-books">
+        <div class="l">Book Prices · de-vig vs ${p.best_book ? (BOOK_DISPLAY[p.best_book] || p.best_book) : 'DK'}</div>
+        <div class="pb-books-grid">${bookBoxes}</div>
+      </div>
+      <div class="pb-projection">
+        <div class="l">Model Projection</div>
+        <div class="row"><span class="k">Model projection</span><span class="v colored">${p.projection.toFixed(2)} K</span></div>
+        <div class="row"><span class="k">Model vs line</span><span class="v">${(p.projection - p.consensus_line >= 0 ? '+' : '')}${(p.projection - p.consensus_line).toFixed(2)} K</span></div>
+        <div class="row"><span class="k">P(Win)</span><span class="v">${(p.our_prob*100).toFixed(0)}%</span></div>
+        <div class="row"><span class="k">K% (implied)</span><span class="v">${(p.our_over*100).toFixed(1)}%</span></div>
+        <div class="row"><span class="k">Fair O / U</span><span class="v">${fmtPrice(fairOverAmer)} / ${fmtPrice(fairUnderAmer)}</span></div>
+        <div class="row"><span class="k">Spread (1 SD)</span><span class="v">${p.sigma.toFixed(2)} K</span></div>
+        <div class="row"><span class="k">Best shop</span><span class="v">${p.best_book ? (BOOK_DISPLAY[p.best_book] || p.best_book) : '—'}</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function loadPropBoards() {
+  const target = $('#propboards-list');
+  target.innerHTML = '<div class="loading">Loading prop boards…</div>';
+  try {
+    if (!manifest) await loadManifest();
+    if (!manifest.latest) { target.innerHTML = '<div class="muted">No data yet.</div>'; return; }
+    const d = await fetchJSON(`${DATA}/${manifest.latest}.json`);
+    $('#propboards-date').textContent = `slate of ${manifest.latest}`;
+    const props = d.rich_pitcher_ks || [];
+    if (!props.length) {
+      target.innerHTML = `<div class="empty-state">
+        <div class="emoji">🎯</div>
+        <div class="h">No prop boards today</div>
+        <div class="p">No pitcher K props cleared the model's edge + trust filters today.<br/>Boards filter to: data_quality=ok, ≥3 starts, projection ≥3 K, edge 0.5-15%.</div>
+      </div>`;
+      return;
+    }
+    target.innerHTML = props.map(propBoardHTML).join('');
+  } catch (e) {
+    target.innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><div class="h">Could not load</div><div class="p">${e.message}</div></div>`;
+  }
+}
+
 async function loadProps() {
   if (paperData === null) paperData = await fetchJSON(`${DATA}/paper_log.json`);
   const p = paperData;
@@ -1369,6 +1899,7 @@ async function loadProps() {
     t.addEventListener('click', async () => {
       if (t.dataset.tab === 'bets') await loadBets();
       if (t.dataset.tab === 'props') await loadProps();
+      if (t.dataset.tab === 'propboards') await loadPropBoards();
     });
   });
 })();
