@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-06-03 13:27_  
+_Generated 2026-06-03 13:47_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,7 +9,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  146 |  66- 78-  1 |  45.8% | 103.50 |  -10.96 | -10.59% | 28.45% |
+| OVERALL        |  151 |  66- 78-  1 |  45.8% | 103.50 |  -10.96 | -10.59% | 27.80% |
 | moneyline      |   79 |  35- 43-  0 |  44.9% |  55.50 |   -6.67 | -12.02% | 32.43% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   45 |  21- 23-  1 |  47.7% |  32.00 |   -1.36 |  -4.24% | 17.78% |
@@ -19,7 +19,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   58 |  25- 32-  0 |  43.9% |  42.00 |   -6.27 | -14.93% |  4.76% |
+| OVERALL        |   63 |  25- 32-  0 |  43.9% |  42.00 |   -6.27 | -14.93% |  5.07% |
 | moneyline      |   50 |  21- 28-  0 |  42.9% |  38.00 |   -6.34 | -16.68% |  4.80% |
 | total          |    8 |   4-  4-  0 |  50.0% |   4.00 |   +0.07 |  +1.67% |  4.55% |
 
@@ -28,7 +28,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   19 |   6- 13-  0 |  31.6% |  12.00 |   -5.82 | -48.54% |  4.26% |
+| OVERALL        |   24 |   6- 13-  0 |  31.6% |  12.00 |   -5.82 | -48.54% |  5.17% |
 | moneyline      |   14 |   4- 10-  0 |  28.6% |   9.50 |   -5.42 | -57.05% |  4.09% |
 | total          |    5 |   2-  3-  0 |  40.0% |   2.50 |   -0.41 | -16.20% |  4.75% |
 
@@ -37,8 +37,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| 9-10           |   11 |   4-  7-  0 |  36.4% |  15.50 |   -3.05 | -19.70% | 13.97% |
-| 7-8            |   46 |  22- 23-  1 |  48.9% |  43.50 |   -5.07 | -11.65% |  9.14% |
+| 9-10           |   13 |   4-  7-  0 |  36.4% |  15.50 |   -3.05 | -19.70% | 13.72% |
+| 7-8            |   49 |  22- 23-  1 |  48.9% |  43.50 |   -5.07 | -11.65% |  8.95% |
 | 5-6            |   89 |  40- 48-  0 |  45.5% |  44.50 |   -2.84 |  -6.39% | 40.23% |
 
 ## By Book (All Time)
@@ -46,9 +46,19 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |   31 |  15- 16-  0 |  48.4% |  19.00 |   +0.05 |  +0.25% | 77.98% |
-| draftkings     |   34 |  18- 14-  1 |  56.2% |  25.50 |   +0.36 |  +1.40% | 20.65% |
+| betmgm         |   35 |  15- 16-  0 |  48.4% |  19.00 |   +0.05 |  +0.25% | 70.09% |
+| draftkings     |   35 |  18- 14-  1 |  56.2% |  25.50 |   +0.36 |  +1.40% | 20.26% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
+
+## Pending (5)
+
+| Date | Matchup | Market | Side | Line | Book | Price | Units |
+|---|---|---|---|---|---|---|---|
+| 2026-06-03 | New York Mets @ Seattle Mariners | pitcher_strikeouts | under | 5.5 | betmgm | 100 | 1.0 |
+| 2026-06-03 | Pittsburgh Pirates @ Houston Astros | pitcher_strikeouts | under | 7.5 | betmgm | -140 | 1.5 |
+| 2026-06-03 | Athletics @ Chicago Cubs | pitcher_strikeouts | under | 4.5 | betmgm | -110 | 1.0 |
+| 2026-06-03 | Baltimore Orioles @ Boston Red Sox | pitcher_strikeouts | under | 6.5 | betmgm | -125 | 1.5 |
+| 2026-06-03 | Toronto Blue Jays @ Atlanta Braves | pitcher_strikeouts | under | 3.5 | draftkings | 117 | 1.0 |
 
 ## Last 10 Settled
 
