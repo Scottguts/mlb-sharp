@@ -1,33 +1,32 @@
 # MLB Sharp Betting Cards — 2026-06-02
 
-_Generated 2026-06-02 15:11 _  
+_Generated 2026-06-02 20:22 _  
 _Books shopped: FANDUEL, DRAFTKINGS, BETMGM, CAESARS_  
 _Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  
 _Caps: max 5 plays / 6.0u total exposure_
 
-## TOP 2 PLAYS
+## TOP 4 PLAYS
 
-### Bet #1 — Chicago White Sox ML
+### Bet #1 — FG Under 9.5
 
 | Field | Value |
 |---|---|
-| Game | Chicago White Sox @ Minnesota Twins (2026-06-02T23:40:00Z) |
-| Market | moneyline |
-| Best Book | FANDUEL -124 |
-| Fair Odds | -136 (57.6%) |
-| Edge | 3.98% |
-| Confidence | 7/10 |
-| Risk | Standard |
-| Unit Size | 1.0u |
+| Game | Detroit Tigers @ Tampa Bay Rays (2026-06-02T22:40:00Z) |
+| Market | total |
+| Best Book | BETMGM +118 (line 9.5) |
+| Fair Odds | +106 (48.4%) |
+| Edge | 5.58% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
 
 **Reasoning**
 
-- Bullpen edge (5.5 vs 0.5)
-- Market edge (5.0 vs 3.5)
-- home: CSW% L4 starts 28.3%
-- home: CH movement shift (-1.7" horiz, -0.0" vert) last start
-- home pen quality: K% 21.0, BB% 14.5, ERA 6.44
-- home: 3 arms gassed, 4 back-to-back, 538 pitches L7d
+- Expected total 9.73 vs market 9.5
+- home: velo soft (-1.1 mph)
+- home: CSW% L3 starts 24.7%
+- indoor / dome — weather neutral
+- home pen quality: K% 18.4, BB% 9.6, ERA 8.64
 
 **Pass triggers**
 
@@ -37,27 +36,83 @@ _Caps: max 5 plays / 6.0u total exposure_
 
 ---
 
-### Bet #2 — Cincinnati Reds ML
+### Bet #2 — FG Over 6.5
 
 | Field | Value |
 |---|---|
-| Game | Kansas City Royals @ Cincinnati Reds (2026-06-02T23:10:00Z) |
-| Market | moneyline |
-| Best Book | BETMGM -120 |
-| Fair Odds | -128 (56.2%) |
-| Edge | 3.09% |
-| Confidence | 7/10 |
+| Game | Texas Rangers @ St. Louis Cardinals (2026-06-02T23:45:00Z) |
+| Market | total |
+| Best Book | DRAFTKINGS +101 (line 6.5) |
+| Fair Odds | -109 (52.1%) |
+| Edge | 4.70% |
+| Confidence | 6/10 |
 | Risk | Lean |
 | Unit Size | 0.5u |
 
 **Reasoning**
 
-- Pitching edge (5.5 vs 4.5)
-- Bullpen edge (2.5 vs 1.5)
-- Offense edge (5.5 vs 4.0)
-- Market edge (5.0 vs 3.5)
-- home: CSW% L5 starts 25.6%
-- away: velo soft (-1.4 mph)
+- Expected total 6.51 vs market 6.5
+- home: velo soft (-1.1 mph)
+- home: CSW% L5 starts 29.4%
+- home pen quality: K% 24.0, BB% 4.2, ERA 2.01
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #3 — FG Under 9.5
+
+| Field | Value |
+|---|---|
+| Game | Cleveland Guardians @ New York Yankees (2026-06-02T23:05:00Z) |
+| Market | total |
+| Best Book | DRAFTKINGS -104 (line 9.5) |
+| Fair Odds | -113 (53.1%) |
+| Edge | 4.18% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- Expected total 9.45 vs market 9.5
+- home: velo soft (-1.2 mph)
+- home: CSW% L5 starts 27.5%
+- home pen quality: K% 5.3, BB% 8.8, ERA 4.97
+
+**Pass triggers**
+
+- Key bat scratched at lineup release
+- Line moves through your fair value
+- Weather forecast worsens (rain >50% or wind reversal)
+
+---
+
+### Bet #4 — FG Over 9.5
+
+| Field | Value |
+|---|---|
+| Game | Baltimore Orioles @ Boston Red Sox (2026-06-02T22:45:00Z) |
+| Market | total |
+| Best Book | BETMGM +110 (line 9.5) |
+| Fair Odds | +103 (49.3%) |
+| Edge | 3.47% |
+| Confidence | 6/10 |
+| Risk | Lean |
+| Unit Size | 0.5u |
+
+**Reasoning**
+
+- Expected total 9.48 vs market 9.5
+- home: CSW% L4 starts 27.1%
+- home: SI movement shift (-1.8" horiz, -1.6" vert) last start
+- hitter park (pf_runs 111)
+- wind 5.9mph OUT to CF (Δ +0.04r) — boosts totals
+- home pen quality: K% 25.6, BB% 6.1, ERA 6.87
 
 **Pass triggers**
 
@@ -70,18 +125,16 @@ _Caps: max 5 plays / 6.0u total exposure_
 
 ## Other graded games (no play)
 
-- **Miami Marlins @ Washington Nationals** · grade H55.4/A41.7 · xRuns 9.09 · F5 5.2 · NRFI 50.6%
-- **Detroit Tigers @ Tampa Bay Rays** · grade H44.2/A45.4 · xRuns 8.65 · F5 4.72 · NRFI 52.9%
-- **Texas Rangers @ St. Louis Cardinals** · grade H48.3/A50.5 · xRuns 6.96 · F5 4.81 · NRFI 52.7%
-- **New York Mets @ Seattle Mariners** · grade H53.4/A50.7 · xRuns 7.28 · F5 4.21 · NRFI 54.3%
-- **San Diego Padres @ Philadelphia Phillies** · grade H46.5/A47.0 · xRuns 7.77 · F5 5.3 · NRFI 51.3%
-- **Cleveland Guardians @ New York Yankees** · grade H47.8/A45.3 · xRuns 7.4 · F5 5.0 · NRFI 51.7%
-- **San Francisco Giants @ Milwaukee Brewers** · grade H47.5/A49.7 · xRuns 7.42 · F5 4.7 · NRFI 51.6%
-- **Colorado Rockies @ Los Angeles Angels** · grade H51.3/A47.5 · xRuns 8.53 · F5 4.99 · NRFI 51.0%
-- **Pittsburgh Pirates @ Houston Astros** · grade H51.5/A52.7 · xRuns 8.93 · F5 4.84 · NRFI 51.6%
-- **Athletics @ Chicago Cubs** · grade H50.4/A47.2 · xRuns 7.02 · F5 4.48 · NRFI 53.5%
-- **Baltimore Orioles @ Boston Red Sox** · grade H57.1/A49.2 · xRuns 8.47 · F5 5.43 · NRFI 49.1%
-- **Toronto Blue Jays @ Atlanta Braves** · grade H55.3/A51.5 · xRuns 7.27 · F5 4.79 · NRFI 52.0%
-- **Los Angeles Dodgers @ Arizona Diamondbacks** · grade H52.5/A50.4 · xRuns 9.72 · F5 5.61 · NRFI 49.7%
+- **Miami Marlins @ Washington Nationals** · grade H54.5/A44.6 · xRuns 8.12 · F5 5.2 · NRFI 50.3%
+- **New York Mets @ Seattle Mariners** · grade H57.9/A54.1 · xRuns 7.37 · F5 4.22 · NRFI 53.3%
+- **San Diego Padres @ Philadelphia Phillies** · grade H49.9/A52.4 · xRuns 7.34 · F5 5.33 · NRFI 50.8%
+- **Chicago White Sox @ Minnesota Twins** · grade H49.5/A57.2 · xRuns 9.63 · F5 4.85 · NRFI 51.1%
+- **San Francisco Giants @ Milwaukee Brewers** · grade H51.8/A53.8 · xRuns 8.98 · F5 4.7 · NRFI 50.8%
+- **Colorado Rockies @ Los Angeles Angels** · grade H54.7/A49.4 · xRuns 8.07 · F5 4.98 · NRFI 50.2%
+- **Pittsburgh Pirates @ Houston Astros** · grade H56.4/A57.6 · xRuns 8.6 · F5 4.9 · NRFI 50.6%
+- **Kansas City Royals @ Cincinnati Reds** · grade H50.7/A46.1 · xRuns 6.99 · F5 5.35 · NRFI 50.3%
+- **Athletics @ Chicago Cubs** · grade H56.5/A51.3 · xRuns 8.13 · F5 4.49 · NRFI 52.5%
+- **Toronto Blue Jays @ Atlanta Braves** · grade H60.2/A54.9 · xRuns 8.85 · F5 4.77 · NRFI 50.9%
+- **Los Angeles Dodgers @ Arizona Diamondbacks** · grade H54.4/A54.5 · xRuns 9.24 · F5 5.58 · NRFI 49.1%
 
-_Total exposure today: **1.5u** across **2** bets._
+_Total exposure today: **2.0u** across **4** bets._
