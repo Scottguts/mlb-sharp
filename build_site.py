@@ -1729,10 +1729,13 @@ function propBoardHTML(p) {
   const sideTeam = p.team_side === 'home' ? 'HOME' : 'AWAY';
   const time = p.game_date ? new Date(p.game_date).toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York'}) + ' ET' : '';
 
-  // Distribution bars (k from 0 to 12 — beyond is rare)
-  const maxBins = 13;
-  const dist = p.distribution.slice(0, maxBins);
-  const maxPmf = Math.max(...dist.map(d => d.pmf));
+  // Distribution bars — K props produce 17 bins (0..16), BB props produce
+  // 9 bins (0..8). Use whichever the data actually has, capped at 13 for
+  // chart readability. Previous version hardcoded 13 → "Cannot read pmf
+  // of undefined" when iterating past a 9-element BB distribution.
+  const dist = (p.distribution || []).slice(0, 13);
+  const maxBins = dist.length;
+  const maxPmf = maxBins ? Math.max(...dist.map(d => d.pmf || 0)) : 0;
   const inOver = p.side === 'over';
   const lineFloor = Math.floor(p.consensus_line);   // e.g. 4.5 → 4
   // bars indexed by k. "in-side" means part of the winning side.
