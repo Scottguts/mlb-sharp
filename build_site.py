@@ -256,42 +256,69 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     consensus_line = line_counts.most_common(1)[0][0]
     consensus_offers = [o for o in book_offers if o["line"] == consensus_line]
 
-    # Our P(over) at consensus line
+    # Raw Poisson over-prob at the consensus line
     k_floor = int(consensus_line)
-    our_over = 1.0 - _poisson_cdf(k_floor, lam)
+    poisson_over = 1.0 - _poisson_cdf(k_floor, lam)
 
-    # Pick the side our model favors
-    side = "over" if our_over >= 0.50 else "under"
-    our_prob = our_over if side == "over" else (1.0 - our_over)
+    # Pick the side our model favors (from raw Poisson direction)
+    side = "over" if poisson_over >= 0.50 else "under"
 
-    # Best book for our chosen side (highest American price across target books).
-    # FanDuel deliberately excluded — see TARGET_BOOKS in mlb_data_scraper.py.
+    # MARKET-ANCHORED probability — matches the real-bet pipeline.
+    # Pinnacle-priority devigged P(over); falls back to median across user
+    # books when Pinnacle isn't carrying the market.
     target_books = ("draftkings", "betmgm", "caesars")
+    sharp_anchors = ("pinnacle",)
+    market_over = None
+    pin_offer = next((o for o in consensus_offers if o["book"] in sharp_anchors), None)
+    if pin_offer:
+        market_over = pin_offer["fair_over"]
+    else:
+        devigged = [o["fair_over"] for o in consensus_offers if o["book"] in target_books]
+        if devigged:
+            devigged.sort()
+            market_over = devigged[len(devigged) // 2]
+
+    # Apply ±6pp shift cap (identical to make_pitcher_prop_card in mlb_grader.py)
+    if market_over is not None:
+        market_side = market_over if side == "over" else (1.0 - market_over)
+        model_side  = poisson_over if side == "over" else (1.0 - poisson_over)
+        shift = max(-0.06, min(0.06, model_side - 0.5))
+        our_prob = max(0.05, min(0.95, market_side + shift))
+        # Recompute our_over for the line table display
+        our_over = our_prob if side == "over" else (1.0 - our_prob)
+    else:
+        # No market anchor available — fall back to raw Poisson
+        our_over = poisson_over
+        our_prob = our_over if side == "over" else (1.0 - our_over)
+
+    # Best book for our chosen side — STRICT target books only (matches real-bet).
+    # FanDuel deliberately excluded — see TARGET_BOOKS in mlb_data_scraper.py.
     best = None
     for o in consensus_offers:
         if o["book"] not in target_books: continue
         price = o["over_price"] if side == "over" else o["under_price"]
         if best is None or price > best["price"]:
             best = {"book": o["book"], "price": price}
-    if best is None:
-        # Fall back to anything we have
-        for o in consensus_offers:
-            price = o["over_price"] if side == "over" else o["under_price"]
-            if best is None or price > best["price"]:
-                best = {"book": o["book"], "price": price}
+    if best is None: return None   # no eligible book → no board (matches recommendation behavior)
 
     # Edge & Kelly
     decimal = _decimal_from_american(best["price"])
     edge = our_prob * decimal - 1
-    # Sanity cap — edges > 15% on props almost always mean the lambda is off
+    # Match real-bet thresholds: 5%-15% edge band, 2-book confirmation
+    target_book_offers = [o for o in consensus_offers if o["book"] in target_books]
+    if len(target_book_offers) < 2: return None   # 2-book confirmation
     if edge > 0.15: return None
-    if edge < 0.005: return None   # below noise floor, not a play
+    if edge < 0.05: return None
     b_ = decimal - 1
     kelly = max(0.0, (our_prob * decimal - 1) / b_) if b_ > 0 else 0.0
 
-    # Bet size: half-Kelly capped at 1.5u, floored at 0.25u
-    half_kelly_units = kelly * 0.5 * 100   # treat 1u = 1% bankroll
-    bet_size_units = max(0.25, min(1.5, round(half_kelly_units * 4) / 4))   # round to 0.25u
+    # Bet size — mirror the UNIT_LADDER used by the real-bet pipeline so
+    # the Discord recommendation and the board show the same unit count.
+    # Tiers: (edge_floor, conf_floor, units, label)
+    # confidence is computed below; preliminary edge_score for sizing here:
+    if edge >= 0.10:   bet_size_units = 1.5
+    elif edge >= 0.07: bet_size_units = 1.0
+    else:              bet_size_units = 0.5
 
     # Park factor + matchup metadata
     venue = (game_payload or {}).get("venue") or {}
