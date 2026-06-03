@@ -1168,6 +1168,7 @@ const MLB_TEAM_LOGO = (id) => `https://www.mlbstatic.com/team-logos/${id}.svg`;
 const BOOK_DISPLAY = {fanduel:'FanDuel', draftkings:'DraftKings', betmgm:'BetMGM', caesars:'Caesars', pinnacle:'Pinnacle'};
 
 function propBoardHTML(p) {
+  const unit = p.unit || 'K';   // declare at top — must precede every template that references it
   const sideClass = p.side === 'over' ? 'side-over' : 'side-under';
   const sideTeam = p.team_side === 'home' ? 'HOME' : 'AWAY';
   const time = p.game_date ? new Date(p.game_date).toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York'}) + ' ET' : '';
@@ -1230,7 +1231,6 @@ function propBoardHTML(p) {
   const fairOverAmer = p.our_over >= 0.5 ? Math.round(-100*p.our_over/(1-p.our_over)) : Math.round(100*(1-p.our_over)/p.our_over);
   const fairUnderAmer = (1-p.our_over) >= 0.5 ? Math.round(-100*(1-p.our_over)/p.our_over) : Math.round(100*p.our_over/(1-p.our_over));
 
-  const unit = p.unit || 'K';
   return `<div class="prop-board ${sideClass}">
     <div class="pb-top">
       <div class="pb-left">
