@@ -76,8 +76,12 @@ assert sum(WEIGHTS.values()) == 100, f"WEIGHTS sum = {sum(WEIGHTS.values())}"
 # +200 underdog has a 50% chance and report fake 30%+ edges. Don't do that.
 LEAGUE_AVG_TOTAL = 8.86    # fallback baseline runs per game (2022-24 trailing avg)
 HOME_FIELD_PROB  = 0.025   # home edge as a probability bump (2022-24 home win % - 50%)
-GRADE_TO_PROB    = 0.0035  # win-prob shift per grade-point edge, applied to MARKET PRIOR
-MAX_PROB_SHIFT   = 0.05    # cap our deviation from market prior at +/-5pp
+GRADE_TO_PROB    = 0.0025  # win-prob shift per grade-point edge (was 0.0035 — tightened
+                            # after recent-30 analysis showed bigger model-vs-market gaps
+                            # correlate with worse outcomes)
+MAX_PROB_SHIFT   = 0.035   # cap deviation from market prior at +/-3.5pp (was 5%) —
+                            # the 4.5-6% edge bucket had 22% W / -70% ROI; tightening
+                            # the deviation cap eliminates those overconfident plays
 GRADE_TO_RUNS    = 0.06    # total-runs shift per grade-point pitching/bullpen edge
 MAX_TOTAL_SHIFT  = 0.80    # cap deviation from market total at +/-0.8 runs
 
@@ -138,6 +142,8 @@ ENABLED_MARKETS = {
     "total":      True,
     "f5_total":   True,
     "nrfi":       True,
+    "pitcher_strikeouts": True,   # promoted from paper to real (2026-06-03)
+    "pitcher_walks":      True,
 }
 
 # Umpire K%/BB% adjustment. High-K umps push under, contact-friendly push over.
@@ -186,7 +192,7 @@ class CategoryScore:
 @dataclass
 class BetCard:
     bet_label: str
-    market: str               # moneyline / runline / total / f5_total / nrfi
+    market: str               # moneyline / runline / total / f5_total / nrfi / pitcher_strikeouts / pitcher_walks
     side: str                 # home / away / over / under / nrfi / yrfi
     book: str
     price_american: int
@@ -199,6 +205,9 @@ class BetCard:
     risk: str
     reasoning: list[str]
     pass_triggers: list[str]
+    # Player-prop fields (None for non-prop markets)
+    player_id: int | None = None
+    player_name: str | None = None
 
 
 # ===========================================================================
@@ -1142,6 +1151,188 @@ def make_f5_card(game, expected_f5, odds, cats):
         ))
     return out
 
+# Pitcher-prop config: higher edge band than ML/total because pitcher prop
+# markets have more variance and the model produces a wider edge spread.
+MIN_EDGE_PITCHER_PROP = 0.05      # 5%+ edge required (vs 1.8% for ML)
+MAX_EDGE_PITCHER_PROP = 0.15      # 15% cap — beyond this = bad lambda, skip
+MIN_PITCHER_STARTS    = 3         # need 3+ Statcast starts in window
+MIN_PITCHER_PROJ      = {"pitcher_strikeouts": 3.0, "pitcher_walks": 0.5}
+
+
+def _poisson_cdf_local(k: int, lam: float) -> float:
+    """P(X <= k) for Poisson — iterative to avoid factorial overflow."""
+    import math
+    if lam <= 0: return 1.0 if k >= 0 else 0.0
+    if k < 0: return 0.0
+    s = 0.0
+    term = math.exp(-lam)
+    s += term
+    for i in range(1, k + 1):
+        term *= lam / i
+        s += term
+    return min(1.0, s)
+
+
+def _devig_player_props(prop_event: dict, market_key: str, player_name: str,
+                         target_line: float) -> tuple[float, list[tuple[str, int, int]]] | tuple[None, None]:
+    """Pull every book's O/U on this player at the consensus line. Returns
+    (median_devigged_P_over, [(book, over_price, under_price), ...]) for the
+    target books only."""
+    target = player_name.lower()
+    offers = []   # (book, over_price, under_price) at target_line
+    for b in prop_event.get("bookmakers", []):
+        bk = b.get("key", "").lower()
+        if bk not in TARGET_BOOKS + SHARP_ANCHORS: continue
+        m = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
+        if not m: continue
+        over = under = None
+        for o in m.get("outcomes", []):
+            if (o.get("description") or "").lower() != target: continue
+            pt = o.get("point")
+            if pt is None or abs(float(pt) - target_line) > 0.001: continue
+            if (o.get("name") or "").lower() == "over":  over = int(o["price"])
+            elif (o.get("name") or "").lower() == "under": under = int(o["price"])
+        if over is None or under is None: continue
+        offers.append((bk, over, under))
+    if not offers: return None, None
+    # Pinnacle-priority devig
+    pin = [o for o in offers if o[0] in SHARP_ANCHORS]
+    if pin:
+        bk, op, up = pin[0]
+        fo, _ = devig_two_way(op, up)
+        return fo, offers
+    # Median across user books
+    devigged = []
+    for bk, op, up in offers:
+        if bk not in TARGET_BOOKS: continue
+        fo, _ = devig_two_way(op, up)
+        devigged.append(fo)
+    if not devigged: return None, offers
+    devigged.sort()
+    return devigged[len(devigged) // 2], offers
+
+
+def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
+                            prop_event: dict, market_key: str) -> BetCard | None:
+    """Generate a real-bet card from a pitcher prop projection (K or BB).
+
+    Filters:
+      - data_quality must be 'ok' (3+ starts in Statcast window)
+      - projection >= market-specific minimum
+      - per-book confirmation (require ≥1 OTHER target book within 12 cents)
+      - edge ∈ [MIN_EDGE_PITCHER_PROP, MAX_REASONABLE_EDGE]
+    """
+    import math
+    if not prop_event: return None
+    if (pitcher_proj or {}).get("data_quality") != "ok": return None
+    starts = pitcher_proj.get("starts_in_window") or 0
+    if starts < MIN_PITCHER_STARTS: return None
+
+    player_name = pitcher_proj.get("name")
+    player_id   = pitcher_proj.get("id")
+    if not (player_name and player_id): return None
+
+    if market_key == "pitcher_strikeouts":
+        lam = pitcher_proj.get("projected_k")
+    elif market_key == "pitcher_walks":
+        lam = pitcher_proj.get("projected_walks")
+    else:
+        return None
+    if not lam or lam < MIN_PITCHER_PROJ.get(market_key, 0.5): return None
+
+    # Find consensus line (mode across all books carrying this player's market)
+    target = (player_name or "").lower()
+    line_counts: dict[float, int] = {}
+    for b in prop_event.get("bookmakers", []):
+        m = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
+        if not m: continue
+        seen_for_book: set[float] = set()
+        for o in m.get("outcomes", []):
+            if (o.get("description") or "").lower() != target: continue
+            pt = o.get("point")
+            if pt is None: continue
+            seen_for_book.add(float(pt))
+        for v in seen_for_book: line_counts[v] = line_counts.get(v, 0) + 1
+    if not line_counts: return None
+    consensus_line = max(line_counts.items(), key=lambda kv: kv[1])[0]
+
+    # Plausibility guard
+    if market_key == "pitcher_strikeouts" and not (2.5 <= consensus_line <= 12.5): return None
+    if market_key == "pitcher_walks"      and not (0.5 <= consensus_line <= 5.5):  return None
+
+    # Devigged P(over) at consensus line + per-book offers
+    market_over, offers = _devig_player_props(prop_event, market_key, player_name, consensus_line)
+    if market_over is None: return None
+
+    # Two-book confirmation — require ≥2 target books on this line
+    book_offers = [(bk, op, up) for bk, op, up in offers if bk in TARGET_BOOKS]
+    if len(book_offers) < 2: return None
+
+    # Raw Poisson side probabilities
+    k_floor = int(consensus_line)
+    poisson_over = 1.0 - _poisson_cdf_local(k_floor, lam)
+
+    # Market-anchored side prob: nudge market prior by capped delta
+    side_target = "over" if poisson_over >= 0.5 else "under"
+    market_side = market_over if side_target == "over" else (1.0 - market_over)
+    model_side  = poisson_over if side_target == "over" else (1.0 - poisson_over)
+    shift = _clip(model_side - 0.5, -0.06, 0.06)
+    our_prob = _clip(market_side + shift, 0.05, 0.95)
+
+    # Best price across target books for our side
+    best_book, best_price = None, None
+    for bk, op, up in book_offers:
+        price = op if side_target == "over" else up
+        if best_price is None or price > best_price:
+            best_price, best_book = price, bk
+    if best_price is None or best_book is None: return None
+    if best_price < MIN_AMERICAN_PRICE or best_price > MAX_AMERICAN_PRICE: return None
+
+    # Edge + Kelly — use prop-specific cap (not the tighter ML/total cap)
+    edge = edge_pct(our_prob, best_price)
+    if edge < MIN_EDGE_PITCHER_PROP: return None
+    if edge > MAX_EDGE_PITCHER_PROP:  return None
+
+    # Confidence — driven primarily by edge and sample size
+    if   edge >= 0.10: conf_e = 4
+    elif edge >= 0.07: conf_e = 3
+    elif edge >= 0.05: conf_e = 2
+    else: conf_e = 1
+    sample_score = 2 if starts >= 8 else (1 if starts >= 5 else 0)
+    conf = int(_clip(4 + conf_e + sample_score, 1, 10))
+    if conf < MIN_CONFIDENCE: return None
+
+    units, risk = unit_size_from(edge, conf)
+    if units == 0: return None
+
+    # Build label like "Jeffrey Springs Under 4.5 K" or "... Under 2.5 BB"
+    unit_tag = "K" if market_key == "pitcher_strikeouts" else "BB"
+    label = f"{player_name} {side_target.capitalize()} {consensus_line} {unit_tag}"
+
+    reasoning = [
+        f"Model {market_key.replace('_',' ')} projection {lam:.2f} {unit_tag} vs line {consensus_line}",
+        f"P({side_target} {consensus_line}) = {our_prob*100:.1f}% · market {market_side*100:.1f}%",
+        f"{starts} starts in 30-day Statcast window",
+    ]
+    if pitcher_proj.get("opp_lineup_k_pct"):
+        reasoning.append(f"Opp lineup K-rate: {pitcher_proj['opp_lineup_k_pct']*100:.1f}%")
+    if pitcher_proj.get("catcher_framing_bump"):
+        reasoning.append(f"Catcher framing bump: {pitcher_proj['catcher_framing_bump']:+.2f} K")
+
+    return BetCard(
+        bet_label=label,
+        market=market_key, side=side_target, book=best_book,
+        price_american=best_price, line=consensus_line,
+        fair_prob=our_prob, fair_american=prob_to_american(our_prob),
+        edge=edge, confidence=conf, unit_size=units, risk=risk,
+        reasoning=reasoning,
+        pass_triggers=["Starter scratched / late lineup change",
+                        "Line moves through your fair value",
+                        "Rain delay / shortened game risk"],
+        player_id=player_id, player_name=player_name,
+    )
+
+
 def make_nrfi_card(game, nrfi_prob, nrfi_notes, odds):
     """The NRFI/YRFI market on most US books is published as a 1st-inning
     total at 0.5 runs.  Under 0.5 = NRFI, Over 0.5 = YRFI."""
@@ -1253,6 +1444,23 @@ def grade_one_game(game, odds_for_game):
         if ENABLED_MARKETS.get("nrfi", True):
             cards.extend(make_nrfi_card(game, nrfi_p, nrfi_notes, odds_for_game))
 
+    # Pitcher prop cards (K + BB) — need prop_odds.json for the event.
+    # The grader doesn't have direct access; assume mlb_grader is invoked
+    # from run() which loads prop_odds.json and re-injects via game["_prop_event"].
+    prop_event = game.get("_prop_event")
+    if prop_event:
+        # tracked_props is already computed below; recompute pitcher projections via prop_tracking
+        ump_delta, _ = _umpire_run_delta(game)
+        tp_prelim = build_tracked_props(game, ump_run_delta=ump_delta)
+        if ENABLED_MARKETS.get("pitcher_strikeouts", True):
+            for pp in tp_prelim.get("pitcher_ks", []):
+                c = make_pitcher_prop_card(game, pp.get("side"), pp, prop_event, "pitcher_strikeouts")
+                if c: cards.append(c)
+        if ENABLED_MARKETS.get("pitcher_walks", True):
+            for pp in tp_prelim.get("pitcher_walks", []):
+                c = make_pitcher_prop_card(game, pp.get("side"), pp, prop_event, "pitcher_walks")
+                if c: cards.append(c)
+
     # Per-game cap — best-edge bet wins, max 1 card per game
     cards.sort(key=lambda c: (-c.edge, -c.confidence))
     capped: list[BetCard] = []
@@ -1316,6 +1524,13 @@ def run(target, data_root):
         sys.exit(1)
     odds_path = day_dir / "odds.json"
     odds_root = _load(odds_path) if odds_path.exists() else None
+    prop_odds_path = day_dir / "prop_odds.json"
+    prop_odds_root = _load(prop_odds_path) if prop_odds_path.exists() else None
+    # Map prop events by team-pair for fast lookup
+    prop_by_pair: dict = {}
+    if prop_odds_root:
+        for _eid, ev in (prop_odds_root.get("events") or {}).items():
+            prop_by_pair[(ev.get("home_team"), ev.get("away_team"))] = ev
 
     # First pass: grade every game (each is already capped to MAX_CARDS_PER_GAME=1)
     grades_out: list[dict] = []
@@ -1323,6 +1538,10 @@ def run(target, data_root):
     for gp in sorted(games_dir.glob("*.json")):
         game = _load(gp)
         odds = match_odds(odds_root, game) if odds_root else None
+        # Inject the prop event so grade_one_game can fire pitcher prop cards
+        game["_prop_event"] = prop_by_pair.get(
+            (game["home"]["team_name"], game["away"]["team_name"])
+        )
         graded = grade_one_game(game, odds)
         grades_out.append(graded)
         for c in graded["bet_cards"]:

@@ -73,6 +73,9 @@ CSV_FIELDS = [
     "status", "units_pl",
     "final_runs_h", "final_runs_a", "f5_runs", "first_inn_runs",
     "settled_at",
+    # Player-prop fields — populated for market in
+    # ('pitcher_strikeouts', 'pitcher_walks', 'batter_walks')
+    "player_id", "player_name", "actual_result",
     # CLV (closing line value) — populated by closing_snapshot.py
     "closing_price", "closing_fair_prob", "clv_pct", "beat_close",
     "notes",
@@ -186,6 +189,9 @@ def append_pending(target_date: str, data_root: Path) -> int:
                 "final_runs_h": "", "final_runs_a": "",
                 "f5_runs": "", "first_inn_runs": "",
                 "settled_at": "",
+                "player_id":   str(c.get("player_id", "") or ""),
+                "player_name": c.get("player_name", "") or "",
+                "actual_result": "",
                 "closing_price": "", "closing_fair_prob": "",
                 "clv_pct": "", "beat_close": "",
                 "notes": "",
@@ -233,12 +239,62 @@ def _fetch_game_result(game_pk: int) -> dict | None:
         "f5_runs": f5_runs, "first_inn_runs": first_inn_runs,
     }
 
+PLAYER_PROP_MARKETS = ("pitcher_strikeouts", "pitcher_walks", "batter_strikeouts", "batter_walks")
+
+
+def _player_actual(game_pk: int, player_id: int, market: str) -> int | None:
+    """Pull a player's actual stat from the live feed box score. Returns None
+    if game isn't Final or player didn't appear."""
+    try:
+        live = requests.get(f"{MLB_API}/game/{game_pk}/feed/live", timeout=20).json()
+    except Exception:
+        return None
+    state = (live.get("gameData", {}).get("status", {}).get("abstractGameState"))
+    if state != "Final": return None
+    teams = live.get("liveData", {}).get("boxscore", {}).get("teams", {})
+    for side in ("home", "away"):
+        players = teams.get(side, {}).get("players", {})
+        p = players.get(f"ID{player_id}")
+        if not p: continue
+        if market in ("pitcher_strikeouts", "pitcher_walks"):
+            stats = p.get("stats", {}).get("pitching", {})
+            field = "strikeOuts" if market == "pitcher_strikeouts" else "baseOnBalls"
+        elif market in ("batter_strikeouts", "batter_walks"):
+            stats = p.get("stats", {}).get("batting", {})
+            field = "strikeOuts" if market == "batter_strikeouts" else "baseOnBalls"
+        else:
+            return None
+        if not stats: return None
+        v = stats.get(field)
+        try: return int(v) if v is not None else None
+        except (ValueError, TypeError): return None
+    return None
+
+
 def _settle_one(row: dict, result: dict) -> tuple[str, float, str]:
     """Returns (status, units_pl, notes)"""
     market = row["market"]; side = row["side"]
     line = _f(row["line"])
     price = _i(row["price"])
     risk = _f(row["units_risked"], 0.0)
+
+    # Player-prop markets — settle via per-player box-score stat
+    if market in PLAYER_PROP_MARKETS:
+        pid = _i(row.get("player_id"))
+        pk  = _i(row.get("gamePk"))
+        if pid is None or pk is None:
+            return ("void", 0.0, "missing player_id/gamePk")
+        actual = _player_actual(pk, pid, market)
+        if actual is None:
+            return ("void", 0.0, "player did not appear / not final")
+        push = (line == int(line) and actual == int(line))
+        win = (actual > line) if side == "over" else (actual < line)
+        # Stamp actual into the row so the bet log shows the result
+        row["actual_result"] = str(actual)
+        if push: return ("push", 0.0, f"push (actual {actual})")
+        if win:  return ("won", round(_payout_units(price, risk), 4), f"actual {actual}")
+        return ("lost", -round(risk, 4), f"actual {actual}")
+
     h = result["home_runs"]; a = result["away_runs"]
     if h is None or a is None:
         return ("void", 0.0, "no final score")

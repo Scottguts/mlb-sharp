@@ -1178,8 +1178,8 @@ function propBoardHTML(p) {
       // place the line marker on the right edge of this bar (between k=floor and k=floor+1)
       cls += ' line-marker';
     }
-    const label = k === lineFloor ? `data-label="${p.consensus_line}K LINE"` : '';
-    barsHTML += `<div class="${cls}" ${label} style="height: ${height}%;" title="${k} K: ${(dist[k].pmf*100).toFixed(1)}%"></div>`;
+    const label = k === lineFloor ? `data-label="${p.consensus_line}${unit} LINE"` : '';
+    barsHTML += `<div class="${cls}" ${label} style="height: ${height}%;" title="${k} ${unit}: ${(dist[k].pmf*100).toFixed(1)}%"></div>`;
     xAxisHTML += `<div class="tick">${[0,3,6,9,12].includes(k) ? k : ''}</div>`;
   }
 
@@ -1217,12 +1217,13 @@ function propBoardHTML(p) {
   const fairOverAmer = p.our_over >= 0.5 ? Math.round(-100*p.our_over/(1-p.our_over)) : Math.round(100*(1-p.our_over)/p.our_over);
   const fairUnderAmer = (1-p.our_over) >= 0.5 ? Math.round(-100*(1-p.our_over)/p.our_over) : Math.round(100*p.our_over/(1-p.our_over));
 
+  const unit = p.unit || 'K';
   return `<div class="prop-board ${sideClass}">
     <div class="pb-top">
       <div class="pb-left">
         ${p.id ? `<div class="pb-photo"><img src="${MLB_HEADSHOT(p.id)}" alt="${p.name}" onerror="this.style.display='none'" /></div>` : ''}
         <div class="pb-info">
-          <div class="pb-market-label">Pitcher Strikeouts</div>
+          <div class="pb-market-label">${p.market_label || 'Pitcher Strikeouts'}</div>
           <div class="pb-name">${p.name}</div>
           <div class="pb-matchup">
             ${p.team_id ? `<img class="team-logo" src="${MLB_TEAM_LOGO(p.team_id)}" alt="" onerror="this.style.display='none'" />` : ''}
@@ -1231,7 +1232,7 @@ function propBoardHTML(p) {
             ${time ? `<span class="muted">· ${time}</span>` : ''}
           </div>
           <div class="pb-tape">
-            <div class="num-box"><div class="val">${p.consensus_line.toFixed(1)}</div><div class="lbl">K · Line</div></div>
+            <div class="num-box"><div class="val">${p.consensus_line.toFixed(1)}</div><div class="lbl">${unit} · Line</div></div>
             <div class="arrow">→</div>
             <div class="proj-box"><div class="val">${p.projection.toFixed(1)}</div><div class="lbl">Projection</div></div>
             <div class="side-pill">${p.side.toUpperCase()}</div>
@@ -1254,17 +1255,17 @@ function propBoardHTML(p) {
 
     <div class="pb-stats">
       <div class="stat"><div class="v">${p.expected_pa}</div><div class="l">Exp BF</div></div>
-      <div class="stat"><div class="v">${p.median}</div><div class="l">Median K</div></div>
+      <div class="stat"><div class="v">${p.median}</div><div class="l">Median ${unit}</div></div>
       <div class="stat"><div class="v colored">×${p.park_factor.toFixed(3)}</div><div class="l">Park Factor</div></div>
-      <div class="stat"><div class="v">${p.sigma.toFixed(2)} K</div><div class="l">Spread ±</div></div>
+      <div class="stat"><div class="v">${p.sigma.toFixed(2)} ${unit}</div><div class="l">Spread ±</div></div>
       <div class="stat"><div class="v">${p.throws || '?'}</div><div class="l">Throws</div></div>
       <div class="stat"><div class="v">${sideTeam}</div><div class="l">Home / Away</div></div>
     </div>
 
     <div class="pb-hist">
       <div class="label-row">
-        <div class="l">K Distribution</div>
-        <div class="probs">P(K&gt;${p.consensus_line}) = <b>${(p.our_over*100).toFixed(0)}%</b> · P(K≤${p.consensus_line}) = <b>${((1-p.our_over)*100).toFixed(0)}%</b></div>
+        <div class="l">${unit} Distribution</div>
+        <div class="probs">P(${unit}&gt;${p.consensus_line}) = <b>${(p.our_over*100).toFixed(0)}%</b> · P(${unit}≤${p.consensus_line}) = <b>${((1-p.our_over)*100).toFixed(0)}%</b></div>
       </div>
       <div class="pb-bars">${barsHTML}</div>
       <div class="pb-xaxis">${xAxisHTML}</div>
@@ -1277,12 +1278,12 @@ function propBoardHTML(p) {
       </div>
       <div class="pb-projection">
         <div class="l">Model Projection</div>
-        <div class="row"><span class="k">Model projection</span><span class="v colored">${p.projection.toFixed(2)} K</span></div>
-        <div class="row"><span class="k">Model vs line</span><span class="v">${(p.projection - p.consensus_line >= 0 ? '+' : '')}${(p.projection - p.consensus_line).toFixed(2)} K</span></div>
+        <div class="row"><span class="k">Model projection</span><span class="v colored">${p.projection.toFixed(2)} ${unit}</span></div>
+        <div class="row"><span class="k">Model vs line</span><span class="v">${(p.projection - p.consensus_line >= 0 ? '+' : '')}${(p.projection - p.consensus_line).toFixed(2)} ${unit}</span></div>
         <div class="row"><span class="k">P(Win)</span><span class="v">${(p.our_prob*100).toFixed(0)}%</span></div>
-        <div class="row"><span class="k">K% (implied)</span><span class="v">${(p.our_over*100).toFixed(1)}%</span></div>
+        <div class="row"><span class="k">${unit}% (implied)</span><span class="v">${(p.our_over*100).toFixed(1)}%</span></div>
         <div class="row"><span class="k">Fair O / U</span><span class="v">${fmtPrice(fairOverAmer)} / ${fmtPrice(fairUnderAmer)}</span></div>
-        <div class="row"><span class="k">Spread (1 SD)</span><span class="v">${p.sigma.toFixed(2)} K</span></div>
+        <div class="row"><span class="k">Spread (1 SD)</span><span class="v">${p.sigma.toFixed(2)} ${unit}</span></div>
         <div class="row"><span class="k">Best shop</span><span class="v">${p.best_book ? (BOOK_DISPLAY[p.best_book] || p.best_book) : '—'}</span></div>
       </div>
     </div>
@@ -1297,16 +1298,26 @@ async function loadPropBoards() {
     if (!manifest.latest) { target.innerHTML = '<div class="muted">No data yet.</div>'; return; }
     const d = await fetchJSON(`${DATA}/${manifest.latest}.json`);
     $('#propboards-date').textContent = `slate of ${manifest.latest}`;
-    const props = d.rich_pitcher_ks || [];
-    if (!props.length) {
+    const ks  = d.rich_pitcher_ks    || [];
+    const bbs = d.rich_pitcher_walks || [];
+    if (!ks.length && !bbs.length) {
       target.innerHTML = `<div class="empty-state">
         <div class="emoji">🎯</div>
         <div class="h">No prop boards today</div>
-        <div class="p">No pitcher K props cleared the model's edge + trust filters today.<br/>Boards filter to: data_quality=ok, ≥3 starts, projection ≥3 K, edge 0.5-15%.</div>
+        <div class="p">No pitcher props cleared the model's edge + trust filters.<br/>Filters: data_quality=ok, ≥3 starts, projection within market bounds, edge 0.5-15%.</div>
       </div>`;
       return;
     }
-    target.innerHTML = props.map(propBoardHTML).join('');
+    let html = '';
+    if (ks.length) {
+      html += `<div class="subhead">⚾ Pitcher Strikeouts · ${ks.length} board${ks.length>1?'s':''}</div>`;
+      html += ks.map(propBoardHTML).join('');
+    }
+    if (bbs.length) {
+      html += `<div class="subhead" style="margin-top:24px;">🚶 Pitcher Walks · ${bbs.length} board${bbs.length>1?'s':''}</div>`;
+      html += bbs.map(propBoardHTML).join('');
+    }
+    target.innerHTML = html;
   } catch (e) {
     target.innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><div class="h">Could not load</div><div class="p">${e.message}</div></div>`;
   }
