@@ -28,7 +28,7 @@ from typing import Any
 import requests
 
 from mlb_data_scraper import (
-    TARGET_BOOKS, SHARP_ANCHORS, american_to_prob, devig_two_way, edge_pct,
+    TARGET_BOOKS, SHARP_ANCHORS, devig_two_way, edge_pct,
 )
 
 
