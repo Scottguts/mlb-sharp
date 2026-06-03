@@ -174,11 +174,18 @@ def post_discord(body: str, summary: str, grades=None, target_date: str | None =
     return ok
 
 
+PROP_MARKETS = ("pitcher_strikeouts", "pitcher_walks")
+
+
 def _post_discord_embeds(url: str, grades: list[dict], summary: str,
                          target_date: str | None) -> bool:
     summary_text, stats = _summary_line(grades)
     cards = [(g, c) for g in grades for c in g.get("bet_cards", [])]
-    cards.sort(key=lambda gc: (-gc[1]["unit_size"], -gc[1]["edge"]))   # biggest plays first
+    # Split regular and prop streams so each gets its own quick-scan + section
+    regular = [(g, c) for g, c in cards if c["market"] not in PROP_MARKETS]
+    props   = [(g, c) for g, c in cards if c["market"] in PROP_MARKETS]
+    regular.sort(key=lambda gc: (-gc[1]["unit_size"], -gc[1]["edge"]))
+    props.sort(key=lambda gc: (-gc[1]["unit_size"], -gc[1]["edge"]))
 
     # 1) Header message — big banner with stats
     header_embed = _build_header_embed(summary_text, stats, target_date, len(grades), len(cards))
@@ -195,21 +202,31 @@ def _post_discord_embeds(url: str, grades: list[dict], summary: str,
         requests.post(url, json={"embeds": [no_play]}, timeout=20).raise_for_status()
         return True
 
-    # 3) Quick-scan summary — one line per bet (easy to read in 2 sec)
-    quick_lines = ["📋 **TODAY'S PLAYS — quick scan**"]
-    for i, (g, c) in enumerate(cards, 1):
+    # 3a) Regular picks — quick-scan + embeds
+    def _quick_line(i, g, c):
         emoji = EMOJI.get(c.get("risk", "Standard"), "📊")
         book = BOOK_LABEL.get(c["book"].lower(), c["book"])
         line_str = f" {c['line']}" if c.get("line") is not None else ""
         price = _fmt_price(c["price_american"])
         et_time = _fmt_et(g.get("gameDate", ""))
         time_str = f" · {et_time}" if et_time else ""
-        quick_lines.append(
-            f"{i}. {emoji} **{c['bet_label']}**{line_str} @ {book} **{price}**{time_str} — "
-            f"{c['unit_size']}u ({c['edge']*100:.1f}% edge)"
-        )
-    requests.post(url, json={"content": "\n".join(quick_lines)},
-                  timeout=20).raise_for_status()
+        return (f"{i}. {emoji} **{c['bet_label']}**{line_str} @ {book} **{price}**{time_str} — "
+                f"{c['unit_size']}u ({c['edge']*100:.1f}% edge)")
+
+    if regular:
+        lines = ["🎯 **GAME PICKS — quick scan**"]
+        for i, (g, c) in enumerate(regular, 1):
+            lines.append(_quick_line(i, g, c))
+        requests.post(url, json={"content": "\n".join(lines)}, timeout=20).raise_for_status()
+
+    if props:
+        lines = ["⚾ **PITCHER PROPS — quick scan**"]
+        for i, (g, c) in enumerate(props, 1):
+            lines.append(_quick_line(i, g, c))
+        requests.post(url, json={"content": "\n".join(lines)}, timeout=20).raise_for_status()
+
+    # Now the original ordering for the per-bet embeds (combined)
+    cards = regular + props
 
     # 4) Per-bet embeds, batched (Discord allows 10 embeds/message)
     embeds = [_build_bet_embed(g, c, idx + 1) for idx, (g, c) in enumerate(cards)]
