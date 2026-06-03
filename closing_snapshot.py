@@ -55,19 +55,35 @@ LOOKAHEAD_MIN_DEFAULT = 60   # capture closing for games starting within 60 min
 # ---------------------------------------------------------------------------
 
 def _fetch_current_odds(api_key: str) -> list[dict]:
-    r = requests.get(
-        f"{ODDS_API}/sports/baseball_mlb/odds",
-        params={
-            "apiKey":     api_key,
-            "regions":    "us,us2,eu",
-            "markets":    ",".join(ALL_MARKETS),
-            "oddsFormat": "american",
-            "bookmakers": ",".join(ALL_BOOKS),
-        },
-        timeout=30,
-    )
-    r.raise_for_status()
-    return r.json()
+    """Fetch current MLB odds with graceful market fallback.
+
+    The Odds API rejects combined calls that include alt-inning markets
+    (totals_1st_5_innings, totals_1st_1_innings) with HTTP 422. The main
+    scraper has this fallback; closing_snapshot was missing it, causing
+    every run to silently fail. Try the combined call first; on failure,
+    retry with just the core markets the API always supports.
+    """
+    base = {
+        "apiKey":     api_key,
+        "regions":    "us,us2,eu",
+        "oddsFormat": "american",
+        "bookmakers": ",".join(ALL_BOOKS),
+    }
+    url = f"{ODDS_API}/sports/baseball_mlb/odds"
+    # Try the combined call first
+    try:
+        r = requests.get(url, params={**base, "markets": ",".join(ALL_MARKETS)}, timeout=30)
+        r.raise_for_status()
+        return r.json()
+    except Exception as e:
+        # Fall back to core full-game markets only (h2h, spreads, totals).
+        # CLV for F5 / NRFI props will be unavailable on these runs but
+        # the much-more-common moneyline / RL / total bets WILL capture.
+        print(f"[snapshot] combined call failed ({e}); retrying core markets only")
+        core = ("h2h", "spreads", "totals")
+        r = requests.get(url, params={**base, "markets": ",".join(core)}, timeout=30)
+        r.raise_for_status()
+        return r.json()
 
 
 # ---------------------------------------------------------------------------
@@ -130,45 +146,55 @@ def _outcome_matches(o: dict, market_key: str, target: str, target_line) -> bool
     return False
 
 
-def _devigged_close_prob(game_odds: dict, market_key: str, side_target: str,
-                         target_line) -> float | None:
-    """Pull both sides of the market from Pinnacle and devig to get the fair
-    probability for our side. Returns None if Pinnacle isn't carrying that
-    market or the line moved."""
-    pinny = next((b for b in game_odds.get("bookmakers", [])
-                  if b["key"].lower() in SHARP_ANCHORS), None)
-    if not pinny: return None
-    market = next((m for m in pinny.get("markets", []) if m["key"] == market_key), None)
-    if not market: return None
+def _devig_one_book(market: dict, market_key: str, side_target: str,
+                    target_line) -> float | None:
+    """Compute side prob from one book's market via two-way devig."""
     outs = market.get("outcomes", [])
-
     if market_key == "h2h":
         if len(outs) != 2: return None
         prices = {o["name"]: int(o["price"]) for o in outs}
         if side_target not in prices: return None
-        # Pinnacle h2h: devig both
         names = list(prices.keys())
         a, b = devig_two_way(prices[names[0]], prices[names[1]])
         return a if names[0] == side_target else b
-
     if market_key in ("totals", "totals_1st_5_innings", "totals_1st_1_innings"):
-        # Find the over/under at our line
         over = next((o for o in outs if o["name"].lower() == "over" and
                      (target_line is None or abs(float(o.get("point") or 0) - float(target_line)) < 0.001)), None)
         under = next((o for o in outs if o["name"].lower() == "under" and
                       (target_line is None or abs(float(o.get("point") or 0) - float(target_line)) < 0.001)), None)
         if not over or not under: return None
         ov_p, un_p = devig_two_way(int(over["price"]), int(under["price"]))
-        # Map nrfi (under) / yrfi (over) properly
         if side_target.lower() in ("over", "yrfi"): return ov_p
         if side_target.lower() in ("under", "nrfi"): return un_p
-
-    if market_key == "spreads":
-        # Devig the team's runline against the opposite team's runline at -line
-        # Less precise without a 1-step matching helper; skip if we can't.
-        return None
-
     return None
+
+
+def _devigged_close_prob(game_odds: dict, market_key: str, side_target: str,
+                         target_line) -> float | None:
+    """Devigged P(side) at the close.
+
+    Prefers Pinnacle when available, falls back to the median devigged
+    prob across the user-facing target books. Pinnacle isn't always
+    carrying the market by close (especially mid-week, smaller games),
+    so the fallback prevents 0% CLV-capture rates.
+    """
+    candidates: list[float] = []
+    for b in game_odds.get("bookmakers", []):
+        bk = b.get("key", "").lower()
+        if bk not in (TARGET_BOOKS + SHARP_ANCHORS):
+            continue
+        market = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
+        if not market: continue
+        prob = _devig_one_book(market, market_key, side_target, target_line)
+        if prob is None: continue
+        if bk in SHARP_ANCHORS:
+            return prob   # Pinnacle takes priority
+        candidates.append(prob)
+    if not candidates: return None
+    candidates.sort()
+    return candidates[len(candidates)//2]
+
+
 
 
 # ---------------------------------------------------------------------------
