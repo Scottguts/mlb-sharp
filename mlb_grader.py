@@ -166,14 +166,19 @@ UNIT_LADDER = [
     (0.018, 6, 0.5, "Lean"),      # 1.8%+ edge, 6/10 conf — daily-volume tier
 ]
 
-# Hard caps — calibration phase: max 5 best-edge plays per day until the
-# system proves it can hit >50% over a meaningful sample. Quality (MIN_EDGE)
-# still gates each play; this just caps total count.
-MAX_CARDS_PER_SLATE    = 5       # top-5 by edge × confidence (calibration phase)
-MAX_UNITS_PER_SLATE    = 6.0     # bankroll safety backstop
-MAX_UNITS_PER_GAME     = 1.5     # never overload a single game
-MAX_CARDS_PER_GAME     = 1       # never recommend more than 1 bet per game
-ALLOW_PARLAYS          = False   # singles only
+# Hard caps — two pools, REGULAR (ML/total/RL/F5/NRFI) and PITCHER PROPS
+# (K + BB). Separate pools so a heavy prop slate doesn't squeeze out the
+# regular picks, and vice versa.
+MAX_CARDS_PER_SLATE      = 5       # top-5 regular plays
+MAX_UNITS_PER_SLATE      = 6.0     # regular pool bankroll cap
+MAX_PROP_CARDS_PER_SLATE = 3       # top-3 prop plays (separate pool)
+MAX_PROP_UNITS_PER_SLATE = 3.0     # prop pool bankroll cap
+MAX_UNITS_PER_GAME       = 1.5     # never overload a single game (across pools)
+MAX_CARDS_PER_GAME       = 1       # only 1 REGULAR bet per game; props counted separately
+ALLOW_PARLAYS            = False   # singles only
+
+# Set of market keys that count as "pitcher prop" pool (vs regular pool)
+PITCHER_PROP_MARKETS = ("pitcher_strikeouts", "pitcher_walks")
 
 # Legacy alias (kept for backward compat in other files)
 MAX_BETS_PER_SLATE     = MAX_UNITS_PER_SLATE
@@ -1240,6 +1245,35 @@ def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
         return None
     if not lam or lam < MIN_PITCHER_PROJ.get(market_key, 0.5): return None
 
+    # === Verification gates — sanity-check the pitcher's data ===
+    # 1. Recent-start freshness: last Statcast start within 14 days.
+    # 2. Projection-plausibility: lambda must be within 2-3x of recent
+    #    actuals (filters out hot/cold extrapolations from one anomalous start).
+    from datetime import date as _date
+    side_data = (game or {}).get(side) or {}
+    prof = side_data.get("pitcher_profile") or {}
+    starts_list = prof.get("starts") or []
+    if not starts_list: return None
+    try:
+        last_date_str = str(starts_list[0].get("game_date", ""))[:10]
+        last_date = _date.fromisoformat(last_date_str)
+        if (_date.today() - last_date).days > 14:
+            return None   # pitcher hasn't pitched recently — skip
+    except Exception:
+        return None
+    if market_key == "pitcher_strikeouts":
+        recent_ks = [s.get("strikeouts") for s in starts_list[:3] if s.get("strikeouts") is not None]
+        if len(recent_ks) >= 2:
+            avg_recent = sum(recent_ks) / len(recent_ks)
+            if avg_recent > 0 and (lam > 2.5 * avg_recent or lam < 0.4 * avg_recent):
+                return None
+    elif market_key == "pitcher_walks":
+        recent_bb = [s.get("walks") for s in starts_list[:3] if s.get("walks") is not None]
+        if len(recent_bb) >= 2:
+            avg_recent = sum(recent_bb) / len(recent_bb)
+            if avg_recent > 0 and (lam > 3.0 * avg_recent or lam < 0.3 * avg_recent):
+                return None
+
     # Find consensus line (mode across all books carrying this player's market)
     target = (player_name or "").lower()
     line_counts: dict[float, int] = {}
@@ -1547,20 +1581,44 @@ def run(target, data_root):
         for c in graded["bet_cards"]:
             all_candidates.append((game, c))
 
-    # Slate-wide ranking: best cards by edge × confidence get to bet
+    # Sort candidates by edge × confidence, then split into REGULAR vs PROPS
+    # pools so a heavy prop slate doesn't squeeze out the regular picks.
     all_candidates.sort(key=lambda gc: -(gc[1]["edge"] * gc[1]["confidence"]))
 
-    # Apply hard caps: max N cards AND max N units across whole slate
-    chosen: list[tuple[dict, dict]] = []
-    chosen_game_pks: set[int] = set()
-    total_units = 0.0
-    for game, card in all_candidates:
-        if len(chosen) >= MAX_CARDS_PER_SLATE: break
-        if total_units + card["unit_size"] > MAX_UNITS_PER_SLATE: continue
-        if game["gamePk"] in chosen_game_pks: continue   # belt + suspenders: 1 per game
-        chosen.append((game, card))
-        chosen_game_pks.add(game["gamePk"])
-        total_units += card["unit_size"]
+    regular_candidates = [(g, c) for g, c in all_candidates if c["market"] not in PITCHER_PROP_MARKETS]
+    prop_candidates    = [(g, c) for g, c in all_candidates if c["market"] in PITCHER_PROP_MARKETS]
+
+    # Per-game lock applies to the REGULAR pool only — props don't compete
+    # for the same per-game slot as a ML/total pick.
+    chosen_regular: list[tuple[dict, dict]] = []
+    regular_game_pks: set[int] = set()
+    reg_units = 0.0
+    for game, card in regular_candidates:
+        if len(chosen_regular) >= MAX_CARDS_PER_SLATE: break
+        if reg_units + card["unit_size"] > MAX_UNITS_PER_SLATE: continue
+        if game["gamePk"] in regular_game_pks: continue   # 1 regular per game
+        chosen_regular.append((game, card))
+        regular_game_pks.add(game["gamePk"])
+        reg_units += card["unit_size"]
+
+    # Props get their own pool with their own caps. Two prop bets per pitcher
+    # rarely happen (would need both K and BB to qualify), but cap at 1 per
+    # pitcher to avoid stacking on one arm.
+    chosen_props: list[tuple[dict, dict]] = []
+    prop_pitcher_ids: set = set()
+    prop_units = 0.0
+    for game, card in prop_candidates:
+        if len(chosen_props) >= MAX_PROP_CARDS_PER_SLATE: break
+        if prop_units + card["unit_size"] > MAX_PROP_UNITS_PER_SLATE: continue
+        pid = card.get("player_id")
+        if pid in prop_pitcher_ids: continue   # 1 prop per pitcher
+        chosen_props.append((game, card))
+        if pid is not None: prop_pitcher_ids.add(pid)
+        prop_units += card["unit_size"]
+
+    chosen = chosen_regular + chosen_props
+    chosen_game_pks = regular_game_pks | {g["gamePk"] for g, _ in chosen_props}
+    total_units = reg_units + prop_units
 
     # Mutate grades_out so games NOT in the chosen set show empty bet_cards
     chosen_pks = {pk for pk in chosen_game_pks}
@@ -1572,22 +1630,29 @@ def run(target, data_root):
             g["bet_cards"] = [c for c in g["bet_cards"]
                               if (g["gamePk"], c["bet_label"]) in chosen_pairs]
 
-    # Render markdown
+    # Render markdown — regular and props rendered in separate sections so
+    # the user can scan them as distinct streams.
     md = [
         f"# MLB Sharp Betting Cards — {target.isoformat()}\n",
         f"_Generated {datetime.now().strftime('%Y-%m-%d %H:%M %Z')}_  ",
         f"_Books shopped: {', '.join(b.upper() for b in TARGET_BOOKS)}_  ",
-        f"_Markets: Full-game ML/RL/Total, F5 Total, NRFI/YRFI_  ",
-        f"_Caps: max {MAX_CARDS_PER_SLATE} plays / {MAX_UNITS_PER_SLATE}u total exposure_\n",
+        f"_Caps: regular {MAX_CARDS_PER_SLATE} / {MAX_UNITS_PER_SLATE}u · "
+        f"props {MAX_PROP_CARDS_PER_SLATE} / {MAX_PROP_UNITS_PER_SLATE}u_\n",
     ]
     bet_count = 0
     if not chosen:
         md.append(f"## NO PLAYS — {len(grades_out)} games graded, none cleared the filters.\n")
     else:
-        md.append(f"## TOP {len(chosen)} PLAYS\n")
-        for game, card in chosen:
-            bet_count += 1
-            md.append(render_card_md(game, BetCard(**card), bet_count))
+        if chosen_regular:
+            md.append(f"## 🎯 GAME PICKS · {len(chosen_regular)} play(s) · {reg_units:.1f}u\n")
+            for game, card in chosen_regular:
+                bet_count += 1
+                md.append(render_card_md(game, BetCard(**card), bet_count))
+        if chosen_props:
+            md.append(f"\n## ⚾ PITCHER PROPS · {len(chosen_props)} play(s) · {prop_units:.1f}u\n")
+            for game, card in chosen_props:
+                bet_count += 1
+                md.append(render_card_md(game, BetCard(**card), bet_count))
 
     # Append the no-play summary table for context
     md.append(f"\n## Other graded games (no play)\n")
