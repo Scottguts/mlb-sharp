@@ -1066,8 +1066,12 @@ def wind_relative_to_field(venue_id: int, wind_dir_deg: float | None,
 
 
 # --------- Bookmaker policy ---------
-# User-facing books we actually shop on:
-TARGET_BOOKS    = ("fanduel", "draftkings", "betmgm", "caesars")
+# User-facing books we actually shop on.
+# FanDuel removed 2026-06-03 after empirical analysis showed 41 of 64 settled
+# bets fired on FanDuel at -27.7% ROI vs BetMGM +25.8% ROI / DraftKings +2.7%.
+# FanDuel's marketing-driven plus-money trap lines kept winning "best price"
+# shopping without offering real edge.
+TARGET_BOOKS    = ("draftkings", "betmgm", "caesars")
 # Sharp anchor used only for devig math (not displayed as a "best book"):
 SHARP_ANCHORS   = ("pinnacle",)
 # Markets we want for every game:

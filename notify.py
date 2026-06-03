@@ -82,11 +82,13 @@ EMOJI = {
 }
 
 MARKET_LABEL = {
-    "moneyline":  "Moneyline",
-    "runline":    "Run Line",
-    "total":      "Full-Game Total",
-    "f5_total":   "First 5 Total",
-    "nrfi":       "1st-Inning",
+    "moneyline":          "Moneyline",
+    "runline":            "Run Line",
+    "total":              "Full-Game Total",
+    "f5_total":           "First 5 Total",
+    "nrfi":               "1st-Inning",
+    "pitcher_strikeouts": "Pitcher Strikeouts",
+    "pitcher_walks":      "Pitcher Walks",
 }
 
 BOOK_LABEL = {

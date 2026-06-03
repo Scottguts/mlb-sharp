@@ -173,32 +173,46 @@ def _devig_two(american_a: int, american_b: int) -> tuple[float, float]:
     return pa / s, pb / s
 
 
-def build_rich_pitcher_k_prop(side_key: str, pitcher_data: dict, prop_event: dict,
-                               game_grade: dict, game_payload: dict) -> dict | None:
-    """Build the rich card data for one pitcher's K prop, in the style of the
-    'Wizard Analytics' reference. Returns None if not enough data or if
-    data quality flags suggest the projection is unreliable."""
+def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
+                             game_grade: dict, game_payload: dict,
+                             market_key: str = "pitcher_strikeouts") -> dict | None:
+    """Build rich card data for one pitcher's K or BB prop.
+    market_key in ('pitcher_strikeouts', 'pitcher_walks').
+    Returns None if data quality is insufficient."""
     import math
-    lam = pitcher_data.get("projected_k")
     name = pitcher_data.get("name")
     pid  = pitcher_data.get("id")
-    if not (lam and lam > 0 and name and pid): return None
-    # Trust check: only fire cards for pitchers with enough Statcast history.
-    # Rookies / spot starters / recent-call-ups have thin data and produce
-    # huge fake edges (the model's lambda is way off).
+    if not (name and pid): return None
     if pitcher_data.get("data_quality") != "ok": return None
     starts = pitcher_data.get("starts_in_window") or 0
     if starts < 3: return None
-    if lam < 3.0: return None   # implausibly low projection — probably bad data
 
-    # Poisson distribution over 0..16 Ks
+    # Market-specific lambda + line range + display unit
+    if market_key == "pitcher_strikeouts":
+        lam = pitcher_data.get("projected_k")
+        if not lam or lam < 3.0: return None
+        unit = "K"
+        market_label = "Pitcher Strikeouts"
+        line_choices = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5]
+        n_bins = 17
+    elif market_key == "pitcher_walks":
+        lam = pitcher_data.get("projected_walks")
+        if not lam or lam < 0.5: return None
+        unit = "BB"
+        market_label = "Pitcher Walks"
+        line_choices = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5]
+        n_bins = 9
+    else:
+        return None
+
+    # Poisson distribution
     distribution = []
-    for k in range(17):
+    for k in range(n_bins):
         distribution.append({"k": k, "pmf": round(_poisson_pmf(k, lam), 4)})
 
-    # Per-line probability table (standard book lines)
+    # Per-line probability table
     line_table = []
-    for line in [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5]:
+    for line in line_choices:
         k_floor = int(line)
         p_over = 1.0 - _poisson_cdf(k_floor, lam)
         line_table.append({
@@ -207,11 +221,11 @@ def build_rich_pitcher_k_prop(side_key: str, pitcher_data: dict, prop_event: dic
             "under": round(1 - p_over, 3),
         })
 
-    # Find this pitcher's offers across books
+    # Find this pitcher's offers across books for the chosen market
     target = name.lower()
     book_offers: list[dict] = []
     for b in (prop_event or {}).get("bookmakers", []):
-        m = next((m for m in b.get("markets", []) if m["key"] == "pitcher_strikeouts"), None)
+        m = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
         if not m: continue
         # Group outcomes by (line, over/under) for this player
         by_line: dict[float, dict] = {}
@@ -250,8 +264,9 @@ def build_rich_pitcher_k_prop(side_key: str, pitcher_data: dict, prop_event: dic
     side = "over" if our_over >= 0.50 else "under"
     our_prob = our_over if side == "over" else (1.0 - our_over)
 
-    # Best book for our chosen side (highest American price across target books)
-    target_books = ("fanduel", "draftkings", "betmgm", "caesars")
+    # Best book for our chosen side (highest American price across target books).
+    # FanDuel deliberately excluded — see TARGET_BOOKS in mlb_data_scraper.py.
+    target_books = ("draftkings", "betmgm", "caesars")
     best = None
     for o in consensus_offers:
         if o["book"] not in target_books: continue
@@ -311,6 +326,11 @@ def build_rich_pitcher_k_prop(side_key: str, pitcher_data: dict, prop_event: dic
         "game_pk":    game_grade["gamePk"],
         "game_date":  game_grade.get("gameDate"),
         "throws":     throws,
+
+        # Market identity
+        "market_key":   market_key,
+        "market_label": market_label,
+        "unit":         unit,
 
         # Core projection
         "consensus_line": consensus_line,
@@ -375,26 +395,32 @@ def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
     events_by_pair = {}
     for eid, ev in events.items():
         events_by_pair[(ev.get("home_team"), ev.get("away_team"))] = ev
-    rich_props: list[dict] = []
+    rich_k: list[dict] = []
+    rich_bb: list[dict] = []
     for gm in grades:
         away, home = gm["matchup"].split(" @ ")
         ev = events_by_pair.get((home, away))
         if not ev: continue
         raw = raw_games_by_pk.get(str(gm.get("gamePk"))) or {}
         for side in ("home", "away"):
-            pitchers = (gm.get("tracked_props") or {}).get("pitcher_ks") or []
-            for p in pitchers:
+            for p in (gm.get("tracked_props") or {}).get("pitcher_ks") or []:
                 if p.get("side") != side: continue
-                rich = build_rich_pitcher_k_prop(side, p, ev, gm, raw)
-                if rich: rich_props.append(rich)
-    rich_props.sort(key=lambda r: -r["edge"])
+                rk = build_rich_pitcher_prop(side, p, ev, gm, raw, market_key="pitcher_strikeouts")
+                if rk: rich_k.append(rk)
+            for p in (gm.get("tracked_props") or {}).get("pitcher_walks") or []:
+                if p.get("side") != side: continue
+                rb = build_rich_pitcher_prop(side, p, ev, gm, raw, market_key="pitcher_walks")
+                if rb: rich_bb.append(rb)
+    rich_k.sort(key=lambda r: -r["edge"])
+    rich_bb.sort(key=lambda r: -r["edge"])
 
     return {
         "date": date_iso,
         "n_games": len(grades),
         "grades": grades,
         "games": games_by_pk,
-        "rich_pitcher_ks": rich_props,
+        "rich_pitcher_ks":    rich_k,
+        "rich_pitcher_walks": rich_bb,
         "cards_markdown": cards_md,
         "prop_tracking_markdown": prop_md,
     }
@@ -1708,8 +1734,8 @@ function propBoardHTML(p) {
       // place the line marker on the right edge of this bar (between k=floor and k=floor+1)
       cls += ' line-marker';
     }
-    const label = k === lineFloor ? `data-label="${p.consensus_line}K LINE"` : '';
-    barsHTML += `<div class="${cls}" ${label} style="height: ${height}%;" title="${k} K: ${(dist[k].pmf*100).toFixed(1)}%"></div>`;
+    const label = k === lineFloor ? `data-label="${p.consensus_line}${unit} LINE"` : '';
+    barsHTML += `<div class="${cls}" ${label} style="height: ${height}%;" title="${k} ${unit}: ${(dist[k].pmf*100).toFixed(1)}%"></div>`;
     xAxisHTML += `<div class="tick">${[0,3,6,9,12].includes(k) ? k : ''}</div>`;
   }
 
@@ -1747,12 +1773,13 @@ function propBoardHTML(p) {
   const fairOverAmer = p.our_over >= 0.5 ? Math.round(-100*p.our_over/(1-p.our_over)) : Math.round(100*(1-p.our_over)/p.our_over);
   const fairUnderAmer = (1-p.our_over) >= 0.5 ? Math.round(-100*(1-p.our_over)/p.our_over) : Math.round(100*p.our_over/(1-p.our_over));
 
+  const unit = p.unit || 'K';
   return `<div class="prop-board ${sideClass}">
     <div class="pb-top">
       <div class="pb-left">
         ${p.id ? `<div class="pb-photo"><img src="${MLB_HEADSHOT(p.id)}" alt="${p.name}" onerror="this.style.display='none'" /></div>` : ''}
         <div class="pb-info">
-          <div class="pb-market-label">Pitcher Strikeouts</div>
+          <div class="pb-market-label">${p.market_label || 'Pitcher Strikeouts'}</div>
           <div class="pb-name">${p.name}</div>
           <div class="pb-matchup">
             ${p.team_id ? `<img class="team-logo" src="${MLB_TEAM_LOGO(p.team_id)}" alt="" onerror="this.style.display='none'" />` : ''}
@@ -1761,7 +1788,7 @@ function propBoardHTML(p) {
             ${time ? `<span class="muted">· ${time}</span>` : ''}
           </div>
           <div class="pb-tape">
-            <div class="num-box"><div class="val">${p.consensus_line.toFixed(1)}</div><div class="lbl">K · Line</div></div>
+            <div class="num-box"><div class="val">${p.consensus_line.toFixed(1)}</div><div class="lbl">${unit} · Line</div></div>
             <div class="arrow">→</div>
             <div class="proj-box"><div class="val">${p.projection.toFixed(1)}</div><div class="lbl">Projection</div></div>
             <div class="side-pill">${p.side.toUpperCase()}</div>
@@ -1784,17 +1811,17 @@ function propBoardHTML(p) {
 
     <div class="pb-stats">
       <div class="stat"><div class="v">${p.expected_pa}</div><div class="l">Exp BF</div></div>
-      <div class="stat"><div class="v">${p.median}</div><div class="l">Median K</div></div>
+      <div class="stat"><div class="v">${p.median}</div><div class="l">Median ${unit}</div></div>
       <div class="stat"><div class="v colored">×${p.park_factor.toFixed(3)}</div><div class="l">Park Factor</div></div>
-      <div class="stat"><div class="v">${p.sigma.toFixed(2)} K</div><div class="l">Spread ±</div></div>
+      <div class="stat"><div class="v">${p.sigma.toFixed(2)} ${unit}</div><div class="l">Spread ±</div></div>
       <div class="stat"><div class="v">${p.throws || '?'}</div><div class="l">Throws</div></div>
       <div class="stat"><div class="v">${sideTeam}</div><div class="l">Home / Away</div></div>
     </div>
 
     <div class="pb-hist">
       <div class="label-row">
-        <div class="l">K Distribution</div>
-        <div class="probs">P(K&gt;${p.consensus_line}) = <b>${(p.our_over*100).toFixed(0)}%</b> · P(K≤${p.consensus_line}) = <b>${((1-p.our_over)*100).toFixed(0)}%</b></div>
+        <div class="l">${unit} Distribution</div>
+        <div class="probs">P(${unit}&gt;${p.consensus_line}) = <b>${(p.our_over*100).toFixed(0)}%</b> · P(${unit}≤${p.consensus_line}) = <b>${((1-p.our_over)*100).toFixed(0)}%</b></div>
       </div>
       <div class="pb-bars">${barsHTML}</div>
       <div class="pb-xaxis">${xAxisHTML}</div>
@@ -1807,12 +1834,12 @@ function propBoardHTML(p) {
       </div>
       <div class="pb-projection">
         <div class="l">Model Projection</div>
-        <div class="row"><span class="k">Model projection</span><span class="v colored">${p.projection.toFixed(2)} K</span></div>
-        <div class="row"><span class="k">Model vs line</span><span class="v">${(p.projection - p.consensus_line >= 0 ? '+' : '')}${(p.projection - p.consensus_line).toFixed(2)} K</span></div>
+        <div class="row"><span class="k">Model projection</span><span class="v colored">${p.projection.toFixed(2)} ${unit}</span></div>
+        <div class="row"><span class="k">Model vs line</span><span class="v">${(p.projection - p.consensus_line >= 0 ? '+' : '')}${(p.projection - p.consensus_line).toFixed(2)} ${unit}</span></div>
         <div class="row"><span class="k">P(Win)</span><span class="v">${(p.our_prob*100).toFixed(0)}%</span></div>
-        <div class="row"><span class="k">K% (implied)</span><span class="v">${(p.our_over*100).toFixed(1)}%</span></div>
+        <div class="row"><span class="k">${unit}% (implied)</span><span class="v">${(p.our_over*100).toFixed(1)}%</span></div>
         <div class="row"><span class="k">Fair O / U</span><span class="v">${fmtPrice(fairOverAmer)} / ${fmtPrice(fairUnderAmer)}</span></div>
-        <div class="row"><span class="k">Spread (1 SD)</span><span class="v">${p.sigma.toFixed(2)} K</span></div>
+        <div class="row"><span class="k">Spread (1 SD)</span><span class="v">${p.sigma.toFixed(2)} ${unit}</span></div>
         <div class="row"><span class="k">Best shop</span><span class="v">${p.best_book ? (BOOK_DISPLAY[p.best_book] || p.best_book) : '—'}</span></div>
       </div>
     </div>
@@ -1827,16 +1854,26 @@ async function loadPropBoards() {
     if (!manifest.latest) { target.innerHTML = '<div class="muted">No data yet.</div>'; return; }
     const d = await fetchJSON(`${DATA}/${manifest.latest}.json`);
     $('#propboards-date').textContent = `slate of ${manifest.latest}`;
-    const props = d.rich_pitcher_ks || [];
-    if (!props.length) {
+    const ks  = d.rich_pitcher_ks    || [];
+    const bbs = d.rich_pitcher_walks || [];
+    if (!ks.length && !bbs.length) {
       target.innerHTML = `<div class="empty-state">
         <div class="emoji">🎯</div>
         <div class="h">No prop boards today</div>
-        <div class="p">No pitcher K props cleared the model's edge + trust filters today.<br/>Boards filter to: data_quality=ok, ≥3 starts, projection ≥3 K, edge 0.5-15%.</div>
+        <div class="p">No pitcher props cleared the model's edge + trust filters.<br/>Filters: data_quality=ok, ≥3 starts, projection within market bounds, edge 0.5-15%.</div>
       </div>`;
       return;
     }
-    target.innerHTML = props.map(propBoardHTML).join('');
+    let html = '';
+    if (ks.length) {
+      html += `<div class="subhead">⚾ Pitcher Strikeouts · ${ks.length} board${ks.length>1?'s':''}</div>`;
+      html += ks.map(propBoardHTML).join('');
+    }
+    if (bbs.length) {
+      html += `<div class="subhead" style="margin-top:24px;">🚶 Pitcher Walks · ${bbs.length} board${bbs.length>1?'s':''}</div>`;
+      html += bbs.map(propBoardHTML).join('');
+    }
+    target.innerHTML = html;
   } catch (e) {
     target.innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><div class="h">Could not load</div><div class="p">${e.message}</div></div>`;
   }
