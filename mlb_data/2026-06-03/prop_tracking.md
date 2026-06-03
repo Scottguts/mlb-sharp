@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 26/29 OK · pitcher walks 26/29 OK · batter walks 35/40 OK
+**Slate-wide data quality:** pitcher Ks 26/29 OK · pitcher walks 26/29 OK · batter walks 40/45 OK
 
 
 ### Miami Marlins @ Washington Nationals
@@ -235,13 +235,22 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Payton Tolle | 5 | 6.2 | 0.261 | — | **5.74** | ok |
-| AWAY | Chris Bassitt | 5 | 3.8 | 0.171 | — | **3.76** | ok |
+| AWAY | Chris Bassitt | 5 | 3.8 | 0.171 | 21.3% | **3.64** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Payton Tolle | 5 | 1.2 | 0.05 | — | **1.1** | ok |
-| AWAY | Chris Bassitt | 5 | 1.2 | 0.054 | — | **1.19** | ok |
+| AWAY | Chris Bassitt | 5 | 1.2 | 0.054 | 8.3% | **1.16** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Jarren Duran | 6.5% | 184 | **0.215** | ok |
+| HOME | 2 | Ceddanne Rafaela | 6.7% | 163 | **0.216** | ok |
+| HOME | 3 | Wilyer Abreu | 9.7% | 176 | **0.306** | ok |
+| HOME | 4 | Willson Contreras | 8.1% | 173 | **0.243** | ok |
+| HOME | 5 | Masataka Yoshida | 10.5% | 114 | **0.307** | ok |
 
 ### Toronto Blue Jays @ Atlanta Braves
 

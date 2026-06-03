@@ -17,12 +17,12 @@
     "temp_f": 65.2,
     "humidity_pct": 44,
     "dew_point_f": 42.8,
-    "wind_mph": 10.5,
-    "wind_dir_deg": 191,
+    "wind_mph": 9.8,
+    "wind_dir_deg": 196,
     "wind_effect": {
       "effect": "out",
-      "delta_runs": 0.22,
-      "angle_off_cf": 35
+      "delta_runs": 0.192,
+      "angle_off_cf": 30
     },
     "precip_prob_pct": 0
   },
@@ -660,8 +660,135 @@
       "notes": []
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 680776,
+          "name": "Jarren Duran",
+          "ab": 167,
+          "pa": 184,
+          "ops": 0.703,
+          "avg": 0.21,
+          "obp": 0.272,
+          "slg": 0.431,
+          "woba": 0.382,
+          "k_pct": 0.299,
+          "bb_pct": 0.065,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 30,
+            "ab": 27,
+            "ops": 1.178,
+            "obp": 0.4,
+            "slg": 0.778,
+            "woba": 0.626
+          }
+        },
+        {
+          "id": 678882,
+          "name": "Ceddanne Rafaela",
+          "ab": 148,
+          "pa": 163,
+          "ops": 0.729,
+          "avg": 0.27,
+          "obp": 0.337,
+          "slg": 0.392,
+          "woba": 0.409,
+          "k_pct": 0.166,
+          "bb_pct": 0.067,
+          "walks": 11,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 24,
+            "ab": 23,
+            "ops": 0.724,
+            "obp": 0.333,
+            "slg": 0.391,
+            "woba": 0.406
+          }
+        },
+        {
+          "id": 677800,
+          "name": "Wilyer Abreu",
+          "ab": 158,
+          "pa": 176,
+          "ops": 0.662,
+          "avg": 0.222,
+          "obp": 0.295,
+          "slg": 0.367,
+          "woba": 0.369,
+          "k_pct": 0.21,
+          "bb_pct": 0.097,
+          "walks": 17,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 23,
+            "ops": 0.573,
+            "obp": 0.269,
+            "slg": 0.304,
+            "woba": 0.322
+          }
+        },
+        {
+          "id": 575929,
+          "name": "Willson Contreras",
+          "ab": 149,
+          "pa": 173,
+          "ops": 0.814,
+          "avg": 0.275,
+          "obp": 0.358,
+          "slg": 0.456,
+          "woba": 0.452,
+          "k_pct": 0.283,
+          "bb_pct": 0.081,
+          "walks": 14,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 22,
+            "ab": 17,
+            "ops": 0.644,
+            "obp": 0.409,
+            "slg": 0.235,
+            "woba": 0.388
+          }
+        },
+        {
+          "id": 807799,
+          "name": "Masataka Yoshida",
+          "ab": 99,
+          "pa": 114,
+          "ops": 0.666,
+          "avg": 0.242,
+          "obp": 0.333,
+          "slg": 0.333,
+          "woba": 0.38,
+          "k_pct": 0.105,
+          "bb_pct": 0.105,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 19,
+            "ab": 18,
+            "ops": 0.485,
+            "obp": 0.263,
+            "slg": 0.222,
+            "woba": 0.281
+          }
+        }
+      ],
+      "avg_woba": 0.398,
+      "avg_ops": 0.715,
+      "avg_k_pct": 0.213,
+      "avg_bb_pct": 0.083
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -680,9 +807,64 @@
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 680776,
+        "name": "Jarren Duran",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 678882,
+        "name": "Ceddanne Rafaela",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 677800,
+        "name": "Wilyer Abreu",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 575929,
+        "name": "Willson Contreras",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 807799,
+        "name": "Masataka Yoshida",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 681508,
+        "name": "Mickey Gasper",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 643396,
+        "name": "Isiah Kiner-Falefa",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 691785,
+        "name": "Marcelo Mayer",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 702332,
+        "name": "Caleb Durbin",
+        "position": "3B",
+        "bat_side": null
+      }
+    ],
     "umpires": [],
     "hp_ump_tendency": null
   },
