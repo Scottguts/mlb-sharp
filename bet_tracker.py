@@ -518,21 +518,33 @@ def build_report(data_root: Path) -> Path:
     for bk, b in sorted(by_book.items()):
         md.append(_render_bucket(b, bk))
 
-    # CLV section
-    overall, by_cat = _bucketize(rows, None)
-    if overall.clv_n > 0:
-        md.append("\n## Closing Line Value (All Time)\n")
-        md.append("_Beat Close = bet's implied prob better than Pinnacle-devigged closing fair prob._  ")
-        md.append("_Avg CLV = avg %-points by which our price beat the close (positive is good)._\n")
-        md.append("| Bucket         | Bets w/ Close | Beat Close % | Avg CLV % |\n"
-                 "|---             |--------------:|-------------:|----------:|")
-        md.append(f"| OVERALL        | {overall.clv_n:>13d} | {overall.beat_close_pct*100:>11.1f}% | "
-                  f"{overall.avg_clv*100:>+8.2f}% |")
-        for cat in ("moneyline", "runline", "total", "f5_total", "nrfi"):
-            if cat in by_cat and by_cat[cat].clv_n > 0:
-                b = by_cat[cat]
-                md.append(f"| {cat:14s} | {b.clv_n:>13d} | {b.beat_close_pct*100:>11.1f}% | "
-                          f"{b.avg_clv*100:>+8.2f}% |")
+    # CLV section. CLV (closing-line value) is the most reliable proof of a real
+    # edge on a small sample: positive avg CLV with negative P/L = variance, the
+    # edge is real; flat/negative CLV = the model isn't beating the market.
+    md.append("\n## Closing Line Value\n")
+    md.append("_Beat Close = bet's implied prob better than Pinnacle-devigged closing fair prob._  ")
+    md.append("_Avg CLV = avg %-points by which our price beat the close (positive is good)._\n")
+    clv_markets = ("moneyline", "runline", "total", "f5_total", "nrfi",
+                   "pitcher_strikeouts", "pitcher_walks")
+    if overall.clv_n == 0:
+        md.append("_No closing lines captured yet — the snapshot job populates this "
+                  "as pending bets reach first pitch._")
+    else:
+        for label, window in (("All Time", None),
+                              ("Last 7 Days", timedelta(days=7))):
+            ov, by_cat = _bucketize(rows, window)
+            if ov.clv_n == 0:
+                continue
+            md.append(f"\n### {label}\n")
+            md.append("| Bucket         | Bets w/ Close | Beat Close % | Avg CLV % |\n"
+                     "|---             |--------------:|-------------:|----------:|")
+            md.append(f"| OVERALL        | {ov.clv_n:>13d} | {ov.beat_close_pct*100:>11.1f}% | "
+                      f"{ov.avg_clv*100:>+8.2f}% |")
+            for cat in clv_markets:
+                if cat in by_cat and by_cat[cat].clv_n > 0:
+                    b = by_cat[cat]
+                    md.append(f"| {cat:14s} | {b.clv_n:>13d} | {b.beat_close_pct*100:>11.1f}% | "
+                              f"{b.avg_clv*100:>+8.2f}% |")
 
     # Open / pending
     pend = [r for r in rows if r["status"] == "pending"]

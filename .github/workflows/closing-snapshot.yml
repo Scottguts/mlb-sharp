@@ -2,7 +2,7 @@ name: Closing Line Snapshot
 
 # Captures closing-line value for pending bets across all MLB game windows.
 # We run hourly from ~12:30 PM ET through ~11:30 PM ET. Each invocation
-# only fetches odds if there are pending bets in the next 60 min, and only
+# only fetches odds if there are pending bets in the next 120 min, and only
 # writes closing data once per bet — so it's idempotent and budget-safe.
 #
 # Cron is in UTC. EDT = UTC-4, EST = UTC-5; we cover both.
@@ -49,7 +49,7 @@ jobs:
         run: git pull --rebase --autostash
 
       - name: Snapshot closing lines for pending bets
-        run: python closing_snapshot.py --data-root ./mlb_data --lookahead 60
+        run: python closing_snapshot.py --data-root ./mlb_data --lookahead 120
 
       - name: Commit closing data if anything changed
         run: |
