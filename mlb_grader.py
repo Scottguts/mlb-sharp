@@ -173,7 +173,7 @@ MAX_CARDS_PER_SLATE      = 5       # top-5 regular plays
 MAX_UNITS_PER_SLATE      = 6.0     # regular pool bankroll cap
 MAX_PROP_CARDS_PER_SLATE = 3       # top-3 prop plays (separate pool)
 MAX_PROP_UNITS_PER_SLATE = 3.0     # prop pool bankroll cap
-MAX_UNITS_PER_GAME       = 1.5     # never overload a single game (across pools)
+MAX_UNITS_PER_GAME       = 1.5     # regular-pool per-game unit cap (props excluded)
 MAX_CARDS_PER_GAME       = 1       # only 1 REGULAR bet per game; props counted separately
 ALLOW_PARLAYS            = False   # singles only
 
@@ -1217,6 +1217,63 @@ def _devig_player_props(prop_event: dict, market_key: str, player_name: str,
     return devigged[len(devigged) // 2], offers
 
 
+# Pitcher-prop verification gates — shared by the real-bet pipeline
+# (make_pitcher_prop_card) and the website board builder
+# (build_site.build_rich_pitcher_prop) so a board never appears for a pitcher
+# whose projection would have been filtered out for a real bet.
+PROP_FRESHNESS_DAYS = 14          # most-recent start must be within N days
+PROP_RECENT_WINDOW  = 5           # how many recent starts define "recent actuals"
+PROP_PLAUSIBILITY = {             # market_key -> (recent_field, lo_mult, hi_mult)
+    "pitcher_strikeouts": ("strikeouts", 0.4, 2.5),
+    "pitcher_walks":      ("walks",      0.3, 3.0),
+}
+
+
+def pitcher_prop_passes_gates(game: dict, side: str, market_key: str, lam: float,
+                              today: date | None = None) -> bool:
+    """Sanity-check a pitcher's data before emitting a K/BB prop.
+
+    1. Freshness: most-recent start within PROP_FRESHNESS_DAYS.
+    2. Plausibility: lambda within [lo_mult, hi_mult] x the average of the
+       pitcher's last PROP_RECENT_WINDOW actuals — filters hot/cold
+       extrapolations from one anomalous start.
+
+    Returns False (skip) on missing, stale, or implausible data.
+    """
+    prof = ((game or {}).get(side) or {}).get("pitcher_profile") or {}
+    starts_list = prof.get("starts") or []
+    if not starts_list:
+        return False
+    today = today or date.today()
+    try:
+        last_date = date.fromisoformat(str(starts_list[0].get("game_date", ""))[:10])
+    except ValueError:
+        return False
+    if (today - last_date).days > PROP_FRESHNESS_DAYS:
+        return False
+    spec = PROP_PLAUSIBILITY.get(market_key)
+    if spec:
+        recent_field, lo_mult, hi_mult = spec
+        vals = [s.get(recent_field) for s in starts_list[:PROP_RECENT_WINDOW]
+                if s.get(recent_field) is not None]
+        if len(vals) >= 2:
+            avg_recent = sum(vals) / len(vals)
+            if avg_recent > 0 and (lam > hi_mult * avg_recent or lam < lo_mult * avg_recent):
+                return False
+    return True
+
+
+def pitcher_prop_confidence(edge: float, starts: int) -> int:
+    """1-10 confidence for a pitcher prop, driven by edge and sample size.
+    Shared with build_site so the board's unit count matches the real bet."""
+    if   edge >= 0.10: conf_e = 4
+    elif edge >= 0.07: conf_e = 3
+    elif edge >= 0.05: conf_e = 2
+    else: conf_e = 1
+    sample_score = 2 if starts >= 8 else (1 if starts >= 5 else 0)
+    return int(_clip(4 + conf_e + sample_score, 1, 10))
+
+
 def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
                             prop_event: dict, market_key: str) -> BetCard | None:
     """Generate a real-bet card from a pitcher prop projection (K or BB).
@@ -1245,34 +1302,11 @@ def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
         return None
     if not lam or lam < MIN_PITCHER_PROJ.get(market_key, 0.5): return None
 
-    # === Verification gates — sanity-check the pitcher's data ===
-    # 1. Recent-start freshness: last Statcast start within 14 days.
-    # 2. Projection-plausibility: lambda must be within 2-3x of recent
-    #    actuals (filters out hot/cold extrapolations from one anomalous start).
-    from datetime import date as _date
-    side_data = (game or {}).get(side) or {}
-    prof = side_data.get("pitcher_profile") or {}
-    starts_list = prof.get("starts") or []
-    if not starts_list: return None
-    try:
-        last_date_str = str(starts_list[0].get("game_date", ""))[:10]
-        last_date = _date.fromisoformat(last_date_str)
-        if (_date.today() - last_date).days > 14:
-            return None   # pitcher hasn't pitched recently — skip
-    except Exception:
+    # Verification gates — freshness + projection plausibility. Shared with
+    # build_site.build_rich_pitcher_prop so the website board matches the
+    # real-bet decision exactly.
+    if not pitcher_prop_passes_gates(game, side, market_key, lam):
         return None
-    if market_key == "pitcher_strikeouts":
-        recent_ks = [s.get("strikeouts") for s in starts_list[:3] if s.get("strikeouts") is not None]
-        if len(recent_ks) >= 2:
-            avg_recent = sum(recent_ks) / len(recent_ks)
-            if avg_recent > 0 and (lam > 2.5 * avg_recent or lam < 0.4 * avg_recent):
-                return None
-    elif market_key == "pitcher_walks":
-        recent_bb = [s.get("walks") for s in starts_list[:3] if s.get("walks") is not None]
-        if len(recent_bb) >= 2:
-            avg_recent = sum(recent_bb) / len(recent_bb)
-            if avg_recent > 0 and (lam > 3.0 * avg_recent or lam < 0.3 * avg_recent):
-                return None
 
     # Find consensus line (mode across all books carrying this player's market)
     target = (player_name or "").lower()
@@ -1328,12 +1362,7 @@ def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
     if edge > MAX_EDGE_PITCHER_PROP:  return None
 
     # Confidence — driven primarily by edge and sample size
-    if   edge >= 0.10: conf_e = 4
-    elif edge >= 0.07: conf_e = 3
-    elif edge >= 0.05: conf_e = 2
-    else: conf_e = 1
-    sample_score = 2 if starts >= 8 else (1 if starts >= 5 else 0)
-    conf = int(_clip(4 + conf_e + sample_score, 1, 10))
+    conf = pitcher_prop_confidence(edge, starts)
     if conf < MIN_CONFIDENCE: return None
 
     units, risk = unit_size_from(edge, conf)
@@ -1495,14 +1524,21 @@ def grade_one_game(game, odds_for_game):
                 c = make_pitcher_prop_card(game, pp.get("side"), pp, prop_event, "pitcher_walks")
                 if c: cards.append(c)
 
-    # Per-game cap — best-edge bet wins, max 1 card per game
+    # Per-game cap — applied PER POOL so a pitcher prop and a regular bet on
+    # the same game don't compete. Regular markets keep the single best-edge
+    # card per game (MAX_CARDS_PER_GAME / MAX_UNITS_PER_GAME); prop cards pass
+    # through here and are deduped per-pitcher and pool-capped in run().
     cards.sort(key=lambda c: (-c.edge, -c.confidence))
     capped: list[BetCard] = []
-    units_so_far = 0.0
+    reg_count = 0
+    reg_units = 0.0
     for c in cards:
-        if len(capped) >= MAX_CARDS_PER_GAME: break
-        if units_so_far + c.unit_size > MAX_UNITS_PER_GAME: continue
-        capped.append(c); units_so_far += c.unit_size
+        if c.market in PITCHER_PROP_MARKETS:
+            capped.append(c)
+            continue
+        if reg_count >= MAX_CARDS_PER_GAME: continue
+        if reg_units + c.unit_size > MAX_UNITS_PER_GAME: continue
+        capped.append(c); reg_count += 1; reg_units += c.unit_size
 
     # Tracked props (Phase 1: data tracking only, no bets fired from these)
     ump_delta, _ = _umpire_run_delta(game)
@@ -1611,9 +1647,9 @@ def run(target, data_root):
         if len(chosen_props) >= MAX_PROP_CARDS_PER_SLATE: break
         if prop_units + card["unit_size"] > MAX_PROP_UNITS_PER_SLATE: continue
         pid = card.get("player_id")
-        if pid in prop_pitcher_ids: continue   # 1 prop per pitcher
+        if pid is None or pid in prop_pitcher_ids: continue   # 1 prop per pitcher; drop id-less
         chosen_props.append((game, card))
-        if pid is not None: prop_pitcher_ids.add(pid)
+        prop_pitcher_ids.add(pid)
         prop_units += card["unit_size"]
 
     chosen = chosen_regular + chosen_props
