@@ -4328,6 +4328,7 @@
       "edge": 0.1075,
       "kelly_pct": 12.26,
       "bet_size_units": 1.5,
+      "confidence": 9,
       "park_factor": 1.03,
       "expected_pa": 25,
       "starts_window": 5,
@@ -4568,7 +4569,8 @@
       "best_price": -134,
       "edge": 0.0635,
       "kelly_pct": 8.51,
-      "bet_size_units": 0.5,
+      "bet_size_units": 1.0,
+      "confidence": 7,
       "park_factor": 1.03,
       "expected_pa": 22,
       "starts_window": 5,
@@ -4810,6 +4812,7 @@
       "edge": 0.0617,
       "kelly_pct": 8.27,
       "bet_size_units": 0.5,
+      "confidence": 6,
       "park_factor": 1.05,
       "expected_pa": 22,
       "starts_window": 4,
@@ -5040,7 +5043,8 @@
       "best_price": -112,
       "edge": 0.0562,
       "kelly_pct": 6.3,
-      "bet_size_units": 0.5,
+      "bet_size_units": 1.0,
+      "confidence": 7,
       "park_factor": 1.11,
       "expected_pa": 22,
       "starts_window": 5,
@@ -5252,229 +5256,6 @@
           "bb": 4,
           "csw": 19.1,
           "velo": 93.0
-        }
-      ]
-    },
-    {
-      "name": "Chris Sale",
-      "id": 519242,
-      "team_side": "away",
-      "team_name": "Atlanta Braves",
-      "team_id": 144,
-      "opp_name": "Boston Red Sox",
-      "opp_team_id": 111,
-      "matchup": "Atlanta Braves @ Boston Red Sox",
-      "game_pk": 824757,
-      "game_date": "2026-05-28T20:10:00Z",
-      "throws": "L",
-      "market_key": "pitcher_strikeouts",
-      "market_label": "Pitcher Strikeouts",
-      "unit": "K",
-      "consensus_line": 7.5,
-      "projection": 6.87,
-      "median": 7,
-      "sigma": 2.62,
-      "side": "under",
-      "our_prob": 0.583,
-      "our_over": 0.417,
-      "best_book": "draftkings",
-      "best_price": -124,
-      "edge": 0.0532,
-      "kelly_pct": 6.59,
-      "bet_size_units": 0.5,
-      "park_factor": 1.11,
-      "expected_pa": 25,
-      "starts_window": 4,
-      "k_per_start": 8.5,
-      "k_per_bf": 0.327,
-      "distribution": [
-        {
-          "k": 0,
-          "pmf": 0.001
-        },
-        {
-          "k": 1,
-          "pmf": 0.0071
-        },
-        {
-          "k": 2,
-          "pmf": 0.0245
-        },
-        {
-          "k": 3,
-          "pmf": 0.0561
-        },
-        {
-          "k": 4,
-          "pmf": 0.0964
-        },
-        {
-          "k": 5,
-          "pmf": 0.1324
-        },
-        {
-          "k": 6,
-          "pmf": 0.1516
-        },
-        {
-          "k": 7,
-          "pmf": 0.1488
-        },
-        {
-          "k": 8,
-          "pmf": 0.1278
-        },
-        {
-          "k": 9,
-          "pmf": 0.0976
-        },
-        {
-          "k": 10,
-          "pmf": 0.067
-        },
-        {
-          "k": 11,
-          "pmf": 0.0419
-        },
-        {
-          "k": 12,
-          "pmf": 0.024
-        },
-        {
-          "k": 13,
-          "pmf": 0.0127
-        },
-        {
-          "k": 14,
-          "pmf": 0.0062
-        },
-        {
-          "k": 15,
-          "pmf": 0.0028
-        },
-        {
-          "k": 16,
-          "pmf": 0.0012
-        }
-      ],
-      "line_table": [
-        {
-          "line": 0.5,
-          "over": 0.999,
-          "under": 0.001
-        },
-        {
-          "line": 1.5,
-          "over": 0.992,
-          "under": 0.008
-        },
-        {
-          "line": 2.5,
-          "over": 0.967,
-          "under": 0.033
-        },
-        {
-          "line": 3.5,
-          "over": 0.911,
-          "under": 0.089
-        },
-        {
-          "line": 4.5,
-          "over": 0.815,
-          "under": 0.185
-        },
-        {
-          "line": 5.5,
-          "over": 0.682,
-          "under": 0.318
-        },
-        {
-          "line": 6.5,
-          "over": 0.531,
-          "under": 0.469
-        },
-        {
-          "line": 7.5,
-          "over": 0.382,
-          "under": 0.618
-        },
-        {
-          "line": 8.5,
-          "over": 0.254,
-          "under": 0.746
-        },
-        {
-          "line": 9.5,
-          "over": 0.157,
-          "under": 0.843
-        }
-      ],
-      "book_offers": [
-        {
-          "book": "fanduel",
-          "line": 7.5,
-          "over_price": -102,
-          "under_price": -130,
-          "fair_over": 0.472,
-          "fair_under": 0.528
-        },
-        {
-          "book": "draftkings",
-          "line": 7.5,
-          "over_price": -102,
-          "under_price": -124,
-          "fair_over": 0.477,
-          "fair_under": 0.523
-        },
-        {
-          "book": "betmgm",
-          "line": 7.5,
-          "over_price": 100,
-          "under_price": -135,
-          "fair_over": 0.465,
-          "fair_under": 0.535
-        }
-      ],
-      "last_5_starts": [
-        {
-          "date": "2026-05-20",
-          "ip": 5.8,
-          "bf": 25,
-          "pitches": 96,
-          "k": 8,
-          "bb": 0,
-          "csw": 34.4,
-          "velo": 87.2
-        },
-        {
-          "date": "2026-05-14",
-          "ip": 5.8,
-          "bf": 25,
-          "pitches": 100,
-          "k": 8,
-          "bb": 2,
-          "csw": 30.0,
-          "velo": 88.0
-        },
-        {
-          "date": "2026-05-08",
-          "ip": 6.3,
-          "bf": 27,
-          "pitches": 102,
-          "k": 7,
-          "bb": 0,
-          "csw": 34.3,
-          "velo": 89.2
-        },
-        {
-          "date": "2026-05-02",
-          "ip": 6.3,
-          "bf": 27,
-          "pitches": 102,
-          "k": 11,
-          "bb": 3,
-          "csw": 29.4,
-          "velo": 89.5
         }
       ]
     }
