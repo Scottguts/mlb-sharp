@@ -3,17 +3,63 @@ name: Daily MLB Sharp Cards
 # Runs every day around 11:00 AM-12:00 PM America/New_York.
 # Cron is in UTC. Scheduled at minute 47 (off-peak) to minimize GitHub's
 # top-of-hour delivery delay; in practice the run starts ~11:15-12:15 PM ET.
+#
+# GitHub silently SKIPS scheduled runs under load, so each primary cron has a
+# backup ~90 min later. The `precheck` job makes the backup a no-op when the
+# primary already produced today's cards (guards against double-posting to
+# Discord / the record channel), so the backup only does real work on a skip.
 on:
   schedule:
-    - cron: "47 14 * * *"   # 10:47 AM ET during EDT (Mar-Nov)
-    - cron: "47 15 * * *"   # 10:47 AM ET during EST (Nov-Mar)
+    - cron: "47 14 * * *"   # 10:47 AM ET during EDT (Mar-Nov) — primary
+    - cron: "47 15 * * *"   # 10:47 AM ET during EST (Nov-Mar) — primary
+    - cron: "17 16 * * *"   # 12:17 PM ET during EDT — backup if primary skipped
+    - cron: "17 17 * * *"   # 12:17 PM ET during EST — backup if primary skipped
   workflow_dispatch:        # allow manual run from the Actions tab
 
 permissions:
   contents: write           # so we can commit the daily output back
 
+# Serialize runs: a backup cron (or a manual dispatch) that overlaps an
+# in-flight run waits for it to finish instead of racing on `git push`
+# (the cause of past non-fast-forward failures). The queued run then sees
+# the committed cards via `precheck` and skips.
+concurrency:
+  group: daily-mlb-sharp
+  cancel-in-progress: false
+
 jobs:
+  # Cheap gate: has today's slate already been produced and committed by an
+  # earlier run? If so, the backup run skips everything below. This checkout
+  # never scrapes, so cards.md exists here ONLY if a prior run committed it.
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TZ: America/New_York
+    outputs:
+      done: ${{ steps.guard.outputs.done }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Determine target date (US/Eastern)
+        id: date
+        run: echo "value=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if today's cards already exist
+        id: guard
+        run: |
+          if [ -f "mlb_data/${{ steps.date.outputs.value }}/cards.md" ]; then
+            echo "Today's cards already committed by an earlier run — skipping."
+            echo "done=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No cards yet for today — proceeding with full run."
+            echo "done=false" >> "$GITHUB_OUTPUT"
+          fi
+
   build-and-send:
+    needs: precheck
+    if: ${{ needs.precheck.outputs.done != 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
