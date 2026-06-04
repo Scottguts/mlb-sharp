@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-06-04 13:05_  
+_Generated 2026-06-04 13:38_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -49,6 +49,13 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | betmgm         |   38 |  20- 16-  0 |  55.6% |  24.50 |   +4.78 | +19.50% | 65.04% |
 | draftkings     |   37 |  19- 15-  1 |  55.9% |  28.00 |   +0.03 |  +0.10% | 19.70% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
+
+## Closing Line Value
+
+_Beat Close = bet's implied prob better than Pinnacle-devigged closing fair prob._  
+_Avg CLV = avg %-points by which our price beat the close (positive is good)._
+
+_No closing lines captured yet — the snapshot job populates this as pending bets reach first pitch._
 
 ## Pending (3)
 
