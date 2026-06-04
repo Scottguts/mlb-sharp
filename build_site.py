@@ -30,6 +30,13 @@ import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+from mlb_grader import (
+    pitcher_prop_passes_gates, pitcher_prop_confidence, unit_size_from,
+    MIN_EDGE_PITCHER_PROP, MAX_EDGE_PITCHER_PROP,
+    MIN_AMERICAN_PRICE, MAX_AMERICAN_PRICE,
+    MIN_CONFIDENCE, MIN_PITCHER_STARTS,
+)
+
 
 # ---------------------------------------------------------------------------
 # Data assembly
@@ -185,7 +192,7 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     if not (name and pid): return None
     if pitcher_data.get("data_quality") != "ok": return None
     starts = pitcher_data.get("starts_in_window") or 0
-    if starts < 3: return None
+    if starts < MIN_PITCHER_STARTS: return None
 
     # Market-specific lambda + line range + display unit
     if market_key == "pitcher_strikeouts":
@@ -203,6 +210,12 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
         line_choices = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5]
         n_bins = 9
     else:
+        return None
+
+    # Verification gates — freshness + projection plausibility. Identical to
+    # make_pitcher_prop_card so a board never appears for a pitcher whose
+    # projection would have been filtered out for a real bet.
+    if not pitcher_prop_passes_gates(game_payload, side_key, market_key, lam):
         return None
 
     # Poisson distribution
@@ -300,25 +313,26 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
         if best is None or price > best["price"]:
             best = {"book": o["book"], "price": price}
     if best is None: return None   # no eligible book → no board (matches recommendation behavior)
+    # Price band — matches make_pitcher_prop_card (no boards on prices we won't bet).
+    if not (MIN_AMERICAN_PRICE <= best["price"] <= MAX_AMERICAN_PRICE): return None
 
     # Edge & Kelly
     decimal = _decimal_from_american(best["price"])
     edge = our_prob * decimal - 1
-    # Match real-bet thresholds: 5%-15% edge band, 2-book confirmation
+    # Match real-bet thresholds: edge band + 2-book confirmation.
     target_book_offers = [o for o in consensus_offers if o["book"] in target_books]
     if len(target_book_offers) < 2: return None   # 2-book confirmation
-    if edge > 0.15: return None
-    if edge < 0.05: return None
+    if edge > MAX_EDGE_PITCHER_PROP: return None
+    if edge < MIN_EDGE_PITCHER_PROP: return None
     b_ = decimal - 1
     kelly = max(0.0, (our_prob * decimal - 1) / b_) if b_ > 0 else 0.0
 
-    # Bet size — mirror the UNIT_LADDER used by the real-bet pipeline so
-    # the Discord recommendation and the board show the same unit count.
-    # Tiers: (edge_floor, conf_floor, units, label)
-    # confidence is computed below; preliminary edge_score for sizing here:
-    if edge >= 0.10:   bet_size_units = 1.5
-    elif edge >= 0.07: bet_size_units = 1.0
-    else:              bet_size_units = 0.5
+    # Bet size — drive off the SAME confidence + UNIT_LADDER the real-bet
+    # pipeline uses, so the Discord recommendation and the board agree.
+    conf = pitcher_prop_confidence(edge, starts)
+    if conf < MIN_CONFIDENCE: return None
+    bet_size_units, _ = unit_size_from(edge, conf)
+    if bet_size_units == 0: return None
 
     # Park factor + matchup metadata
     venue = (game_payload or {}).get("venue") or {}
@@ -337,15 +351,18 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     throws = prof.get("throws")
     last_5_starts: list[dict] = []
     for s in (prof.get("starts") or [])[:5]:
+        bf_ = s.get("batters_faced")
+        csw_ = s.get("csw")
+        velo_ = s.get("avg_velo")
         last_5_starts.append({
             "date":   str(s.get("game_date", ""))[:10],
-            "ip":     round((s.get("batters_faced") or 0) / 4.3, 1),
-            "bf":     s.get("batters_faced"),
+            "ip":     round(bf_ / 4.3, 1) if bf_ is not None else None,
+            "bf":     bf_,
             "pitches": s.get("pitches"),
             "k":      s.get("strikeouts"),
             "bb":     s.get("walks"),
-            "csw":    round((s.get("csw") or 0) * 100, 1),
-            "velo":   round(s.get("avg_velo") or 0, 1),
+            "csw":    round(csw_ * 100, 1) if csw_ is not None else None,
+            "velo":   round(velo_, 1) if velo_ is not None else None,
         })
 
     # Team identifiers for logos / opponent display
@@ -387,6 +404,7 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
         "edge":           round(edge, 4),
         "kelly_pct":      round(kelly * 100, 2),
         "bet_size_units": bet_size_units,
+        "confidence":     conf,
 
         # Contextual stats
         "park_factor":    park_factor,
@@ -1780,6 +1798,7 @@ $('#bets-filter').addEventListener('click', (e) => {
 const MLB_HEADSHOT = (id) => `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${id}/headshot/67/current`;
 const MLB_TEAM_LOGO = (id) => `https://www.mlbstatic.com/team-logos/${id}.svg`;
 const BOOK_DISPLAY = {fanduel:'FanDuel', draftkings:'DraftKings', betmgm:'BetMGM', caesars:'Caesars', pinnacle:'Pinnacle'};
+const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function propBoardHTML(p) {
   const unit = p.unit || 'K';   // declare at top — must precede every template that references it
@@ -1854,11 +1873,13 @@ function propBoardHTML(p) {
   const lineFloorVal = Math.floor(p.consensus_line);
   let last5HTML = '';
   if (starts5.length) {
-    const dateFmt = ds => { if (!ds) return '—'; const [y,m,d] = ds.split('-'); return `${parseInt(m)}/${parseInt(d)}`; };
+    const dateFmt = ds => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(ds || ''); return m ? `${parseInt(m[2])}/${parseInt(m[3])}` : '—'; };
     const rows = starts5.map(s => {
       const v = s[propKey];
       let cls = '';
-      if (v != null) cls = (v > lineFloorVal) ? 'hi' : 'lo';
+      // Green = this start would have WON our bet side (matches the histogram's
+      // win-side logic), not merely "over the line".
+      if (v != null) cls = (inOver ? v > lineFloorVal : v <= lineFloorVal) ? 'hi' : 'lo';
       const kCls = propKey === 'k' ? cls : '';
       const bbCls = propKey === 'bb' ? cls : '';
       return `<tr>
@@ -1868,8 +1889,8 @@ function propBoardHTML(p) {
         <td>${s.pitches ?? '—'}</td>
         <td class="${kCls}">${s.k ?? '—'}</td>
         <td class="${bbCls}">${s.bb ?? '—'}</td>
-        <td>${s.csw ? s.csw.toFixed(0)+'%' : '—'}</td>
-        <td>${s.velo ? s.velo.toFixed(1) : '—'}</td>
+        <td>${s.csw != null ? s.csw.toFixed(0)+'%' : '—'}</td>
+        <td>${s.velo != null ? s.velo.toFixed(1) : '—'}</td>
       </tr>`;
     }).join('');
     const n = starts5.length;
@@ -1889,7 +1910,7 @@ function propBoardHTML(p) {
       <td>${avgVelo != null ? avgVelo.toFixed(1) : '—'}</td>
     </tr>`;
     last5HTML = `<div class="pb-last5">
-      <div class="l">Last ${n} Starts · green = beat ${p.consensus_line.toFixed(1)} line, red = under</div>
+      <div class="l">Last ${n} Starts · green = ${inOver ? 'over' : 'under'} ${p.consensus_line.toFixed(1)} (our side won), red = lost</div>
       <table>
         <thead><tr><th>Date</th><th>IP</th><th>BF</th><th>Pit</th><th>K</th><th>BB</th><th>CSW</th><th>Velo</th></tr></thead>
         <tbody>${rows}${avgRow}</tbody>
@@ -1900,14 +1921,14 @@ function propBoardHTML(p) {
   return `<div class="prop-board ${sideClass}">
     <div class="pb-top">
       <div class="pb-left">
-        ${p.id ? `<div class="pb-photo"><img src="${MLB_HEADSHOT(p.id)}" alt="${p.name}" onerror="this.style.display='none'" /></div>` : ''}
+        ${p.id ? `<div class="pb-photo"><img src="${MLB_HEADSHOT(p.id)}" alt="${escapeHtml(p.name)}" onerror="this.style.display='none'" /></div>` : ''}
         <div class="pb-info">
-          <div class="pb-market-label">${p.market_label || 'Pitcher Strikeouts'}</div>
-          <div class="pb-name">${p.name}</div>
+          <div class="pb-market-label">${escapeHtml(p.market_label || 'Pitcher Strikeouts')}</div>
+          <div class="pb-name">${escapeHtml(p.name)}</div>
           <div class="pb-matchup">
             ${p.team_id ? `<img class="team-logo" src="${MLB_TEAM_LOGO(p.team_id)}" alt="" onerror="this.style.display='none'" />` : ''}
-            <span>${p.team_name}</span>
-            <span class="muted">vs ${p.opp_name}</span>
+            <span>${escapeHtml(p.team_name)}</span>
+            <span class="muted">vs ${escapeHtml(p.opp_name)}</span>
             ${time ? `<span class="muted">· ${time}</span>` : ''}
           </div>
           <div class="pb-tape">

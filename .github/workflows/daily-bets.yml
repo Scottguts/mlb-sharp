@@ -50,6 +50,11 @@ jobs:
         id: date
         run: echo "value=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
+      - name: Configure git identity
+        run: |
+          git config user.name  "mlb-sharp-bot"
+          git config user.email "mlb-sharp-bot@users.noreply.github.com"
+
       - name: Settle yesterday's pending bets
         run: python bet_tracker.py settle --data-root ./mlb_data
         continue-on-error: true
@@ -64,6 +69,13 @@ jobs:
       - name: Grade games and build cards
         run: python mlb_grader.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
 
+      # --- User-facing output first: post to Discord the moment cards exist,
+      #     before the non-critical reporting/sim/dashboard steps run. notify.py
+      #     reads only the graded cards + settled paper P/L, so this is safe. ---
+      - name: Send cards to configured destinations
+        run: python notify.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
+        continue-on-error: true   # don't fail the workflow if a webhook is down
+
       - name: Append today's cards to bet log
         run: python bet_tracker.py append --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
 
@@ -74,6 +86,25 @@ jobs:
         run: python bet_tracker.py paper-report --window-days 7 --data-root ./mlb_data
         continue-on-error: true
 
+      # build_site reads bet_log.csv / prop_paper_log.csv (updated above) but
+      # NOT the bankroll sim or dashboard, so it runs here — right after the
+      # record is fresh and before the non-critical steps.
+      - name: Rebuild public site (docs/ for GitHub Pages)
+        run: python build_site.py --data-root ./mlb_data --out ./docs
+        continue-on-error: true   # site is nice-to-have
+
+      # Push docs/ immediately so GitHub Pages starts rebuilding now instead of
+      # waiting on the sim/dashboard/record steps below.
+      - name: Deploy site (commit docs/ early)
+        run: |
+          git add docs/
+          if git diff --staged --quiet; then
+            echo "No site changes to commit"
+          else
+            git commit -m "site: prop boards + record ${{ steps.date.outputs.value }}"
+            git push
+          fi
+
       - name: Rebuild bankroll simulation
         run: python bankroll_sim.py --data-root ./mlb_data
         continue-on-error: true   # sim is non-critical
@@ -82,22 +113,12 @@ jobs:
         run: python build_dashboard.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
         continue-on-error: true   # dashboard is nice-to-have
 
-      - name: Rebuild public site (docs/ for GitHub Pages)
-        run: python build_site.py --data-root ./mlb_data --out ./docs
-        continue-on-error: true   # site is nice-to-have
-
-      - name: Send cards to configured destinations
-        run: python notify.py --date ${{ steps.date.outputs.value }} --data-root ./mlb_data
-        continue-on-error: true   # don't fail the workflow if a webhook is down
-
       - name: Post bet record to dedicated channel
         run: python post_record.py --data-root ./mlb_data
         continue-on-error: true
 
-      - name: Commit daily artifacts back to repo
+      - name: Commit remaining daily artifacts back to repo
         run: |
-          git config user.name  "mlb-sharp-bot"
-          git config user.email "mlb-sharp-bot@users.noreply.github.com"
           git add mlb_data/${{ steps.date.outputs.value }}/ \
                   mlb_data/bet_log.csv mlb_data/record.md mlb_data/bankroll_sim.md \
                   mlb_data/dashboard.html \
