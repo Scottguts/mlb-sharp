@@ -9,11 +9,18 @@ name: Daily MLB Sharp Cards
 # primary already produced today's cards (guards against double-posting to
 # Discord / the record channel), so the backup only does real work on a skip.
 on:
+  # Multiple staggered attempts. GitHub cron is best-effort and has no timezone,
+  # so every entry below fires year-round (UTC-4 in EDT, UTC-5 in EST) — they are
+  # just independent retries. precheck makes every attempt after the first a free
+  # no-op, so more attempts only RAISE the odds of at least one firing before
+  # game time; they never double-post.
   schedule:
-    - cron: "47 14 * * *"   # 10:47 AM ET during EDT (Mar-Nov) — primary
-    - cron: "47 15 * * *"   # 10:47 AM ET during EST (Nov-Mar) — primary
-    - cron: "17 16 * * *"   # 12:17 PM ET during EDT — backup if primary skipped
-    - cron: "17 17 * * *"   # 12:17 PM ET during EST — backup if primary skipped
+    - cron: "47 14 * * *"   # 10:47 ET (EDT) / 09:47 ET (EST) — primary
+    - cron: "47 15 * * *"   # 11:47 ET (EDT) / 10:47 ET (EST) — primary
+    - cron: "32 15 * * *"   # 11:32 ET (EDT) / 10:32 ET (EST) — retry
+    - cron: "32 16 * * *"   # 12:32 ET (EDT) / 11:32 ET (EST) — retry
+    - cron: "17 16 * * *"   # 12:17 ET (EDT) / 11:17 ET (EST) — backup
+    - cron: "17 17 * * *"   # 13:17 ET (EDT) / 12:17 ET (EST) — backup
   workflow_dispatch:        # allow manual run from the Actions tab
 
 permissions:
