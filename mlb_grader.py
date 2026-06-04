@@ -1178,6 +1178,32 @@ def _poisson_cdf_local(k: int, lam: float) -> float:
     return min(1.0, s)
 
 
+# Strikeout/walk counts are OVER-dispersed relative to Poisson (game-to-game
+# variation in stuff, matchup and outing length), so a pure Poisson is too
+# confident in the tails. Forward paper-trading confirmed it: every model
+# confidence bucket finished BELOW its predicted win rate. A Negative Binomial
+# with variance = mean * PROP_DISPERSION widens the distribution and pulls the
+# side probabilities back toward 50/50 — better-calibrated, fewer false edges.
+PROP_DISPERSION = 1.3   # variance/mean; 1.0 == Poisson
+
+
+def _nb_cdf_local(k: int, mean: float, phi: float = PROP_DISPERSION) -> float:
+    """P(X <= k) for a Negative Binomial parameterised by mean and dispersion
+    phi = variance/mean (phi > 1 = over-dispersed). Falls back to Poisson when
+    phi <= 1 or the mean is degenerate."""
+    if phi <= 1.0 or mean <= 0:
+        return _poisson_cdf_local(k, mean)
+    if k < 0: return 0.0
+    p = 1.0 / phi                 # var/mean = 1/p  ->  p = 1/phi
+    r = mean * p / (1.0 - p)      # mean = r(1-p)/p
+    term = p ** r                 # P(X = 0)
+    s = term
+    for i in range(1, k + 1):
+        term *= (i + r - 1) / i * (1.0 - p)
+        s += term
+    return min(1.0, s)
+
+
 def _devig_player_props(prop_event: dict, market_key: str, player_name: str,
                          target_line: float) -> tuple[float, list[tuple[str, int, int]]] | tuple[None, None]:
     """Pull every book's O/U on this player at the consensus line. Returns
@@ -1336,14 +1362,15 @@ def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
     book_offers = [(bk, op, up) for bk, op, up in offers if bk in TARGET_BOOKS]
     if len(book_offers) < 2: return None
 
-    # Raw Poisson side probabilities
+    # Model side probabilities — Negative Binomial (over-dispersed) so the
+    # tails aren't over-confident the way a pure Poisson is.
     k_floor = int(consensus_line)
-    poisson_over = 1.0 - _poisson_cdf_local(k_floor, lam)
+    model_over = 1.0 - _nb_cdf_local(k_floor, lam)
 
     # Market-anchored side prob: nudge market prior by capped delta
-    side_target = "over" if poisson_over >= 0.5 else "under"
+    side_target = "over" if model_over >= 0.5 else "under"
     market_side = market_over if side_target == "over" else (1.0 - market_over)
-    model_side  = poisson_over if side_target == "over" else (1.0 - poisson_over)
+    model_side  = model_over if side_target == "over" else (1.0 - model_over)
     shift = _clip(model_side - 0.5, -0.06, 0.06)
     our_prob = _clip(market_side + shift, 0.05, 0.95)
 
