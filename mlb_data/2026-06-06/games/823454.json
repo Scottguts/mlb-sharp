@@ -14,17 +14,17 @@
     "indoor": false,
     "park": "Citizens Bank Park",
     "first_pitch_iso": "2026-06-06T20:05:00Z",
-    "temp_f": 89.8,
-    "humidity_pct": 36,
-    "dew_point_f": 59.3,
-    "wind_mph": 12.6,
-    "wind_dir_deg": 237,
+    "temp_f": 89.5,
+    "humidity_pct": 34,
+    "dew_point_f": 57.5,
+    "wind_mph": 11.1,
+    "wind_dir_deg": 240,
     "wind_effect": {
       "effect": "cross",
       "delta_runs": 0.0,
-      "angle_off_cf": 40
+      "angle_off_cf": 43
     },
-    "precip_prob_pct": 19
+    "precip_prob_pct": 12
   },
   "away": {
     "team_id": 145,
@@ -710,8 +710,135 @@
       "notes": []
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "L",
+      "batters": [
+        {
+          "id": 656941,
+          "name": "Kyle Schwarber",
+          "ab": 85,
+          "pa": 100,
+          "ops": 1.002,
+          "avg": 0.282,
+          "obp": 0.39,
+          "slg": 0.612,
+          "woba": 0.544,
+          "k_pct": 0.3,
+          "bb_pct": 0.12,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 22,
+            "ops": 0.899,
+            "obp": 0.444,
+            "slg": 0.455,
+            "woba": 0.511
+          }
+        },
+        {
+          "id": 607208,
+          "name": "Trea Turner",
+          "ab": 76,
+          "pa": 87,
+          "ops": 0.537,
+          "avg": 0.184,
+          "obp": 0.287,
+          "slg": 0.25,
+          "woba": 0.311,
+          "k_pct": 0.161,
+          "bb_pct": 0.126,
+          "walks": 11,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 25,
+            "ab": 24,
+            "ops": 0.53,
+            "obp": 0.28,
+            "slg": 0.25,
+            "woba": 0.306
+          }
+        },
+        {
+          "id": 547180,
+          "name": "Bryce Harper",
+          "ab": 83,
+          "pa": 99,
+          "ops": 0.696,
+          "avg": 0.229,
+          "obp": 0.323,
+          "slg": 0.373,
+          "woba": 0.391,
+          "k_pct": 0.212,
+          "bb_pct": 0.131,
+          "walks": 13,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 23,
+            "ab": 16,
+            "ops": 1.022,
+            "obp": 0.522,
+            "slg": 0.5,
+            "woba": 0.585
+          }
+        },
+        {
+          "id": 664761,
+          "name": "Alec Bohm",
+          "ab": 67,
+          "pa": 73,
+          "ops": 0.737,
+          "avg": 0.224,
+          "obp": 0.274,
+          "slg": 0.463,
+          "woba": 0.397,
+          "k_pct": 0.151,
+          "bb_pct": 0.055,
+          "walks": 4,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 24,
+            "ab": 23,
+            "ops": 0.811,
+            "obp": 0.333,
+            "slg": 0.478,
+            "woba": 0.445
+          }
+        },
+        {
+          "id": 669016,
+          "name": "Brandon Marsh",
+          "ab": 47,
+          "pa": 51,
+          "ops": 0.74,
+          "avg": 0.277,
+          "obp": 0.314,
+          "slg": 0.426,
+          "woba": 0.408,
+          "k_pct": 0.333,
+          "bb_pct": 0.039,
+          "walks": 2,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 22,
+            "ab": 21,
+            "ops": 0.933,
+            "obp": 0.409,
+            "slg": 0.524,
+            "woba": 0.518
+          }
+        }
+      ],
+      "avg_woba": 0.41,
+      "avg_ops": 0.742,
+      "avg_k_pct": 0.231,
+      "avg_bb_pct": 0.094
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -730,9 +857,64 @@
     }
   },
   "lineups": {
-    "lineups_confirmed": false,
+    "lineups_confirmed": true,
     "away_lineup": [],
-    "home_lineup": [],
+    "home_lineup": [
+      {
+        "id": 656941,
+        "name": "Kyle Schwarber",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 607208,
+        "name": "Trea Turner",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 547180,
+        "name": "Bryce Harper",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 664761,
+        "name": "Alec Bohm",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 669016,
+        "name": "Brandon Marsh",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 592663,
+        "name": "J.T. Realmuto",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 681082,
+        "name": "Bryson Stott",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 666969,
+        "name": "Adolis Garc\u00eda",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 702222,
+        "name": "Justin Crawford",
+        "position": "CF",
+        "bat_side": null
+      }
+    ],
     "umpires": [],
     "hp_ump_tendency": null
   },

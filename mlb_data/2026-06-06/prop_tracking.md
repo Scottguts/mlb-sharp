@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 25/25 OK · pitcher walks 25/25 OK · batter walks 15/19 OK
+**Slate-wide data quality:** pitcher Ks 28/28 OK · pitcher walks 28/28 OK · batter walks 49/54 OK
 
 
 ### Baltimore Orioles @ Toronto Blue Jays
@@ -12,12 +12,23 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| AWAY | Kyle Bradish | 5 | 6.0 | 0.242 | — | **5.32** | ok |
+| HOME | Braydon Fisher | 14 | 1.07 | 0.278 | — | **6.12** | ok |
+| AWAY | Kyle Bradish | 5 | 6.0 | 0.242 | 14.7% | **4.53** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| AWAY | Kyle Bradish | 5 | 2.4 | 0.097 | — | **2.13** | ok |
+| HOME | Braydon Fisher | 14 | 0.29 | 0.074 | — | **1.63** | ok |
+| AWAY | Kyle Bradish | 5 | 2.4 | 0.097 | 5.6% | **1.71** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | George Springer | 7.9% | 139 | **0.397** | ok |
+| HOME | 2 | Nathan Lukes | 3.3% | 91 | **0.162** | ok |
+| HOME | 3 | Vladimir Guerrero Jr. | 10.1% | 207 | **0.484** | ok |
+| HOME | 4 | Jesús Sánchez | 4.1% | 169 | **0.187** | ok |
+| HOME | 5 | Ernie Clement | 2.7% | 184 | **0.12** | ok |
 
 ### Cleveland Guardians @ Texas Rangers
 
@@ -80,27 +91,64 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Andrew Painter | 5 | 3.0 | 0.146 | — | **3.21** | ok |
-| AWAY | Brandon Eisert | 10 | 1.1 | 0.275 | — | **6.05** | ok |
+| AWAY | Brandon Eisert | 10 | 1.1 | 0.275 | 23.1% | **6.35** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Andrew Painter | 5 | 1.6 | 0.078 | — | **1.72** | ok |
-| AWAY | Brandon Eisert | 10 | 0.4 | 0.1 | — | **2.2** | ok |
+| AWAY | Brandon Eisert | 10 | 0.4 | 0.1 | 9.4% | **2.43** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Kyle Schwarber | 12.0% | 100 | **0.621** | ok |
+| HOME | 2 | Trea Turner | 12.6% | 87 | **0.637** | ok |
+| HOME | 3 | Bryce Harper | 13.1% | 99 | **0.647** | ok |
+| HOME | 4 | Alec Bohm | 5.5% | 73 | **0.259** | ok |
+| HOME | 5 | Brandon Marsh | 3.9% | 51 | **0.179** | small_sample |
+
+### Boston Red Sox @ New York Yankees
+
+**Pitcher K projections**
+| Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
+|---|---|---:|---:|---:|---:|---:|---|
+| HOME | Will Warren | 4 | 4.25 | 0.175 | — | **3.85** | ok |
+| AWAY | Ranger Suarez | 4 | 6.25 | 0.278 | — | **6.12** | ok |
+
+**Pitcher walks projections**
+| Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
+|---|---|---:|---:|---:|---:|---:|---|
+| HOME | Will Warren | 4 | 2.0 | 0.082 | — | **1.8** | ok |
+| AWAY | Ranger Suarez | 4 | 2.25 | 0.1 | — | **2.2** | ok |
 
 ### Kansas City Royals @ Minnesota Twins
 
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Joe Ryan | 5 | 7.8 | 0.31 | — | **6.82** | ok |
-| AWAY | Luinder Avila | 6 | 2.33 | 0.219 | — | **4.82** | ok |
+| HOME | Joe Ryan | 5 | 7.8 | 0.31 | 22.2% | **6.88** | ok |
+| AWAY | Luinder Avila | 6 | 2.33 | 0.219 | 21.0% | **4.6** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Joe Ryan | 5 | 0.8 | 0.032 | — | **0.7** | ok |
-| AWAY | Luinder Avila | 6 | 1.67 | 0.156 | — | **3.43** | ok |
+| HOME | Joe Ryan | 5 | 0.8 | 0.032 | 10.7% | **0.88** | ok |
+| AWAY | Luinder Avila | 6 | 1.67 | 0.156 | 8.5% | **3.43** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Trevor Larnach | 14.3% | 161 | **0.786** | ok |
+| HOME | 2 | Brooks Lee | 5.7% | 158 | **0.306** | ok |
+| HOME | 3 | Kody Clemens | 7.5% | 160 | **0.394** | ok |
+| HOME | 4 | Josh Bell | 8.1% | 161 | **0.405** | ok |
+| HOME | 5 | Austin Martin | 7.1% | 126 | **0.346** | ok |
+| AWAY | 1 | Carter Jensen | 10.9% | 165 | **0.36** | ok |
+| AWAY | 2 | Bobby Witt Jr. | 10.2% | 225 | **0.329** | ok |
+| AWAY | 3 | Vinnie Pasquantino | 13.2% | 190 | **0.416** | ok |
+| AWAY | 4 | Maikel Garcia | 8.0% | 200 | **0.24** | ok |
+| AWAY | 5 | Jac Caglianone | 11.1% | 162 | **0.325** | ok |
 
 ### Tampa Bay Rays @ Miami Marlins
 
@@ -141,6 +189,15 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
 | HOME | Tatsuya Imai | 4 | 2.25 | 0.11 | — | **2.42** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Jeremy Peña | 5.9% | 118 | **0.26** | ok |
+| HOME | 2 | Yordan Alvarez | 15.0% | 280 | **0.645** | ok |
+| HOME | 3 | Christian Walker | 8.3% | 265 | **0.349** | ok |
+| HOME | 4 | Isaac Paredes | 9.5% | 243 | **0.38** | ok |
+| HOME | 5 | Jose Altuve | 10.1% | 189 | **0.394** | ok |
 
 ### Seattle Mariners @ Detroit Tigers
 
@@ -187,14 +244,28 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Ben Brown | 5 | 5.8 | 0.29 | — | **6.74** | ok |
-| AWAY | Landen Roupp | 5 | 5.8 | 0.259 | — | **5.7** | ok |
+| HOME | Ben Brown | 5 | 5.8 | 0.29 | 18.1% | **5.78** | ok |
+| AWAY | Landen Roupp | 5 | 5.8 | 0.259 | 24.2% | **6.27** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Ben Brown | 5 | 1.4 | 0.07 | — | **1.54** | ok |
-| AWAY | Landen Roupp | 5 | 2.2 | 0.098 | — | **2.16** | ok |
+| HOME | Ben Brown | 5 | 1.4 | 0.07 | 5.1% | **1.23** | ok |
+| AWAY | Landen Roupp | 5 | 2.2 | 0.098 | 12.6% | **2.69** | ok |
+
+**Top batter walk projections**
+| Side | Order | Batter | BB% | PA | Proj BB | Quality |
+|---|---:|---|---:|---:|---:|---|
+| HOME | 1 | Pete Crow-Armstrong | 9.2% | 173 | **0.467** | ok |
+| HOME | 2 | Michael Conforto | 13.5% | 96 | **0.669** | ok |
+| HOME | 3 | Michael Busch | 15.1% | 192 | **0.731** | ok |
+| HOME | 4 | Alex Bregman | 8.5% | 211 | **0.392** | ok |
+| HOME | 5 | Ian Happ | 16.4% | 189 | **0.737** | ok |
+| AWAY | 1 | Casey Schmitt | 3.6% | 167 | **0.13** | ok |
+| AWAY | 2 | Rafael Devers | 4.9% | 183 | **0.174** | ok |
+| AWAY | 3 | Luis Arraez | 7.1% | 183 | **0.246** | ok |
+| AWAY | 4 | Willy Adames | 5.6% | 198 | **0.184** | ok |
+| AWAY | 5 | Jung Hoo Lee | 4.3% | 163 | **0.138** | ok |
 
 ### Pittsburgh Pirates @ Atlanta Braves
 
