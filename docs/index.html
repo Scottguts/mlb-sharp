@@ -837,6 +837,7 @@ function teamCardHTML(side, label, gm) {
   const oppT    = gm.games?.[gm.gamePk]?.[oppSide] || {};
   const oppBat  = oppT.team_split_vs_opp_hand || {};
   let propBlock = '';
+  const propHdr = (extra) => `<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Starter prop projection${extra||''}</div>`;
   if (pk || pbb) {
     const projK  = (pk  && pk.projected_k      != null) ? pk.projected_k.toFixed(2)      : '—';
     const projBB = (pbb && pbb.projected_walks != null) ? pbb.projected_walks.toFixed(2) : '—';
@@ -846,7 +847,7 @@ function teamCardHTML(side, label, gm) {
     const oppK   = (oppBat.available && oppBat.k_pct  != null) ? (oppBat.k_pct*100).toFixed(1)+'%'  : '—';
     const oppBB  = (oppBat.available && oppBat.bb_pct != null) ? (oppBat.bb_pct*100).toFixed(1)+'%' : '—';
     propBlock = `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
-      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Starter prop projection${starts!=null?` · ${starts}-start window`:''}${dq && dq!=='ok'?` · ${dq} data`:''}</div>
+      ${propHdr(`${starts!=null?` · ${starts}-start window`:''}${dq && dq!=='ok'?` · ${dq} data`:''}`)}
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;">
         <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
           <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Proj K</div>
@@ -859,6 +860,16 @@ function teamCardHTML(side, label, gm) {
       </div>
       <div class="stat-line" style="margin-top:6px;"><span class="k">Faces ${oppName} — K%</span><span class="v">${oppK}</span></div>
       <div class="stat-line"><span class="k">Faces ${oppName} — BB%</span><span class="v">${oppBB}</span></div>
+    </div>`;
+  } else {
+    // No projection for this starter — render a consistent placeholder so the
+    // section appears on every game. Reason depends on what's missing.
+    const reason = !t.probable_pitcher_name ? 'starter not yet announced'
+                 : (prof.available === false) ? 'insufficient Statcast history (needs 3+ recent starts)'
+                 : 'no projection available yet';
+    propBlock = `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+      ${propHdr()}
+      <div class="muted" style="font-size:12px;">No projection — ${reason}.</div>
     </div>`;
   }
 
