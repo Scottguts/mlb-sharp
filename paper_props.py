@@ -580,7 +580,13 @@ def paper_pnl_summary(data_root: Path, window_days: int = 7) -> dict:
     # Real (live) bets P/L for comparison
     real = {"all": PaperBucket(market="ALL"), "moneyline": PaperBucket(market="moneyline"),
             "total": PaperBucket(market="total"), "runline": PaperBucket(market="runline"),
-            "f5_total": PaperBucket(market="f5_total"), "nrfi": PaperBucket(market="nrfi")}
+            "f5_total": PaperBucket(market="f5_total"), "nrfi": PaperBucket(market="nrfi"),
+            # real fired prop bets (the gated subset that clears the card filters) —
+            # tracked here so the report shows how the props we ACTUALLY bet perform,
+            # distinct from the ungated paper experiment above.
+            "pitcher_strikeouts": PaperBucket(market="pitcher_strikeouts"),
+            "pitcher_walks": PaperBucket(market="pitcher_walks"),
+            "batter_walks": PaperBucket(market="batter_walks")}
     real_log = data_root / "bet_log.csv"
     if real_log.exists():
         with real_log.open() as f:
@@ -619,8 +625,16 @@ def render_pnl_markdown(summary: dict) -> str:
     lines.append("\n## Real bets by market (same window, for comparison)\n")
     lines.append("| Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |")
     lines.append("|---|---:|:---:|---:|---:|---:|---:|")
-    for m in ("all", "moneyline", "total", "runline", "f5_total", "nrfi"):
-        b = summary["real"][m]
+    core_markets = ("all", "moneyline", "total", "runline", "f5_total", "nrfi")
+    prop_markets = ("pitcher_strikeouts", "pitcher_walks", "batter_walks")
+    for m in core_markets + prop_markets:
+        b = summary["real"].get(m)
+        if b is None:
+            continue
+        # always show core game markets (even at 0 bets); show prop rows only
+        # once they have settled real bets, to avoid empty noise.
+        if m in prop_markets and b.bets == 0:
+            continue
         lines.append(f"| {m} | {b.bets} | "
                      f"{b.won}-{b.lost}-{b.push}-{b.void}-{b.pending} | "
                      f"{b.win_pct*100:.1f}% | {b.units_risked:.1f}u | "

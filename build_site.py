@@ -1442,6 +1442,41 @@ function teamCardHTML(side, label, gm) {
   const splitR = splits.R ? `vs RHB: xwOBA ${(splits.R.xwoba ?? '—')}, CSW% ${((splits.R.csw||0)*100).toFixed(1)}` : null;
   const movementFlags = (prof.movement_flags || []);
 
+  // Starter prop projections (projected K / BB) + the K/BB rate of the lineup
+  // this pitcher faces. The opposing side's batting split is computed vs THIS
+  // starter's hand, so it's the relevant, reliably-populated "team rate".
+  const tp  = gm.tracked_props || {};
+  const pk  = (tp.pitcher_ks || []).find(p => p.side === side) || null;
+  const pbb = (tp.pitcher_walks || []).find(p => p.side === side) || null;
+  const oppSide = side === 'home' ? 'away' : 'home';
+  const oppT    = gm.games?.[gm.gamePk]?.[oppSide] || {};
+  const oppBat  = oppT.team_split_vs_opp_hand || {};
+  let propBlock = '';
+  if (pk || pbb) {
+    const projK  = (pk  && pk.projected_k      != null) ? pk.projected_k.toFixed(2)      : '—';
+    const projBB = (pbb && pbb.projected_walks != null) ? pbb.projected_walks.toFixed(2) : '—';
+    const starts = (pk && pk.starts_in_window) ?? (pbb && pbb.starts_in_window) ?? null;
+    const dq     = (pk && pk.data_quality) || (pbb && pbb.data_quality) || '';
+    const oppName = oppT.team_name || gm.matchup.split(' @ ')[oppSide === 'home' ? 1 : 0];
+    const oppK   = (oppBat.available && oppBat.k_pct  != null) ? (oppBat.k_pct*100).toFixed(1)+'%'  : '—';
+    const oppBB  = (oppBat.available && oppBat.bb_pct != null) ? (oppBat.bb_pct*100).toFixed(1)+'%' : '—';
+    propBlock = `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Starter prop projection${starts!=null?` · ${starts}-start window`:''}${dq && dq!=='ok'?` · ${dq} data`:''}</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;">
+        <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Proj K</div>
+          <div style="font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;">${projK}</div>
+        </div>
+        <div style="text-align:center;padding:6px;background:rgba(5,9,19,0.4);border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Proj BB</div>
+          <div style="font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;">${projBB}</div>
+        </div>
+      </div>
+      <div class="stat-line" style="margin-top:6px;"><span class="k">Faces ${oppName} — K%</span><span class="v">${oppK}</span></div>
+      <div class="stat-line"><span class="k">Faces ${oppName} — BB%</span><span class="v">${oppBB}</span></div>
+    </div>`;
+  }
+
   return `<div class="team-card">
     <div class="team-name">${teamName}<span class="side-pill" style="background:${side==='home'?'rgba(167,139,250,0.15)':'rgba(96,165,250,0.15)'};color:${sideColor};">${side === 'home' ? 'HOME' : 'AWAY'}</span></div>
     <div style="display:flex;gap:12px;margin-bottom:10px;">
@@ -1465,6 +1500,7 @@ function teamCardHTML(side, label, gm) {
       ${splitR ? `<div class="stat-line"><span class="k">${splitR.split(':')[0]}</span><span class="v">${splitR.split(':')[1]}</span></div>` : ''}
       ${movementFlags.length ? `<div class="stat-line"><span class="k">⚠ Movement flag</span><span class="v warn">${movementFlags[0]}</span></div>` : ''}
     ` : '<div class="muted" style="font-size:12px;margin-bottom:8px;">Pitcher data not available</div>'}
+    ${propBlock}
     ${bpq.bp_era !== undefined && bpq.bp_era !== null ? `
       <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Bullpen (L7d)</div>

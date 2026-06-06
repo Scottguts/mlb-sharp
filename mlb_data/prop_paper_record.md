@@ -22,6 +22,7 @@ _Paper bets only — no real money involved. Sized flat at 0.5u each._
 | runline | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
 | f5_total | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
 | nrfi | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
+| pitcher_strikeouts | 10 | 9-1-0-0-0 | 90.0% | 13.0u | +7.87u | +60.55% |
 
 ## Interpretation
 
