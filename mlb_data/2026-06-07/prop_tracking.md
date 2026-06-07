@@ -4,7 +4,7 @@ _Paper / data-quality tracking only. No bets fired from these markets yet._
 
 _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly day-over-day before we add the betting layer._
 
-**Slate-wide data quality:** pitcher Ks 27/28 OK · pitcher walks 27/28 OK · batter walks 53/57 OK
+**Slate-wide data quality:** pitcher Ks 27/28 OK · pitcher walks 27/28 OK · batter walks 68/72 OK
 
 
 ### Baltimore Orioles @ Toronto Blue Jays
@@ -12,13 +12,13 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Kevin Gausman | 5 | 6.2 | 0.258 | — | **5.68** | ok |
+| HOME | Kevin Gausman | 5 | 6.2 | 0.258 | 21.6% | **5.57** | ok |
 | AWAY | Shane Baz | 5 | 6.0 | 0.233 | 15.7% | **4.36** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Kevin Gausman | 5 | 1.0 | 0.042 | — | **0.92** | ok |
+| HOME | Kevin Gausman | 5 | 1.0 | 0.042 | 11.3% | **1.16** | ok |
 | AWAY | Shane Baz | 5 | 2.6 | 0.101 | 6.4% | **1.78** | ok |
 
 **Top batter walk projections**
@@ -29,6 +29,11 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | 3 | Vladimir Guerrero Jr. | 10.4% | 211 | **0.519** | ok |
 | HOME | 4 | Jesús Sánchez | 4.1% | 172 | **0.195** | ok |
 | HOME | 5 | Ernie Clement | 2.7% | 187 | **0.125** | ok |
+| AWAY | 1 | Taylor Ward | 17.9% | 212 | **0.591** | ok |
+| AWAY | 2 | Gunnar Henderson | 6.9% | 204 | **0.223** | ok |
+| AWAY | 3 | Adley Rutschman | 9.8% | 123 | **0.309** | ok |
+| AWAY | 4 | Pete Alonso | 11.7% | 197 | **0.351** | ok |
+| AWAY | 5 | Samuel Basallo | 10.3% | 146 | **0.301** | ok |
 
 ### Cleveland Guardians @ Texas Rangers
 
@@ -156,13 +161,13 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Sandy Alcantara | 5 | 4.2 | 0.159 | — | **3.5** | ok |
+| HOME | Sandy Alcantara | 5 | 4.2 | 0.159 | 18.3% | **2.97** | ok |
 | AWAY | Griffin Jax | 4 | 3.75 | 0.217 | 18.3% | **4.06** | ok |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Sandy Alcantara | 5 | 0.6 | 0.023 | — | **0.51** | ok |
+| HOME | Sandy Alcantara | 5 | 0.6 | 0.023 | 11.6% | **0.63** | ok |
 | AWAY | Griffin Jax | 4 | 1.5 | 0.087 | 9.2% | **2.07** | ok |
 
 **Top batter walk projections**
@@ -173,6 +178,11 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | 3 | Kyle Stowers | 9.0% | 134 | **0.387** | ok |
 | HOME | 4 | Xavier Edwards | 12.8% | 211 | **0.524** | ok |
 | HOME | 5 | Heriberto Hernández | 10.6% | 66 | **0.423** | ok |
+| AWAY | 1 | Yandy Díaz | 9.5% | 190 | **0.314** | ok |
+| AWAY | 2 | Jonathan Aranda | 14.4% | 194 | **0.464** | ok |
+| AWAY | 3 | Richie Palacios | 13.8% | 130 | **0.435** | ok |
+| AWAY | 4 | Junior Caminero | 11.6% | 199 | **0.348** | ok |
+| AWAY | 5 | Cedric Mullins | 8.9% | 157 | **0.26** | ok |
 
 ### Los Angeles Angels @ Los Angeles Dodgers
 
@@ -193,13 +203,13 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 **Pitcher K projections**
 | Side | Pitcher | Starts | K/start | K/BF | Opp K% | Proj K | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Mike Burrows | 5 | 4.2 | 0.16 | — | **3.52** | ok |
+| HOME | Mike Burrows | 5 | 4.2 | 0.16 | 19.4% | **3.1** | ok |
 | AWAY | Gage Jump | 2 | 5.0 | 0.2 | 19.5% | **3.9** | stale |
 
 **Pitcher walks projections**
 | Side | Pitcher | Starts | BB/start | BB/BF | Opp BB% | Proj BB | Quality |
 |---|---|---:|---:|---:|---:|---:|---|
-| HOME | Mike Burrows | 5 | 2.6 | 0.099 | — | **2.18** | ok |
+| HOME | Mike Burrows | 5 | 2.6 | 0.099 | 13.4% | **2.72** | ok |
 | AWAY | Gage Jump | 2 | 1.0 | 0.04 | 9.9% | **1.02** | stale |
 
 **Top batter walk projections**
@@ -209,6 +219,11 @@ _Goal: verify pitcher K/BB rates and batter walk rates are populating cleanly da
 | HOME | 2 | Christian Walker | 14.0% | 57 | **0.452** | small_sample |
 | HOME | 3 | Isaac Paredes | 10.3% | 58 | **0.324** | small_sample |
 | HOME | 4 | Cam Smith | 8.8% | 57 | **0.264** | small_sample |
+| AWAY | 1 | Nick Kurtz | 24.0% | 196 | **1.23** | ok |
+| AWAY | 2 | Carlos Cortes | 12.3% | 163 | **0.616** | ok |
+| AWAY | 3 | Shea Langeliers | 8.1% | 197 | **0.396** | ok |
+| AWAY | 4 | Tyler Soderstrom | 13.2% | 189 | **0.615** | ok |
+| AWAY | 5 | Brent Rooker | 9.5% | 147 | **0.432** | ok |
 
 ### Seattle Mariners @ Detroit Tigers
 

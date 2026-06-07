@@ -14,15 +14,15 @@
     "indoor": false,
     "park": "Rogers Centre",
     "first_pitch_iso": "2026-06-07T17:37:00Z",
-    "temp_f": 73.6,
-    "humidity_pct": 57,
-    "dew_point_f": 57.4,
-    "wind_mph": 2.0,
-    "wind_dir_deg": 186,
+    "temp_f": 70.7,
+    "humidity_pct": 64,
+    "dew_point_f": 58.0,
+    "wind_mph": 7.8,
+    "wind_dir_deg": 198,
     "wind_effect": {
-      "effect": "calm",
-      "delta_runs": 0.0,
-      "angle_off_cf": null
+      "effect": "out",
+      "delta_runs": 0.112,
+      "angle_off_cf": 18
     },
     "precip_prob_pct": 0
   },
@@ -326,8 +326,135 @@
       "notes": []
     },
     "top_of_order": {
-      "available": false,
-      "reason": "no_lineup"
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 621493,
+          "name": "Taylor Ward",
+          "ab": 172,
+          "pa": 212,
+          "ops": 0.73,
+          "avg": 0.25,
+          "obp": 0.387,
+          "slg": 0.343,
+          "woba": 0.421,
+          "k_pct": 0.231,
+          "bb_pct": 0.179,
+          "walks": 38,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 29,
+            "ab": 26,
+            "ops": 0.653,
+            "obp": 0.345,
+            "slg": 0.308,
+            "woba": 0.377
+          }
+        },
+        {
+          "id": 683002,
+          "name": "Gunnar Henderson",
+          "ab": 188,
+          "pa": 204,
+          "ops": 0.683,
+          "avg": 0.229,
+          "obp": 0.284,
+          "slg": 0.399,
+          "woba": 0.376,
+          "k_pct": 0.26,
+          "bb_pct": 0.069,
+          "walks": 14,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 28,
+            "ab": 25,
+            "ops": 0.833,
+            "obp": 0.393,
+            "slg": 0.44,
+            "woba": 0.469
+          }
+        },
+        {
+          "id": 668939,
+          "name": "Adley Rutschman",
+          "ab": 109,
+          "pa": 123,
+          "ops": 0.899,
+          "avg": 0.284,
+          "obp": 0.358,
+          "slg": 0.541,
+          "woba": 0.49,
+          "k_pct": 0.146,
+          "bb_pct": 0.098,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 23,
+            "ops": 1.059,
+            "obp": 0.407,
+            "slg": 0.652,
+            "woba": 0.574
+          }
+        },
+        {
+          "id": 624413,
+          "name": "Pete Alonso",
+          "ab": 171,
+          "pa": 197,
+          "ops": 0.82,
+          "avg": 0.251,
+          "obp": 0.34,
+          "slg": 0.48,
+          "woba": 0.451,
+          "k_pct": 0.223,
+          "bb_pct": 0.117,
+          "walks": 23,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 26,
+            "ab": 24,
+            "ops": 1.048,
+            "obp": 0.423,
+            "slg": 0.625,
+            "woba": 0.573
+          }
+        },
+        {
+          "id": 694212,
+          "name": "Samuel Basallo",
+          "ab": 129,
+          "pa": 146,
+          "ops": 0.899,
+          "avg": 0.279,
+          "obp": 0.349,
+          "slg": 0.55,
+          "woba": 0.488,
+          "k_pct": 0.219,
+          "bb_pct": 0.103,
+          "walks": 15,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 20,
+            "ab": 17,
+            "ops": 0.703,
+            "obp": 0.35,
+            "slg": 0.353,
+            "woba": 0.4
+          }
+        }
+      ],
+      "avg_woba": 0.445,
+      "avg_ops": 0.806,
+      "avg_k_pct": 0.216,
+      "avg_bb_pct": 0.113
     },
     "team_split_vs_opp_hand": {
       "available": true,
@@ -821,7 +948,62 @@
   },
   "lineups": {
     "lineups_confirmed": true,
-    "away_lineup": [],
+    "away_lineup": [
+      {
+        "id": 621493,
+        "name": "Taylor Ward",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 683002,
+        "name": "Gunnar Henderson",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 668939,
+        "name": "Adley Rutschman",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 624413,
+        "name": "Pete Alonso",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 694212,
+        "name": "Samuel Basallo",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 681297,
+        "name": "Colton Cowser",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 641933,
+        "name": "Tyler O'Neill",
+        "position": "RF",
+        "bat_side": null
+      },
+      {
+        "id": 702616,
+        "name": "Jackson Holliday",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 677942,
+        "name": "Blaze Alexander",
+        "position": "3B",
+        "bat_side": null
+      }
+    ],
     "home_lineup": [
       {
         "id": 543807,
