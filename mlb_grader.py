@@ -28,6 +28,7 @@ import argparse
 import json
 import math
 import os
+import re
 import sys
 from dataclasses import dataclass, asdict, field
 from datetime import date, datetime
@@ -1594,6 +1595,15 @@ def run(target, data_root):
         sys.exit(1)
     odds_path = day_dir / "odds.json"
     odds_root = _load(odds_path) if odds_path.exists() else None
+    # Detect a real data outage: no odds file, or the scraper flagged the feed
+    # unavailable, or it returned zero games. Without market prices the model has
+    # nothing to compute an edge against, so EVERY game is forced to "no play."
+    # That must NOT be rendered as a disciplined NO PLAYS — flag it loudly.
+    odds_outage = (
+        odds_root is None
+        or odds_root.get("available") is False
+        or not (odds_root.get("games") or [])
+    )
     prop_odds_path = day_dir / "prop_odds.json"
     prop_odds_root = _load(prop_odds_path) if prop_odds_path.exists() else None
     # Map prop events by team-pair for fast lookup
@@ -1676,7 +1686,21 @@ def run(target, data_root):
         f"props {MAX_PROP_CARDS_PER_SLATE} / {MAX_PROP_UNITS_PER_SLATE}u_\n",
     ]
     bet_count = 0
-    if not chosen:
+    if odds_outage and not chosen:
+        reason = "odds.json missing" if odds_root is None else \
+                 "; ".join((odds_root or {}).get("errors") or ["feed returned no games"])
+        # Never leak an API key into the committed card, even if an older
+        # odds.json still embeds one in its stored error URLs.
+        reason = re.sub(r"(apiKey=)[^&\s]+", r"\1***", reason)
+        md.append(
+            "## ⚠️ DATA OUTAGE — odds feed unavailable, NOT a model no-play.\n\n"
+            f"_{len(grades_out)} games graded on fundamentals, but **no market odds were "
+            f"available** to compute edges against, so no bets could be evaluated. "
+            f"This is an upstream data problem (likely API quota/auth), not the model "
+            f"finding no edge._\n\n"
+            f"_Reason: {reason}_\n"
+        )
+    elif not chosen:
         md.append(f"## NO PLAYS — {len(grades_out)} games graded, none cleared the filters.\n")
     else:
         if chosen_regular:

@@ -1,10 +1,14 @@
 # MLB Sharp Betting Cards — 2026-06-07
 
-_Generated 2026-06-07 11:11 _  
+_Generated 2026-06-07 11:25 _  
 _Books shopped: DRAFTKINGS, BETMGM, CAESARS_  
 _Caps: regular 5 / 6.0u · props 3 / 3.0u_
 
-## NO PLAYS — 15 games graded, none cleared the filters.
+## ⚠️ DATA OUTAGE — odds feed unavailable, NOT a model no-play.
+
+_15 games graded on fundamentals, but **no market odds were available** to compute edges against, so no bets could be evaluated. This is an upstream data problem (likely API quota/auth), not the model finding no edge._
+
+_Reason: combined call failed: 422 Client Error: Unprocessable Entity for url: https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?apiKey=***&regions=us%2Cus2%2Ceu&markets=h2h%2Cspreads%2Ctotals%2Ctotals_1st_5_innings%2Ctotals_1st_1_innings&oddsFormat=american&bookmakers=draftkings%2Cbetmgm%2Ccaesars%2Cpinnacle; fallback failed: 401 Client Error: Unauthorized for url: https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?apiKey=***&regions=us%2Cus2%2Ceu&markets=h2h%2Cspreads%2Ctotals&oddsFormat=american&bookmakers=draftkings%2Cbetmgm%2Ccaesars%2Cpinnacle_
 
 
 ## Other graded games (no play)

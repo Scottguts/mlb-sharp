@@ -32,6 +32,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from datetime import datetime, timedelta, date, timezone
@@ -104,6 +105,11 @@ PARKS: dict[int, dict[str, Any]] = {
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _redact(text: str) -> str:
+    """Strip secrets (API keys) out of any string before it is logged/persisted."""
+    return re.sub(r"(apiKey=)[^&\s]+", r"\1***", str(text))
+
 
 def _get(url: str, params: dict | None = None, retries: int = 3, timeout: int = 30) -> dict:
     """GET JSON with simple retry."""
@@ -1150,42 +1156,82 @@ def fetch_odds(api_key: str | None = None,
     if not api_key:
         return {"available": False, "reason": "ODDS_API_KEY not set"}
     url = f"{ODDS_API}/sports/baseball_mlb/odds"
-    # Note: alternate / inning markets often require multiple calls per
-    # The Odds API quota policy. We try the combined call first; if a market
-    # is rejected we degrade gracefully and fetch what we can.
     payload: dict[str, Any] = {
         "available": True,
         "fetched_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "books_used": list(books),
         "markets_requested": list(markets),
+        "markets_fetched": [],
         "games": [],
         "errors": [],
     }
+    # The Odds API rejects (422) certain inning/F5 markets when bundled with the
+    # full-game markets for the chosen book+region mix. The old code requested
+    # everything in one call, ate the 422 every single run, then fell back to a
+    # second call that silently DROPPED F5/NRFI markets — costing 2 requests AND
+    # never returning the inning data. Instead we split markets into two groups:
+    #   1. core full-game markets  → must succeed (a 422/401 here = real outage)
+    #   2. inning / F5 markets      → isolated, so their failure can't blank the
+    #                                 slate and the data is recovered when it IS
+    #                                 supported.
+    core_markets  = tuple(m for m in markets if m in FULL_MARKETS) or FULL_MARKETS
+    extra_markets = tuple(m for m in markets if m not in FULL_MARKETS)
+
+    games_by_id: dict[str, dict] = {}
+
+    def _merge(games: list[dict]) -> None:
+        """Merge a games list into games_by_id, combining markets per bookmaker."""
+        for g in games or []:
+            gid = g.get("id")
+            if not gid:
+                continue
+            if gid not in games_by_id:
+                games_by_id[gid] = g
+                continue
+            dst = games_by_id[gid]
+            dst_books = {b.get("key"): b for b in dst.get("bookmakers", [])}
+            for b in g.get("bookmakers", []):
+                k = b.get("key")
+                if k in dst_books:
+                    dst_books[k].setdefault("markets", []).extend(b.get("markets", []))
+                else:
+                    dst.setdefault("bookmakers", []).append(b)
+                    dst_books[k] = b
+
+    # 1) Core full-game markets — required. Failure here is a genuine outage.
     try:
-        data = _get(url, params={
+        core_data = _get(url, params={
             "apiKey":    api_key,
             "regions":   "us,us2,eu",
-            "markets":   ",".join(markets),
+            "markets":   ",".join(core_markets),
             "oddsFormat": "american",
             "bookmakers": ",".join(books),
         })
-        payload["games"] = data
+        _merge(core_data)
+        payload["markets_fetched"].extend(core_markets)
     except Exception as e:
-        payload["errors"].append(f"combined call failed: {e}")
-        # Fall back to the core full-game markets that are always supported
+        payload["available"] = False
+        payload["errors"].append(_redact(f"core full-game markets call failed: {e}"))
+        payload["games"] = list(games_by_id.values())
+        return payload
+
+    # 2) Inning / F5 markets — best-effort, isolated from the core slate.
+    if extra_markets:
         try:
-            data = _get(url, params={
+            extra_data = _get(url, params={
                 "apiKey":    api_key,
                 "regions":   "us,us2,eu",
-                "markets":   ",".join(FULL_MARKETS),
+                "markets":   ",".join(extra_markets),
                 "oddsFormat": "american",
                 "bookmakers": ",".join(books),
             })
-            payload["games"] = data
-            payload["errors"].append("fell back to full-game markets only")
-        except Exception as e2:
-            payload["available"] = False
-            payload["errors"].append(f"fallback failed: {e2}")
+            _merge(extra_data)
+            payload["markets_fetched"].extend(extra_markets)
+        except Exception as e:
+            payload["errors"].append(_redact(
+                f"inning/F5 markets unavailable (F5/NRFI skipped this run): {e}"))
+
+    payload["games"] = list(games_by_id.values())
     return payload
 
 
