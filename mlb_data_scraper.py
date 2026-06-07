@@ -112,18 +112,82 @@ def _redact(text: str) -> str:
 
 
 def _get(url: str, params: dict | None = None, retries: int = 3, timeout: int = 30) -> dict:
-    """GET JSON with simple retry."""
+    """GET JSON with simple retry. 4xx client errors are not retried (a 401/422
+    won't change on a re-request), but 5xx / network errors back off and retry."""
     headers = {"User-Agent": USER_AGENT}
     for i in range(retries):
         try:
             r = requests.get(url, params=params, headers=headers, timeout=timeout)
             r.raise_for_status()
             return r.json()
-        except Exception as e:
+        except requests.exceptions.HTTPError as e:
+            status = getattr(e.response, "status_code", None)
+            if status is not None and 400 <= status < 500:
+                raise  # client error — retrying won't help (quota, bad market, etc.)
+            if i == retries - 1:
+                raise
+            time.sleep(1.5 ** i)
+        except Exception:
             if i == retries - 1:
                 raise
             time.sleep(1.5 ** i)
     return {}
+
+
+# ---------------------------------------------------------------------------
+# Odds API key rotation / failover
+# ---------------------------------------------------------------------------
+# The Odds API sells a fixed monthly request quota per key. To stretch coverage
+# across a full month you can configure MULTIPLE keys: the primary is drained
+# first, and when it returns 401/429 (quota exhausted) we automatically fail
+# over to the next key — even mid-slate. 401/429 responses are NOT charged, so
+# re-probing a drained primary on later runs is free.
+#
+# Configure either way:
+#   * ODDS_API_KEY = "key1,key2,key3"        (comma-separated, in priority order)
+#   * ODDS_API_KEY="key1"  ODDS_API_KEY_2="key2"  ODDS_API_KEY_3="key3"  ...
+# Both forms can be combined; duplicates are ignored.
+_ODDS_DEAD_KEYS: set[str] = set()   # keys found exhausted during THIS process run
+
+
+def _odds_keys() -> list[str]:
+    """Ordered list of Odds API keys (primary first, then numbered backups)."""
+    keys: list[str] = []
+    for k in (os.environ.get("ODDS_API_KEY") or "").split(","):
+        k = k.strip()
+        if k and k not in keys:
+            keys.append(k)
+    for i in range(2, 9):  # ODDS_API_KEY_2 .. _8
+        k = (os.environ.get(f"ODDS_API_KEY_{i}") or "").strip()
+        if k and k not in keys:
+            keys.append(k)
+    return keys
+
+
+def _get_odds_json(url: str, params: dict, keys: list[str] | None = None) -> dict:
+    """GET against The Odds API, rotating through configured keys on quota
+    exhaustion (HTTP 401/429). Tries each live key in order and advances ONLY
+    when a key is out of quota; other errors (422 bad-market, network) raise so
+    callers can degrade gracefully as before."""
+    keys = keys or _odds_keys()
+    if not keys:
+        raise RuntimeError("no Odds API key configured (set ODDS_API_KEY)")
+    live = [k for k in keys if k not in _ODDS_DEAD_KEYS] or keys
+    last_exc: Exception | None = None
+    for idx, key in enumerate(live):
+        try:
+            return _get(url, params={**params, "apiKey": key}, retries=2)
+        except requests.exceptions.HTTPError as e:
+            status = getattr(e.response, "status_code", None)
+            if status in (401, 429):
+                _ODDS_DEAD_KEYS.add(key)   # skip this key for the rest of the run
+                last_exc = e
+                if idx < len(live) - 1:
+                    continue               # fail over to the next key
+            raise
+    if last_exc:
+        raise last_exc
+    raise RuntimeError("no Odds API key configured")
 
 
 def _save_json(path: Path, obj: Any) -> None:
@@ -1103,21 +1167,20 @@ def fetch_event_player_props(event_id: str, api_key: str | None = None,
     Each call costs one API unit regardless of how many markets are listed.
     Returns the raw event payload with bookmakers/markets/outcomes.
     """
-    api_key = api_key or os.environ.get("ODDS_API_KEY")
-    if not api_key:
+    keys = [api_key] if api_key else _odds_keys()
+    if not keys:
         return {"available": False, "reason": "no_key"}
     url = f"{ODDS_API}/sports/baseball_mlb/events/{event_id}/odds"
     try:
-        data = _get(url, params={
-            "apiKey":     api_key,
+        data = _get_odds_json(url, {
             "regions":    "us,us2,eu",
             "markets":    ",".join(markets),
             "oddsFormat": "american",
             "bookmakers": ",".join(books),
-        })
+        }, keys=keys)
         return {"available": True, "event": data, "markets_requested": list(markets)}
     except Exception as e:
-        return {"available": False, "error": str(e)}
+        return {"available": False, "error": _redact(str(e))}
 
 
 def fetch_all_player_props(events_with_ids: list[tuple[str, dict]],
@@ -1127,8 +1190,8 @@ def fetch_all_player_props(events_with_ids: list[tuple[str, dict]],
     Returns a flat dict keyed by event_id with the event payload + a tally of
     how many calls succeeded so the caller can monitor quota usage.
     """
-    api_key = api_key or os.environ.get("ODDS_API_KEY")
-    if not api_key:
+    keys = [api_key] if api_key else _odds_keys()
+    if not keys:
         return {"available": False, "reason": "no_key", "events": {}}
     out: dict[str, Any] = {"available": True, "events": {}, "calls": 0,
                             "successes": 0, "errors": []}
@@ -1152,8 +1215,10 @@ def fetch_odds(api_key: str | None = None,
     and 1st-inning totals (used as the NRFI/YRFI proxy — Over 0.5 = YRFI,
     Under 0.5 = NRFI). Requires The Odds API key (free tier exists).
     """
-    api_key = api_key or os.environ.get("ODDS_API_KEY")
-    if not api_key:
+    # Use the explicit key if one was passed, otherwise the rotation list so the
+    # primary key is drained before failing over to backups.
+    keys = [api_key] if api_key else _odds_keys()
+    if not keys:
         return {"available": False, "reason": "ODDS_API_KEY not set"}
     url = f"{ODDS_API}/sports/baseball_mlb/odds"
     payload: dict[str, Any] = {
@@ -1200,13 +1265,12 @@ def fetch_odds(api_key: str | None = None,
 
     # 1) Core full-game markets — required. Failure here is a genuine outage.
     try:
-        core_data = _get(url, params={
-            "apiKey":    api_key,
+        core_data = _get_odds_json(url, {
             "regions":   "us,us2,eu",
             "markets":   ",".join(core_markets),
             "oddsFormat": "american",
             "bookmakers": ",".join(books),
-        })
+        }, keys=keys)
         _merge(core_data)
         payload["markets_fetched"].extend(core_markets)
     except Exception as e:
@@ -1218,13 +1282,12 @@ def fetch_odds(api_key: str | None = None,
     # 2) Inning / F5 markets — best-effort, isolated from the core slate.
     if extra_markets:
         try:
-            extra_data = _get(url, params={
-                "apiKey":    api_key,
+            extra_data = _get_odds_json(url, {
                 "regions":   "us,us2,eu",
                 "markets":   ",".join(extra_markets),
                 "oddsFormat": "american",
                 "bookmakers": ",".join(books),
-            })
+            }, keys=keys)
             _merge(extra_data)
             payload["markets_fetched"].extend(extra_markets)
         except Exception as e:

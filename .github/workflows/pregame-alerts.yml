@@ -26,6 +26,8 @@ jobs:
 
     env:
       ODDS_API_KEY:        ${{ secrets.ODDS_API_KEY }}
+      ODDS_API_KEY_2:      ${{ secrets.ODDS_API_KEY_2 }}
+      ODDS_API_KEY_3:      ${{ secrets.ODDS_API_KEY_3 }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       SLACK_WEBHOOK_URL:   ${{ secrets.SLACK_WEBHOOK_URL }}
       TELEGRAM_BOT_TOKEN:  ${{ secrets.TELEGRAM_BOT_TOKEN }}
