@@ -1,6 +1,6 @@
 # Paper Props — P/L Summary (last 7 days)
 
-_Window: 2026-05-30 → today_  
+_Window: 2026-05-31 → today_  
 _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 
