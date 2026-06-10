@@ -704,6 +704,53 @@ def _market_total_line(odds_for_game) -> float | None:
     return None
 
 
+def _display_odds(odds_for_game) -> dict | None:
+    """Compact market snapshot for the UI: the best target-book moneyline per
+    side and the consensus full-game total with its best over/under prices.
+    Unlike the bet-card helpers this has NO two-book confirmation gate — it just
+    reports what the books are showing so every graded game (even no-plays) can
+    display the line the model is disagreeing with."""
+    if not odds_for_game:
+        return None
+
+    def best_ml(side):
+        target = odds_for_game.get("home_team" if side == "home" else "away_team")
+        best = None
+        for b in _book_iter(odds_for_game):
+            h2h = next((m for m in b.get("markets", []) if m["key"] == "h2h"), None)
+            if not h2h:
+                continue
+            for o in h2h["outcomes"]:
+                if o.get("name") == target and o.get("price") is not None:
+                    p = int(o["price"])
+                    if best is None or p > best:
+                        best = p
+        return best
+
+    line = _market_total_line(odds_for_game)
+    over = under = None
+    if line is not None:
+        for b in _book_iter(odds_for_game):
+            t = next((m for m in b.get("markets", []) if m["key"] == "totals"), None)
+            if not t:
+                continue
+            for o in t.get("outcomes", []):
+                if o.get("point") is None or abs(float(o["point"]) - line) > 0.001:
+                    continue
+                if o.get("price") is None:
+                    continue
+                p, nm = int(o["price"]), o.get("name", "").lower()
+                if nm == "over" and (over is None or p > over):
+                    over = p
+                elif nm == "under" and (under is None or p > under):
+                    under = p
+
+    ml = {"away": best_ml("away"), "home": best_ml("home")}
+    if ml["away"] is None and ml["home"] is None and line is None:
+        return None
+    return {"ml": ml, "total": {"line": line, "over": over, "under": under}}
+
+
 def _market_f5_line(odds_for_game) -> float | None:
     if not odds_for_game:
         return None
@@ -1553,6 +1600,7 @@ def grade_one_game(game, odds_for_game):
         "grade": totals, "win_prob": win_p,
         "expected_total": exp_t, "expected_f5_total": exp_f5,
         "nrfi_prob": nrfi_p,
+        "market": _display_odds(odds_for_game),
         "bet_cards": [asdict(c) for c in capped],
         "tracked_props": tracked_props,
     }

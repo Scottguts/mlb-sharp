@@ -762,12 +762,20 @@ function playCardHTML(gm, c) {
 
 function noPlayRowHTML(gm) {
   const time = fmtGameTimeET(gm.gameDate);
+  const am = n => (n === null || n === undefined) ? '—' : (n > 0 ? '+' + n : '' + n);
+  const mk = gm.market || null;
+  const mlSpan = (mk && mk.ml && (mk.ml.away != null || mk.ml.home != null))
+    ? `<span>ML <b>${am(mk.ml.away)}/${am(mk.ml.home)}</b></span>` : '';
+  const totSpan = (mk && mk.total && mk.total.line != null)
+    ? `<span>Total <b>${mk.total.line}${mk.total.over != null ? ' (' + am(mk.total.over) + ')' : ''}</b></span>` : '';
   return `<div class="noplay-row clickable" data-pk="${gm.gamePk}">
     <div class="matchup">${gm.matchup}<div style="font-size:11px; color:var(--muted-2); margin-top:2px; font-weight: 500;">${time}</div></div>
     <div class="stats">
       <span>WP <b>${(gm.win_prob.away*100).toFixed(0)}/${(gm.win_prob.home*100).toFixed(0)}%</b></span>
       <span>Grade <b>A${fmt(gm.grade.away,1)}/H${fmt(gm.grade.home,1)}</b></span>
+      ${mlSpan}
       <span>xRuns <b>${gm.expected_total}</b></span>
+      ${totSpan}
       <span>NRFI <b>${(gm.nrfi_prob*100).toFixed(0)}%</b></span>
     </div>
   </div>`;
