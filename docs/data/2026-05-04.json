@@ -885,33 +885,33 @@
     }
   ],
   "games": {
-    "823228": {
-      "gamePk": 823228,
-      "gameDate": "2026-05-05T01:45:00Z",
+    "824684": {
+      "gamePk": 824684,
+      "gameDate": "2026-05-04T23:10:00Z",
       "venue": {
         "available": true,
-        "name": "Oracle Park",
+        "name": "Wrigley Field",
         "roof": "open",
-        "pf_runs": 93,
-        "pf_hr_lhb": 88,
-        "pf_hr_rhb": 82
+        "pf_runs": 95,
+        "pf_hr_lhb": 104,
+        "pf_hr_rhb": 105
       },
       "weather": {
         "available": true,
         "indoor": false,
-        "park": "Oracle Park",
-        "first_pitch_iso": "2026-05-05T01:45:00Z",
-        "temp_f": 53.3,
-        "humidity_pct": 86,
-        "dew_point_f": 49.3,
-        "wind_mph": 10.6,
-        "wind_dir_deg": 314,
+        "park": "Wrigley Field",
+        "first_pitch_iso": "2026-05-04T23:10:00Z",
+        "temp_f": 61.9,
+        "humidity_pct": 73,
+        "dew_point_f": 53.2,
+        "wind_mph": 9.7,
+        "wind_dir_deg": 278,
         "wind_effect": {
           "effect": "cross",
           "delta_runs": 0.0,
-          "angle_off_cf": 44
+          "angle_off_cf": 61
         },
-        "precip_prob_pct": 36
+        "precip_prob_pct": 37
       },
       "lineups": {
         "confirmed": false,
@@ -920,12 +920,142 @@
       },
       "catcher_framing": null,
       "home": {
-        "team_name": "San Francisco Giants",
-        "team_id": 137,
-        "probable_pitcher_id": 686790,
-        "probable_pitcher_name": "Trevor McDonald",
+        "team_name": "Chicago Cubs",
+        "team_id": 112,
+        "probable_pitcher_id": 665795,
+        "probable_pitcher_name": "Edward Cabrera",
         "pitcher_profile": {
-          "id": 686790,
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 91.47,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-28",
+              "pitches": 99,
+              "avg_velo": 90.43838383838383,
+              "csw": 0.30303030303030304
+            },
+            {
+              "game_date": "2026-04-23",
+              "pitches": 83,
+              "avg_velo": 91.14096385542169,
+              "csw": 0.27710843373493976
+            },
+            {
+              "game_date": "2026-04-17",
+              "pitches": 91,
+              "avg_velo": 91.31978021978023,
+              "csw": 0.27472527472527475
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 268,
+              "avg_velo": 91.71,
+              "csw": 0.243,
+              "xwoba": 0.346,
+              "hard_hit_rate": 0.101
+            },
+            "R": {
+              "pitches": 200,
+              "avg_velo": 91.15,
+              "csw": 0.305,
+              "xwoba": 0.311,
+              "hard_hit_rate": 0.07
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.323,
+            "CU": 0.226,
+            "FF": 0.128,
+            "SI": 0.231,
+            "SL": 0.092
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 18.0,
+            "bp_era": 4.5,
+            "bp_k_pct": 0.27,
+            "bp_bb_pct": 0.108,
+            "bp_whip": 1.11
+          },
+          "n_relievers": 6
+        },
+        "recent_form": {
+          "team_id": 112,
+          "window_days": 14,
+          "games_played": 13,
+          "wins": 10,
+          "losses": 3,
+          "rpg_for": 5.62,
+          "rpg_against": 4.69,
+          "win_pct": 0.769,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 0,
+              "against": 6,
+              "won": false
+            },
+            {
+              "date": "2026-04-28",
+              "for": 7,
+              "against": 9,
+              "won": false
+            },
+            {
+              "date": "2026-04-29",
+              "for": 8,
+              "against": 3,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
+              "for": 5,
+              "against": 4,
+              "won": true
+            },
+            {
+              "date": "2026-05-01",
+              "for": 6,
+              "against": 5,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 2,
+              "against": 0,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 8,
+              "against": 4,
+              "won": true
+            }
+          ]
+        },
+        "travel": null
+      },
+      "away": {
+        "team_name": "Cincinnati Reds",
+        "team_id": 113,
+        "probable_pitcher_id": 695534,
+        "probable_pitcher_name": "Chase Petty",
+        "pitcher_profile": {
+          "id": 695534,
           "available": false,
           "reason": "no_recent_pitches"
         },
@@ -936,79 +1066,114 @@
         "team_split_vs_opp_hand": null,
         "bullpen_usage": {
           "quality": {
-            "bp_innings": 23.67,
-            "bp_era": 3.42,
-            "bp_k_pct": 0.123,
-            "bp_bb_pct": 0.151,
-            "bp_whip": 1.69
+            "bp_innings": 25.67,
+            "bp_era": 11.92,
+            "bp_k_pct": 0.188,
+            "bp_bb_pct": 0.16,
+            "bp_whip": 2.65
           },
-          "n_relievers": 9
+          "n_relievers": 12
         },
         "recent_form": {
-          "team_id": 137,
+          "team_id": 113,
           "window_days": 14,
-          "games_played": 13,
-          "wins": 4,
-          "losses": 9,
-          "rpg_for": 2.38,
-          "rpg_against": 3.38,
-          "win_pct": 0.308,
+          "games_played": 12,
+          "wins": 6,
+          "losses": 6,
+          "rpg_for": 5.25,
+          "rpg_against": 6.42,
+          "win_pct": 0.5,
           "results": [
             {
-              "date": "2026-04-28",
-              "for": 0,
-              "against": 7,
+              "date": "2026-04-26",
+              "for": 3,
+              "against": 8,
               "won": false
+            },
+            {
+              "date": "2026-04-28",
+              "for": 7,
+              "against": 2,
+              "won": true
             },
             {
               "date": "2026-04-29",
-              "for": 0,
-              "against": 0,
-              "won": false
-            },
-            {
-              "date": "2026-04-30",
               "for": 2,
-              "against": 3,
+              "against": 13,
               "won": false
             },
             {
               "date": "2026-04-30",
-              "for": 5,
-              "against": 6,
-              "won": false
+              "for": 6,
+              "against": 4,
+              "won": true
             },
             {
               "date": "2026-05-01",
-              "for": 0,
-              "against": 3,
+              "for": 1,
+              "against": 9,
               "won": false
             },
             {
               "date": "2026-05-02",
-              "for": 1,
-              "against": 5,
+              "for": 7,
+              "against": 17,
               "won": false
             },
             {
               "date": "2026-05-03",
-              "for": 1,
-              "against": 2,
+              "for": 0,
+              "against": 1,
               "won": false
             }
           ]
         },
         "travel": null
+      }
+    },
+    "824039": {
+      "gamePk": 824039,
+      "gameDate": "2026-05-05T01:38:00Z",
+      "venue": {
+        "available": true,
+        "name": "Angel Stadium",
+        "roof": "open",
+        "pf_runs": 101,
+        "pf_hr_lhb": 100,
+        "pf_hr_rhb": 98
       },
-      "away": {
-        "team_name": "San Diego Padres",
-        "team_id": 135,
-        "probable_pitcher_id": 681190,
-        "probable_pitcher_name": "Randy V\u00e1squez",
+      "weather": {
+        "available": true,
+        "indoor": false,
+        "park": "Angel Stadium",
+        "first_pitch_iso": "2026-05-05T01:38:00Z",
+        "temp_f": 58.6,
+        "humidity_pct": 74,
+        "dew_point_f": 50.3,
+        "wind_mph": 2.8,
+        "wind_dir_deg": 299,
+        "wind_effect": {
+          "effect": "calm",
+          "delta_runs": 0.0,
+          "angle_off_cf": null
+        },
+        "precip_prob_pct": 4
+      },
+      "lineups": {
+        "confirmed": false,
+        "hp_ump_tendency": null,
+        "umpires": []
+      },
+      "catcher_framing": null,
+      "home": {
+        "team_name": "Los Angeles Angels",
+        "team_id": 108,
+        "probable_pitcher_id": 667755,
+        "probable_pitcher_name": "Jos\u00e9 Soriano",
         "pitcher_profile": {
           "available": true,
           "throws": "R",
-          "season_avg_velo": 90.79,
+          "season_avg_velo": 93.3,
           "k_per_start": null,
           "bb_per_start": null,
           "k_per_bf": null,
@@ -1017,48 +1182,46 @@
           "movement_flags": [],
           "recent_starts": [
             {
-              "game_date": "2026-04-27",
-              "pitches": 106,
-              "avg_velo": 90.82358490566037,
-              "csw": 0.24528301886792453
+              "game_date": "2026-04-28",
+              "pitches": 97,
+              "avg_velo": 94.24226804123711,
+              "csw": 0.2268041237113402
             },
             {
-              "game_date": "2026-04-21",
+              "game_date": "2026-04-22",
               "pitches": 84,
-              "avg_velo": 90.76785714285714,
-              "csw": 0.23809523809523808
+              "avg_velo": 91.55357142857143,
+              "csw": 0.2857142857142857
             },
             {
-              "game_date": "2026-04-15",
-              "pitches": 85,
-              "avg_velo": 91.17647058823529,
-              "csw": 0.27058823529411763
+              "game_date": "2026-04-17",
+              "pitches": 99,
+              "avg_velo": 93.28181818181818,
+              "csw": 0.2727272727272727
             }
           ],
           "splits": {
             "L": {
-              "pitches": 274,
-              "avg_velo": 90.43,
-              "csw": 0.237,
-              "xwoba": 0.298,
-              "hard_hit_rate": 0.109
+              "pitches": 250,
+              "avg_velo": 93.78,
+              "csw": 0.3,
+              "xwoba": 0.268,
+              "hard_hit_rate": 0.068
             },
             "R": {
-              "pitches": 176,
-              "avg_velo": 91.36,
-              "csw": 0.29,
-              "xwoba": 0.475,
-              "hard_hit_rate": 0.097
+              "pitches": 233,
+              "avg_velo": 92.79,
+              "csw": 0.266,
+              "xwoba": 0.306,
+              "hard_hit_rate": 0.047
             }
           },
           "pitch_mix": {
-            "CH": 0.111,
-            "CU": 0.133,
-            "FC": 0.276,
-            "FF": 0.313,
-            "SI": 0.111,
-            "SL": 0.044,
-            "ST": 0.011
+            "FF": 0.242,
+            "FS": 0.184,
+            "KC": 0.244,
+            "SI": 0.286,
+            "SL": 0.043
           }
         },
         "top_of_order": {
@@ -1068,57 +1231,51 @@
         "team_split_vs_opp_hand": null,
         "bullpen_usage": {
           "quality": {
-            "bp_innings": 23.33,
-            "bp_era": 5.01,
-            "bp_k_pct": 0.242,
-            "bp_bb_pct": 0.101,
-            "bp_whip": 1.2
+            "bp_innings": 21.0,
+            "bp_era": 6.43,
+            "bp_k_pct": 0.226,
+            "bp_bb_pct": 0.097,
+            "bp_whip": 1.29
           },
-          "n_relievers": 9
+          "n_relievers": 10
         },
         "recent_form": {
-          "team_id": 135,
+          "team_id": 108,
           "window_days": 14,
-          "games_played": 11,
-          "wins": 5,
-          "losses": 6,
-          "rpg_for": 4.45,
-          "rpg_against": 6.09,
-          "win_pct": 0.455,
+          "games_played": 12,
+          "wins": 2,
+          "losses": 10,
+          "rpg_for": 3.58,
+          "rpg_against": 5.75,
+          "win_pct": 0.167,
           "results": [
             {
               "date": "2026-04-26",
+              "for": 9,
+              "against": 11,
+              "won": false
+            },
+            {
+              "date": "2026-04-27",
               "for": 7,
-              "against": 12,
+              "against": 8,
               "won": false
             },
             {
               "date": "2026-04-28",
-              "for": 9,
-              "against": 7,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 3,
-              "against": 8,
-              "won": false
-            },
-            {
-              "date": "2026-04-29",
-              "for": 4,
+              "for": 2,
               "against": 5,
               "won": false
             },
             {
-              "date": "2026-05-02",
+              "date": "2026-04-29",
               "for": 2,
-              "against": 8,
+              "against": 3,
               "won": false
             },
             {
-              "date": "2026-05-03",
-              "for": 0,
+              "date": "2026-05-02",
+              "for": 3,
               "against": 4,
               "won": false
             },
@@ -1127,6 +1284,143 @@
               "for": 4,
               "against": 3,
               "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 1,
+              "against": 5,
+              "won": false
+            }
+          ]
+        },
+        "travel": null
+      },
+      "away": {
+        "team_name": "Chicago White Sox",
+        "team_id": 145,
+        "probable_pitcher_id": 663436,
+        "probable_pitcher_name": "Davis Martin",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 90.05,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-28",
+              "pitches": 98,
+              "avg_velo": 90.15612244897959,
+              "csw": 0.25510204081632654
+            },
+            {
+              "game_date": "2026-04-23",
+              "pitches": 97,
+              "avg_velo": 88.8938144329897,
+              "csw": 0.3402061855670103
+            },
+            {
+              "game_date": "2026-04-17",
+              "pitches": 89,
+              "avg_velo": 89.96067415730337,
+              "csw": 0.24719101123595505
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 280,
+              "avg_velo": 90.07,
+              "csw": 0.246,
+              "xwoba": 0.337,
+              "hard_hit_rate": 0.107
+            },
+            "R": {
+              "pitches": 171,
+              "avg_velo": 90.03,
+              "csw": 0.31,
+              "xwoba": 0.303,
+              "hard_hit_rate": 0.099
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.133,
+            "CU": 0.122,
+            "FC": 0.162,
+            "FF": 0.264,
+            "SI": 0.171,
+            "SL": 0.149
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 20.33,
+            "bp_era": 2.21,
+            "bp_k_pct": 0.268,
+            "bp_bb_pct": 0.073,
+            "bp_whip": 1.18
+          },
+          "n_relievers": 8
+        },
+        "recent_form": {
+          "team_id": 145,
+          "window_days": 14,
+          "games_played": 12,
+          "wins": 8,
+          "losses": 4,
+          "rpg_for": 5.17,
+          "rpg_against": 3.83,
+          "win_pct": 0.667,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 1,
+              "against": 2,
+              "won": false
+            },
+            {
+              "date": "2026-04-27",
+              "for": 8,
+              "against": 7,
+              "won": true
+            },
+            {
+              "date": "2026-04-28",
+              "for": 5,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
+              "for": 3,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 8,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 4,
+              "against": 0,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 3,
+              "against": 4,
+              "won": false
             }
           ]
         },
@@ -1430,33 +1724,33 @@
         "travel": null
       }
     },
-    "824283": {
-      "gamePk": 824283,
-      "gameDate": "2026-05-04T22:10:00Z",
+    "823228": {
+      "gamePk": 823228,
+      "gameDate": "2026-05-05T01:45:00Z",
       "venue": {
         "available": true,
-        "name": "Comerica Park",
+        "name": "Oracle Park",
         "roof": "open",
-        "pf_runs": 94,
-        "pf_hr_lhb": 91,
-        "pf_hr_rhb": 92
+        "pf_runs": 93,
+        "pf_hr_lhb": 88,
+        "pf_hr_rhb": 82
       },
       "weather": {
         "available": true,
         "indoor": false,
-        "park": "Comerica Park",
-        "first_pitch_iso": "2026-05-04T22:10:00Z",
-        "temp_f": 60.0,
-        "humidity_pct": 73,
-        "dew_point_f": 51.3,
-        "wind_mph": 11.1,
-        "wind_dir_deg": 232,
+        "park": "Oracle Park",
+        "first_pitch_iso": "2026-05-05T01:45:00Z",
+        "temp_f": 53.3,
+        "humidity_pct": 86,
+        "dew_point_f": 49.3,
+        "wind_mph": 10.6,
+        "wind_dir_deg": 314,
         "wind_effect": {
           "effect": "cross",
           "delta_runs": 0.0,
-          "angle_off_cf": 50
+          "angle_off_cf": 44
         },
-        "precip_prob_pct": 44
+        "precip_prob_pct": 36
       },
       "lineups": {
         "confirmed": false,
@@ -1465,187 +1759,14 @@
       },
       "catcher_framing": null,
       "home": {
-        "team_name": "Detroit Tigers",
-        "team_id": 116,
-        "probable_pitcher_id": 669373,
-        "probable_pitcher_name": "Tarik Skubal",
+        "team_name": "San Francisco Giants",
+        "team_id": 137,
+        "probable_pitcher_id": 686790,
+        "probable_pitcher_name": "Trevor McDonald",
         "pitcher_profile": {
-          "available": true,
-          "throws": "L",
-          "season_avg_velo": 92.42,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-29",
-              "pitches": 91,
-              "avg_velo": 92.22747252747253,
-              "csw": 0.27472527472527475
-            },
-            {
-              "game_date": "2026-04-23",
-              "pitches": 94,
-              "avg_velo": 93.12234042553192,
-              "csw": 0.2553191489361702
-            },
-            {
-              "game_date": "2026-04-18",
-              "pitches": 89,
-              "avg_velo": 91.43820224719101,
-              "csw": 0.3258426966292135
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 80,
-              "avg_velo": 93.99,
-              "csw": 0.212,
-              "xwoba": 0.344,
-              "hard_hit_rate": 0.163
-            },
-            "R": {
-              "pitches": 386,
-              "avg_velo": 92.09,
-              "csw": 0.311,
-              "xwoba": 0.255,
-              "hard_hit_rate": 0.062
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.255,
-            "CU": 0.028,
-            "FF": 0.382,
-            "SI": 0.195,
-            "SL": 0.137
-          }
-        },
-        "top_of_order": {
+          "id": 686790,
           "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 25.33,
-            "bp_era": 3.2,
-            "bp_k_pct": 0.259,
-            "bp_bb_pct": 0.074,
-            "bp_whip": 1.22
-          },
-          "n_relievers": 10
-        },
-        "recent_form": {
-          "team_id": 116,
-          "window_days": 14,
-          "games_played": 13,
-          "wins": 6,
-          "losses": 7,
-          "rpg_for": 4.92,
-          "rpg_against": 5.0,
-          "win_pct": 0.462,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 8,
-              "against": 3,
-              "won": true
-            },
-            {
-              "date": "2026-04-28",
-              "for": 2,
-              "against": 5,
-              "won": false
-            },
-            {
-              "date": "2026-04-29",
-              "for": 3,
-              "against": 4,
-              "won": false
-            },
-            {
-              "date": "2026-04-30",
-              "for": 5,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-05-01",
-              "for": 4,
-              "against": 5,
-              "won": false
-            },
-            {
-              "date": "2026-05-02",
-              "for": 5,
-              "against": 1,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 7,
-              "against": 1,
-              "won": true
-            }
-          ]
-        },
-        "travel": null
-      },
-      "away": {
-        "team_name": "Boston Red Sox",
-        "team_id": 111,
-        "probable_pitcher_id": 801139,
-        "probable_pitcher_name": "Payton Tolle",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "L",
-          "season_avg_velo": 93.32,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-28",
-              "pitches": 68,
-              "avg_velo": 93.0264705882353,
-              "csw": 0.19117647058823528
-            },
-            {
-              "game_date": "2026-04-23",
-              "pitches": 93,
-              "avg_velo": 93.54193548387096,
-              "csw": 0.3870967741935484
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 42,
-              "avg_velo": 94.19,
-              "csw": 0.381,
-              "xwoba": 0.182,
-              "hard_hit_rate": 0.095
-            },
-            "R": {
-              "pitches": 119,
-              "avg_velo": 93.02,
-              "csw": 0.277,
-              "xwoba": 0.228,
-              "hard_hit_rate": 0.067
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.025,
-            "CU": 0.112,
-            "FC": 0.124,
-            "FF": 0.516,
-            "SI": 0.224
-          }
+          "reason": "no_recent_pitches"
         },
         "top_of_order": {
           "available": false,
@@ -1655,64 +1776,196 @@
         "bullpen_usage": {
           "quality": {
             "bp_innings": 23.67,
-            "bp_era": 2.66,
-            "bp_k_pct": 0.163,
-            "bp_bb_pct": 0.067,
-            "bp_whip": 1.44
+            "bp_era": 3.42,
+            "bp_k_pct": 0.123,
+            "bp_bb_pct": 0.151,
+            "bp_whip": 1.69
           },
-          "n_relievers": 8
+          "n_relievers": 9
         },
         "recent_form": {
-          "team_id": 111,
+          "team_id": 137,
           "window_days": 14,
           "games_played": 13,
-          "wins": 5,
-          "losses": 8,
-          "rpg_for": 3.77,
-          "rpg_against": 4.08,
-          "win_pct": 0.385,
+          "wins": 4,
+          "losses": 9,
+          "rpg_for": 2.38,
+          "rpg_against": 3.38,
+          "win_pct": 0.308,
           "results": [
             {
-              "date": "2026-04-26",
-              "for": 5,
-              "against": 3,
-              "won": true
-            },
-            {
-              "date": "2026-04-27",
-              "for": 5,
-              "against": 0,
-              "won": true
-            },
-            {
               "date": "2026-04-28",
+              "for": 0,
+              "against": 7,
+              "won": false
+            },
+            {
+              "date": "2026-04-29",
+              "for": 0,
+              "against": 0,
+              "won": false
+            },
+            {
+              "date": "2026-04-30",
+              "for": 2,
+              "against": 3,
+              "won": false
+            },
+            {
+              "date": "2026-04-30",
+              "for": 5,
+              "against": 6,
+              "won": false
+            },
+            {
+              "date": "2026-05-01",
               "for": 0,
               "against": 3,
               "won": false
             },
             {
-              "date": "2026-04-29",
-              "for": 1,
-              "against": 8,
-              "won": false
-            },
-            {
-              "date": "2026-05-01",
-              "for": 3,
-              "against": 1,
-              "won": true
-            },
-            {
               "date": "2026-05-02",
-              "for": 3,
-              "against": 6,
+              "for": 1,
+              "against": 5,
               "won": false
             },
             {
               "date": "2026-05-03",
               "for": 1,
-              "against": 3,
+              "against": 2,
               "won": false
+            }
+          ]
+        },
+        "travel": null
+      },
+      "away": {
+        "team_name": "San Diego Padres",
+        "team_id": 135,
+        "probable_pitcher_id": 681190,
+        "probable_pitcher_name": "Randy V\u00e1squez",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 90.79,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-27",
+              "pitches": 106,
+              "avg_velo": 90.82358490566037,
+              "csw": 0.24528301886792453
+            },
+            {
+              "game_date": "2026-04-21",
+              "pitches": 84,
+              "avg_velo": 90.76785714285714,
+              "csw": 0.23809523809523808
+            },
+            {
+              "game_date": "2026-04-15",
+              "pitches": 85,
+              "avg_velo": 91.17647058823529,
+              "csw": 0.27058823529411763
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 274,
+              "avg_velo": 90.43,
+              "csw": 0.237,
+              "xwoba": 0.298,
+              "hard_hit_rate": 0.109
+            },
+            "R": {
+              "pitches": 176,
+              "avg_velo": 91.36,
+              "csw": 0.29,
+              "xwoba": 0.475,
+              "hard_hit_rate": 0.097
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.111,
+            "CU": 0.133,
+            "FC": 0.276,
+            "FF": 0.313,
+            "SI": 0.111,
+            "SL": 0.044,
+            "ST": 0.011
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 23.33,
+            "bp_era": 5.01,
+            "bp_k_pct": 0.242,
+            "bp_bb_pct": 0.101,
+            "bp_whip": 1.2
+          },
+          "n_relievers": 9
+        },
+        "recent_form": {
+          "team_id": 135,
+          "window_days": 14,
+          "games_played": 11,
+          "wins": 5,
+          "losses": 6,
+          "rpg_for": 4.45,
+          "rpg_against": 6.09,
+          "win_pct": 0.455,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 7,
+              "against": 12,
+              "won": false
+            },
+            {
+              "date": "2026-04-28",
+              "for": 9,
+              "against": 7,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
+              "for": 3,
+              "against": 8,
+              "won": false
+            },
+            {
+              "date": "2026-04-29",
+              "for": 4,
+              "against": 5,
+              "won": false
+            },
+            {
+              "date": "2026-05-02",
+              "for": 2,
+              "against": 8,
+              "won": false
+            },
+            {
+              "date": "2026-05-03",
+              "for": 0,
+              "against": 4,
+              "won": false
+            },
+            {
+              "date": "2026-05-03",
+              "for": 4,
+              "against": 3,
+              "won": true
             }
           ]
         },
@@ -2012,21 +2265,33 @@
         "travel": null
       }
     },
-    "822984": {
-      "gamePk": 822984,
-      "gameDate": "2026-05-04T22:40:00Z",
+    "823064": {
+      "gamePk": 823064,
+      "gameDate": "2026-05-04T23:45:00Z",
       "venue": {
         "available": true,
-        "name": "Tropicana Field",
-        "roof": "dome",
-        "pf_runs": 93,
-        "pf_hr_lhb": 98,
-        "pf_hr_rhb": 97
+        "name": "Busch Stadium",
+        "roof": "open",
+        "pf_runs": 100,
+        "pf_hr_lhb": 93,
+        "pf_hr_rhb": 95
       },
       "weather": {
         "available": true,
-        "indoor": true,
-        "park": "Tropicana Field"
+        "indoor": false,
+        "park": "Busch Stadium",
+        "first_pitch_iso": "2026-05-04T23:45:00Z",
+        "temp_f": 69.2,
+        "humidity_pct": 53,
+        "dew_point_f": 51.4,
+        "wind_mph": 13.4,
+        "wind_dir_deg": 201,
+        "wind_effect": {
+          "effect": "cross",
+          "delta_runs": 0.0,
+          "angle_off_cf": 39
+        },
+        "precip_prob_pct": 3
       },
       "lineups": {
         "confirmed": false,
@@ -2035,14 +2300,14 @@
       },
       "catcher_framing": null,
       "home": {
-        "team_name": "Tampa Bay Rays",
-        "team_id": 139,
-        "probable_pitcher_id": 607259,
-        "probable_pitcher_name": "Nick Martinez",
+        "team_name": "St. Louis Cardinals",
+        "team_id": 138,
+        "probable_pitcher_id": 681517,
+        "probable_pitcher_name": "Kyle Leahy",
         "pitcher_profile": {
           "available": true,
           "throws": "R",
-          "season_avg_velo": 86.75,
+          "season_avg_velo": 89.42,
           "k_per_start": null,
           "bb_per_start": null,
           "k_per_bf": null,
@@ -2052,46 +2317,46 @@
           "recent_starts": [
             {
               "game_date": "2026-04-28",
-              "pitches": 78,
-              "avg_velo": 86.05897435897437,
-              "csw": 0.28205128205128205
+              "pitches": 82,
+              "avg_velo": 89.1951219512195,
+              "csw": 0.2682926829268293
             },
             {
               "game_date": "2026-04-22",
-              "pitches": 95,
-              "avg_velo": 87.96105263157894,
-              "csw": 0.35789473684210527
+              "pitches": 89,
+              "avg_velo": 89.6932584269663,
+              "csw": 0.21348314606741572
             },
             {
               "game_date": "2026-04-17",
-              "pitches": 88,
-              "avg_velo": 88.24204545454546,
-              "csw": 0.1797752808988764
+              "pitches": 83,
+              "avg_velo": 89.72289156626506,
+              "csw": 0.27710843373493976
             }
           ],
           "splits": {
             "L": {
-              "pitches": 275,
-              "avg_velo": 86.32,
-              "csw": 0.287,
-              "xwoba": 0.307,
-              "hard_hit_rate": 0.069
+              "pitches": 215,
+              "avg_velo": 88.94,
+              "csw": 0.242,
+              "xwoba": 0.429,
+              "hard_hit_rate": 0.126
             },
             "R": {
-              "pitches": 155,
-              "avg_velo": 87.5,
-              "csw": 0.252,
-              "xwoba": 0.32,
-              "hard_hit_rate": 0.084
+              "pitches": 207,
+              "avg_velo": 89.9,
+              "csw": 0.227,
+              "xwoba": 0.295,
+              "hard_hit_rate": 0.082
             }
           },
           "pitch_mix": {
-            "CH": 0.284,
-            "CU": 0.074,
-            "FC": 0.17,
-            "FF": 0.084,
-            "SI": 0.347,
-            "SL": 0.04
+            "CH": 0.109,
+            "CU": 0.14,
+            "FF": 0.299,
+            "SI": 0.182,
+            "SL": 0.152,
+            "ST": 0.118
           }
         },
         "top_of_order": {
@@ -2101,78 +2366,128 @@
         "team_split_vs_opp_hand": null,
         "bullpen_usage": {
           "quality": {
-            "bp_innings": 20.0,
-            "bp_era": 0.0,
-            "bp_k_pct": 0.244,
-            "bp_bb_pct": 0.077,
-            "bp_whip": 0.9
+            "bp_innings": 23.67,
+            "bp_era": 3.42,
+            "bp_k_pct": 0.234,
+            "bp_bb_pct": 0.103,
+            "bp_whip": 1.48
           },
           "n_relievers": 9
         },
         "recent_form": {
-          "team_id": 139,
+          "team_id": 138,
           "window_days": 14,
-          "games_played": 12,
-          "wins": 9,
-          "losses": 3,
-          "rpg_for": 3.67,
-          "rpg_against": 2.58,
-          "win_pct": 0.75,
+          "games_played": 13,
+          "wins": 7,
+          "losses": 6,
+          "rpg_for": 4.85,
+          "rpg_against": 4.23,
+          "win_pct": 0.538,
           "results": [
             {
-              "date": "2026-04-26",
+              "date": "2026-04-27",
               "for": 4,
               "against": 2,
               "won": true
             },
             {
-              "date": "2026-04-27",
+              "date": "2026-04-28",
+              "for": 11,
+              "against": 7,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
+              "for": 5,
+              "against": 4,
+              "won": true
+            },
+            {
+              "date": "2026-04-30",
+              "for": 10,
+              "against": 5,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 7,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
               "for": 3,
               "against": 2,
               "won": true
             },
             {
-              "date": "2026-04-28",
-              "for": 1,
-              "against": 0,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 1,
-              "against": 3,
-              "won": false
-            },
-            {
-              "date": "2026-05-01",
-              "for": 3,
-              "against": 0,
-              "won": true
-            },
-            {
-              "date": "2026-05-02",
-              "for": 5,
-              "against": 1,
-              "won": true
-            },
-            {
               "date": "2026-05-03",
-              "for": 2,
-              "against": 1,
-              "won": true
+              "for": 1,
+              "against": 4,
+              "won": false
             }
           ]
         },
         "travel": null
       },
       "away": {
-        "team_name": "Toronto Blue Jays",
-        "team_id": 141,
-        "probable_pitcher_id": null,
-        "probable_pitcher_name": null,
+        "team_name": "Milwaukee Brewers",
+        "team_id": 158,
+        "probable_pitcher_id": 694477,
+        "probable_pitcher_name": "Chad Patrick",
         "pitcher_profile": {
-          "id": null,
-          "available": false
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 90.67,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-28",
+              "pitches": 98,
+              "avg_velo": 91.5295918367347,
+              "csw": 0.2653061224489796
+            },
+            {
+              "game_date": "2026-04-22",
+              "pitches": 80,
+              "avg_velo": 89.78,
+              "csw": 0.1875
+            },
+            {
+              "game_date": "2026-04-15",
+              "pitches": 81,
+              "avg_velo": 90.76296296296296,
+              "csw": 0.2222222222222222
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 200,
+              "avg_velo": 90.77,
+              "csw": 0.2,
+              "xwoba": 0.343,
+              "hard_hit_rate": 0.11
+            },
+            "R": {
+              "pitches": 195,
+              "avg_velo": 90.56,
+              "csw": 0.262,
+              "xwoba": 0.321,
+              "hard_hit_rate": 0.067
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.005,
+            "FC": 0.38,
+            "FF": 0.253,
+            "SI": 0.192,
+            "SV": 0.17
+          }
         },
         "top_of_order": {
           "available": false,
@@ -2181,64 +2496,64 @@
         "team_split_vs_opp_hand": null,
         "bullpen_usage": {
           "quality": {
-            "bp_innings": 23.67,
-            "bp_era": 3.04,
-            "bp_k_pct": 0.29,
-            "bp_bb_pct": 0.075,
-            "bp_whip": 1.01
+            "bp_innings": 22.33,
+            "bp_era": 1.61,
+            "bp_k_pct": 0.267,
+            "bp_bb_pct": 0.089,
+            "bp_whip": 1.07
           },
-          "n_relievers": 9
+          "n_relievers": 10
         },
         "recent_form": {
-          "team_id": 141,
+          "team_id": 158,
           "window_days": 14,
-          "games_played": 13,
-          "wins": 8,
-          "losses": 5,
-          "rpg_for": 4.62,
-          "rpg_against": 3.69,
-          "win_pct": 0.615,
+          "games_played": 12,
+          "wins": 6,
+          "losses": 6,
+          "rpg_for": 5.5,
+          "rpg_against": 3.33,
+          "win_pct": 0.5,
           "results": [
             {
-              "date": "2026-04-27",
-              "for": 0,
-              "against": 5,
-              "won": false
-            },
-            {
-              "date": "2026-04-28",
-              "for": 3,
+              "date": "2026-04-26",
+              "for": 5,
               "against": 0,
               "won": true
             },
             {
+              "date": "2026-04-28",
+              "for": 13,
+              "against": 2,
+              "won": true
+            },
+            {
               "date": "2026-04-29",
-              "for": 8,
+              "for": 2,
+              "against": 6,
+              "won": false
+            },
+            {
+              "date": "2026-04-30",
+              "for": 13,
               "against": 1,
               "won": true
             },
             {
-              "date": "2026-04-30",
-              "for": 1,
-              "against": 7,
-              "won": false
-            },
-            {
-              "date": "2026-05-02",
-              "for": 7,
-              "against": 3,
+              "date": "2026-05-01",
+              "for": 6,
+              "against": 1,
               "won": true
             },
             {
               "date": "2026-05-02",
-              "for": 11,
-              "against": 4,
+              "for": 4,
+              "against": 1,
               "won": true
             },
             {
               "date": "2026-05-03",
-              "for": 3,
-              "against": 4,
+              "for": 2,
+              "against": 3,
               "won": false
             }
           ]
@@ -2542,594 +2857,6 @@
         "travel": null
       }
     },
-    "823143": {
-      "gamePk": 823143,
-      "gameDate": "2026-05-05T01:40:00Z",
-      "venue": {
-        "available": true,
-        "name": "T-Mobile Park",
-        "roof": "retractable",
-        "pf_runs": 86,
-        "pf_hr_lhb": 94,
-        "pf_hr_rhb": 92
-      },
-      "weather": {
-        "available": true,
-        "indoor": false,
-        "park": "T-Mobile Park",
-        "first_pitch_iso": "2026-05-05T01:40:00Z",
-        "temp_f": 59.4,
-        "humidity_pct": 84,
-        "dew_point_f": 54.6,
-        "wind_mph": 4.7,
-        "wind_dir_deg": 183,
-        "wind_effect": {
-          "effect": "calm",
-          "delta_runs": 0.0,
-          "angle_off_cf": null
-        },
-        "precip_prob_pct": 1
-      },
-      "lineups": {
-        "confirmed": false,
-        "hp_ump_tendency": null,
-        "umpires": []
-      },
-      "catcher_framing": null,
-      "home": {
-        "team_name": "Seattle Mariners",
-        "team_id": 136,
-        "probable_pitcher_id": 669302,
-        "probable_pitcher_name": "Logan Gilbert",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 87.77,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-28",
-              "pitches": 93,
-              "avg_velo": 87.88494623655914,
-              "csw": 0.26881720430107525
-            },
-            {
-              "game_date": "2026-04-22",
-              "pitches": 89,
-              "avg_velo": 88.28539325842696,
-              "csw": 0.25842696629213485
-            },
-            {
-              "game_date": "2026-04-17",
-              "pitches": 99,
-              "avg_velo": 87.80707070707071,
-              "csw": 0.25252525252525254
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 251,
-              "avg_velo": 88.07,
-              "csw": 0.283,
-              "xwoba": 0.312,
-              "hard_hit_rate": 0.088
-            },
-            "R": {
-              "pitches": 211,
-              "avg_velo": 87.42,
-              "csw": 0.27,
-              "xwoba": 0.359,
-              "hard_hit_rate": 0.1
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.095,
-            "CU": 0.152,
-            "FC": 0.119,
-            "FF": 0.281,
-            "FS": 0.134,
-            "SI": 0.004,
-            "SL": 0.214
-          }
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 19.33,
-            "bp_era": 3.26,
-            "bp_k_pct": 0.259,
-            "bp_bb_pct": 0.129,
-            "bp_whip": 1.45
-          },
-          "n_relievers": 9
-        },
-        "recent_form": {
-          "team_id": 136,
-          "window_days": 14,
-          "games_played": 12,
-          "wins": 6,
-          "losses": 6,
-          "rpg_for": 4.42,
-          "rpg_against": 4.75,
-          "win_pct": 0.5,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 3,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-04-27",
-              "for": 4,
-              "against": 11,
-              "won": false
-            },
-            {
-              "date": "2026-04-28",
-              "for": 7,
-              "against": 1,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 5,
-              "against": 3,
-              "won": true
-            },
-            {
-              "date": "2026-05-02",
-              "for": 6,
-              "against": 7,
-              "won": false
-            },
-            {
-              "date": "2026-05-03",
-              "for": 2,
-              "against": 3,
-              "won": false
-            },
-            {
-              "date": "2026-05-03",
-              "for": 1,
-              "against": 4,
-              "won": false
-            }
-          ]
-        },
-        "travel": null
-      },
-      "away": {
-        "team_name": "Atlanta Braves",
-        "team_id": 144,
-        "probable_pitcher_id": 702275,
-        "probable_pitcher_name": "JR Ritchie",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 89.06,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-29",
-              "pitches": 97,
-              "avg_velo": 89.71649484536083,
-              "csw": 0.2268041237113402
-            },
-            {
-              "game_date": "2026-04-23",
-              "pitches": 89,
-              "avg_velo": 88.34382022471911,
-              "csw": 0.2808988764044944
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 133,
-              "avg_velo": 88.69,
-              "csw": 0.241,
-              "xwoba": 0.401,
-              "hard_hit_rate": 0.12
-            },
-            "R": {
-              "pitches": 53,
-              "avg_velo": 89.99,
-              "csw": 0.283,
-              "xwoba": 0.153,
-              "hard_hit_rate": 0.057
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.161,
-            "CU": 0.263,
-            "FC": 0.054,
-            "FF": 0.296,
-            "SI": 0.124,
-            "SL": 0.102
-          }
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 22.33,
-            "bp_era": 3.63,
-            "bp_k_pct": 0.267,
-            "bp_bb_pct": 0.089,
-            "bp_whip": 1.21
-          },
-          "n_relievers": 10
-        },
-        "recent_form": {
-          "team_id": 144,
-          "window_days": 14,
-          "games_played": 13,
-          "wins": 10,
-          "losses": 3,
-          "rpg_for": 6.38,
-          "rpg_against": 4.54,
-          "win_pct": 0.769,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 6,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-04-28",
-              "for": 5,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 4,
-              "against": 3,
-              "won": true
-            },
-            {
-              "date": "2026-04-30",
-              "for": 2,
-              "against": 5,
-              "won": false
-            },
-            {
-              "date": "2026-05-02",
-              "for": 8,
-              "against": 6,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 9,
-              "against": 1,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 11,
-              "against": 6,
-              "won": true
-            }
-          ]
-        },
-        "travel": null
-      }
-    },
-    "824120": {
-      "gamePk": 824120,
-      "gameDate": "2026-05-04T23:40:00Z",
-      "venue": {
-        "available": true,
-        "name": "Kauffman Stadium",
-        "roof": "open",
-        "pf_runs": 106,
-        "pf_hr_lhb": 92,
-        "pf_hr_rhb": 91
-      },
-      "weather": {
-        "available": true,
-        "indoor": false,
-        "park": "Kauffman Stadium",
-        "first_pitch_iso": "2026-05-04T23:40:00Z",
-        "temp_f": 74.1,
-        "humidity_pct": 48,
-        "dew_point_f": 53.2,
-        "wind_mph": 7.1,
-        "wind_dir_deg": 191,
-        "wind_effect": {
-          "effect": "out",
-          "delta_runs": 0.084,
-          "angle_off_cf": 33
-        },
-        "precip_prob_pct": 13
-      },
-      "lineups": {
-        "confirmed": false,
-        "hp_ump_tendency": null,
-        "umpires": []
-      },
-      "catcher_framing": null,
-      "home": {
-        "team_name": "Kansas City Royals",
-        "team_id": 118,
-        "probable_pitcher_id": 608379,
-        "probable_pitcher_name": "Michael Wacha",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 86.74,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-29",
-              "pitches": 105,
-              "avg_velo": 86.26857142857143,
-              "csw": 0.20952380952380953
-            },
-            {
-              "game_date": "2026-04-22",
-              "pitches": 89,
-              "avg_velo": 85.76966292134831,
-              "csw": 0.23595505617977527
-            },
-            {
-              "game_date": "2026-04-17",
-              "pitches": 97,
-              "avg_velo": 87.36701030927836,
-              "csw": 0.24742268041237114
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 293,
-              "avg_velo": 85.86,
-              "csw": 0.253,
-              "xwoba": 0.385,
-              "hard_hit_rate": 0.092
-            },
-            "R": {
-              "pitches": 188,
-              "avg_velo": 88.12,
-              "csw": 0.261,
-              "xwoba": 0.32,
-              "hard_hit_rate": 0.096
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.254,
-            "CU": 0.089,
-            "FC": 0.148,
-            "FF": 0.266,
-            "SI": 0.156,
-            "SL": 0.087
-          }
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 20.33,
-            "bp_era": 1.77,
-            "bp_k_pct": 0.234,
-            "bp_bb_pct": 0.091,
-            "bp_whip": 0.89
-          },
-          "n_relievers": 8
-        },
-        "recent_form": {
-          "team_id": 118,
-          "window_days": 14,
-          "games_played": 12,
-          "wins": 8,
-          "losses": 4,
-          "rpg_for": 5.75,
-          "rpg_against": 4.5,
-          "win_pct": 0.667,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 11,
-              "against": 9,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 4,
-              "against": 1,
-              "won": true
-            },
-            {
-              "date": "2026-04-30",
-              "for": 2,
-              "against": 5,
-              "won": false
-            },
-            {
-              "date": "2026-04-30",
-              "for": 3,
-              "against": 6,
-              "won": false
-            },
-            {
-              "date": "2026-05-02",
-              "for": 7,
-              "against": 6,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 3,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 4,
-              "against": 1,
-              "won": true
-            }
-          ]
-        },
-        "travel": null
-      },
-      "away": {
-        "team_name": "Cleveland Guardians",
-        "team_id": 114,
-        "probable_pitcher_id": 676440,
-        "probable_pitcher_name": "Tanner Bibee",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 86.74,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-28",
-              "pitches": 93,
-              "avg_velo": 85.76236559139785,
-              "csw": 0.25806451612903225
-            },
-            {
-              "game_date": "2026-04-22",
-              "pitches": 95,
-              "avg_velo": 86.65789473684211,
-              "csw": 0.24210526315789474
-            },
-            {
-              "game_date": "2026-04-17",
-              "pitches": 96,
-              "avg_velo": 86.28229166666667,
-              "csw": 0.3020833333333333
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 230,
-              "avg_velo": 85.95,
-              "csw": 0.287,
-              "xwoba": 0.299,
-              "hard_hit_rate": 0.083
-            },
-            "R": {
-              "pitches": 234,
-              "avg_velo": 87.51,
-              "csw": 0.244,
-              "xwoba": 0.312,
-              "hard_hit_rate": 0.111
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.175,
-            "CU": 0.164,
-            "FC": 0.272,
-            "FF": 0.252,
-            "SI": 0.138
-          }
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 20.33,
-            "bp_era": 3.1,
-            "bp_k_pct": 0.167,
-            "bp_bb_pct": 0.122,
-            "bp_whip": 1.48
-          },
-          "n_relievers": 8
-        },
-        "recent_form": {
-          "team_id": 114,
-          "window_days": 14,
-          "games_played": 12,
-          "wins": 5,
-          "losses": 7,
-          "rpg_for": 4.25,
-          "rpg_against": 4.5,
-          "win_pct": 0.417,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 2,
-              "against": 4,
-              "won": false
-            },
-            {
-              "date": "2026-04-27",
-              "for": 2,
-              "against": 3,
-              "won": false
-            },
-            {
-              "date": "2026-04-28",
-              "for": 0,
-              "against": 1,
-              "won": false
-            },
-            {
-              "date": "2026-04-29",
-              "for": 3,
-              "against": 1,
-              "won": true
-            },
-            {
-              "date": "2026-05-02",
-              "for": 8,
-              "against": 5,
-              "won": true
-            },
-            {
-              "date": "2026-05-02",
-              "for": 14,
-              "against": 6,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 1,
-              "against": 7,
-              "won": false
-            }
-          ]
-        },
-        "travel": null
-      }
-    },
     "823874": {
       "gamePk": 823874,
       "gameDate": "2026-05-04T22:40:00Z",
@@ -3426,33 +3153,21 @@
         "travel": null
       }
     },
-    "824039": {
-      "gamePk": 824039,
-      "gameDate": "2026-05-05T01:38:00Z",
+    "822984": {
+      "gamePk": 822984,
+      "gameDate": "2026-05-04T22:40:00Z",
       "venue": {
         "available": true,
-        "name": "Angel Stadium",
-        "roof": "open",
-        "pf_runs": 101,
-        "pf_hr_lhb": 100,
-        "pf_hr_rhb": 98
+        "name": "Tropicana Field",
+        "roof": "dome",
+        "pf_runs": 93,
+        "pf_hr_lhb": 98,
+        "pf_hr_rhb": 97
       },
       "weather": {
         "available": true,
-        "indoor": false,
-        "park": "Angel Stadium",
-        "first_pitch_iso": "2026-05-05T01:38:00Z",
-        "temp_f": 58.6,
-        "humidity_pct": 74,
-        "dew_point_f": 50.3,
-        "wind_mph": 2.8,
-        "wind_dir_deg": 299,
-        "wind_effect": {
-          "effect": "calm",
-          "delta_runs": 0.0,
-          "angle_off_cf": null
-        },
-        "precip_prob_pct": 4
+        "indoor": true,
+        "park": "Tropicana Field"
       },
       "lineups": {
         "confirmed": false,
@@ -3461,14 +3176,14 @@
       },
       "catcher_framing": null,
       "home": {
-        "team_name": "Los Angeles Angels",
-        "team_id": 108,
-        "probable_pitcher_id": 667755,
-        "probable_pitcher_name": "Jos\u00e9 Soriano",
+        "team_name": "Tampa Bay Rays",
+        "team_id": 139,
+        "probable_pitcher_id": 607259,
+        "probable_pitcher_name": "Nick Martinez",
         "pitcher_profile": {
           "available": true,
           "throws": "R",
-          "season_avg_velo": 93.3,
+          "season_avg_velo": 86.75,
           "k_per_start": null,
           "bb_per_start": null,
           "k_per_bf": null,
@@ -3478,45 +3193,46 @@
           "recent_starts": [
             {
               "game_date": "2026-04-28",
-              "pitches": 97,
-              "avg_velo": 94.24226804123711,
-              "csw": 0.2268041237113402
+              "pitches": 78,
+              "avg_velo": 86.05897435897437,
+              "csw": 0.28205128205128205
             },
             {
               "game_date": "2026-04-22",
-              "pitches": 84,
-              "avg_velo": 91.55357142857143,
-              "csw": 0.2857142857142857
+              "pitches": 95,
+              "avg_velo": 87.96105263157894,
+              "csw": 0.35789473684210527
             },
             {
               "game_date": "2026-04-17",
-              "pitches": 99,
-              "avg_velo": 93.28181818181818,
-              "csw": 0.2727272727272727
+              "pitches": 88,
+              "avg_velo": 88.24204545454546,
+              "csw": 0.1797752808988764
             }
           ],
           "splits": {
             "L": {
-              "pitches": 250,
-              "avg_velo": 93.78,
-              "csw": 0.3,
-              "xwoba": 0.268,
-              "hard_hit_rate": 0.068
+              "pitches": 275,
+              "avg_velo": 86.32,
+              "csw": 0.287,
+              "xwoba": 0.307,
+              "hard_hit_rate": 0.069
             },
             "R": {
-              "pitches": 233,
-              "avg_velo": 92.79,
-              "csw": 0.266,
-              "xwoba": 0.306,
-              "hard_hit_rate": 0.047
+              "pitches": 155,
+              "avg_velo": 87.5,
+              "csw": 0.252,
+              "xwoba": 0.32,
+              "hard_hit_rate": 0.084
             }
           },
           "pitch_mix": {
-            "FF": 0.242,
-            "FS": 0.184,
-            "KC": 0.244,
-            "SI": 0.286,
-            "SL": 0.043
+            "CH": 0.284,
+            "CU": 0.074,
+            "FC": 0.17,
+            "FF": 0.084,
+            "SI": 0.347,
+            "SL": 0.04
           }
         },
         "top_of_order": {
@@ -3526,360 +3242,64 @@
         "team_split_vs_opp_hand": null,
         "bullpen_usage": {
           "quality": {
-            "bp_innings": 21.0,
-            "bp_era": 6.43,
-            "bp_k_pct": 0.226,
-            "bp_bb_pct": 0.097,
-            "bp_whip": 1.29
+            "bp_innings": 20.0,
+            "bp_era": 0.0,
+            "bp_k_pct": 0.244,
+            "bp_bb_pct": 0.077,
+            "bp_whip": 0.9
           },
-          "n_relievers": 10
+          "n_relievers": 9
         },
         "recent_form": {
-          "team_id": 108,
+          "team_id": 139,
           "window_days": 14,
           "games_played": 12,
-          "wins": 2,
-          "losses": 10,
-          "rpg_for": 3.58,
-          "rpg_against": 5.75,
-          "win_pct": 0.167,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 9,
-              "against": 11,
-              "won": false
-            },
-            {
-              "date": "2026-04-27",
-              "for": 7,
-              "against": 8,
-              "won": false
-            },
-            {
-              "date": "2026-04-28",
-              "for": 2,
-              "against": 5,
-              "won": false
-            },
-            {
-              "date": "2026-04-29",
-              "for": 2,
-              "against": 3,
-              "won": false
-            },
-            {
-              "date": "2026-05-02",
-              "for": 3,
-              "against": 4,
-              "won": false
-            },
-            {
-              "date": "2026-05-03",
-              "for": 4,
-              "against": 3,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 1,
-              "against": 5,
-              "won": false
-            }
-          ]
-        },
-        "travel": null
-      },
-      "away": {
-        "team_name": "Chicago White Sox",
-        "team_id": 145,
-        "probable_pitcher_id": 663436,
-        "probable_pitcher_name": "Davis Martin",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 90.05,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-28",
-              "pitches": 98,
-              "avg_velo": 90.15612244897959,
-              "csw": 0.25510204081632654
-            },
-            {
-              "game_date": "2026-04-23",
-              "pitches": 97,
-              "avg_velo": 88.8938144329897,
-              "csw": 0.3402061855670103
-            },
-            {
-              "game_date": "2026-04-17",
-              "pitches": 89,
-              "avg_velo": 89.96067415730337,
-              "csw": 0.24719101123595505
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 280,
-              "avg_velo": 90.07,
-              "csw": 0.246,
-              "xwoba": 0.337,
-              "hard_hit_rate": 0.107
-            },
-            "R": {
-              "pitches": 171,
-              "avg_velo": 90.03,
-              "csw": 0.31,
-              "xwoba": 0.303,
-              "hard_hit_rate": 0.099
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.133,
-            "CU": 0.122,
-            "FC": 0.162,
-            "FF": 0.264,
-            "SI": 0.171,
-            "SL": 0.149
-          }
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 20.33,
-            "bp_era": 2.21,
-            "bp_k_pct": 0.268,
-            "bp_bb_pct": 0.073,
-            "bp_whip": 1.18
-          },
-          "n_relievers": 8
-        },
-        "recent_form": {
-          "team_id": 145,
-          "window_days": 14,
-          "games_played": 12,
-          "wins": 8,
-          "losses": 4,
-          "rpg_for": 5.17,
-          "rpg_against": 3.83,
-          "win_pct": 0.667,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 1,
-              "against": 2,
-              "won": false
-            },
-            {
-              "date": "2026-04-27",
-              "for": 8,
-              "against": 7,
-              "won": true
-            },
-            {
-              "date": "2026-04-28",
-              "for": 5,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 3,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-05-02",
-              "for": 8,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 4,
-              "against": 0,
-              "won": true
-            },
-            {
-              "date": "2026-05-03",
-              "for": 3,
-              "against": 4,
-              "won": false
-            }
-          ]
-        },
-        "travel": null
-      }
-    },
-    "824684": {
-      "gamePk": 824684,
-      "gameDate": "2026-05-04T23:10:00Z",
-      "venue": {
-        "available": true,
-        "name": "Wrigley Field",
-        "roof": "open",
-        "pf_runs": 95,
-        "pf_hr_lhb": 104,
-        "pf_hr_rhb": 105
-      },
-      "weather": {
-        "available": true,
-        "indoor": false,
-        "park": "Wrigley Field",
-        "first_pitch_iso": "2026-05-04T23:10:00Z",
-        "temp_f": 61.9,
-        "humidity_pct": 73,
-        "dew_point_f": 53.2,
-        "wind_mph": 9.7,
-        "wind_dir_deg": 278,
-        "wind_effect": {
-          "effect": "cross",
-          "delta_runs": 0.0,
-          "angle_off_cf": 61
-        },
-        "precip_prob_pct": 37
-      },
-      "lineups": {
-        "confirmed": false,
-        "hp_ump_tendency": null,
-        "umpires": []
-      },
-      "catcher_framing": null,
-      "home": {
-        "team_name": "Chicago Cubs",
-        "team_id": 112,
-        "probable_pitcher_id": 665795,
-        "probable_pitcher_name": "Edward Cabrera",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 91.47,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-28",
-              "pitches": 99,
-              "avg_velo": 90.43838383838383,
-              "csw": 0.30303030303030304
-            },
-            {
-              "game_date": "2026-04-23",
-              "pitches": 83,
-              "avg_velo": 91.14096385542169,
-              "csw": 0.27710843373493976
-            },
-            {
-              "game_date": "2026-04-17",
-              "pitches": 91,
-              "avg_velo": 91.31978021978023,
-              "csw": 0.27472527472527475
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 268,
-              "avg_velo": 91.71,
-              "csw": 0.243,
-              "xwoba": 0.346,
-              "hard_hit_rate": 0.101
-            },
-            "R": {
-              "pitches": 200,
-              "avg_velo": 91.15,
-              "csw": 0.305,
-              "xwoba": 0.311,
-              "hard_hit_rate": 0.07
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.323,
-            "CU": 0.226,
-            "FF": 0.128,
-            "SI": 0.231,
-            "SL": 0.092
-          }
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 18.0,
-            "bp_era": 4.5,
-            "bp_k_pct": 0.27,
-            "bp_bb_pct": 0.108,
-            "bp_whip": 1.11
-          },
-          "n_relievers": 6
-        },
-        "recent_form": {
-          "team_id": 112,
-          "window_days": 14,
-          "games_played": 13,
-          "wins": 10,
+          "wins": 9,
           "losses": 3,
-          "rpg_for": 5.62,
-          "rpg_against": 4.69,
-          "win_pct": 0.769,
+          "rpg_for": 3.67,
+          "rpg_against": 2.58,
+          "win_pct": 0.75,
           "results": [
             {
               "date": "2026-04-26",
-              "for": 0,
-              "against": 6,
-              "won": false
+              "for": 4,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-04-27",
+              "for": 3,
+              "against": 2,
+              "won": true
             },
             {
               "date": "2026-04-28",
-              "for": 7,
-              "against": 9,
-              "won": false
-            },
-            {
-              "date": "2026-04-29",
-              "for": 8,
-              "against": 3,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 5,
-              "against": 4,
-              "won": true
-            },
-            {
-              "date": "2026-05-01",
-              "for": 6,
-              "against": 5,
-              "won": true
-            },
-            {
-              "date": "2026-05-02",
-              "for": 2,
+              "for": 1,
               "against": 0,
               "won": true
             },
             {
+              "date": "2026-04-29",
+              "for": 1,
+              "against": 3,
+              "won": false
+            },
+            {
+              "date": "2026-05-01",
+              "for": 3,
+              "against": 0,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 5,
+              "against": 1,
+              "won": true
+            },
+            {
               "date": "2026-05-03",
-              "for": 8,
-              "against": 4,
+              "for": 2,
+              "against": 1,
               "won": true
             }
           ]
@@ -3887,180 +3307,13 @@
         "travel": null
       },
       "away": {
-        "team_name": "Cincinnati Reds",
-        "team_id": 113,
-        "probable_pitcher_id": 695534,
-        "probable_pitcher_name": "Chase Petty",
+        "team_name": "Toronto Blue Jays",
+        "team_id": 141,
+        "probable_pitcher_id": null,
+        "probable_pitcher_name": null,
         "pitcher_profile": {
-          "id": 695534,
-          "available": false,
-          "reason": "no_recent_pitches"
-        },
-        "top_of_order": {
-          "available": false,
-          "reason": "no_lineup"
-        },
-        "team_split_vs_opp_hand": null,
-        "bullpen_usage": {
-          "quality": {
-            "bp_innings": 25.67,
-            "bp_era": 11.92,
-            "bp_k_pct": 0.188,
-            "bp_bb_pct": 0.16,
-            "bp_whip": 2.65
-          },
-          "n_relievers": 12
-        },
-        "recent_form": {
-          "team_id": 113,
-          "window_days": 14,
-          "games_played": 12,
-          "wins": 6,
-          "losses": 6,
-          "rpg_for": 5.25,
-          "rpg_against": 6.42,
-          "win_pct": 0.5,
-          "results": [
-            {
-              "date": "2026-04-26",
-              "for": 3,
-              "against": 8,
-              "won": false
-            },
-            {
-              "date": "2026-04-28",
-              "for": 7,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 2,
-              "against": 13,
-              "won": false
-            },
-            {
-              "date": "2026-04-30",
-              "for": 6,
-              "against": 4,
-              "won": true
-            },
-            {
-              "date": "2026-05-01",
-              "for": 1,
-              "against": 9,
-              "won": false
-            },
-            {
-              "date": "2026-05-02",
-              "for": 7,
-              "against": 17,
-              "won": false
-            },
-            {
-              "date": "2026-05-03",
-              "for": 0,
-              "against": 1,
-              "won": false
-            }
-          ]
-        },
-        "travel": null
-      }
-    },
-    "823064": {
-      "gamePk": 823064,
-      "gameDate": "2026-05-04T23:45:00Z",
-      "venue": {
-        "available": true,
-        "name": "Busch Stadium",
-        "roof": "open",
-        "pf_runs": 100,
-        "pf_hr_lhb": 93,
-        "pf_hr_rhb": 95
-      },
-      "weather": {
-        "available": true,
-        "indoor": false,
-        "park": "Busch Stadium",
-        "first_pitch_iso": "2026-05-04T23:45:00Z",
-        "temp_f": 69.2,
-        "humidity_pct": 53,
-        "dew_point_f": 51.4,
-        "wind_mph": 13.4,
-        "wind_dir_deg": 201,
-        "wind_effect": {
-          "effect": "cross",
-          "delta_runs": 0.0,
-          "angle_off_cf": 39
-        },
-        "precip_prob_pct": 3
-      },
-      "lineups": {
-        "confirmed": false,
-        "hp_ump_tendency": null,
-        "umpires": []
-      },
-      "catcher_framing": null,
-      "home": {
-        "team_name": "St. Louis Cardinals",
-        "team_id": 138,
-        "probable_pitcher_id": 681517,
-        "probable_pitcher_name": "Kyle Leahy",
-        "pitcher_profile": {
-          "available": true,
-          "throws": "R",
-          "season_avg_velo": 89.42,
-          "k_per_start": null,
-          "bb_per_start": null,
-          "k_per_bf": null,
-          "bb_per_bf": null,
-          "k_starts_window": null,
-          "movement_flags": [],
-          "recent_starts": [
-            {
-              "game_date": "2026-04-28",
-              "pitches": 82,
-              "avg_velo": 89.1951219512195,
-              "csw": 0.2682926829268293
-            },
-            {
-              "game_date": "2026-04-22",
-              "pitches": 89,
-              "avg_velo": 89.6932584269663,
-              "csw": 0.21348314606741572
-            },
-            {
-              "game_date": "2026-04-17",
-              "pitches": 83,
-              "avg_velo": 89.72289156626506,
-              "csw": 0.27710843373493976
-            }
-          ],
-          "splits": {
-            "L": {
-              "pitches": 215,
-              "avg_velo": 88.94,
-              "csw": 0.242,
-              "xwoba": 0.429,
-              "hard_hit_rate": 0.126
-            },
-            "R": {
-              "pitches": 207,
-              "avg_velo": 89.9,
-              "csw": 0.227,
-              "xwoba": 0.295,
-              "hard_hit_rate": 0.082
-            }
-          },
-          "pitch_mix": {
-            "CH": 0.109,
-            "CU": 0.14,
-            "FF": 0.299,
-            "SI": 0.182,
-            "SL": 0.152,
-            "ST": 0.118
-          }
+          "id": null,
+          "available": false
         },
         "top_of_order": {
           "available": false,
@@ -4070,58 +3323,225 @@
         "bullpen_usage": {
           "quality": {
             "bp_innings": 23.67,
-            "bp_era": 3.42,
-            "bp_k_pct": 0.234,
-            "bp_bb_pct": 0.103,
-            "bp_whip": 1.48
+            "bp_era": 3.04,
+            "bp_k_pct": 0.29,
+            "bp_bb_pct": 0.075,
+            "bp_whip": 1.01
           },
           "n_relievers": 9
         },
         "recent_form": {
-          "team_id": 138,
+          "team_id": 141,
           "window_days": 14,
           "games_played": 13,
-          "wins": 7,
-          "losses": 6,
-          "rpg_for": 4.85,
-          "rpg_against": 4.23,
-          "win_pct": 0.538,
+          "wins": 8,
+          "losses": 5,
+          "rpg_for": 4.62,
+          "rpg_against": 3.69,
+          "win_pct": 0.615,
           "results": [
             {
               "date": "2026-04-27",
-              "for": 4,
+              "for": 0,
+              "against": 5,
+              "won": false
+            },
+            {
+              "date": "2026-04-28",
+              "for": 3,
+              "against": 0,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
+              "for": 8,
+              "against": 1,
+              "won": true
+            },
+            {
+              "date": "2026-04-30",
+              "for": 1,
+              "against": 7,
+              "won": false
+            },
+            {
+              "date": "2026-05-02",
+              "for": 7,
+              "against": 3,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 11,
+              "against": 4,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 3,
+              "against": 4,
+              "won": false
+            }
+          ]
+        },
+        "travel": null
+      }
+    },
+    "823143": {
+      "gamePk": 823143,
+      "gameDate": "2026-05-05T01:40:00Z",
+      "venue": {
+        "available": true,
+        "name": "T-Mobile Park",
+        "roof": "retractable",
+        "pf_runs": 86,
+        "pf_hr_lhb": 94,
+        "pf_hr_rhb": 92
+      },
+      "weather": {
+        "available": true,
+        "indoor": false,
+        "park": "T-Mobile Park",
+        "first_pitch_iso": "2026-05-05T01:40:00Z",
+        "temp_f": 59.4,
+        "humidity_pct": 84,
+        "dew_point_f": 54.6,
+        "wind_mph": 4.7,
+        "wind_dir_deg": 183,
+        "wind_effect": {
+          "effect": "calm",
+          "delta_runs": 0.0,
+          "angle_off_cf": null
+        },
+        "precip_prob_pct": 1
+      },
+      "lineups": {
+        "confirmed": false,
+        "hp_ump_tendency": null,
+        "umpires": []
+      },
+      "catcher_framing": null,
+      "home": {
+        "team_name": "Seattle Mariners",
+        "team_id": 136,
+        "probable_pitcher_id": 669302,
+        "probable_pitcher_name": "Logan Gilbert",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 87.77,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-28",
+              "pitches": 93,
+              "avg_velo": 87.88494623655914,
+              "csw": 0.26881720430107525
+            },
+            {
+              "game_date": "2026-04-22",
+              "pitches": 89,
+              "avg_velo": 88.28539325842696,
+              "csw": 0.25842696629213485
+            },
+            {
+              "game_date": "2026-04-17",
+              "pitches": 99,
+              "avg_velo": 87.80707070707071,
+              "csw": 0.25252525252525254
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 251,
+              "avg_velo": 88.07,
+              "csw": 0.283,
+              "xwoba": 0.312,
+              "hard_hit_rate": 0.088
+            },
+            "R": {
+              "pitches": 211,
+              "avg_velo": 87.42,
+              "csw": 0.27,
+              "xwoba": 0.359,
+              "hard_hit_rate": 0.1
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.095,
+            "CU": 0.152,
+            "FC": 0.119,
+            "FF": 0.281,
+            "FS": 0.134,
+            "SI": 0.004,
+            "SL": 0.214
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 19.33,
+            "bp_era": 3.26,
+            "bp_k_pct": 0.259,
+            "bp_bb_pct": 0.129,
+            "bp_whip": 1.45
+          },
+          "n_relievers": 9
+        },
+        "recent_form": {
+          "team_id": 136,
+          "window_days": 14,
+          "games_played": 12,
+          "wins": 6,
+          "losses": 6,
+          "rpg_for": 4.42,
+          "rpg_against": 4.75,
+          "win_pct": 0.5,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 3,
               "against": 2,
               "won": true
             },
             {
+              "date": "2026-04-27",
+              "for": 4,
+              "against": 11,
+              "won": false
+            },
+            {
               "date": "2026-04-28",
-              "for": 11,
-              "against": 7,
+              "for": 7,
+              "against": 1,
               "won": true
             },
             {
               "date": "2026-04-29",
               "for": 5,
-              "against": 4,
-              "won": true
-            },
-            {
-              "date": "2026-04-30",
-              "for": 10,
-              "against": 5,
+              "against": 3,
               "won": true
             },
             {
               "date": "2026-05-02",
-              "for": 7,
-              "against": 2,
-              "won": true
+              "for": 6,
+              "against": 7,
+              "won": false
             },
             {
-              "date": "2026-05-02",
-              "for": 3,
-              "against": 2,
-              "won": true
+              "date": "2026-05-03",
+              "for": 2,
+              "against": 3,
+              "won": false
             },
             {
               "date": "2026-05-03",
@@ -4134,14 +3554,14 @@
         "travel": null
       },
       "away": {
-        "team_name": "Milwaukee Brewers",
-        "team_id": 158,
-        "probable_pitcher_id": 694477,
-        "probable_pitcher_name": "Chad Patrick",
+        "team_name": "Atlanta Braves",
+        "team_id": 144,
+        "probable_pitcher_id": 702275,
+        "probable_pitcher_name": "JR Ritchie",
         "pitcher_profile": {
           "available": true,
           "throws": "R",
-          "season_avg_velo": 90.67,
+          "season_avg_velo": 89.06,
           "k_per_start": null,
           "bb_per_start": null,
           "k_per_bf": null,
@@ -4150,46 +3570,41 @@
           "movement_flags": [],
           "recent_starts": [
             {
-              "game_date": "2026-04-28",
-              "pitches": 98,
-              "avg_velo": 91.5295918367347,
-              "csw": 0.2653061224489796
+              "game_date": "2026-04-29",
+              "pitches": 97,
+              "avg_velo": 89.71649484536083,
+              "csw": 0.2268041237113402
             },
             {
-              "game_date": "2026-04-22",
-              "pitches": 80,
-              "avg_velo": 89.78,
-              "csw": 0.1875
-            },
-            {
-              "game_date": "2026-04-15",
-              "pitches": 81,
-              "avg_velo": 90.76296296296296,
-              "csw": 0.2222222222222222
+              "game_date": "2026-04-23",
+              "pitches": 89,
+              "avg_velo": 88.34382022471911,
+              "csw": 0.2808988764044944
             }
           ],
           "splits": {
             "L": {
-              "pitches": 200,
-              "avg_velo": 90.77,
-              "csw": 0.2,
-              "xwoba": 0.343,
-              "hard_hit_rate": 0.11
+              "pitches": 133,
+              "avg_velo": 88.69,
+              "csw": 0.241,
+              "xwoba": 0.401,
+              "hard_hit_rate": 0.12
             },
             "R": {
-              "pitches": 195,
-              "avg_velo": 90.56,
-              "csw": 0.262,
-              "xwoba": 0.321,
-              "hard_hit_rate": 0.067
+              "pitches": 53,
+              "avg_velo": 89.99,
+              "csw": 0.283,
+              "xwoba": 0.153,
+              "hard_hit_rate": 0.057
             }
           },
           "pitch_mix": {
-            "CH": 0.005,
-            "FC": 0.38,
-            "FF": 0.253,
-            "SI": 0.192,
-            "SV": 0.17
+            "CH": 0.161,
+            "CU": 0.263,
+            "FC": 0.054,
+            "FF": 0.296,
+            "SI": 0.124,
+            "SL": 0.102
           }
         },
         "top_of_order": {
@@ -4200,63 +3615,648 @@
         "bullpen_usage": {
           "quality": {
             "bp_innings": 22.33,
-            "bp_era": 1.61,
+            "bp_era": 3.63,
             "bp_k_pct": 0.267,
             "bp_bb_pct": 0.089,
-            "bp_whip": 1.07
+            "bp_whip": 1.21
           },
           "n_relievers": 10
         },
         "recent_form": {
-          "team_id": 158,
+          "team_id": 144,
           "window_days": 14,
-          "games_played": 12,
-          "wins": 6,
-          "losses": 6,
-          "rpg_for": 5.5,
-          "rpg_against": 3.33,
-          "win_pct": 0.5,
+          "games_played": 13,
+          "wins": 10,
+          "losses": 3,
+          "rpg_for": 6.38,
+          "rpg_against": 4.54,
+          "win_pct": 0.769,
           "results": [
             {
               "date": "2026-04-26",
+              "for": 6,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-04-28",
+              "for": 5,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
+              "for": 4,
+              "against": 3,
+              "won": true
+            },
+            {
+              "date": "2026-04-30",
+              "for": 2,
+              "against": 5,
+              "won": false
+            },
+            {
+              "date": "2026-05-02",
+              "for": 8,
+              "against": 6,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 9,
+              "against": 1,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 11,
+              "against": 6,
+              "won": true
+            }
+          ]
+        },
+        "travel": null
+      }
+    },
+    "824283": {
+      "gamePk": 824283,
+      "gameDate": "2026-05-04T22:10:00Z",
+      "venue": {
+        "available": true,
+        "name": "Comerica Park",
+        "roof": "open",
+        "pf_runs": 94,
+        "pf_hr_lhb": 91,
+        "pf_hr_rhb": 92
+      },
+      "weather": {
+        "available": true,
+        "indoor": false,
+        "park": "Comerica Park",
+        "first_pitch_iso": "2026-05-04T22:10:00Z",
+        "temp_f": 60.0,
+        "humidity_pct": 73,
+        "dew_point_f": 51.3,
+        "wind_mph": 11.1,
+        "wind_dir_deg": 232,
+        "wind_effect": {
+          "effect": "cross",
+          "delta_runs": 0.0,
+          "angle_off_cf": 50
+        },
+        "precip_prob_pct": 44
+      },
+      "lineups": {
+        "confirmed": false,
+        "hp_ump_tendency": null,
+        "umpires": []
+      },
+      "catcher_framing": null,
+      "home": {
+        "team_name": "Detroit Tigers",
+        "team_id": 116,
+        "probable_pitcher_id": 669373,
+        "probable_pitcher_name": "Tarik Skubal",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "L",
+          "season_avg_velo": 92.42,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-29",
+              "pitches": 91,
+              "avg_velo": 92.22747252747253,
+              "csw": 0.27472527472527475
+            },
+            {
+              "game_date": "2026-04-23",
+              "pitches": 94,
+              "avg_velo": 93.12234042553192,
+              "csw": 0.2553191489361702
+            },
+            {
+              "game_date": "2026-04-18",
+              "pitches": 89,
+              "avg_velo": 91.43820224719101,
+              "csw": 0.3258426966292135
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 80,
+              "avg_velo": 93.99,
+              "csw": 0.212,
+              "xwoba": 0.344,
+              "hard_hit_rate": 0.163
+            },
+            "R": {
+              "pitches": 386,
+              "avg_velo": 92.09,
+              "csw": 0.311,
+              "xwoba": 0.255,
+              "hard_hit_rate": 0.062
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.255,
+            "CU": 0.028,
+            "FF": 0.382,
+            "SI": 0.195,
+            "SL": 0.137
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 25.33,
+            "bp_era": 3.2,
+            "bp_k_pct": 0.259,
+            "bp_bb_pct": 0.074,
+            "bp_whip": 1.22
+          },
+          "n_relievers": 10
+        },
+        "recent_form": {
+          "team_id": 116,
+          "window_days": 14,
+          "games_played": 13,
+          "wins": 6,
+          "losses": 7,
+          "rpg_for": 4.92,
+          "rpg_against": 5.0,
+          "win_pct": 0.462,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 8,
+              "against": 3,
+              "won": true
+            },
+            {
+              "date": "2026-04-28",
+              "for": 2,
+              "against": 5,
+              "won": false
+            },
+            {
+              "date": "2026-04-29",
+              "for": 3,
+              "against": 4,
+              "won": false
+            },
+            {
+              "date": "2026-04-30",
+              "for": 5,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-05-01",
+              "for": 4,
+              "against": 5,
+              "won": false
+            },
+            {
+              "date": "2026-05-02",
+              "for": 5,
+              "against": 1,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 7,
+              "against": 1,
+              "won": true
+            }
+          ]
+        },
+        "travel": null
+      },
+      "away": {
+        "team_name": "Boston Red Sox",
+        "team_id": 111,
+        "probable_pitcher_id": 801139,
+        "probable_pitcher_name": "Payton Tolle",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "L",
+          "season_avg_velo": 93.32,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-28",
+              "pitches": 68,
+              "avg_velo": 93.0264705882353,
+              "csw": 0.19117647058823528
+            },
+            {
+              "game_date": "2026-04-23",
+              "pitches": 93,
+              "avg_velo": 93.54193548387096,
+              "csw": 0.3870967741935484
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 42,
+              "avg_velo": 94.19,
+              "csw": 0.381,
+              "xwoba": 0.182,
+              "hard_hit_rate": 0.095
+            },
+            "R": {
+              "pitches": 119,
+              "avg_velo": 93.02,
+              "csw": 0.277,
+              "xwoba": 0.228,
+              "hard_hit_rate": 0.067
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.025,
+            "CU": 0.112,
+            "FC": 0.124,
+            "FF": 0.516,
+            "SI": 0.224
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 23.67,
+            "bp_era": 2.66,
+            "bp_k_pct": 0.163,
+            "bp_bb_pct": 0.067,
+            "bp_whip": 1.44
+          },
+          "n_relievers": 8
+        },
+        "recent_form": {
+          "team_id": 111,
+          "window_days": 14,
+          "games_played": 13,
+          "wins": 5,
+          "losses": 8,
+          "rpg_for": 3.77,
+          "rpg_against": 4.08,
+          "win_pct": 0.385,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 5,
+              "against": 3,
+              "won": true
+            },
+            {
+              "date": "2026-04-27",
               "for": 5,
               "against": 0,
               "won": true
             },
             {
               "date": "2026-04-28",
-              "for": 13,
-              "against": 2,
-              "won": true
-            },
-            {
-              "date": "2026-04-29",
-              "for": 2,
-              "against": 6,
+              "for": 0,
+              "against": 3,
               "won": false
             },
             {
-              "date": "2026-04-30",
-              "for": 13,
-              "against": 1,
-              "won": true
+              "date": "2026-04-29",
+              "for": 1,
+              "against": 8,
+              "won": false
             },
             {
               "date": "2026-05-01",
-              "for": 6,
+              "for": 3,
               "against": 1,
               "won": true
             },
             {
               "date": "2026-05-02",
+              "for": 3,
+              "against": 6,
+              "won": false
+            },
+            {
+              "date": "2026-05-03",
+              "for": 1,
+              "against": 3,
+              "won": false
+            }
+          ]
+        },
+        "travel": null
+      }
+    },
+    "824120": {
+      "gamePk": 824120,
+      "gameDate": "2026-05-04T23:40:00Z",
+      "venue": {
+        "available": true,
+        "name": "Kauffman Stadium",
+        "roof": "open",
+        "pf_runs": 106,
+        "pf_hr_lhb": 92,
+        "pf_hr_rhb": 91
+      },
+      "weather": {
+        "available": true,
+        "indoor": false,
+        "park": "Kauffman Stadium",
+        "first_pitch_iso": "2026-05-04T23:40:00Z",
+        "temp_f": 74.1,
+        "humidity_pct": 48,
+        "dew_point_f": 53.2,
+        "wind_mph": 7.1,
+        "wind_dir_deg": 191,
+        "wind_effect": {
+          "effect": "out",
+          "delta_runs": 0.084,
+          "angle_off_cf": 33
+        },
+        "precip_prob_pct": 13
+      },
+      "lineups": {
+        "confirmed": false,
+        "hp_ump_tendency": null,
+        "umpires": []
+      },
+      "catcher_framing": null,
+      "home": {
+        "team_name": "Kansas City Royals",
+        "team_id": 118,
+        "probable_pitcher_id": 608379,
+        "probable_pitcher_name": "Michael Wacha",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 86.74,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-29",
+              "pitches": 105,
+              "avg_velo": 86.26857142857143,
+              "csw": 0.20952380952380953
+            },
+            {
+              "game_date": "2026-04-22",
+              "pitches": 89,
+              "avg_velo": 85.76966292134831,
+              "csw": 0.23595505617977527
+            },
+            {
+              "game_date": "2026-04-17",
+              "pitches": 97,
+              "avg_velo": 87.36701030927836,
+              "csw": 0.24742268041237114
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 293,
+              "avg_velo": 85.86,
+              "csw": 0.253,
+              "xwoba": 0.385,
+              "hard_hit_rate": 0.092
+            },
+            "R": {
+              "pitches": 188,
+              "avg_velo": 88.12,
+              "csw": 0.261,
+              "xwoba": 0.32,
+              "hard_hit_rate": 0.096
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.254,
+            "CU": 0.089,
+            "FC": 0.148,
+            "FF": 0.266,
+            "SI": 0.156,
+            "SL": 0.087
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 20.33,
+            "bp_era": 1.77,
+            "bp_k_pct": 0.234,
+            "bp_bb_pct": 0.091,
+            "bp_whip": 0.89
+          },
+          "n_relievers": 8
+        },
+        "recent_form": {
+          "team_id": 118,
+          "window_days": 14,
+          "games_played": 12,
+          "wins": 8,
+          "losses": 4,
+          "rpg_for": 5.75,
+          "rpg_against": 4.5,
+          "win_pct": 0.667,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 11,
+              "against": 9,
+              "won": true
+            },
+            {
+              "date": "2026-04-29",
               "for": 4,
               "against": 1,
               "won": true
             },
             {
+              "date": "2026-04-30",
+              "for": 2,
+              "against": 5,
+              "won": false
+            },
+            {
+              "date": "2026-04-30",
+              "for": 3,
+              "against": 6,
+              "won": false
+            },
+            {
+              "date": "2026-05-02",
+              "for": 7,
+              "against": 6,
+              "won": true
+            },
+            {
               "date": "2026-05-03",
+              "for": 3,
+              "against": 2,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 4,
+              "against": 1,
+              "won": true
+            }
+          ]
+        },
+        "travel": null
+      },
+      "away": {
+        "team_name": "Cleveland Guardians",
+        "team_id": 114,
+        "probable_pitcher_id": 676440,
+        "probable_pitcher_name": "Tanner Bibee",
+        "pitcher_profile": {
+          "available": true,
+          "throws": "R",
+          "season_avg_velo": 86.74,
+          "k_per_start": null,
+          "bb_per_start": null,
+          "k_per_bf": null,
+          "bb_per_bf": null,
+          "k_starts_window": null,
+          "movement_flags": [],
+          "recent_starts": [
+            {
+              "game_date": "2026-04-28",
+              "pitches": 93,
+              "avg_velo": 85.76236559139785,
+              "csw": 0.25806451612903225
+            },
+            {
+              "game_date": "2026-04-22",
+              "pitches": 95,
+              "avg_velo": 86.65789473684211,
+              "csw": 0.24210526315789474
+            },
+            {
+              "game_date": "2026-04-17",
+              "pitches": 96,
+              "avg_velo": 86.28229166666667,
+              "csw": 0.3020833333333333
+            }
+          ],
+          "splits": {
+            "L": {
+              "pitches": 230,
+              "avg_velo": 85.95,
+              "csw": 0.287,
+              "xwoba": 0.299,
+              "hard_hit_rate": 0.083
+            },
+            "R": {
+              "pitches": 234,
+              "avg_velo": 87.51,
+              "csw": 0.244,
+              "xwoba": 0.312,
+              "hard_hit_rate": 0.111
+            }
+          },
+          "pitch_mix": {
+            "CH": 0.175,
+            "CU": 0.164,
+            "FC": 0.272,
+            "FF": 0.252,
+            "SI": 0.138
+          }
+        },
+        "top_of_order": {
+          "available": false,
+          "reason": "no_lineup"
+        },
+        "team_split_vs_opp_hand": null,
+        "bullpen_usage": {
+          "quality": {
+            "bp_innings": 20.33,
+            "bp_era": 3.1,
+            "bp_k_pct": 0.167,
+            "bp_bb_pct": 0.122,
+            "bp_whip": 1.48
+          },
+          "n_relievers": 8
+        },
+        "recent_form": {
+          "team_id": 114,
+          "window_days": 14,
+          "games_played": 12,
+          "wins": 5,
+          "losses": 7,
+          "rpg_for": 4.25,
+          "rpg_against": 4.5,
+          "win_pct": 0.417,
+          "results": [
+            {
+              "date": "2026-04-26",
+              "for": 2,
+              "against": 4,
+              "won": false
+            },
+            {
+              "date": "2026-04-27",
               "for": 2,
               "against": 3,
+              "won": false
+            },
+            {
+              "date": "2026-04-28",
+              "for": 0,
+              "against": 1,
+              "won": false
+            },
+            {
+              "date": "2026-04-29",
+              "for": 3,
+              "against": 1,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 8,
+              "against": 5,
+              "won": true
+            },
+            {
+              "date": "2026-05-02",
+              "for": 14,
+              "against": 6,
+              "won": true
+            },
+            {
+              "date": "2026-05-03",
+              "for": 1,
+              "against": 7,
               "won": false
             }
           ]
