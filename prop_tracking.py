@@ -38,8 +38,47 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 
 # Typical starter goes ~5.5 innings, ~22 batters faced. We project K count as
-# K_per_BF * expected_BF, with a small park/umpire adjustment.
+# rate_per_BF * expected_BF, with a small park/umpire adjustment.
 DEFAULT_BF_PER_START = 22
+
+# --- Empirical-Bayes calibration -------------------------------------------
+# Forward paper-trading (prop_paper_log.csv) showed the old projection was
+# both noisy (RMSE ≈ raw Poisson SD, i.e. ~no skill over the mean) and biased:
+# it UNDER-projected strikeouts by ~0.36/start, worst when it projected LOW
+# counts (actual/proj ≈ 1.24 in the 0-4 bucket) — a textbook regression-to-the-
+# mean failure that fed losing UNDER bets. Two fixes below:
+#
+#   1. Shrink the pitcher's per-BF rate toward the league mean, weighted by his
+#      batters-faced sample. A 30-day sample (~90 BF) is small, so a raw rate
+#      overfits; pulling it toward league removes the low-end bias.
+#   2. Project EXPECTED batters faced from the pitcher's own recent workload
+#      (regressed toward the league starter), not a flat 22 — the biggest
+#      single driver of a per-start prop total.
+#
+# League K-per-BF baseline. 0.23 matches the observed K/start (~5.08 over ~22
+# BF) in our own settled paper sample, so shrinking toward it keeps the slate
+# projection mean ~unbiased while pulling individual low-sample rates in.
+LEAGUE_K_PER_BF  = 0.23
+# NOTE: we deliberately do NOT shrink the WALK rate. The true league BB/PA
+# (~8%) sits ABOVE the walk rates actually realised by the starters that get
+# prop markets, so shrinking toward it INFLATED walk projections the wrong way
+# (offline mean 1.51 -> 1.83 vs ~1.26 actual). Walks keep their own rate until
+# a population-appropriate anchor can be validated forward.
+LEAGUE_BB_PER_BF = None
+# Prior strength in batters-faced. ~100 BF (≈ a 30-day month of starts) is
+# pulled ~halfway toward league: enough to kill the low-end over-fit that fed
+# losing UNDER bets, while leaving genuine high-K arms mostly intact. Validated
+# offline against a saved slate to keep the projection mean ~unbiased (≈ league
+# 5.1 K/start) while lifting the previously-too-low projections.
+RATE_PRIOR_BF = 100.0
+# Expected-BF: a GENTLE regression of the pitcher's own recent workload toward
+# the league starter. The 30-day BF/start is noisy (short outings drag it down)
+# so we keep a strong prior and a tight band — true workhorses register a small
+# bump, but it can never crater a projection. Workload scaling stays modest on
+# purpose; a richer model is deferred until it can be validated forward.
+LEAGUE_BF_PER_START = 22.0
+BF_PRIOR_STARTS     = 10.0
+BF_PER_START_BOUNDS = (20.0, 25.0)
 
 # Per-batter PA per game ~ 4.0 for top-of-order, ~3.5 for middle, ~3.0 for bottom
 TYPICAL_PA_BY_ORDER = {1: 4.4, 2: 4.3, 3: 4.2, 4: 4.0, 5: 3.9, 6: 3.7,
@@ -48,6 +87,27 @@ TYPICAL_PA_BY_ORDER = {1: 4.4, 2: 4.3, 3: 4.2, 4: 4.0, 5: 3.9, 6: 3.7,
 # Minimum sample sizes for "ok" data quality
 MIN_PITCHER_STARTS = 3
 MIN_BATTER_PA = 60
+
+
+def _shrink_rate(total: float | None, bf_total: float | None,
+                 league_rate: float) -> float | None:
+    """Empirical-Bayes per-BF rate: pull the observed rate toward the league
+    mean with weight RATE_PRIOR_BF (expressed in batters faced)."""
+    if not bf_total:
+        return None
+    return (total + league_rate * RATE_PRIOR_BF) / (bf_total + RATE_PRIOR_BF)
+
+
+def _expected_bf(profile: dict) -> float:
+    """Expected batters faced next start: the pitcher's own BF/start regressed
+    toward the league starter workload, clamped to a sane range."""
+    bf_total = profile.get("bf_total_window")
+    n = profile.get("k_starts_window") or 0
+    if not bf_total or not n:
+        return LEAGUE_BF_PER_START
+    exp = (bf_total + LEAGUE_BF_PER_START * BF_PRIOR_STARTS) / (n + BF_PRIOR_STARTS)
+    lo, hi = BF_PER_START_BOUNDS
+    return round(max(lo, min(hi, exp)), 2)
 
 
 def _data_quality_pitcher(starts: int, k_per_bf: float | None) -> str:
@@ -73,10 +133,19 @@ def project_pitcher_ks(pitcher_profile: dict, opposing_lineup_k_pct: float | Non
     """
     if not pitcher_profile or not pitcher_profile.get("available"):
         return {"available": False, "data_quality": "missing"}
-    k_per_bf = pitcher_profile.get("k_per_bf")
+    raw_k_per_bf = pitcher_profile.get("k_per_bf")
     starts = pitcher_profile.get("k_starts_window", 0)
-    if k_per_bf is None:
+    if raw_k_per_bf is None:
         return {"available": False, "data_quality": "missing"}
+
+    # Empirical-Bayes rate: shrink toward league mean by BF sample (falls back
+    # to the raw rate only if batter-faced totals are unavailable).
+    k_rate = _shrink_rate(pitcher_profile.get("k_total_window"),
+                          pitcher_profile.get("bf_total_window"),
+                          LEAGUE_K_PER_BF)
+    if k_rate is None:
+        k_rate = raw_k_per_bf
+    expected_bf = _expected_bf(pitcher_profile)
 
     # Tilt toward opposing K%: if their top batters strike out 25% vs league
     # average 22%, that's a +14% relative bump to pitcher's K projection.
@@ -89,13 +158,15 @@ def project_pitcher_ks(pitcher_profile: dict, opposing_lineup_k_pct: float | Non
     # Umpire: K-friendly ump (negative run_delta) → more Ks; cap effect small.
     ump_k_bump = -ump_run_delta * 0.4   # ~0.4 K per run-delta unit
 
-    proj = k_per_bf * adjustment * DEFAULT_BF_PER_START + ump_k_bump
+    proj = k_rate * adjustment * expected_bf + ump_k_bump
     return {
         "available": True,
-        "data_quality": _data_quality_pitcher(starts, k_per_bf),
+        "data_quality": _data_quality_pitcher(starts, raw_k_per_bf),
         "starts_in_window": starts,
         "k_per_start_avg":  pitcher_profile.get("k_per_start"),
-        "k_per_bf":         k_per_bf,
+        "k_per_bf":         raw_k_per_bf,
+        "k_per_bf_shrunk":  round(k_rate, 3),
+        "expected_bf":      expected_bf,
         "opp_lineup_k_pct": opposing_lineup_k_pct,
         "lineup_adjustment": round(adjustment, 3),
         "ump_k_bump":       round(ump_k_bump, 2),
@@ -115,10 +186,22 @@ def project_pitcher_walks(pitcher_profile: dict,
     """
     if not pitcher_profile or not pitcher_profile.get("available"):
         return {"available": False, "data_quality": "missing"}
-    bb_per_bf = pitcher_profile.get("bb_per_bf")
+    raw_bb_per_bf = pitcher_profile.get("bb_per_bf")
     starts = pitcher_profile.get("k_starts_window", 0)
-    if bb_per_bf is None:
+    if raw_bb_per_bf is None:
         return {"available": False, "data_quality": "missing"}
+
+    # Walks keep their own observed rate (see LEAGUE_BB_PER_BF note): shrinking
+    # toward the league BB rate inflated projections for the low-walk starters
+    # that get prop markets. NegBin in the grader still de-biases the tails.
+    bb_rate = raw_bb_per_bf
+    if LEAGUE_BB_PER_BF is not None:
+        shrunk = _shrink_rate(pitcher_profile.get("bb_total_window"),
+                              pitcher_profile.get("bf_total_window"),
+                              LEAGUE_BB_PER_BF)
+        if shrunk is not None:
+            bb_rate = shrunk
+    expected_bf = _expected_bf(pitcher_profile)
 
     # Opposing lineup BB%: if top of order walks at 11% vs league 8.5%,
     # bump walks projection by ~30%.
@@ -132,13 +215,15 @@ def project_pitcher_walks(pitcher_profile: dict,
     # tighter zone in some cases. Effect on walks is real but small.
     ump_bb_bump = ump_run_delta * 0.15   # ~0.15 BB per run-delta unit
 
-    proj = bb_per_bf * adjustment * DEFAULT_BF_PER_START + ump_bb_bump
+    proj = bb_rate * adjustment * expected_bf + ump_bb_bump
     return {
         "available": True,
-        "data_quality": _data_quality_pitcher(starts, bb_per_bf),
+        "data_quality": _data_quality_pitcher(starts, raw_bb_per_bf),
         "starts_in_window":  starts,
         "bb_per_start_avg":  pitcher_profile.get("bb_per_start"),
-        "bb_per_bf":         bb_per_bf,
+        "bb_per_bf":         raw_bb_per_bf,
+        "bb_per_bf_shrunk":  round(bb_rate, 3),
+        "expected_bf":       expected_bf,
         "opp_lineup_bb_pct": opposing_lineup_bb_pct,
         "lineup_adjustment": round(adjustment, 3),
         "ump_bb_bump":       round(ump_bb_bump, 2),

@@ -156,6 +156,45 @@ def _poisson_pmf(k: int, lam: float) -> float:
     return term
 
 
+# Over-dispersion for K/BB counts — MUST match PROP_DISPERSION in mlb_grader.py
+# so the website board reproduces the real-bet probability exactly.
+PROP_DISPERSION = 1.3
+
+
+def _nb_params(mean: float, phi: float):
+    """Return (r, p) for a Negative Binomial with the given mean and
+    dispersion phi = variance/mean."""
+    p = 1.0 / phi
+    r = mean * p / (1.0 - p)
+    return r, p
+
+
+def _nb_pmf(k: int, mean: float, phi: float = PROP_DISPERSION) -> float:
+    """P(X = k) for a Negative Binomial(mean, phi). Poisson when phi <= 1."""
+    if phi <= 1.0 or mean <= 0:
+        return _poisson_pmf(k, mean)
+    if k < 0: return 0.0
+    r, p = _nb_params(mean, phi)
+    term = p ** r
+    for i in range(1, k + 1):
+        term *= (i + r - 1) / i * (1.0 - p)
+    return term
+
+
+def _nb_cdf(k: int, mean: float, phi: float = PROP_DISPERSION) -> float:
+    """P(X <= k) for a Negative Binomial(mean, phi). Poisson when phi <= 1."""
+    if phi <= 1.0 or mean <= 0:
+        return _poisson_cdf(k, mean)
+    if k < 0: return 0.0
+    r, p = _nb_params(mean, phi)
+    term = p ** r
+    s = term
+    for i in range(1, k + 1):
+        term *= (i + r - 1) / i * (1.0 - p)
+        s += term
+    return min(1.0, s)
+
+
 def _poisson_cdf(k: int, lam: float) -> float:
     """P(X <= k)."""
     if k < 0: return 0.0
@@ -221,13 +260,13 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     # Poisson distribution
     distribution = []
     for k in range(n_bins):
-        distribution.append({"k": k, "pmf": round(_poisson_pmf(k, lam), 4)})
+        distribution.append({"k": k, "pmf": round(_nb_pmf(k, lam), 4)})
 
     # Per-line probability table
     line_table = []
     for line in line_choices:
         k_floor = int(line)
-        p_over = 1.0 - _poisson_cdf(k_floor, lam)
+        p_over = 1.0 - _nb_cdf(k_floor, lam)
         line_table.append({
             "line": line,
             "over": round(p_over, 3),
@@ -269,12 +308,12 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     consensus_line = line_counts.most_common(1)[0][0]
     consensus_offers = [o for o in book_offers if o["line"] == consensus_line]
 
-    # Raw Poisson over-prob at the consensus line
+    # Model over-prob at the consensus line (Negative Binomial — matches grader)
     k_floor = int(consensus_line)
-    poisson_over = 1.0 - _poisson_cdf(k_floor, lam)
+    model_over = 1.0 - _nb_cdf(k_floor, lam)
 
-    # Pick the side our model favors (from raw Poisson direction)
-    side = "over" if poisson_over >= 0.50 else "under"
+    # Pick the side our model favors (from model direction)
+    side = "over" if model_over >= 0.50 else "under"
 
     # MARKET-ANCHORED probability — matches the real-bet pipeline.
     # Pinnacle-priority devigged P(over); falls back to median across user
@@ -294,14 +333,14 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     # Apply ±6pp shift cap (identical to make_pitcher_prop_card in mlb_grader.py)
     if market_over is not None:
         market_side = market_over if side == "over" else (1.0 - market_over)
-        model_side  = poisson_over if side == "over" else (1.0 - poisson_over)
+        model_side  = model_over if side == "over" else (1.0 - model_over)
         shift = max(-0.06, min(0.06, model_side - 0.5))
         our_prob = max(0.05, min(0.95, market_side + shift))
         # Recompute our_over for the line table display
         our_over = our_prob if side == "over" else (1.0 - our_prob)
     else:
-        # No market anchor available — fall back to raw Poisson
-        our_over = poisson_over
+        # No market anchor available — fall back to the model prob
+        our_over = model_over
         our_prob = our_over if side == "over" else (1.0 - our_over)
 
     # Best book for our chosen side — STRICT target books only (matches real-bet).

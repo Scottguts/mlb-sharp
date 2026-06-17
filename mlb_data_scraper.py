@@ -536,6 +536,11 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
     bb_per_start = round(bb_total / n_starts, 2) if (bb_total is not None and n_starts) else None
     k_per_bf = round(k_total / bf_total, 3) if (k_total and bf_total) else None
     bb_per_bf = round(bb_total / bf_total, 3) if (bb_total and bf_total) else None
+    # Pitcher's own recent workload (batters faced per start). The K/BB-prop
+    # projection scales the per-BF rate by EXPECTED batters faced; using the
+    # pitcher's actual workload (regressed toward the league ~22) instead of a
+    # flat constant is the single biggest driver of per-start prop totals.
+    bf_per_start = round(bf_total / n_starts, 2) if (bf_total and n_starts) else None
 
     return {
         "id": mlbam_id,
@@ -551,9 +556,11 @@ def fetch_pitcher_profile(mlbam_id: int, days: int = 30) -> dict:
         # K + BB rate stats for prop tracking
         "k_total_window":   k_total,
         "bb_total_window":  bb_total,
+        "bf_total_window":  bf_total,
         "k_starts_window":  n_starts,
         "k_per_start":      k_per_start,
         "bb_per_start":     bb_per_start,
+        "bf_per_start":     bf_per_start,
         "k_per_bf":         k_per_bf,
         "bb_per_bf":        bb_per_bf,
     }
