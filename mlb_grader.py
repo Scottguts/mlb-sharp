@@ -466,7 +466,7 @@ def grade_weather_park(game: dict) -> CategoryScore:
         notes.append(f"wind {wx.get('wind_mph')}mph OUT to CF (Δ {we['delta_runs']:+.2f}r) — boosts totals")
     elif eff == "in":
         notes.append(f"wind {wx.get('wind_mph')}mph IN from CF (Δ {we['delta_runs']:+.2f}r) — suppresses totals")
-    elif eff == "cross" and wx.get("wind_mph", 0) >= 12:
+    elif eff == "cross" and (wx.get("wind_mph") or 0) >= 12:
         notes.append(f"wind {wx.get('wind_mph')}mph crosswind — direction-dependent")
     precip = wx.get("precip_prob_pct")
     if precip is not None and precip >= 50:
@@ -1558,17 +1558,19 @@ def grade_one_game(game, odds_for_game):
     # Pitcher prop cards (K + BB) — need prop_odds.json for the event.
     # The grader doesn't have direct access; assume mlb_grader is invoked
     # from run() which loads prop_odds.json and re-injects via game["_prop_event"].
+    # Build tracked props ONCE — used for both the prop-card loop below and the
+    # returned grade entry (previously computed twice per game).
+    ump_delta, _ = _umpire_run_delta(game)
+    tracked_props = build_tracked_props(game, ump_run_delta=ump_delta)
+
     prop_event = game.get("_prop_event")
     if prop_event:
-        # tracked_props is already computed below; recompute pitcher projections via prop_tracking
-        ump_delta, _ = _umpire_run_delta(game)
-        tp_prelim = build_tracked_props(game, ump_run_delta=ump_delta)
         if ENABLED_MARKETS.get("pitcher_strikeouts", True):
-            for pp in tp_prelim.get("pitcher_ks", []):
+            for pp in tracked_props.get("pitcher_ks", []):
                 c = make_pitcher_prop_card(game, pp.get("side"), pp, prop_event, "pitcher_strikeouts")
                 if c: cards.append(c)
         if ENABLED_MARKETS.get("pitcher_walks", True):
-            for pp in tp_prelim.get("pitcher_walks", []):
+            for pp in tracked_props.get("pitcher_walks", []):
                 c = make_pitcher_prop_card(game, pp.get("side"), pp, prop_event, "pitcher_walks")
                 if c: cards.append(c)
 
@@ -1587,10 +1589,6 @@ def grade_one_game(game, odds_for_game):
         if reg_count >= MAX_CARDS_PER_GAME: continue
         if reg_units + c.unit_size > MAX_UNITS_PER_GAME: continue
         capped.append(c); reg_count += 1; reg_units += c.unit_size
-
-    # Tracked props (Phase 1: data tracking only, no bets fired from these)
-    ump_delta, _ = _umpire_run_delta(game)
-    tracked_props = build_tracked_props(game, ump_run_delta=ump_delta)
 
     return {
         "gamePk": game["gamePk"],

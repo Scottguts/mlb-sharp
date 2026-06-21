@@ -116,14 +116,24 @@ def _read_log(log: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 def _write_log(log: Path, rows: list[dict]) -> None:
-    with log.open("w", newline="") as f:
+    # Atomic write so a crash mid-write can't truncate the whole bet log.
+    log.parent.mkdir(parents=True, exist_ok=True)
+    tmp = log.with_suffix(log.suffix + ".tmp")
+    with tmp.open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=CSV_FIELDS)
         w.writeheader()
         for r in rows: w.writerow({k: r.get(k, "") for k in CSV_FIELDS})
+    os.replace(tmp, log)
 
 def _next_id(rows: list[dict]) -> int:
-    if not rows: return 1
-    return max(int(r["bet_id"]) for r in rows if r.get("bet_id")) + 1
+    # Guard against a corrupted/blank bet_id cell crashing the whole append.
+    ids = []
+    for r in rows:
+        try:
+            ids.append(int(r.get("bet_id")))
+        except (TypeError, ValueError):
+            continue
+    return (max(ids) + 1) if ids else 1
 
 def _f(x, default=None):
     """float or default if blank/None"""

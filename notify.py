@@ -157,6 +157,31 @@ def post_discord(body: str, summary: str, grades=None, target_date: str | None =
     if not url:
         return False
 
+    # DATA OUTAGE — the grader writes a loud banner into cards.md when no market
+    # odds were available. Surface it as a red @here alert so an upstream feed
+    # failure (quota/auth) never looks like a calm "No plays today".
+    if "DATA OUTAGE" in body:
+        reason = ""
+        for ln in body.splitlines():
+            if "Reason:" in ln:
+                reason = ln.strip().strip("_").split("Reason:", 1)[1].strip()[:400]
+                break
+        outage_embed = {
+            "title": "⚠️ DATA OUTAGE — odds feed unavailable",
+            "description": ("No market odds today, so **no bets could be evaluated**. "
+                            "This is an upstream data problem (API quota/auth), NOT the "
+                            "model finding no edge."
+                            + (f"\n\nReason: {reason}" if reason else "")),
+            "color": 0xEF4444,
+        }
+        try:
+            requests.post(url, json={"content": "@here", "embeds": [outage_embed]},
+                          timeout=20).raise_for_status()
+            return True
+        except Exception as e:
+            print(f"[discord] outage alert failed: {e}")
+            return False
+
     # Rich embeds path
     if grades:
         try:

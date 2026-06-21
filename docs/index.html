@@ -766,8 +766,10 @@ function noPlayRowHTML(gm) {
   const mk = gm.market || null;
   const mlSpan = (mk && mk.ml && (mk.ml.away != null || mk.ml.home != null))
     ? `<span>ML <b>${am(mk.ml.away)}/${am(mk.ml.home)}</b></span>` : '';
+  const totJuice = (mk && mk.total && (mk.total.over != null || mk.total.under != null))
+    ? ' (o' + am(mk.total.over) + '/u' + am(mk.total.under) + ')' : '';
   const totSpan = (mk && mk.total && mk.total.line != null)
-    ? `<span>Total <b>${mk.total.line}${mk.total.over != null ? ' (' + am(mk.total.over) + ')' : ''}</b></span>` : '';
+    ? `<span>Total <b>${mk.total.line}${totJuice}</b></span>` : '';
   return `<div class="noplay-row clickable" data-pk="${gm.gamePk}">
     <div class="matchup">${gm.matchup}<div style="font-size:11px; color:var(--muted-2); margin-top:2px; font-weight: 500;">${time}</div></div>
     <div class="stats">

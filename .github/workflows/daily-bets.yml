@@ -157,7 +157,12 @@ jobs:
             echo "No site changes to commit"
           else
             git commit -m "site: prop boards + record ${{ steps.date.outputs.value }}"
-            git push
+            # Pull-rebase + retry: closing-snapshot (hourly) and pregame-alerts
+            # (every 15 min) commit to this same repo, so a bare push can hit a
+            # non-fast-forward and fail. Rebase onto their commits and retry.
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep $((i*5))
+            done
           fi
 
       - name: Rebuild bankroll simulation
@@ -183,7 +188,9 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "daily cards + record ${{ steps.date.outputs.value }}"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep $((i*5))
+            done
           fi
 
       - name: Upload cards.md as workflow artifact

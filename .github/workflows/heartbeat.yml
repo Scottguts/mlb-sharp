@@ -1,0 +1,47 @@
+name: Slate Heartbeat
+
+# Independent dead-man's-switch. If no daily slate (cards.md) was committed by
+# early afternoon ET, this pings Discord LOUDLY and auto-dispatches daily-bets.
+#
+# Why a SEPARATE workflow: GitHub's scheduler drops/throttles crons PER WORKFLOW
+# under load. On 2026-06-14 every one of daily-bets' staggered crons was dropped
+# while other workflows fired fine — staggering inside one workflow can't help if
+# that whole workflow's schedule is deferred. A distinct workflow is scheduled
+# independently, so it survives a daily-bets drop and can recover the day.
+
+on:
+  schedule:
+    - cron: "30 17 * * *"   # ~1:30 PM ET (EDT) / 12:30 PM (EST) — first check
+    - cron: "30 18 * * *"   # ~2:30 PM ET (EDT) / 1:30 PM (EST)  — second check
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write          # needed to dispatch daily-bets.yml
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/New_York
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      # Prefer a PAT if configured (GITHUB_TOKEN-triggered dispatches may not
+      # start a new run); fall back to the default token for the alert path.
+      GH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN || secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Alert + redispatch if today's slate is missing
+        run: |
+          D=$(date +%F)
+          if [ -f "mlb_data/$D/cards.md" ]; then
+            echo "Slate present for $D — OK."
+            exit 0
+          fi
+          echo "::warning::No slate committed for $D — alerting and dispatching daily-bets."
+          if [ -n "$DISCORD_WEBHOOK_URL" ]; then
+            curl -s -H 'Content-Type: application/json' \
+              -d "{\"content\":\"⏰ @here No MLB slate was committed for $D by early afternoon ET — auto-dispatching daily-bets. If this keeps happening, GitHub is dropping the scheduled crons.\"}" \
+              "$DISCORD_WEBHOOK_URL" || true
+          fi
+          gh workflow run daily-bets.yml --ref main || echo "::warning::dispatch failed (token may lack workflow_dispatch rights — fire manually)"

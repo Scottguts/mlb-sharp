@@ -182,7 +182,8 @@ def _devig_two(american_a: int, american_b: int) -> tuple[float, float]:
 
 def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
                              game_grade: dict, game_payload: dict,
-                             market_key: str = "pitcher_strikeouts") -> dict | None:
+                             market_key: str = "pitcher_strikeouts",
+                             today: "date | None" = None) -> dict | None:
     """Build rich card data for one pitcher's K or BB prop.
     market_key in ('pitcher_strikeouts', 'pitcher_walks').
     Returns None if data quality is insufficient."""
@@ -215,7 +216,7 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
     # Verification gates — freshness + projection plausibility. Identical to
     # make_pitcher_prop_card so a board never appears for a pitcher whose
     # projection would have been filtered out for a real bet.
-    if not pitcher_prop_passes_gates(game_payload, side_key, market_key, lam):
+    if not pitcher_prop_passes_gates(game_payload, side_key, market_key, lam, today=today):
         return None
 
     # Poisson distribution
@@ -366,7 +367,7 @@ def build_rich_pitcher_prop(side_key: str, pitcher_data: dict, prop_event: dict,
         })
 
     # Team identifiers for logos / opponent display
-    away_name, home_name = game_grade["matchup"].split(" @ ")
+    away_name, home_name = game_grade["matchup"].split(" @ ", 1)
     team_name = home_name if side_key == "home" else away_name
     opp_name  = away_name if side_key == "home" else home_name
     team_id   = ((game_payload or {}).get(side_key) or {}).get("team_id")
@@ -440,7 +441,11 @@ def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
     games_by_pk: dict[str, dict] = {}
     raw_games_by_pk: dict[str, dict] = {}   # full game payload for rich-prop calc
     if games_dir.exists():
-        for gp in games_dir.glob("*.json"):
+        # sorted() so the games_by_pk insertion order (and thus the emitted JSON
+        # key order) is deterministic across machines/CI runners — otherwise the
+        # filesystem glob order reshuffles the largest object in every snapshot
+        # and produces a ~100k-line cosmetic diff on each build.
+        for gp in sorted(games_dir.glob("*.json")):
             data = _load_json(gp)
             if not data: continue
             trimmed = _trim_game(data)
@@ -454,21 +459,29 @@ def build_per_date_snapshot(date_iso: str, data_root: Path) -> dict | None:
     events_by_pair = {}
     for eid, ev in events.items():
         events_by_pair[(ev.get("home_team"), ev.get("away_team"))] = ev
+    # Evaluate the prop freshness gate relative to the SLATE date, not wall-clock
+    # now — otherwise rebuilding an old snapshot strips its prop boards (every
+    # pitcher's last start is >freshness-window days before today), which is the
+    # other half of the recurring docs/data churn.
+    try:
+        snap_date = date.fromisoformat(date_iso)
+    except ValueError:
+        snap_date = None
     rich_k: list[dict] = []
     rich_bb: list[dict] = []
     for gm in grades:
-        away, home = gm["matchup"].split(" @ ")
+        away, home = gm["matchup"].split(" @ ", 1)
         ev = events_by_pair.get((home, away))
         if not ev: continue
         raw = raw_games_by_pk.get(str(gm.get("gamePk"))) or {}
         for side in ("home", "away"):
             for p in (gm.get("tracked_props") or {}).get("pitcher_ks") or []:
                 if p.get("side") != side: continue
-                rk = build_rich_pitcher_prop(side, p, ev, gm, raw, market_key="pitcher_strikeouts")
+                rk = build_rich_pitcher_prop(side, p, ev, gm, raw, market_key="pitcher_strikeouts", today=snap_date)
                 if rk: rich_k.append(rk)
             for p in (gm.get("tracked_props") or {}).get("pitcher_walks") or []:
                 if p.get("side") != side: continue
-                rb = build_rich_pitcher_prop(side, p, ev, gm, raw, market_key="pitcher_walks")
+                rb = build_rich_pitcher_prop(side, p, ev, gm, raw, market_key="pitcher_walks", today=snap_date)
                 if rb: rich_bb.append(rb)
     rich_k.sort(key=lambda r: -r["edge"])
     rich_bb.sort(key=lambda r: -r["edge"])
@@ -1381,8 +1394,10 @@ function noPlayRowHTML(gm) {
   const mk = gm.market || null;
   const mlSpan = (mk && mk.ml && (mk.ml.away != null || mk.ml.home != null))
     ? `<span>ML <b>${am(mk.ml.away)}/${am(mk.ml.home)}</b></span>` : '';
+  const totJuice = (mk && mk.total && (mk.total.over != null || mk.total.under != null))
+    ? ' (o' + am(mk.total.over) + '/u' + am(mk.total.under) + ')' : '';
   const totSpan = (mk && mk.total && mk.total.line != null)
-    ? `<span>Total <b>${mk.total.line}${mk.total.over != null ? ' (' + am(mk.total.over) + ')' : ''}</b></span>` : '';
+    ? `<span>Total <b>${mk.total.line}${totJuice}</b></span>` : '';
   return `<div class="noplay-row clickable" data-pk="${gm.gamePk}">
     <div class="matchup">${gm.matchup}<div style="font-size:11px; color:var(--muted-2); margin-top:2px; font-weight: 500;">${time}</div></div>
     <div class="stats">
@@ -2162,7 +2177,9 @@ def build(data_root: Path, out_dir: Path) -> Path:
     for d in manifest["dates"]:
         snap = build_per_date_snapshot(d["date"], data_root)
         if snap is None: continue
-        (data_dir / f"{d['date']}.json").write_text(json.dumps(snap, indent=2, default=str))
+        # sort_keys for deterministic key ordering across machines (kills the
+        # cosmetic churn); lists (grades) keep their meaningful order.
+        (data_dir / f"{d['date']}.json").write_text(json.dumps(snap, indent=2, default=str, sort_keys=True))
         n_dates += 1
 
     # 3. Record

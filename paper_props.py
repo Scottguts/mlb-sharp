@@ -20,6 +20,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -93,16 +94,27 @@ def _read_paper_log(log: Path) -> list[dict]:
 
 
 def _write_paper_log(log: Path, rows: list[dict]) -> None:
-    with log.open("w", newline="") as f:
+    # Atomic write: a crash mid-write must not truncate the whole log. Write to
+    # a temp file in the same dir, then os.replace() (atomic on POSIX).
+    log.parent.mkdir(parents=True, exist_ok=True)
+    tmp = log.with_suffix(log.suffix + ".tmp")
+    with tmp.open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=PAPER_FIELDS)
         w.writeheader()
         for r in rows:
             w.writerow({k: r.get(k, "") for k in PAPER_FIELDS})
+    os.replace(tmp, log)
 
 
 def _next_id(rows: list[dict]) -> int:
-    if not rows: return 1
-    return max(int(r["bet_id"]) for r in rows if r.get("bet_id")) + 1
+    # Guard against a corrupted/blank bet_id cell crashing the whole append.
+    ids = []
+    for r in rows:
+        try:
+            ids.append(int(r.get("bet_id")))
+        except (TypeError, ValueError):
+            continue
+    return (max(ids) + 1) if ids else 1
 
 
 def _f(x, default=None):
