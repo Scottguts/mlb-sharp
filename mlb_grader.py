@@ -597,25 +597,25 @@ def _pinnacle_fair_h2h(odds_for_game):
 def _best_h2h_price(odds_for_game, side):
     target = odds_for_game.get("home_team" if side == "home" else "away_team")
     best_price, best_book = None, ""
-    prices: list[int] = []   # all target-book prices for this outcome
+    book_prices: list[tuple[str, int]] = []   # (book_key, price) per outcome
     for b in _book_iter(odds_for_game):
         h2h = next((m for m in b.get("markets", []) if m["key"] == "h2h"), None)
         if not h2h: continue
         for o in h2h["outcomes"]:
             if o["name"] == target:
                 p = int(o["price"])
-                prices.append(p)
+                book_prices.append((b["key"], p))
                 if best_price is None or p > best_price:
                     best_price, best_book = p, b["key"]
-    # Two-book confirmation: require at least one OTHER book within tolerance
-    # of the best price. Kills FanDuel-only promo lines that aren't real edge.
-    if best_price is not None and len(prices) >= 2:
-        others = [p for p in prices if p != best_price]
-        if not any(abs(p - best_price) <= BOOK_CONFIRMATION_TOLERANCE_CENTS for p in others):
-            return None, ""   # no confirmation → no play
-    elif best_price is not None and len(prices) < 2:
-        # Only one book carrying this market — too thin, skip
+    # Two-book confirmation: require a DIFFERENT book within tolerance of the
+    # best price. Keyed on book so a single book listing the same outcome twice
+    # (alt lines) can't self-confirm, and two books agreeing on the exact best
+    # price counts as the strongest confirmation (Δ=0).
+    if best_price is None:
         return None, ""
+    if not any(bk != best_book and abs(p - best_price) <= BOOK_CONFIRMATION_TOLERANCE_CENTS
+               for bk, p in book_prices):
+        return None, ""   # no independent confirmation → no play
     return best_price, best_book
 
 def _best_runline_price(odds_for_game, side):
@@ -638,7 +638,7 @@ def _best_total_price(odds_for_game, side, market_key="totals", target_line=None
     consider outcomes at that exact line. Requires two-book confirmation
     (a second book within tolerance) to filter out single-book trap lines."""
     best = (None, None, "")
-    prices: list[int] = []
+    book_prices: list[tuple[str, int]] = []   # (book_key, price) at the line
     for b in _book_iter(odds_for_game):
         t = next((m for m in b.get("markets", []) if m["key"] == market_key), None)
         if not t: continue
@@ -647,15 +647,14 @@ def _best_total_price(odds_for_game, side, market_key="totals", target_line=None
             p, line = int(o["price"]), float(o.get("point", 0))
             if target_line is not None and abs(line - target_line) > 0.001:
                 continue
-            prices.append(p)
+            book_prices.append((b["key"], p))
             if best[0] is None or p > best[0]:
                 best = (p, line, b["key"])
-    # Two-book confirmation
-    if best[0] is not None and len(prices) >= 2:
-        others = [p for p in prices if p != best[0]]
-        if not any(abs(p - best[0]) <= BOOK_CONFIRMATION_TOLERANCE_CENTS for p in others):
-            return (None, None, "")
-    elif best[0] is not None and len(prices) < 2:
+    # Two-book confirmation keyed on DISTINCT book (see _best_h2h_price).
+    if best[0] is None:
+        return (None, None, "")
+    if not any(bk != best[2] and abs(p - best[0]) <= BOOK_CONFIRMATION_TOLERANCE_CENTS
+               for bk, p in book_prices):
         return (None, None, "")
     return best
 
@@ -681,6 +680,13 @@ def _market_total_line(odds_for_game) -> float | None:
     target books if Pinnacle is missing the market."""
     if not odds_for_game:
         return None
+    # Anchor to the exact Pinnacle PAIRED line that the over/under prior is built
+    # from (_pinnacle_total_prob), so expected_total_runs and make_total_card can
+    # never disagree on the line — eliminating a spurious offset in the edge math
+    # when Pinnacle lists alt lines in a different outcome order.
+    paired = _pinnacle_total_prob(odds_for_game, "totals")[1]
+    if paired is not None:
+        return paired
     pinny = next((b for b in odds_for_game.get("bookmakers", [])
                   if b["key"].lower() in SHARP_ANCHORS), None)
     candidates = []
@@ -1388,24 +1394,39 @@ def make_pitcher_prop_card(game: dict, side: str, pitcher_proj: dict,
     k_floor = int(consensus_line)
     poisson_over = 1.0 - _poisson_cdf_local(k_floor, lam)
 
-    # Market-anchored side prob: nudge market prior by capped delta
-    side_target = "over" if poisson_over >= 0.5 else "under"
-    market_side = market_over if side_target == "over" else (1.0 - market_over)
-    model_side  = poisson_over if side_target == "over" else (1.0 - poisson_over)
-    shift = _clip(model_side - 0.5, -0.06, 0.06)
-    our_prob = _clip(market_side + shift, 0.05, 0.95)
+    # Evaluate BOTH sides with the market-anchored prob and bet the side that is
+    # actually +EV against its own price — NOT whichever way the raw (unanchored)
+    # Poisson leans. Near 50/50 the Poisson can point opposite the sharp-devigged
+    # market, and the old code would then commit to the side our own anchored
+    # probability disagreed with.
+    def _eval_side(side_name):
+        m_side = market_over if side_name == "over" else (1.0 - market_over)
+        p_side = poisson_over if side_name == "over" else (1.0 - poisson_over)
+        shift  = _clip(p_side - 0.5, -0.06, 0.06)
+        prob   = _clip(m_side + shift, 0.05, 0.95)
+        bb, bp = None, None
+        for bk, op, up in book_offers:
+            price = op if side_name == "over" else up
+            if bp is None or price > bp:
+                bp, bb = price, bk
+        if bp is None:
+            return None
+        return {"side": side_name, "our_prob": prob, "market_side": m_side,
+                "book": bb, "price": bp, "edge": edge_pct(prob, bp)}
 
-    # Best price across target books for our side
-    best_book, best_price = None, None
-    for bk, op, up in book_offers:
-        price = op if side_target == "over" else up
-        if best_price is None or price > best_price:
-            best_price, best_book = price, bk
-    if best_price is None or best_book is None: return None
-    if best_price < MIN_AMERICAN_PRICE or best_price > MAX_AMERICAN_PRICE: return None
+    cands = [e for e in (_eval_side("over"), _eval_side("under")) if e]
+    # Price band applies per side before we choose.
+    cands = [e for e in cands if MIN_AMERICAN_PRICE <= e["price"] <= MAX_AMERICAN_PRICE]
+    if not cands:
+        return None
+    best_eval   = max(cands, key=lambda e: e["edge"])
+    side_target = best_eval["side"]
+    our_prob    = best_eval["our_prob"]
+    market_side = best_eval["market_side"]
+    best_book, best_price = best_eval["book"], best_eval["price"]
+    edge = best_eval["edge"]
 
-    # Edge + Kelly — use prop-specific cap (not the tighter ML/total cap)
-    edge = edge_pct(our_prob, best_price)
+    # Edge gates — use prop-specific cap (not the tighter ML/total cap)
     if edge < MIN_EDGE_PITCHER_PROP: return None
     if edge > MAX_EDGE_PITCHER_PROP:  return None
 

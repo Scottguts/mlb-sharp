@@ -36,6 +36,7 @@ import re
 import sys
 import time
 from datetime import datetime, timedelta, date, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from typing import Any
 
@@ -109,6 +110,25 @@ PARKS: dict[int, dict[str, Any]] = {
 def _redact(text: str) -> str:
     """Strip secrets (API keys) out of any string before it is logged/persisted."""
     return re.sub(r"(apiKey=)[^&\s]+", r"\1***", str(text))
+
+
+_ET = ZoneInfo("America/New_York")
+
+
+def _et_date(iso: str) -> str:
+    """Calendar date (YYYY-MM-DD) of a UTC ISO timestamp in US/Eastern.
+
+    MLB `gameDate` is the UTC first-pitch time. A night game after ~8pm ET rolls
+    past 00:00Z, so a naive `gameDate[:10]` slice files it one ET day LATE — which
+    skews rest-day / recent-form / usage windows. Converting to ET first fixes it
+    (ZoneInfo handles EST/EDT automatically)."""
+    try:
+        dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(_ET).date().isoformat()
+    except (ValueError, AttributeError, TypeError):
+        return (iso or "")[:10]
 
 
 def _get(url: str, params: dict | None = None, retries: int = 3, timeout: int = 30) -> dict:
@@ -801,7 +821,7 @@ def fetch_team_travel(team_id: int, today_venue_id: int, today_iso: str,
     if not last_game:
         return {"available": False, "days_rest": None, "miles_traveled": None,
                 "cross_country": False, "notes": []}
-    last_date = date.fromisoformat(last_game["gameDate"][:10])
+    last_date = date.fromisoformat(_et_date(last_game["gameDate"]))
     days_rest = (today - last_date).days
     last_venue_id = last_game.get("venue", {}).get("id")
     miles = None
@@ -859,7 +879,7 @@ def fetch_team_recent_form(team_id: int, days: int = 14) -> dict:
             if our_runs > opp_runs: wins += 1
             else: losses += 1
             last_results.append({
-                "date": g["gameDate"][:10],
+                "date": _et_date(g["gameDate"]),
                 "for": our_runs, "against": opp_runs,
                 "won": our_runs > opp_runs,
             })
@@ -938,7 +958,7 @@ def fetch_bullpen_usage(team_id: int, days: int = 7) -> dict:
                 usage[pid]["appearances"] += 1
                 usage[pid]["pitches"] += int(pstats.get("numberOfPitches", 0) or 0)
                 usage[pid]["ip"] += ip
-                usage[pid]["dates"].append(g["gameDate"][:10])
+                usage[pid]["dates"].append(_et_date(g["gameDate"]))
                 # Bullpen-wide quality aggregates
                 # MLB inningsPitched is e.g. "1.2" = 1 inning + 2 outs
                 whole = int(ip)
@@ -1350,7 +1370,7 @@ def assemble_game_payload(game: dict, fetch_pitchers: bool = True,
     payload["away"]["recent_form"] = fetch_team_recent_form(game["away"]["team_id"])
     payload["home"]["recent_form"] = fetch_team_recent_form(game["home"]["team_id"])
     # Travel + rest since last game
-    today_iso = game["gameDate"][:10]
+    today_iso = _et_date(game["gameDate"])
     payload["away"]["travel"] = fetch_team_travel(game["away"]["team_id"], game["venue_id"], today_iso)
     payload["home"]["travel"] = fetch_team_travel(game["home"]["team_id"], game["venue_id"], today_iso)
     # Catcher framing (per game framing run impact, when lineups confirmed)
