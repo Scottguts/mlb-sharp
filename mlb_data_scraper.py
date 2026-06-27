@@ -131,6 +131,13 @@ def _et_date(iso: str) -> str:
         return (iso or "")[:10]
 
 
+# Quota telemetry: The Odds API returns x-requests-remaining/used on every
+# response. We stash the most recent values so the caller can monitor quota
+# WITHOUT spending any extra requests.
+_LAST_QUOTA_HDR: dict = {}
+_ODDS_QUOTA_BY_KEY: dict = {}   # key_tail -> {"remaining": int, "used": int}
+
+
 def _get(url: str, params: dict | None = None, retries: int = 3, timeout: int = 30) -> dict:
     """GET JSON with simple retry. 4xx client errors are not retried (a 401/422
     won't change on a re-request), but 5xx / network errors back off and retry."""
@@ -139,6 +146,10 @@ def _get(url: str, params: dict | None = None, retries: int = 3, timeout: int = 
         try:
             r = requests.get(url, params=params, headers=headers, timeout=timeout)
             r.raise_for_status()
+            _rem = r.headers.get("x-requests-remaining")
+            if _rem is not None:   # Odds API responses only
+                _LAST_QUOTA_HDR["remaining"] = _rem
+                _LAST_QUOTA_HDR["used"] = r.headers.get("x-requests-used")
             return r.json()
         except requests.exceptions.HTTPError as e:
             status = getattr(e.response, "status_code", None)
@@ -196,7 +207,17 @@ def _get_odds_json(url: str, params: dict, keys: list[str] | None = None) -> dic
     last_exc: Exception | None = None
     for idx, key in enumerate(live):
         try:
-            return _get(url, params={**params, "apiKey": key}, retries=2)
+            data = _get(url, params={**params, "apiKey": key}, retries=2)
+            rem = _LAST_QUOTA_HDR.get("remaining")
+            if rem is not None:
+                try:
+                    _ODDS_QUOTA_BY_KEY[key[-4:]] = {
+                        "remaining": int(rem),
+                        "used": int(_LAST_QUOTA_HDR.get("used") or 0),
+                    }
+                except (ValueError, TypeError):
+                    pass
+            return data
         except requests.exceptions.HTTPError as e:
             status = getattr(e.response, "status_code", None)
             if status in (401, 429):
@@ -208,6 +229,54 @@ def _get_odds_json(url: str, params: dict, keys: list[str] | None = None) -> dic
     if last_exc:
         raise last_exc
     raise RuntimeError("no Odds API key configured")
+
+
+# Default: warn when the LAST key drops below ~150 requests (~4 days of runway
+# at the post-fix burn rate). Override with ODDS_QUOTA_ALERT_THRESHOLD.
+ODDS_QUOTA_ALERT_THRESHOLD = int(os.environ.get("ODDS_QUOTA_ALERT_THRESHOLD") or 150)
+
+
+def check_and_alert_odds_quota(threshold: int = ODDS_QUOTA_ALERT_THRESHOLD) -> dict | None:
+    """Post a Discord warning when the CURRENTLY-SERVING key is both the last
+    configured key AND running low — i.e. the real "about to go dark" signal.
+
+    A non-last key draining is fine (the backup takes over), so we deliberately
+    don't alert on it — that avoids false alarms while still giving days of
+    warning before an actual outage. Uses quota headers already captured on
+    existing calls, so it costs ZERO extra requests. Returns the active-key
+    state for logging, or None if nothing was observed this run."""
+    keys = _odds_keys()
+    if not keys or not _ODDS_QUOTA_BY_KEY:
+        return None
+    pos_by_tail = {k[-4:]: i + 1 for i, k in enumerate(keys)}
+    observed = sorted(
+        (pos_by_tail.get(tail, 0), tail, rec.get("remaining"))
+        for tail, rec in _ODDS_QUOTA_BY_KEY.items() if tail in pos_by_tail
+    )
+    if not observed:
+        return None
+    active_pos, active_tail, active_rem = observed[-1]   # highest pos = current serving key
+    n = len(keys)
+    is_last_key = (active_pos == n)
+    state = {"active_position": active_pos, "n_keys": n,
+             "active_tail": active_tail, "remaining": active_rem,
+             "is_last_key": is_last_key}
+    if is_last_key and active_rem is not None and active_rem < threshold:
+        url = os.environ.get("DISCORD_WEBHOOK_URL")
+        if url:
+            msg = (f"⚠️ **Odds API quota low** — your LAST key (#{active_pos} of {n}, "
+                   f"…{active_tail}) has only **{active_rem}** requests left for the month.\n"
+                   f"Add another key (`ODDS_API_KEY_{n+1}`) or top up the plan before the "
+                   f"slate goes dark. This is a heads-up, not an outage — bets are still firing.")
+            try:
+                requests.post(url, json={"content": msg}, timeout=15)
+                print(f"[quota] LOW: last key at {active_rem} — alerted Discord")
+            except Exception as e:
+                print(f"[quota] discord alert failed: {e}")
+    else:
+        print(f"[quota] active key #{active_pos}/{n} (…{active_tail}): "
+              f"{active_rem} left" + ("" if is_last_key else " — backup key(s) in reserve"))
+    return state
 
 
 def _save_json(path: Path, obj: Any) -> None:
@@ -1420,6 +1489,12 @@ def run(target: date, out_root: Path, single_game_pk: int | None = None,
         odds = fetch_odds()
         _save_json(out_dir / "odds.json", odds)
         print(f"[+] Odds: {'OK' if odds.get('available') else 'skipped (' + odds.get('reason','') + ')'}")
+        # Proactive quota warning (uses headers from the calls above — no extra
+        # requests) so a near-exhausted account is caught days before an outage.
+        try:
+            check_and_alert_odds_quota()
+        except Exception as e:
+            print(f"[quota] monitor failed: {e}")
 
         # Player props — Phase 2 paper trading. One API call per event.
         # Stays well within quota (~450 calls/month + 30 for daily odds).
