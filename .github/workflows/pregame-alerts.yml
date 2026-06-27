@@ -9,11 +9,14 @@ name: Pre-Game Alerts
 
 on:
   schedule:
-    # Cron is in UTC. EDT (March-Nov) and EST (Nov-March) covered:
-    - cron: "*/15 16-23 * * *"   # 12:00 PM – 7:45 PM ET (EDT, summer)
-    - cron: "*/15 0-3 * * *"     # 8:00 PM – 11:45 PM ET (EDT, summer; next UTC day)
-    - cron: "*/15 17-23 * * *"   # 12:00 PM – 6:45 PM ET (EST, winter)
-    - cron: "*/15 0-4 * * *"     # 7:00 PM – 11:45 PM ET (EST, winter; next UTC day)
+    # Cron is in UTC. EDT (March-Nov) and EST (Nov-March) covered.
+    # Every 30 min (was 15): halves Odds-API calls. Combined with the one-fetch-
+    # per-run refactor this cuts pre-game quota burn by ~75%, which (with the
+    # daily slate + closing snapshot) is what was exhausting both keys mid-month.
+    - cron: "*/30 16-23 * * *"   # 12:00 PM – 7:30 PM ET (EDT, summer)
+    - cron: "*/30 0-3 * * *"     # 8:00 PM – 11:30 PM ET (EDT, summer; next UTC day)
+    - cron: "*/30 17-23 * * *"   # 12:00 PM – 6:30 PM ET (EST, winter)
+    - cron: "*/30 0-4 * * *"     # 7:00 PM – 11:30 PM ET (EST, winter; next UTC day)
   workflow_dispatch:
 
 permissions:

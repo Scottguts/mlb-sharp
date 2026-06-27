@@ -43,8 +43,8 @@ from bet_tracker import (
     DATA_ROOT_DEFAULT, _ensure_log, _read_log, _f, _i,
 )
 from mlb_data_scraper import (
-    MLB_API, ODDS_API, ALL_MARKETS, ALL_BOOKS, TARGET_BOOKS, SHARP_ANCHORS,
-    PARKS, fetch_weather, american_to_prob,
+    MLB_API, ODDS_API, ALL_MARKETS, ALL_BOOKS, FULL_MARKETS, TARGET_BOOKS, SHARP_ANCHORS,
+    PARKS, fetch_weather, american_to_prob, _get_odds_json, _odds_keys,
 )
 
 
@@ -172,16 +172,15 @@ def check_weather_change(original_game: dict, venue_id: int, first_pitch_iso: st
     return warnings
 
 
-def check_line_movement(bet_row: dict) -> list[str]:
+def check_line_movement(bet_row: dict, odds_games: list | None) -> list[str]:
     """Compare current best price to the price we bet at.
-    Flags if the line has moved through our fair value (i.e., we no longer have edge)."""
+    Flags if the line has moved through our fair value (i.e., we no longer have
+    edge). `odds_games` is the odds board fetched ONCE per run by the caller —
+    previously this fetched a full board PER BET, which (× every-15-min crons)
+    was the dominant Odds-API quota drain that exhausted both keys mid-month."""
     warnings: list[str] = []
-    api_key = os.environ.get("ODDS_API_KEY")
-    if not api_key: return []
+    if not odds_games: return []
 
-    # We only have the user's data via bet_log; we do a single odds API call
-    # per script invocation for the entire window to save quota — caller can
-    # cache. Here we accept a per-bet refetch cost since calls are infrequent.
     bet_price = _i(bet_row.get("price"))
     fair_prob = _f(bet_row.get("fair_prob"))
     if bet_price is None or fair_prob is None: return []
@@ -193,19 +192,7 @@ def check_line_movement(bet_row: dict) -> list[str]:
     except ValueError:
         return []
 
-    try:
-        odds = requests.get(
-            f"{ODDS_API}/sports/baseball_mlb/odds",
-            params={
-                "apiKey": api_key, "regions": "us,us2,eu",
-                "markets": ",".join(ALL_MARKETS),
-                "oddsFormat": "american",
-                "bookmakers": ",".join(ALL_BOOKS),
-            }, timeout=20).json()
-    except Exception:
-        return []
-
-    game = next((g for g in odds
+    game = next((g for g in odds_games
                  if g.get("home_team") == home and g.get("away_team") == away), None)
     if not game: return []
 
@@ -344,6 +331,22 @@ def run(data_root: Path, window_min: tuple[int, int]) -> int:
         return 0
 
     print(f"[pregame] {len(eligible)} bet(s) eligible — running checks")
+
+    # Fetch the odds board ONCE for the whole run (key-rotating), then reuse it
+    # for every bet's line-movement check. This replaces the old per-bet fetch
+    # that multiplied quota usage by the number of eligible bets on every cron.
+    odds_games: list = []
+    keys = _odds_keys()
+    if keys:
+        try:
+            odds_games = _get_odds_json(
+                f"{ODDS_API}/sports/baseball_mlb/odds",
+                {"regions": "us,us2,eu", "markets": ",".join(FULL_MARKETS),
+                 "oddsFormat": "american", "bookmakers": ",".join(ALL_BOOKS)},
+                keys=keys) or []
+        except Exception as e:
+            print(f"[pregame] odds fetch failed ({e}); line-movement checks skipped this run")
+
     fired = 0
     # group by gamePk to dedupe weather/lineup checks per game
     by_game: dict[int, list[dict]] = {}
@@ -376,7 +379,7 @@ def run(data_root: Path, window_min: tuple[int, int]) -> int:
 
             for r in game_rows:
                 try:
-                    line_warns = check_line_movement(r)
+                    line_warns = check_line_movement(r, odds_games)
                 except Exception as e:
                     print(f"  [warn] line check failed for bet {r.get('bet_id')}: {e}")
                     line_warns = []

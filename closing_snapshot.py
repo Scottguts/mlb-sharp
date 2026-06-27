@@ -42,8 +42,8 @@ from bet_tracker import (
     DATA_ROOT_DEFAULT, _ensure_log, _read_log, _write_log, _f, _i,
 )
 from mlb_data_scraper import (
-    ODDS_API, ALL_MARKETS, ALL_BOOKS, TARGET_BOOKS, SHARP_ANCHORS,
-    american_to_prob, devig_two_way,
+    ODDS_API, ALL_MARKETS, ALL_BOOKS, FULL_MARKETS, TARGET_BOOKS, SHARP_ANCHORS,
+    american_to_prob, devig_two_way, _get_odds_json, _odds_keys,
 )
 
 LOOKAHEAD_MIN_DEFAULT = 60   # capture closing for games starting within 60 min
@@ -53,36 +53,22 @@ LOOKAHEAD_MIN_DEFAULT = 60   # capture closing for games starting within 60 min
 # Odds fetching (we re-fetch a fresh snapshot here on purpose)
 # ---------------------------------------------------------------------------
 
-def _fetch_current_odds(api_key: str) -> list[dict]:
-    """Fetch current MLB odds with graceful market fallback.
+def _fetch_current_odds(keys: list[str]) -> list[dict]:
+    """Fetch current full-game MLB odds via the shared key-rotation helper.
 
-    The Odds API rejects combined calls that include alt-inning markets
-    (totals_1st_5_innings, totals_1st_1_innings) with HTTP 422. The main
-    scraper has this fallback; closing_snapshot was missing it, causing
-    every run to silently fail. Try the combined call first; on failure,
-    retry with just the core markets the API always supports.
+    Requests only FULL_MARKETS (h2h/spreads/totals) in a SINGLE call: the old
+    code tried the combined alt-inning markets first, which 422s every run and
+    forced a second fallback call — doubling quota burn. It also used only the
+    primary key; routing through _get_odds_json drains the primary then fails
+    over to the backup, so a closing snapshot still captures when key 1 is spent.
+    CLV for F5/NRFI is unavailable (those markets 422 anyway); ML/RL/total — the
+    overwhelming majority of bets — capture fine.
     """
-    base = {
-        "apiKey":     api_key,
-        "regions":    "us,us2,eu",
-        "oddsFormat": "american",
-        "bookmakers": ",".join(ALL_BOOKS),
-    }
-    url = f"{ODDS_API}/sports/baseball_mlb/odds"
-    # Try the combined call first
-    try:
-        r = requests.get(url, params={**base, "markets": ",".join(ALL_MARKETS)}, timeout=30)
-        r.raise_for_status()
-        return r.json()
-    except Exception as e:
-        # Fall back to core full-game markets only (h2h, spreads, totals).
-        # CLV for F5 / NRFI props will be unavailable on these runs but
-        # the much-more-common moneyline / RL / total bets WILL capture.
-        print(f"[snapshot] combined call failed ({e}); retrying core markets only")
-        core = ("h2h", "spreads", "totals")
-        r = requests.get(url, params={**base, "markets": ",".join(core)}, timeout=30)
-        r.raise_for_status()
-        return r.json()
+    return _get_odds_json(
+        f"{ODDS_API}/sports/baseball_mlb/odds",
+        {"regions": "us,us2,eu", "markets": ",".join(FULL_MARKETS),
+         "oddsFormat": "american", "bookmakers": ",".join(ALL_BOOKS)},
+        keys=keys) or []
 
 
 # ---------------------------------------------------------------------------
@@ -201,9 +187,9 @@ def _devigged_close_prob(game_odds: dict, market_key: str, side_target: str,
 # ---------------------------------------------------------------------------
 
 def snapshot(data_root: Path, lookahead_min: int = LOOKAHEAD_MIN_DEFAULT) -> int:
-    api_key = os.environ.get("ODDS_API_KEY")
-    if not api_key:
-        print("[snapshot] ODDS_API_KEY not set — cannot fetch closing odds")
+    keys = _odds_keys()
+    if not keys:
+        print("[snapshot] no Odds API key set — cannot fetch closing odds")
         return 0
     log = _ensure_log(data_root)
     rows = _read_log(log)
@@ -235,7 +221,7 @@ def snapshot(data_root: Path, lookahead_min: int = LOOKAHEAD_MIN_DEFAULT) -> int
 
     print(f"[snapshot] {len(candidates)} pending bet(s) eligible — fetching odds")
     try:
-        all_odds = _fetch_current_odds(api_key)
+        all_odds = _fetch_current_odds(keys)
     except Exception as e:
         print(f"[snapshot] error fetching odds: {e}")
         return 0
