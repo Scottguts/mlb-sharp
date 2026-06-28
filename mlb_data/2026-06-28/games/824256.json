@@ -1,0 +1,845 @@
+{
+  "gamePk": 824256,
+  "gameDate": "2026-06-28T17:40:00Z",
+  "venue": {
+    "available": true,
+    "name": "Comerica Park",
+    "roof": "open",
+    "pf_runs": 94,
+    "pf_hr_lhb": 91,
+    "pf_hr_rhb": 92
+  },
+  "weather": {
+    "available": true,
+    "indoor": false,
+    "park": "Comerica Park",
+    "first_pitch_iso": "2026-06-28T17:40:00Z",
+    "temp_f": 84.9,
+    "humidity_pct": 42,
+    "dew_point_f": 59.3,
+    "wind_mph": 9.3,
+    "wind_dir_deg": 80,
+    "wind_effect": {
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 102
+    },
+    "precip_prob_pct": 1
+  },
+  "away": {
+    "team_id": 117,
+    "team_name": "Houston Astros",
+    "probable_pitcher_id": 686613,
+    "probable_pitcher_name": "Hunter Brown",
+    "pitcher_profile": {
+      "id": 686613,
+      "available": true,
+      "window_days": 30,
+      "throws": "R",
+      "total_pitches": 177,
+      "season_avg_velo": 91.87,
+      "starts": [
+        {
+          "game_date": "2026-06-22",
+          "pitches": 85,
+          "avg_velo": 91.90470588235294,
+          "max_velo": 97.7,
+          "csw": 0.29411764705882354,
+          "hard_hit": 0.03529411764705882,
+          "strikeouts": 4,
+          "walks": 2,
+          "batters_faced": 17,
+          "barrel": 0.011764705882352941
+        },
+        {
+          "game_date": "2026-06-16",
+          "pitches": 92,
+          "avg_velo": 91.84673913043478,
+          "max_velo": 97.5,
+          "csw": 0.29347826086956524,
+          "hard_hit": 0.06521739130434782,
+          "strikeouts": 7,
+          "walks": 3,
+          "batters_faced": 22,
+          "barrel": 0.010869565217391304
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.073,
+        "FF": 0.379,
+        "KC": 0.175,
+        "SI": 0.266,
+        "SL": 0.107
+      },
+      "splits": {
+        "L": {
+          "pitches": 100,
+          "avg_velo": 92.0,
+          "csw": 0.3,
+          "xwoba": 0.292,
+          "hard_hit_rate": 0.04
+        },
+        "R": {
+          "pitches": 77,
+          "avg_velo": 91.71,
+          "csw": 0.286,
+          "xwoba": 0.272,
+          "hard_hit_rate": 0.065
+        }
+      },
+      "movement_flags": [],
+      "k_total_window": 11,
+      "bb_total_window": 5,
+      "k_starts_window": 2,
+      "k_per_start": 5.5,
+      "bb_per_start": 2.5,
+      "k_per_bf": 0.282,
+      "bb_per_bf": 0.128
+    },
+    "bullpen_usage": {
+      "team_id": 117,
+      "window_days": 7,
+      "relievers": {
+        "623352": {
+          "name": "Josh Hader",
+          "throws": "L",
+          "appearances": 4,
+          "pitches": 51,
+          "ip": 4.0,
+          "dates": [
+            "2026-06-21",
+            "2026-06-23",
+            "2026-06-24",
+            "2026-06-27"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "595345": {
+          "name": "Steven Okert",
+          "throws": "L",
+          "appearances": 4,
+          "pitches": 72,
+          "ip": 4.1,
+          "dates": [
+            "2026-06-21",
+            "2026-06-23",
+            "2026-06-24",
+            "2026-06-27"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "687911": {
+          "name": "Bryan King",
+          "throws": "L",
+          "appearances": 4,
+          "pitches": 47,
+          "ip": 3.2,
+          "dates": [
+            "2026-06-21",
+            "2026-06-22",
+            "2026-06-24",
+            "2026-06-27"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "805123": {
+          "name": "AJ Blubaugh",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 91,
+          "ip": 6.0,
+          "dates": [
+            "2026-06-22",
+            "2026-06-25",
+            "2026-06-27"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "660853": {
+          "name": "Enyel De Los Santos",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 55,
+          "ip": 3.2,
+          "dates": [
+            "2026-06-22",
+            "2026-06-23",
+            "2026-06-25"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "701121": {
+          "name": "Logan VanWey",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 39,
+          "ip": 3.0,
+          "dates": [
+            "2026-06-22",
+            "2026-06-23"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "663878": {
+          "name": "Nate Pearson",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 21,
+          "ip": 1.0,
+          "dates": [
+            "2026-06-23"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "681293": {
+          "name": "Spencer Arrighetti",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 93,
+          "ip": 3.0,
+          "dates": [
+            "2026-06-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "650556": {
+          "name": "Bryan Abreu",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 10,
+          "ip": 1.0,
+          "dates": [
+            "2026-06-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "676694": {
+          "name": "Jake Meyers",
+          "throws": "L",
+          "appearances": 1,
+          "pitches": 9,
+          "ip": 1.0,
+          "dates": [
+            "2026-06-26"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        }
+      },
+      "quality": {
+        "bp_innings": 30.67,
+        "bp_era": 4.4,
+        "bp_k_pct": 0.248,
+        "bp_bb_pct": 0.093,
+        "bp_whip": 1.27,
+        "by_hand": {
+          "L": {
+            "count": 4,
+            "pitches": 179,
+            "appearances": 13,
+            "fresh_count": 1
+          },
+          "R": {
+            "count": 6,
+            "pitches": 309,
+            "appearances": 11,
+            "fresh_count": 3
+          }
+        }
+      }
+    },
+    "recent_form": {
+      "team_id": 117,
+      "window_days": 14,
+      "games_played": 13,
+      "wins": 8,
+      "losses": 5,
+      "rpg_for": 3.62,
+      "rpg_against": 4.31,
+      "win_pct": 0.615,
+      "results": [
+        {
+          "date": "2026-06-21",
+          "for": 2,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-06-22",
+          "for": 2,
+          "against": 4,
+          "won": false
+        },
+        {
+          "date": "2026-06-23",
+          "for": 9,
+          "against": 7,
+          "won": true
+        },
+        {
+          "date": "2026-06-24",
+          "for": 3,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-06-25",
+          "for": 2,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-06-26",
+          "for": 0,
+          "against": 8,
+          "won": false
+        },
+        {
+          "date": "2026-06-27",
+          "for": 8,
+          "against": 6,
+          "won": true
+        }
+      ]
+    },
+    "travel": {
+      "available": true,
+      "days_rest": 1,
+      "miles_traveled": 0.0,
+      "cross_country": false,
+      "last_venue_id": 2394,
+      "notes": []
+    },
+    "top_of_order": {
+      "available": false,
+      "reason": "no_lineup"
+    },
+    "team_split_vs_opp_hand": {
+      "available": true,
+      "vs_hand": "R",
+      "season": 2026,
+      "pa": 2400,
+      "ab": 2130,
+      "avg": 0.244,
+      "obp": 0.32,
+      "slg": 0.408,
+      "ops": 0.728,
+      "woba": 0.404,
+      "hr": 80,
+      "k_pct": 0.22,
+      "bb_pct": 0.092
+    }
+  },
+  "home": {
+    "team_id": 116,
+    "team_name": "Detroit Tigers",
+    "probable_pitcher_id": 656427,
+    "probable_pitcher_name": "Jack Flaherty",
+    "pitcher_profile": {
+      "id": 656427,
+      "available": true,
+      "window_days": 30,
+      "throws": "R",
+      "total_pitches": 244,
+      "season_avg_velo": 88.55,
+      "starts": [
+        {
+          "game_date": "2026-06-12",
+          "pitches": 63,
+          "avg_velo": 89.12380952380953,
+          "max_velo": 96.3,
+          "csw": 0.19047619047619047,
+          "hard_hit": 0.14285714285714285,
+          "strikeouts": 1,
+          "walks": 1,
+          "batters_faced": 13,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-07",
+          "pitches": 87,
+          "avg_velo": 88.90459770114943,
+          "max_velo": 95.1,
+          "csw": 0.3103448275862069,
+          "hard_hit": 0.08045977011494253,
+          "strikeouts": 7,
+          "walks": 1,
+          "batters_faced": 22,
+          "barrel": 0.022988505747126436
+        },
+        {
+          "game_date": "2026-06-02",
+          "pitches": 94,
+          "avg_velo": 87.83297872340425,
+          "max_velo": 95.8,
+          "csw": 0.2553191489361702,
+          "hard_hit": 0.0851063829787234,
+          "strikeouts": 6,
+          "walks": 2,
+          "batters_faced": 22,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.029,
+        "FF": 0.516,
+        "KC": 0.201,
+        "SI": 0.025,
+        "SL": 0.23
+      },
+      "splits": {
+        "L": {
+          "pitches": 150,
+          "avg_velo": 88.89,
+          "csw": 0.247,
+          "xwoba": 0.267,
+          "hard_hit_rate": 0.1
+        },
+        "R": {
+          "pitches": 94,
+          "avg_velo": 88.0,
+          "csw": 0.277,
+          "xwoba": 0.385,
+          "hard_hit_rate": 0.096
+        }
+      },
+      "movement_flags": [
+        "KC movement shift (-2.0\" horiz, +1.5\" vert) last start",
+        "SL movement shift (-1.7\" horiz, +0.4\" vert) last start"
+      ],
+      "k_total_window": 14,
+      "bb_total_window": 4,
+      "k_starts_window": 3,
+      "k_per_start": 4.67,
+      "bb_per_start": 1.33,
+      "k_per_bf": 0.246,
+      "bb_per_bf": 0.07
+    },
+    "bullpen_usage": {
+      "team_id": 116,
+      "window_days": 7,
+      "relievers": {
+        "640448": {
+          "name": "Kyle Finnegan",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 44,
+          "ip": 3.1,
+          "dates": [
+            "2026-06-21",
+            "2026-06-23",
+            "2026-06-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "805427": {
+          "name": "Drew Sommers",
+          "throws": "L",
+          "appearances": 3,
+          "pitches": 28,
+          "ip": 1.2000000000000002,
+          "dates": [
+            "2026-06-21",
+            "2026-06-22",
+            "2026-06-27"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "676684": {
+          "name": "Will Vest",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 54,
+          "ip": 3.1,
+          "dates": [
+            "2026-06-21",
+            "2026-06-22",
+            "2026-06-27"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "623454": {
+          "name": "Drew Anderson",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 44,
+          "ip": 1.3,
+          "dates": [
+            "2026-06-22",
+            "2026-06-27"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "663947": {
+          "name": "Tyler Holton",
+          "throws": "L",
+          "appearances": 2,
+          "pitches": 35,
+          "ip": 2.0,
+          "dates": [
+            "2026-06-23",
+            "2026-06-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "646241": {
+          "name": "Enmanuel De Jesus",
+          "throws": "L",
+          "appearances": 3,
+          "pitches": 60,
+          "ip": 4.1,
+          "dates": [
+            "2026-06-23",
+            "2026-06-24",
+            "2026-06-26"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "621097": {
+          "name": "Jacob Waguespack",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 34,
+          "ip": 2.2,
+          "dates": [
+            "2026-06-24",
+            "2026-06-27"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "445276": {
+          "name": "Kenley Jansen",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 15,
+          "ip": 1.0,
+          "dates": [
+            "2026-06-25"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        }
+      },
+      "quality": {
+        "bp_innings": 20.33,
+        "bp_era": 2.66,
+        "bp_k_pct": 0.305,
+        "bp_bb_pct": 0.049,
+        "bp_whip": 0.98,
+        "by_hand": {
+          "L": {
+            "count": 3,
+            "pitches": 123,
+            "appearances": 8,
+            "fresh_count": 1
+          },
+          "R": {
+            "count": 5,
+            "pitches": 191,
+            "appearances": 11,
+            "fresh_count": 2
+          }
+        }
+      }
+    },
+    "recent_form": {
+      "team_id": 116,
+      "window_days": 14,
+      "games_played": 13,
+      "wins": 6,
+      "losses": 7,
+      "rpg_for": 3.92,
+      "rpg_against": 3.08,
+      "win_pct": 0.462,
+      "results": [
+        {
+          "date": "2026-06-21",
+          "for": 5,
+          "against": 4,
+          "won": true
+        },
+        {
+          "date": "2026-06-22",
+          "for": 5,
+          "against": 3,
+          "won": true
+        },
+        {
+          "date": "2026-06-23",
+          "for": 3,
+          "against": 4,
+          "won": false
+        },
+        {
+          "date": "2026-06-24",
+          "for": 2,
+          "against": 4,
+          "won": false
+        },
+        {
+          "date": "2026-06-25",
+          "for": 1,
+          "against": 2,
+          "won": false
+        },
+        {
+          "date": "2026-06-26",
+          "for": 8,
+          "against": 0,
+          "won": true
+        },
+        {
+          "date": "2026-06-27",
+          "for": 6,
+          "against": 8,
+          "won": false
+        }
+      ]
+    },
+    "travel": {
+      "available": true,
+      "days_rest": 1,
+      "miles_traveled": 0.0,
+      "cross_country": false,
+      "last_venue_id": 2394,
+      "notes": []
+    },
+    "top_of_order": {
+      "available": true,
+      "season": 2026,
+      "vs_hand": "R",
+      "batters": [
+        {
+          "id": 805808,
+          "name": "Kevin McGonigle",
+          "ab": 212,
+          "pa": 254,
+          "ops": 0.861,
+          "avg": 0.297,
+          "obp": 0.413,
+          "slg": 0.448,
+          "woba": 0.487,
+          "k_pct": 0.114,
+          "bb_pct": 0.161,
+          "walks": 41,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 32,
+            "ab": 27,
+            "ops": 0.776,
+            "obp": 0.406,
+            "slg": 0.37,
+            "woba": 0.447
+          }
+        },
+        {
+          "id": 690993,
+          "name": "Colt Keith",
+          "ab": 209,
+          "pa": 224,
+          "ops": 0.692,
+          "avg": 0.258,
+          "obp": 0.304,
+          "slg": 0.388,
+          "woba": 0.384,
+          "k_pct": 0.196,
+          "bb_pct": 0.054,
+          "walks": 12,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 24,
+            "ab": 23,
+            "ops": 0.428,
+            "obp": 0.167,
+            "slg": 0.261,
+            "woba": 0.233
+          }
+        },
+        {
+          "id": 682985,
+          "name": "Riley Greene",
+          "ab": 214,
+          "pa": 242,
+          "ops": 0.834,
+          "avg": 0.304,
+          "obp": 0.376,
+          "slg": 0.458,
+          "woba": 0.466,
+          "k_pct": 0.256,
+          "bb_pct": 0.103,
+          "walks": 25,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 30,
+            "ab": 25,
+            "ops": 0.913,
+            "obp": 0.433,
+            "slg": 0.48,
+            "woba": 0.515
+          }
+        },
+        {
+          "id": 693307,
+          "name": "Dillon Dingler",
+          "ab": 196,
+          "pa": 217,
+          "ops": 0.931,
+          "avg": 0.286,
+          "obp": 0.349,
+          "slg": 0.582,
+          "woba": 0.503,
+          "k_pct": 0.203,
+          "bb_pct": 0.065,
+          "walks": 14,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 27,
+            "ab": 26,
+            "ops": 0.834,
+            "obp": 0.296,
+            "slg": 0.538,
+            "woba": 0.446
+          }
+        },
+        {
+          "id": 681481,
+          "name": "Kerry Carpenter",
+          "ab": 154,
+          "pa": 174,
+          "ops": 0.824,
+          "avg": 0.234,
+          "obp": 0.305,
+          "slg": 0.519,
+          "woba": 0.444,
+          "k_pct": 0.316,
+          "bb_pct": 0.086,
+          "walks": 15,
+          "recent_7d": {
+            "available": true,
+            "days": 7,
+            "pa": 23,
+            "ab": 22,
+            "ops": 0.672,
+            "obp": 0.217,
+            "slg": 0.455,
+            "woba": 0.354
+          }
+        }
+      ],
+      "avg_woba": 0.457,
+      "avg_ops": 0.828,
+      "avg_k_pct": 0.217,
+      "avg_bb_pct": 0.094
+    },
+    "team_split_vs_opp_hand": {
+      "available": true,
+      "vs_hand": "R",
+      "season": 2026,
+      "pa": 2266,
+      "ab": 2025,
+      "avg": 0.24,
+      "obp": 0.312,
+      "slg": 0.403,
+      "ops": 0.715,
+      "woba": 0.397,
+      "hr": 72,
+      "k_pct": 0.233,
+      "bb_pct": 0.088
+    }
+  },
+  "lineups": {
+    "lineups_confirmed": true,
+    "away_lineup": [],
+    "home_lineup": [
+      {
+        "id": 805808,
+        "name": "Kevin McGonigle",
+        "position": "3B",
+        "bat_side": null
+      },
+      {
+        "id": 690993,
+        "name": "Colt Keith",
+        "position": "1B",
+        "bat_side": null
+      },
+      {
+        "id": 682985,
+        "name": "Riley Greene",
+        "position": "LF",
+        "bat_side": null
+      },
+      {
+        "id": 693307,
+        "name": "Dillon Dingler",
+        "position": "C",
+        "bat_side": null
+      },
+      {
+        "id": 681481,
+        "name": "Kerry Carpenter",
+        "position": "DH",
+        "bat_side": null
+      },
+      {
+        "id": 656716,
+        "name": "Zach McKinstry",
+        "position": "SS",
+        "bat_side": null
+      },
+      {
+        "id": 701678,
+        "name": "Hao-Yu Lee",
+        "position": "2B",
+        "bat_side": null
+      },
+      {
+        "id": 681546,
+        "name": "James Outman",
+        "position": "CF",
+        "bat_side": null
+      },
+      {
+        "id": 663837,
+        "name": "Matt Vierling",
+        "position": "RF",
+        "bat_side": null
+      }
+    ],
+    "umpires": [],
+    "hp_ump_tendency": null
+  },
+  "catcher_framing": {
+    "available": true,
+    "home": {
+      "catcher_id": 668670,
+      "season_runs": 0.0,
+      "per_game": 0.0
+    },
+    "away": {
+      "catcher_id": 543877,
+      "season_runs": 0.0,
+      "per_game": 0.0
+    }
+  }
+}
