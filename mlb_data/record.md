@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-06-30 11:09_  
+_Generated 2026-07-01 11:06_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  199 |  97- 99-  1 |  49.5% | 170.50 |   -5.08 |  -2.98% | 23.32% |
-| moneyline      |   83 |  38- 44-  0 |  46.3% |  57.50 |   -5.73 |  -9.96% | 31.01% |
+| OVERALL        |  203 |  97- 99-  1 |  49.5% | 170.50 |   -5.08 |  -2.98% | 23.01% |
+| moneyline      |   85 |  38- 44-  0 |  46.3% |  57.50 |   -5.73 |  -9.96% | 30.38% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   49 |  23- 25-  1 |  47.9% |  34.00 |   -1.43 |  -4.20% | 16.55% |
 
@@ -19,8 +19,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   65 |  34- 30-  0 |  53.1% |  75.00 |   +0.90 |  +1.19% |  8.25% |
-| moneyline      |   12 |   4-  8-  0 |  33.3% |   8.00 |   -4.14 | -51.74% |  3.61% |
+| OVERALL        |   69 |  34- 30-  0 |  53.1% |  75.00 |   +0.90 |  +1.19% |  8.20% |
+| moneyline      |   14 |   4-  8-  0 |  33.3% |   8.00 |   -4.14 | -51.74% |  3.71% |
 | total          |    8 |   4-  4-  0 |  50.0% |   4.00 |   +0.02 |  +0.59% |  3.65% |
 
 ## Last 7 Days
@@ -28,15 +28,16 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |    3 |   2-  1-  0 |  66.7% |   4.00 |   +1.61 | +40.24% |  9.44% |
+| OVERALL        |    5 |   0-  1-  0 |   0.0% |   1.00 |   -1.00 | -100.00% |  7.11% |
+| moneyline      |    2 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  4.31% |
 
 ## By Confidence (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| 9-10           |   31 |  14- 17-  0 |  45.2% |  45.50 |   -5.14 | -11.31% | 12.84% |
-| 7-8            |   71 |  37- 32-  1 |  53.6% |  76.50 |   +1.21 |  +1.58% |  8.97% |
+| 9-10           |   33 |  14- 17-  0 |  45.2% |  45.50 |   -5.14 | -11.31% | 12.60% |
+| 7-8            |   73 |  37- 32-  1 |  53.6% |  76.50 |   +1.21 |  +1.58% |  8.88% |
 | 5-6            |   97 |  46- 50-  0 |  47.9% |  48.50 |   -1.15 |  -2.37% | 37.18% |
 
 ## By Book (All Time)
@@ -44,9 +45,18 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |   62 |  33- 29-  0 |  53.2% |  55.00 |   +1.03 |  +1.87% | 43.24% |
-| draftkings     |   56 |  31- 22-  1 |  58.5% |  56.50 |   +5.26 |  +9.31% | 16.52% |
+| betmgm         |   63 |  33- 29-  0 |  53.2% |  55.00 |   +1.03 |  +1.87% | 42.63% |
+| draftkings     |   59 |  31- 22-  1 |  58.5% |  56.50 |   +5.26 |  +9.31% | 16.10% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
+
+## Pending (4)
+
+| Date | Matchup | Market | Side | Line | Book | Price | Units |
+|---|---|---|---|---|---|---|---|
+| 2026-07-01 | Texas Rangers @ Cleveland Guardians | pitcher_strikeouts | under | 6.5 | draftkings | -117 | 1.5 |
+| 2026-07-01 | San Diego Padres @ Chicago Cubs | pitcher_strikeouts | under | 3.5 | draftkings | 124 | 1.5 |
+| 2026-07-01 | Washington Nationals @ Boston Red Sox | moneyline | away |  | betmgm | 125 | 1.0 |
+| 2026-07-01 | Chicago White Sox @ Baltimore Orioles | moneyline | away |  | draftkings | 119 | 1.0 |
 
 ## Last 10 Settled
 
