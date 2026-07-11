@@ -1,0 +1,807 @@
+{
+  "gamePk": 822711,
+  "gameDate": "2026-07-11T20:05:00Z",
+  "venue": {
+    "available": true,
+    "name": "Nationals Park",
+    "roof": "open",
+    "pf_runs": 103,
+    "pf_hr_lhb": 102,
+    "pf_hr_rhb": 99
+  },
+  "weather": {
+    "available": true,
+    "indoor": false,
+    "park": "Nationals Park",
+    "first_pitch_iso": "2026-07-11T20:05:00Z",
+    "temp_f": 82.5,
+    "humidity_pct": 66,
+    "dew_point_f": 70.0,
+    "wind_mph": 3.0,
+    "wind_dir_deg": 48,
+    "wind_effect": {
+      "effect": "calm",
+      "delta_runs": 0.0,
+      "angle_off_cf": null
+    },
+    "precip_prob_pct": 31
+  },
+  "away": {
+    "team_id": 147,
+    "team_name": "New York Yankees",
+    "probable_pitcher_id": 693645,
+    "probable_pitcher_name": "Cam Schlittler",
+    "pitcher_profile": {
+      "id": 693645,
+      "available": true,
+      "window_days": 30,
+      "throws": "R",
+      "total_pitches": 475,
+      "season_avg_velo": 96.7,
+      "starts": [
+        {
+          "game_date": "2026-07-06",
+          "pitches": 101,
+          "avg_velo": 97.25742574257426,
+          "max_velo": 100.5,
+          "csw": 0.297029702970297,
+          "hard_hit": 0.039603960396039604,
+          "strikeouts": 8,
+          "walks": 0,
+          "batters_faced": 28,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-30",
+          "pitches": 85,
+          "avg_velo": 94.51411764705882,
+          "max_velo": 98.7,
+          "csw": 0.23529411764705882,
+          "hard_hit": 0.1411764705882353,
+          "strikeouts": 5,
+          "walks": 1,
+          "batters_faced": 20,
+          "barrel": 0.08235294117647059
+        },
+        {
+          "game_date": "2026-06-25",
+          "pitches": 92,
+          "avg_velo": 97.24347826086957,
+          "max_velo": 100.4,
+          "csw": 0.29347826086956524,
+          "hard_hit": 0.043478260869565216,
+          "strikeouts": 9,
+          "walks": 2,
+          "batters_faced": 25,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-19",
+          "pitches": 96,
+          "avg_velo": 97.22395833333333,
+          "max_velo": 100.3,
+          "csw": 0.3125,
+          "hard_hit": 0.020833333333333332,
+          "strikeouts": 13,
+          "walks": 0,
+          "batters_faced": 23,
+          "barrel": 0.010416666666666666
+        },
+        {
+          "game_date": "2026-06-13",
+          "pitches": 101,
+          "avg_velo": 97.0039603960396,
+          "max_velo": 99.7,
+          "csw": 0.19801980198019803,
+          "hard_hit": 0.04950495049504951,
+          "strikeouts": 7,
+          "walks": 4,
+          "batters_faced": 29,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "CU": 0.059,
+        "FC": 0.269,
+        "FF": 0.459,
+        "SI": 0.213
+      },
+      "splits": {
+        "L": {
+          "pitches": 254,
+          "avg_velo": 96.58,
+          "csw": 0.276,
+          "xwoba": 0.275,
+          "hard_hit_rate": 0.043
+        },
+        "R": {
+          "pitches": 221,
+          "avg_velo": 96.84,
+          "csw": 0.258,
+          "xwoba": 0.283,
+          "hard_hit_rate": 0.072
+        }
+      },
+      "movement_flags": [
+        "CU movement shift (+1.6\" horiz, -1.6\" vert) last start"
+      ],
+      "k_total_window": 42,
+      "bb_total_window": 7,
+      "k_starts_window": 5,
+      "k_per_start": 8.4,
+      "bb_per_start": 1.4,
+      "k_per_bf": 0.336,
+      "bb_per_bf": 0.056
+    },
+    "bullpen_usage": {
+      "team_id": 147,
+      "window_days": 7,
+      "relievers": {
+        "642232": {
+          "name": "Ryan Yarbrough",
+          "throws": "L",
+          "appearances": 2,
+          "pitches": 52,
+          "ip": 2.2,
+          "dates": [
+            "2026-07-04",
+            "2026-07-09"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "657612": {
+          "name": "Tim Hill",
+          "throws": "L",
+          "appearances": 4,
+          "pitches": 60,
+          "ip": 3.3000000000000003,
+          "dates": [
+            "2026-07-04",
+            "2026-07-07",
+            "2026-07-09",
+            "2026-07-10"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "687396": {
+          "name": "Brent Headrick",
+          "throws": "L",
+          "appearances": 3,
+          "pitches": 50,
+          "ip": 3.2,
+          "dates": [
+            "2026-07-04",
+            "2026-07-07",
+            "2026-07-09"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "666808": {
+          "name": "Camilo Doval",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 60,
+          "ip": 2.2,
+          "dates": [
+            "2026-07-04",
+            "2026-07-05",
+            "2026-07-09"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "656234": {
+          "name": "Jake Bird",
+          "throws": "R",
+          "appearances": 4,
+          "pitches": 59,
+          "ip": 1.7999999999999998,
+          "dates": [
+            "2026-07-04",
+            "2026-07-05",
+            "2026-07-09",
+            "2026-07-10"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "683409": {
+          "name": "Angel Chivilli",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 52,
+          "ip": 4.1,
+          "dates": [
+            "2026-07-05",
+            "2026-07-08",
+            "2026-07-09"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "621112": {
+          "name": "Paul Blackburn",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 78,
+          "ip": 4.1,
+          "dates": [
+            "2026-07-05",
+            "2026-07-07",
+            "2026-07-09"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "670280": {
+          "name": "David Bednar",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 38,
+          "ip": 3.0,
+          "dates": [
+            "2026-07-06",
+            "2026-07-10"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "518585": {
+          "name": "Fernando Cruz",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 25,
+          "ip": 0.4,
+          "dates": [
+            "2026-07-08",
+            "2026-07-10"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        }
+      },
+      "quality": {
+        "bp_innings": 29.67,
+        "bp_era": 2.43,
+        "bp_k_pct": 0.213,
+        "bp_bb_pct": 0.063,
+        "bp_whip": 1.15,
+        "by_hand": {
+          "L": {
+            "count": 3,
+            "pitches": 162,
+            "appearances": 9,
+            "fresh_count": 2
+          },
+          "R": {
+            "count": 6,
+            "pitches": 312,
+            "appearances": 17,
+            "fresh_count": 1
+          }
+        }
+      }
+    },
+    "recent_form": {
+      "team_id": 147,
+      "window_days": 14,
+      "games_played": 13,
+      "wins": 4,
+      "losses": 9,
+      "rpg_for": 3.77,
+      "rpg_against": 5.15,
+      "win_pct": 0.308,
+      "results": [
+        {
+          "date": "2026-07-04",
+          "for": 4,
+          "against": 11,
+          "won": false
+        },
+        {
+          "date": "2026-07-05",
+          "for": 1,
+          "against": 6,
+          "won": false
+        },
+        {
+          "date": "2026-07-06",
+          "for": 5,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-07-07",
+          "for": 4,
+          "against": 6,
+          "won": false
+        },
+        {
+          "date": "2026-07-08",
+          "for": 0,
+          "against": 3,
+          "won": false
+        },
+        {
+          "date": "2026-07-09",
+          "for": 12,
+          "against": 4,
+          "won": true
+        },
+        {
+          "date": "2026-07-10",
+          "for": 5,
+          "against": 3,
+          "won": true
+        }
+      ]
+    },
+    "travel": {
+      "available": true,
+      "days_rest": 1,
+      "miles_traveled": 0.0,
+      "cross_country": false,
+      "last_venue_id": 3309,
+      "notes": []
+    },
+    "top_of_order": {
+      "available": false,
+      "reason": "no_lineup"
+    },
+    "team_split_vs_opp_hand": {
+      "available": true,
+      "vs_hand": "L",
+      "season": 2026,
+      "pa": 1207,
+      "ab": 1075,
+      "avg": 0.243,
+      "obp": 0.315,
+      "slg": 0.432,
+      "ops": 0.747,
+      "woba": 0.412,
+      "hr": 45,
+      "k_pct": 0.245,
+      "bb_pct": 0.091
+    }
+  },
+  "home": {
+    "team_id": 120,
+    "team_name": "Washington Nationals",
+    "probable_pitcher_id": 676571,
+    "probable_pitcher_name": "PJ Poulin",
+    "pitcher_profile": {
+      "id": 676571,
+      "available": true,
+      "window_days": 30,
+      "throws": "L",
+      "total_pitches": 149,
+      "season_avg_velo": 85.51,
+      "starts": [
+        {
+          "game_date": "2026-07-05",
+          "pitches": 14,
+          "avg_velo": 85.60000000000001,
+          "max_velo": 90.6,
+          "csw": 0.14285714285714285,
+          "hard_hit": 0.0,
+          "strikeouts": 0,
+          "walks": 1,
+          "batters_faced": 4,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-28",
+          "pitches": 25,
+          "avg_velo": 86.92,
+          "max_velo": 91.2,
+          "csw": 0.24,
+          "hard_hit": 0.08,
+          "strikeouts": 0,
+          "walks": 1,
+          "batters_faced": 6,
+          "barrel": 0.04
+        },
+        {
+          "game_date": "2026-06-27",
+          "pitches": 11,
+          "avg_velo": 82.92727272727274,
+          "max_velo": 91.1,
+          "csw": 0.45454545454545453,
+          "hard_hit": 0.0,
+          "strikeouts": 1,
+          "walks": 0,
+          "batters_faced": 3,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-24",
+          "pitches": 15,
+          "avg_velo": 84.41333333333334,
+          "max_velo": 90.5,
+          "csw": 0.3333333333333333,
+          "hard_hit": 0.0,
+          "strikeouts": 1,
+          "walks": 0,
+          "batters_faced": 4,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-23",
+          "pitches": 8,
+          "avg_velo": 86.7625,
+          "max_velo": 90.9,
+          "csw": 0.375,
+          "hard_hit": 0.25,
+          "strikeouts": 1,
+          "walks": 0,
+          "batters_faced": 3,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-19",
+          "pitches": 23,
+          "avg_velo": 85.83043478260869,
+          "max_velo": 91.2,
+          "csw": 0.17391304347826086,
+          "hard_hit": 0.043478260869565216,
+          "strikeouts": 1,
+          "walks": 0,
+          "batters_faced": 7,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-17",
+          "pitches": 23,
+          "avg_velo": 84.58260869565218,
+          "max_velo": 91.6,
+          "csw": 0.17391304347826086,
+          "hard_hit": 0.13043478260869565,
+          "strikeouts": 0,
+          "walks": 1,
+          "batters_faced": 5,
+          "barrel": 0.0
+        },
+        {
+          "game_date": "2026-06-14",
+          "pitches": 15,
+          "avg_velo": 84.46666666666667,
+          "max_velo": 90.1,
+          "csw": 0.26666666666666666,
+          "hard_hit": 0.2,
+          "strikeouts": 0,
+          "walks": 0,
+          "batters_faced": 5,
+          "barrel": 0.06666666666666667
+        },
+        {
+          "game_date": "2026-06-13",
+          "pitches": 15,
+          "avg_velo": 87.37333333333332,
+          "max_velo": 89.7,
+          "csw": 0.2,
+          "hard_hit": 0.06666666666666667,
+          "strikeouts": 1,
+          "walks": 1,
+          "batters_faced": 3,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.034,
+        "FF": 0.268,
+        "SI": 0.349,
+        "ST": 0.349
+      },
+      "splits": {
+        "L": {
+          "pitches": 73,
+          "avg_velo": 85.76,
+          "csw": 0.233,
+          "xwoba": 0.284,
+          "hard_hit_rate": 0.096
+        },
+        "R": {
+          "pitches": 76,
+          "avg_velo": 85.27,
+          "csw": 0.25,
+          "xwoba": 0.331,
+          "hard_hit_rate": 0.066
+        }
+      },
+      "movement_flags": [
+        "SI movement shift (-2.2\" horiz, +0.3\" vert) last start"
+      ],
+      "k_total_window": 5,
+      "bb_total_window": 4,
+      "k_starts_window": 9,
+      "k_per_start": 0.56,
+      "bb_per_start": 0.44,
+      "k_per_bf": 0.125,
+      "bb_per_bf": 0.1
+    },
+    "bullpen_usage": {
+      "team_id": 120,
+      "window_days": 7,
+      "relievers": {
+        "683000": {
+          "name": "Riley Cornelio",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 57,
+          "ip": 3.1,
+          "dates": [
+            "2026-07-04",
+            "2026-07-07"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "687223": {
+          "name": "Carson Palmquist",
+          "throws": "L",
+          "appearances": 3,
+          "pitches": 98,
+          "ip": 5.0,
+          "dates": [
+            "2026-07-04",
+            "2026-07-07",
+            "2026-07-10"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "676917": {
+          "name": "Cade Cavalli",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 63,
+          "ip": 2.1,
+          "dates": [
+            "2026-07-05"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "678868": {
+          "name": "Eddy Yean",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 28,
+          "ip": 2.0,
+          "dates": [
+            "2026-07-05"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "664875": {
+          "name": "Justin Lawrence",
+          "throws": "R",
+          "appearances": 4,
+          "pitches": 73,
+          "ip": 2.5,
+          "dates": [
+            "2026-07-05",
+            "2026-07-07",
+            "2026-07-08",
+            "2026-07-10"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "695418": {
+          "name": "Brad Lord",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 50,
+          "ip": 1.1,
+          "dates": [
+            "2026-07-05"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "687377": {
+          "name": "Orlando Ribalta",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 34,
+          "ip": 2.0,
+          "dates": [
+            "2026-07-05",
+            "2026-07-08"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "676571": {
+          "name": "PJ Poulin",
+          "throws": "L",
+          "appearances": 1,
+          "pitches": 14,
+          "ip": 0.2,
+          "dates": [
+            "2026-07-05"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "669371": {
+          "name": "Cole Henry",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 44,
+          "ip": 1.2,
+          "dates": [
+            "2026-07-06"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "690925": {
+          "name": "Clayton Beeter",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 19,
+          "ip": 1.2000000000000002,
+          "dates": [
+            "2026-07-06",
+            "2026-07-10"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "640454": {
+          "name": "Matt Krook",
+          "throws": "L",
+          "appearances": 2,
+          "pitches": 34,
+          "ip": 0.30000000000000004,
+          "dates": [
+            "2026-07-07",
+            "2026-07-10"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "676680": {
+          "name": "Tom Cosgrove",
+          "throws": "L",
+          "appearances": 1,
+          "pitches": 15,
+          "ip": 0.2,
+          "dates": [
+            "2026-07-10"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        }
+      },
+      "quality": {
+        "bp_innings": 25.33,
+        "bp_era": 8.88,
+        "bp_k_pct": 0.248,
+        "bp_bb_pct": 0.112,
+        "bp_whip": 1.97,
+        "by_hand": {
+          "L": {
+            "count": 4,
+            "pitches": 161,
+            "appearances": 7,
+            "fresh_count": 1
+          },
+          "R": {
+            "count": 8,
+            "pitches": 368,
+            "appearances": 14,
+            "fresh_count": 6
+          }
+        }
+      }
+    },
+    "recent_form": {
+      "team_id": 120,
+      "window_days": 14,
+      "games_played": 12,
+      "wins": 7,
+      "losses": 5,
+      "rpg_for": 6.0,
+      "rpg_against": 5.25,
+      "win_pct": 0.583,
+      "results": [
+        {
+          "date": "2026-07-03",
+          "for": 9,
+          "against": 5,
+          "won": true
+        },
+        {
+          "date": "2026-07-04",
+          "for": 1,
+          "against": 7,
+          "won": false
+        },
+        {
+          "date": "2026-07-05",
+          "for": 5,
+          "against": 11,
+          "won": false
+        },
+        {
+          "date": "2026-07-06",
+          "for": 12,
+          "against": 11,
+          "won": true
+        },
+        {
+          "date": "2026-07-07",
+          "for": 3,
+          "against": 6,
+          "won": false
+        },
+        {
+          "date": "2026-07-08",
+          "for": 8,
+          "against": 2,
+          "won": true
+        },
+        {
+          "date": "2026-07-10",
+          "for": 3,
+          "against": 5,
+          "won": false
+        }
+      ]
+    },
+    "travel": {
+      "available": true,
+      "days_rest": 1,
+      "miles_traveled": 0.0,
+      "cross_country": false,
+      "last_venue_id": 3309,
+      "notes": []
+    },
+    "top_of_order": {
+      "available": false,
+      "reason": "no_lineup"
+    },
+    "team_split_vs_opp_hand": {
+      "available": true,
+      "vs_hand": "R",
+      "season": 2026,
+      "pa": 2596,
+      "ab": 2310,
+      "avg": 0.243,
+      "obp": 0.317,
+      "slg": 0.433,
+      "ops": 0.75,
+      "woba": 0.414,
+      "hr": 101,
+      "k_pct": 0.205,
+      "bb_pct": 0.085
+    }
+  },
+  "lineups": {
+    "lineups_confirmed": false,
+    "away_lineup": [],
+    "home_lineup": [],
+    "umpires": [],
+    "hp_ump_tendency": null
+  },
+  "catcher_framing": {
+    "available": true,
+    "home": {
+      "catcher_id": 686452,
+      "season_runs": 0.0,
+      "per_game": 0.0
+    },
+    "away": {
+      "catcher_id": 645305,
+      "season_runs": 0.0,
+      "per_game": 0.0
+    }
+  }
+}
