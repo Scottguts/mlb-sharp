@@ -1,0 +1,143 @@
+{
+  "available": true,
+  "fetched_at": "2026-07-13T15:07:47.519534Z",
+  "books_used": [
+    "draftkings",
+    "betmgm",
+    "caesars",
+    "pinnacle"
+  ],
+  "markets_requested": [
+    "h2h",
+    "spreads",
+    "totals",
+    "totals_1st_5_innings",
+    "totals_1st_1_innings"
+  ],
+  "markets_fetched": [
+    "h2h",
+    "spreads",
+    "totals"
+  ],
+  "games": [
+    {
+      "id": "7fecfdecc539334a88781da1943c5e9a",
+      "sport_key": "baseball_mlb",
+      "sport_title": "MLB",
+      "commence_time": "2026-07-15T00:01:00Z",
+      "home_team": "National League",
+      "away_team": "American League",
+      "bookmakers": [
+        {
+          "key": "pinnacle",
+          "title": "Pinnacle",
+          "last_update": "2026-07-13T15:07:13Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-07-13T15:07:13Z",
+              "outcomes": [
+                {
+                  "name": "American League",
+                  "price": 122
+                },
+                {
+                  "name": "National League",
+                  "price": -138
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-07-13T15:07:13Z",
+              "outcomes": [
+                {
+                  "name": "American League",
+                  "price": -176,
+                  "point": 1.5
+                },
+                {
+                  "name": "National League",
+                  "price": 151,
+                  "point": -1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-07-13T15:07:13Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -117,
+                  "point": 7.5
+                },
+                {
+                  "name": "Under",
+                  "price": 100,
+                  "point": 7.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "betmgm",
+          "title": "BetMGM",
+          "last_update": "2026-07-13T15:06:58Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-07-13T15:06:58Z",
+              "outcomes": [
+                {
+                  "name": "American League",
+                  "price": 118
+                },
+                {
+                  "name": "National League",
+                  "price": -140
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-07-13T15:06:58Z",
+              "outcomes": [
+                {
+                  "name": "American League",
+                  "price": -185,
+                  "point": 1.5
+                },
+                {
+                  "name": "National League",
+                  "price": 150,
+                  "point": -1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-07-13T15:06:58Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -120,
+                  "point": 7.5
+                },
+                {
+                  "name": "Under",
+                  "price": 100,
+                  "point": 7.5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    "inning/F5 markets unavailable (F5/NRFI skipped this run): 422 Client Error: Unprocessable Entity for url: https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?regions=us%2Cus2%2Ceu&markets=totals_1st_5_innings%2Ctotals_1st_1_innings&oddsFormat=american&bookmakers=draftkings%2Cbetmgm%2Ccaesars%2Cpinnacle&apiKey=***"
+  ]
+}
