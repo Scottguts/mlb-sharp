@@ -1,0 +1,192 @@
+[
+  {
+    "gamePk": 823440,
+    "matchup": "New York Mets @ Philadelphia Phillies",
+    "gameDate": "2026-07-16T23:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 6.0,
+        "away": 6.0,
+        "notes": [
+          "home: CSW% L5 starts 29.2%",
+          "away: CSW% L3 starts 29.7%"
+        ]
+      },
+      "bullpen": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home pen quality: K% 19.0, BB% 9.5, ERA 6.3",
+          "home: 0 arms gassed, 1 back-to-back, 149 pitches L7d",
+          "away pen quality: K% 18.2, BB% 9.1, ERA 4.97",
+          "away: 0 arms gassed, 2 back-to-back, 204 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.0,
+        "away": 5.5,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.1 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: solid form (5.2 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "warm (82.8\u00b0F) \u2014 ball carries",
+          "wind 5.4mph IN from CF (\u0394 -0.02r) \u2014 suppresses totals"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 3.5,
+        "notes": [
+          "home best -131@draftkings; fair -121 (54.8%); gap -1.88%",
+          "away best +110@betmgm; fair +121 (45.2%); gap -2.45%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 51.0,
+      "away": 52.8
+    },
+    "win_prob": {
+      "home": 0.5438,
+      "away": 0.4562
+    },
+    "expected_total": 9.54,
+    "expected_f5_total": 4.97,
+    "nrfi_prob": 0.5255,
+    "market": {
+      "ml": {
+        "away": 110,
+        "home": -131
+      },
+      "total": {
+        "line": 9.5,
+        "over": -109,
+        "under": -110
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Christian Scott Over 5.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": 105,
+        "line": 5.5,
+        "fair_prob": 0.5142013626040878,
+        "fair_american": -106,
+        "edge": 0.05411279333837982,
+        "confidence": 6,
+        "unit_size": 0.5,
+        "risk": "Lean",
+        "reasoning": [
+          "Model pitcher strikeouts projection 7.19 K vs line 5.5",
+          "P(over 5.5) = 51.4% \u00b7 market 45.4%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 681035,
+        "player_name": "Christian Scott"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 6.2,
+          "k_per_bf": 0.267,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.87,
+          "side": "home",
+          "name": "Aaron Nola",
+          "id": 605400
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 6.0,
+          "k_per_bf": 0.327,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 7.19,
+          "side": "away",
+          "name": "Christian Scott",
+          "id": 681035
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 1.4,
+          "bb_per_bf": 0.06,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.32,
+          "side": "home",
+          "name": "Aaron Nola",
+          "id": 605400
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 2.33,
+          "bb_per_bf": 0.127,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.79,
+          "side": "away",
+          "name": "Christian Scott",
+          "id": 681035
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
