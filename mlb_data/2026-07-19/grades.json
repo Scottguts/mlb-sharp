@@ -1,0 +1,3297 @@
+[
+  {
+    "gamePk": 822786,
+    "matchup": "Chicago White Sox @ Toronto Blue Jays",
+    "gameDate": "2026-07-19T16:15:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.0,
+        "away": 6.1,
+        "notes": [
+          "home: CSW% L4 starts 23.6%",
+          "away: CSW% L4 starts 29.9%",
+          "away: KC movement shift (-2.2\" horiz, +1.7\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 3.5,
+        "away": 7.5,
+        "notes": [
+          "home pen quality: K% 19.6, BB% 8.7, ERA 6.3",
+          "home: 2 arms gassed, 0 back-to-back, 169 pitches L7d",
+          "away pen quality: K% 20.9, BB% 4.7, ERA 1.59",
+          "away: 1 arms gassed, 0 back-to-back, 171 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 6.0,
+        "away": 6.5,
+        "notes": [
+          "home: 0/9 platoon edge vs RHP",
+          "home: elite top-of-order wOBA 0.410",
+          "away: 0/9 platoon edge vs RHP",
+          "away: solid form (5.0 RPG L14d)",
+          "away: elite top-of-order wOBA 0.455"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best -105@betmgm; fair +107 (48.4%); gap -2.86%",
+          "away best -112@draftkings; fair -107 (51.6%); gap -1.19%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 6.5,
+        "away": 6.5,
+        "notes": [
+          "lineups confirmed"
+        ]
+      }
+    },
+    "grade": {
+      "home": 50.4,
+      "away": 60.5
+    },
+    "win_prob": {
+      "home": 0.4583,
+      "away": 0.5417
+    },
+    "expected_total": 8.09,
+    "expected_f5_total": 4.8,
+    "nrfi_prob": 0.5156,
+    "market": {
+      "ml": {
+        "away": -112,
+        "home": -105
+      },
+      "total": {
+        "line": 8.0,
+        "over": -114,
+        "under": -105
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Trey Yesavage Under 5.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "under",
+        "book": "draftkings",
+        "price_american": 120,
+        "line": 5.5,
+        "fair_prob": 0.521322848133297,
+        "fair_american": -109,
+        "edge": 0.1469102658932535,
+        "confidence": 8,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Model pitcher strikeouts projection 4.31 K vs line 5.5",
+          "P(under 5.5) = 52.1% \u00b7 market 46.1%",
+          "4 starts in 30-day Statcast window",
+          "Opp lineup K-rate: 23.4%"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 702056,
+        "player_name": "Trey Yesavage"
+      },
+      {
+        "bet_label": "Chicago White Sox ML",
+        "market": "moneyline",
+        "side": "away",
+        "book": "draftkings",
+        "price_american": -112,
+        "line": null,
+        "fair_prob": 0.5417,
+        "fair_american": -118,
+        "edge": 0.02536071428571418,
+        "confidence": 7,
+        "unit_size": 0.5,
+        "risk": "Lean",
+        "reasoning": [
+          "Pitching edge (6.1 vs 5.0)",
+          "Bullpen edge (7.5 vs 3.5)",
+          "Market edge (5.0 vs 3.5)",
+          "home: CSW% L4 starts 23.6%",
+          "away: CSW% L4 starts 29.9%",
+          "home pen quality: K% 19.6, BB% 8.7, ERA 6.3"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ],
+        "player_id": null,
+        "player_name": null
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 4.0,
+          "k_per_bf": 0.184,
+          "opp_lineup_k_pct": 0.234,
+          "lineup_adjustment": 1.064,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.31,
+          "side": "home",
+          "name": "Trey Yesavage",
+          "id": 702056
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 8.5,
+          "k_per_bf": 0.343,
+          "opp_lineup_k_pct": 0.175,
+          "lineup_adjustment": 0.85,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.41,
+          "side": "away",
+          "name": "Sean Burke",
+          "id": 680732
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 3.5,
+          "bb_per_bf": 0.161,
+          "opp_lineup_bb_pct": 0.112,
+          "lineup_adjustment": 1.25,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 4.43,
+          "side": "home",
+          "name": "Trey Yesavage",
+          "id": 702056
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.0,
+          "bb_per_bf": 0.04,
+          "opp_lineup_bb_pct": 0.071,
+          "lineup_adjustment": 0.835,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.74,
+          "side": "away",
+          "name": "Sean Burke",
+          "id": 680732
+        }
+      ],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 676391,
+          "name": "Ernie Clement",
+          "bb_pct": 0.026,
+          "pa_sample": 271,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.086,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 664770,
+          "name": "Nathan Lukes",
+          "bb_pct": 0.054,
+          "pa_sample": 186,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.174,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 665489,
+          "name": "Vladimir Guerrero Jr.",
+          "bb_pct": 0.091,
+          "pa_sample": 308,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.287,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 672960,
+          "name": "Kazuma Okamoto",
+          "bb_pct": 0.094,
+          "pa_sample": 299,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.282,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 662139,
+          "name": "Daulton Varsho",
+          "bb_pct": 0.092,
+          "pa_sample": 240,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.269,
+          "side": "home",
+          "order": 5
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 803011,
+          "name": "Sam Antonacci",
+          "bb_pct": 0.082,
+          "pa_sample": 245,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.451,
+          "side": "away",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 808959,
+          "name": "Munetaka Murakami",
+          "bb_pct": 0.171,
+          "pa_sample": 187,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.919,
+          "side": "away",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 678246,
+          "name": "Miguel Vargas",
+          "bb_pct": 0.12,
+          "pa_sample": 291,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.63,
+          "side": "away",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 695657,
+          "name": "Colson Montgomery",
+          "bb_pct": 0.097,
+          "pa_sample": 269,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.485,
+          "side": "away",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 643217,
+          "name": "Andrew Benintendi",
+          "bb_pct": 0.089,
+          "pa_sample": 258,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.434,
+          "side": "away",
+          "order": 5
+        }
+      ],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 10,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 10,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 823113,
+    "matchup": "San Francisco Giants @ Seattle Mariners",
+    "gameDate": "2026-07-19T20:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 3.1,
+        "away": 5.0,
+        "notes": [
+          "home: velo down -1.8 mph \u2014 RED FLAG",
+          "home: CSW% L4 starts 27.7%",
+          "home: FS movement shift (+2.4\" horiz, -1.8\" vert) last start",
+          "away: CSW% L4 starts 18.8%"
+        ]
+      },
+      "bullpen": {
+        "home": 5.0,
+        "away": 6.5,
+        "notes": [
+          "home pen quality: K% 23.5, BB% 8.8, ERA 3.31",
+          "home: 4 arms gassed, 1 back-to-back, 269 pitches L7d",
+          "away pen quality: K% 25.9, BB% 11.1, ERA 0.0",
+          "away: 2 arms gassed, 0 back-to-back, 129 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.11 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "pitcher park (pf_runs 86)",
+          "wind 9.1mph IN from CF (\u0394 -0.16r) \u2014 suppresses totals"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 3.5,
+        "notes": [
+          "home best -199@draftkings; fair -183 (64.6%); gap -1.92%",
+          "away best +165@betmgm; fair +183 (35.4%); gap -2.37%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 41.7,
+      "away": 50.0
+    },
+    "win_prob": {
+      "home": 0.6256,
+      "away": 0.3744
+    },
+    "expected_total": 6.93,
+    "expected_f5_total": 4.62,
+    "nrfi_prob": 0.5296,
+    "market": {
+      "ml": {
+        "away": 165,
+        "home": -199
+      },
+      "total": {
+        "line": 7.0,
+        "over": -125,
+        "under": 105
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 6.75,
+          "k_per_bf": 0.262,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.76,
+          "side": "home",
+          "name": "Logan Gilbert",
+          "id": 669302
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 4.0,
+          "k_per_bf": 0.15,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.3,
+          "side": "away",
+          "name": "Robbie Ray",
+          "id": 592662
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.0,
+          "bb_per_bf": 0.039,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.86,
+          "side": "home",
+          "name": "Logan Gilbert",
+          "id": 669302
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 3.5,
+          "bb_per_bf": 0.131,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.88,
+          "side": "away",
+          "name": "Robbie Ray",
+          "id": 592662
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 823521,
+    "matchup": "Los Angeles Dodgers @ New York Yankees",
+    "gameDate": "2026-07-19T23:20:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home: pitcher profile unavailable \u2014 neutral 5",
+          "away: pitcher profile unavailable \u2014 neutral 5"
+        ]
+      },
+      "bullpen": {
+        "home": 8.0,
+        "away": 6.5,
+        "notes": [
+          "home pen quality: K% 23.1, BB% 7.7, ERA 1.29",
+          "home: 0 arms gassed, 0 back-to-back, 101 pitches L7d",
+          "away pen quality: K% 18.5, BB% 14.8, ERA 1.29",
+          "away: 0 arms gassed, 0 back-to-back, 104 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.5,
+        "away": 4.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: slow form (3.7 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: cold bats (3.0 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "wind 5.0mph IN from CF (\u0394 -0.00r) \u2014 suppresses totals"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home best +108@draftkings; fair +118 (45.8%); gap -2.28%",
+          "away best -130@draftkings; fair -118 (54.2%); gap -2.32%"
+        ]
+      },
+      "situational": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home: no probable starter (bullpen game?)",
+          "away: no probable starter (bullpen game?)"
+        ]
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 49.2,
+      "away": 46.6
+    },
+    "win_prob": {
+      "home": 0.4645,
+      "away": 0.5355
+    },
+    "expected_total": 8.78,
+    "expected_f5_total": 4.86,
+    "nrfi_prob": 0.525,
+    "market": {
+      "ml": {
+        "away": -130,
+        "home": 108
+      },
+      "total": {
+        "line": 9.0,
+        "over": -105,
+        "under": -115
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [],
+      "pitcher_walks": [],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 0,
+        "n_pitcher_walks": 0,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 0,
+        "n_pitcher_walks_ok": 0,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 823523,
+    "matchup": "Los Angeles Dodgers @ New York Yankees",
+    "gameDate": "2026-07-19T16:35:00Z",
+    "categories": {
+      "pitching": {
+        "home": 6.0,
+        "away": 5.1,
+        "notes": [
+          "home: CSW% L5 starts 28.0%",
+          "away: CSW% L4 starts 27.7%",
+          "away: SL movement shift (+1.6\" horiz, -0.3\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 8.0,
+        "away": 6.5,
+        "notes": [
+          "home pen quality: K% 23.1, BB% 7.7, ERA 1.29",
+          "home: 0 arms gassed, 0 back-to-back, 101 pitches L7d",
+          "away pen quality: K% 18.5, BB% 14.8, ERA 1.29",
+          "away: 0 arms gassed, 0 back-to-back, 104 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.5,
+        "away": 5.0,
+        "notes": [
+          "home: 0/9 platoon edge vs RHP",
+          "home: slow form (3.7 RPG L14d)",
+          "home: elite top-of-order wOBA 0.447",
+          "away: 0/9 platoon edge vs RHP",
+          "away: cold bats (3.0 RPG L14d)",
+          "away: elite top-of-order wOBA 0.467"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "warm (83.2\u00b0F) \u2014 ball carries",
+          "wind 12.0mph crosswind \u2014 direction-dependent"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home best +110@betmgm; fair +119 (45.6%); gap -2.05%",
+          "away best -131@draftkings; fair -119 (54.4%); gap -2.28%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 6.5,
+        "away": 6.5,
+        "notes": [
+          "lineups confirmed"
+        ]
+      }
+    },
+    "grade": {
+      "home": 57.0,
+      "away": 51.5
+    },
+    "win_prob": {
+      "home": 0.4694,
+      "away": 0.5306
+    },
+    "expected_total": 8.01,
+    "expected_f5_total": 4.86,
+    "nrfi_prob": 0.5236,
+    "market": {
+      "ml": {
+        "away": -131,
+        "home": 110
+      },
+      "total": {
+        "line": 8.0,
+        "over": -102,
+        "under": -118
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 8.2,
+          "k_per_bf": 0.333,
+          "opp_lineup_k_pct": 0.184,
+          "lineup_adjustment": 0.85,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.23,
+          "side": "home",
+          "name": "Cam Schlittler",
+          "id": 693645
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 6.5,
+          "k_per_bf": 0.255,
+          "opp_lineup_k_pct": 0.198,
+          "lineup_adjustment": 0.9,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.05,
+          "side": "away",
+          "name": "Yoshinobu Yamamoto",
+          "id": 808967
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 1.4,
+          "bb_per_bf": 0.057,
+          "opp_lineup_bb_pct": 0.111,
+          "lineup_adjustment": 1.25,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.57,
+          "side": "home",
+          "name": "Cam Schlittler",
+          "id": 693645
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 2.5,
+          "bb_per_bf": 0.098,
+          "opp_lineup_bb_pct": 0.129,
+          "lineup_adjustment": 1.25,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.69,
+          "side": "away",
+          "name": "Yoshinobu Yamamoto",
+          "id": 808967
+        }
+      ],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 663757,
+          "name": "Trent Grisham",
+          "bb_pct": 0.147,
+          "pa_sample": 225,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.153,
+          "projected_walks": 0.746,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 700250,
+          "name": "Ben Rice",
+          "bb_pct": 0.15,
+          "pa_sample": 260,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.153,
+          "projected_walks": 0.744,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 691176,
+          "name": "Jasson Dom\u00ednguez",
+          "bb_pct": 0.044,
+          "pa_sample": 90,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.153,
+          "projected_walks": 0.213,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 641355,
+          "name": "Cody Bellinger",
+          "bb_pct": 0.139,
+          "pa_sample": 266,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.153,
+          "projected_walks": 0.641,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 680474,
+          "name": "Max Schuemann",
+          "bb_pct": 0.167,
+          "pa_sample": 36,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.153,
+          "projected_walks": 0.751,
+          "side": "home",
+          "order": 5
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 660271,
+          "name": "Shohei Ohtani",
+          "bb_pct": 0.175,
+          "pa_sample": 286,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.578,
+          "side": "away",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 681624,
+          "name": "Andy Pages",
+          "bb_pct": 0.066,
+          "pa_sample": 303,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.213,
+          "side": "away",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 518692,
+          "name": "Freddie Freeman",
+          "bb_pct": 0.12,
+          "pa_sample": 284,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.378,
+          "side": "away",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 605141,
+          "name": "Mookie Betts",
+          "bb_pct": 0.066,
+          "pa_sample": 182,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.198,
+          "side": "away",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 571970,
+          "name": "Max Muncy",
+          "bb_pct": 0.13,
+          "pa_sample": 262,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.38,
+          "side": "away",
+          "order": 5
+        }
+      ],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 10,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 9,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 1,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 823764,
+    "matchup": "Miami Marlins @ Milwaukee Brewers",
+    "gameDate": "2026-07-19T18:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 4.6,
+        "away": 4.7,
+        "notes": [
+          "home: CSW% L4 starts 24.9%",
+          "home: FC movement shift (-1.7\" horiz, -0.3\" vert) last start",
+          "away: CSW% L4 starts 22.9%",
+          "away: CH movement shift (-4.5\" horiz, -0.2\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 3.0,
+        "away": 2.5,
+        "notes": [
+          "home pen quality: K% 28.1, BB% 7.0, ERA 6.92",
+          "home: 3 arms gassed, 3 back-to-back, 230 pitches L7d",
+          "away pen quality: K% 20.0, BB% 12.9, ERA 4.58",
+          "away: 3 arms gassed, 1 back-to-back, 353 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best -130@betmgm; fair -117 (53.8%); gap -2.71%",
+          "away best +109@draftkings; fair +117 (46.2%); gap -1.66%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 45.2,
+      "away": 46.5
+    },
+    "win_prob": {
+      "home": 0.5349,
+      "away": 0.4651
+    },
+    "expected_total": 8.3,
+    "expected_f5_total": 4.98,
+    "nrfi_prob": 0.5178,
+    "market": {
+      "ml": {
+        "away": 109,
+        "home": -130
+      },
+      "total": {
+        "line": 8.0,
+        "over": -110,
+        "under": -109
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 4.75,
+          "k_per_bf": 0.202,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.44,
+          "side": "home",
+          "name": "Robert Gasser",
+          "id": 688107
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 5.75,
+          "k_per_bf": 0.267,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.87,
+          "side": "away",
+          "name": "Eury P\u00e9rez",
+          "id": 691587
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 0.75,
+          "bb_per_bf": 0.032,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.7,
+          "side": "home",
+          "name": "Robert Gasser",
+          "id": 688107
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.5,
+          "bb_per_bf": 0.07,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.54,
+          "side": "away",
+          "name": "Eury P\u00e9rez",
+          "id": 691587
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824007,
+    "matchup": "Detroit Tigers @ Los Angeles Angels",
+    "gameDate": "2026-07-19T20:07:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 6.5,
+        "notes": [
+          "home: CSW% L4 starts 27.9%",
+          "away: CSW% L4 starts 31.7%"
+        ]
+      },
+      "bullpen": {
+        "home": 9.0,
+        "away": 8.5,
+        "notes": [
+          "home pen quality: K% 35.7, BB% 4.8, ERA 3.27",
+          "home: 0 arms gassed, 0 back-to-back, 186 pitches L7d",
+          "away pen quality: K% 31.7, BB% 9.8, ERA 2.89",
+          "away: 0 arms gassed, 0 back-to-back, 164 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "warm (82.0\u00b0F) \u2014 ball carries",
+          "wind 8.6mph OUT to CF (\u0394 +0.14r) \u2014 boosts totals"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best +130@draftkings; fair +143 (41.2%); gap -2.29%",
+          "away best -155@betmgm; fair -143 (58.8%); gap -1.97%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 54.1,
+      "away": 58.3
+    },
+    "win_prob": {
+      "home": 0.4014,
+      "away": 0.5986
+    },
+    "expected_total": 8.98,
+    "expected_f5_total": 4.86,
+    "nrfi_prob": 0.5265,
+    "market": {
+      "ml": {
+        "away": -155,
+        "home": 130
+      },
+      "total": {
+        "line": 9.0,
+        "over": null,
+        "under": null
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 4.5,
+          "k_per_bf": 0.231,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.08,
+          "side": "home",
+          "name": "Ryan Johnson",
+          "id": 696270
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 6.25,
+          "k_per_bf": 0.255,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.61,
+          "side": "away",
+          "name": "Casey Mize",
+          "id": 663554
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.25,
+          "bb_per_bf": 0.064,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.41,
+          "side": "home",
+          "name": "Ryan Johnson",
+          "id": 696270
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.25,
+          "bb_per_bf": 0.051,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.12,
+          "side": "away",
+          "name": "Casey Mize",
+          "id": 663554
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824086,
+    "matchup": "San Diego Padres @ Kansas City Royals",
+    "gameDate": "2026-07-19T18:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 4.0,
+        "away": 5.0,
+        "notes": [
+          "home: velo soft (-0.9 mph)",
+          "home: CSW% L4 starts 24.0%",
+          "away: CSW% L3 starts 19.5%"
+        ]
+      },
+      "bullpen": {
+        "home": 3.5,
+        "away": 6.0,
+        "notes": [
+          "home pen quality: K% 13.2, BB% 5.7, ERA 5.68",
+          "home: 2 arms gassed, 1 back-to-back, 199 pitches L7d",
+          "away pen quality: K% 20.0, BB% 6.7, ERA 4.61",
+          "away: 1 arms gassed, 0 back-to-back, 187 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 7.7,
+        "away": 6.0,
+        "notes": [
+          "home: 0/9 platoon edge vs RHP",
+          "home: hot bats (6.0 RPG L14d)",
+          "home: elite top-of-order wOBA 0.416",
+          "home: top-of-order heating up (7d wOBA 0.567)",
+          "away: 0/9 platoon edge vs LHP",
+          "away: elite top-of-order wOBA 0.439"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "hitter park (pf_runs 106)",
+          "warm (93.7\u00b0F) \u2014 ball carries"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home best -118@betmgm; fair -107 (51.7%); gap -2.38%",
+          "away best -102@draftkings; fair +107 (48.3%); gap -2.24%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 6.5,
+        "away": 6.5,
+        "notes": [
+          "lineups confirmed"
+        ]
+      }
+    },
+    "grade": {
+      "home": 50.9,
+      "away": 52.9
+    },
+    "win_prob": {
+      "home": 0.5125,
+      "away": 0.4875
+    },
+    "expected_total": 10.04,
+    "expected_f5_total": 5.68,
+    "nrfi_prob": 0.4862,
+    "market": {
+      "ml": {
+        "away": -102,
+        "home": -118
+      },
+      "total": {
+        "line": 9.5,
+        "over": -118,
+        "under": -102
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 5.25,
+          "k_per_bf": 0.208,
+          "opp_lineup_k_pct": 0.209,
+          "lineup_adjustment": 0.95,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.35,
+          "side": "home",
+          "name": "Noah Cameron",
+          "id": 702070
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 3.0,
+          "k_per_bf": 0.17,
+          "opp_lineup_k_pct": 0.236,
+          "lineup_adjustment": 1.073,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.01,
+          "side": "away",
+          "name": "Germ\u00e1n M\u00e1rquez",
+          "id": 608566
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 3.25,
+          "bb_per_bf": 0.129,
+          "opp_lineup_bb_pct": 0.081,
+          "lineup_adjustment": 0.953,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.7,
+          "side": "home",
+          "name": "Noah Cameron",
+          "id": 702070
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 2.67,
+          "bb_per_bf": 0.151,
+          "opp_lineup_bb_pct": 0.112,
+          "lineup_adjustment": 1.25,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 4.15,
+          "side": "away",
+          "name": "Germ\u00e1n M\u00e1rquez",
+          "id": 608566
+        }
+      ],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 695600,
+          "name": "Carter Jensen",
+          "bb_pct": 0.106,
+          "pa_sample": 263,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.583,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 679845,
+          "name": "Nick Loftin",
+          "bb_pct": 0.096,
+          "pa_sample": 115,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.516,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 695506,
+          "name": "Jac Caglianone",
+          "bb_pct": 0.095,
+          "pa_sample": 253,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.499,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 657041,
+          "name": "Lane Thomas",
+          "bb_pct": 0.115,
+          "pa_sample": 156,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.575,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 686555,
+          "name": "Isaac Collins",
+          "bb_pct": 0.149,
+          "pa_sample": 221,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.726,
+          "side": "home",
+          "order": 5
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 665487,
+          "name": "Fernando Tatis Jr.",
+          "bb_pct": 0.101,
+          "pa_sample": 79,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.556,
+          "side": "away",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 701538,
+          "name": "Jackson Merrill",
+          "bb_pct": 0.051,
+          "pa_sample": 99,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.274,
+          "side": "away",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 592518,
+          "name": "Manny Machado",
+          "bb_pct": 0.099,
+          "pa_sample": 91,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.52,
+          "side": "away",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 664034,
+          "name": "Ty France",
+          "bb_pct": 0.057,
+          "pa_sample": 70,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.285,
+          "side": "away",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 593428,
+          "name": "Xander Bogaerts",
+          "bb_pct": 0.099,
+          "pa_sample": 81,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.483,
+          "side": "away",
+          "order": 5
+        }
+      ],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 10,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 10,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824168,
+    "matchup": "Baltimore Orioles @ Houston Astros",
+    "gameDate": "2026-07-19T18:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.1,
+        "away": 5.1,
+        "notes": [
+          "home: CSW% L4 starts 26.4%",
+          "home: CH movement shift (+0.6\" horiz, -1.6\" vert) last start",
+          "away: CSW% L4 starts 27.0%",
+          "away: CU movement shift (-0.1\" horiz, +2.0\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 4.5,
+        "away": 2.5,
+        "notes": [
+          "home pen quality: K% 27.6, BB% 8.6, ERA 3.86",
+          "home: 4 arms gassed, 2 back-to-back, 241 pitches L7d",
+          "away pen quality: K% 12.5, BB% 12.5, ERA 0.0",
+          "away: 5 arms gassed, 3 back-to-back, 216 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "warm (97.0\u00b0F) \u2014 ball carries"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home best -118@betmgm; fair -109 (52.2%); gap -1.93%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 49.8,
+      "away": 47.8
+    },
+    "win_prob": {
+      "home": 0.527,
+      "away": 0.473
+    },
+    "expected_total": 8.98,
+    "expected_f5_total": 5.08,
+    "nrfi_prob": 0.5217,
+    "market": {
+      "ml": {
+        "away": 101,
+        "home": -118
+      },
+      "total": {
+        "line": 8.5,
+        "over": -105,
+        "under": -112
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 3.75,
+          "k_per_bf": 0.167,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.67,
+          "side": "home",
+          "name": "Hunter Brown",
+          "id": 686613
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 5.75,
+          "k_per_bf": 0.235,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.17,
+          "side": "away",
+          "name": "Brandon Young",
+          "id": 687064
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 3.25,
+          "bb_per_bf": 0.144,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 3.17,
+          "side": "home",
+          "name": "Hunter Brown",
+          "id": 686613
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 2.0,
+          "bb_per_bf": 0.082,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.8,
+          "side": "away",
+          "name": "Brandon Young",
+          "id": 687064
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824330,
+    "matchup": "Cincinnati Reds @ Colorado Rockies",
+    "gameDate": "2026-07-19T19:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 4.7,
+        "away": 6.0,
+        "notes": [
+          "home: CSW% L4 starts 27.8%",
+          "home: CH movement shift (-2.6\" horiz, +0.5\" vert) last start",
+          "away: CSW% L2 starts 28.5%"
+        ]
+      },
+      "bullpen": {
+        "home": 4.5,
+        "away": 2.5,
+        "notes": [
+          "home pen quality: K% 20.5, BB% 9.1, ERA 5.79",
+          "home: 1 arms gassed, 0 back-to-back, 152 pitches L7d",
+          "away pen quality: K% 20.0, BB% 7.1, ERA 8.4",
+          "away: 3 arms gassed, 0 back-to-back, 241 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 4.5,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: slow form (4.0 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "hitter park (pf_runs 128)",
+          "warm (98.7\u00b0F) \u2014 ball carries"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home best +141@draftkings; fair +154 (39.3%); gap -2.17%",
+          "away best -170@betmgm; fair -154 (60.7%); gap -2.28%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "away catcher: poor framer (-5 runs/season)"
+        ]
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 47.0,
+      "away": 48.1
+    },
+    "win_prob": {
+      "home": 0.3905,
+      "away": 0.6095
+    },
+    "expected_total": 11.5,
+    "expected_f5_total": 6.57,
+    "nrfi_prob": 0.4802,
+    "market": {
+      "ml": {
+        "away": -170,
+        "home": 141
+      },
+      "total": {
+        "line": 11.0,
+        "over": -110,
+        "under": -108
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 3.5,
+          "k_per_bf": 0.149,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.28,
+          "side": "home",
+          "name": "Ryan Feltner",
+          "id": 663372
+        },
+        {
+          "available": true,
+          "data_quality": "stale",
+          "starts_in_window": 2,
+          "k_per_start_avg": 9.5,
+          "k_per_bf": 0.422,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 8.98,
+          "side": "away",
+          "name": "Hunter Greene",
+          "id": 668881,
+          "catcher_framing_bump": -0.3
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 2.0,
+          "bb_per_bf": 0.085,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.87,
+          "side": "home",
+          "name": "Ryan Feltner",
+          "id": 663372
+        },
+        {
+          "available": true,
+          "data_quality": "stale",
+          "starts_in_window": 2,
+          "bb_per_start_avg": 2.5,
+          "bb_per_bf": 0.111,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.44,
+          "side": "away",
+          "name": "Hunter Greene",
+          "id": 668881
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 1,
+        "n_pitcher_walks_ok": 1,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 1,
+        "n_pitcher_walks_stale": 1,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824411,
+    "matchup": "Pittsburgh Pirates @ Cleveland Guardians",
+    "gameDate": "2026-07-19T17:40:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.1,
+        "away": 5.0,
+        "notes": [
+          "home: velo soft (-0.7 mph)",
+          "home: CSW% L5 starts 34.3%",
+          "home: CU movement shift (-1.8\" horiz, -1.5\" vert) last start",
+          "away: CSW% L5 starts 24.5%"
+        ]
+      },
+      "bullpen": {
+        "home": 5.5,
+        "away": 3.0,
+        "notes": [
+          "home pen quality: K% 31.6, BB% 3.5, ERA 2.87",
+          "home: 5 arms gassed, 2 back-to-back, 223 pitches L7d",
+          "away pen quality: K% 22.1, BB% 7.4, ERA 4.8",
+          "away: 3 arms gassed, 2 back-to-back, 278 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.7,
+        "away": 7.0,
+        "notes": [
+          "home: 0/9 platoon edge vs RHP",
+          "home: cold bats (3.5 RPG L14d)",
+          "home: elite top-of-order wOBA 0.414",
+          "home: top-of-order heating up (7d wOBA 0.480)",
+          "away: 0/9 platoon edge vs LHP",
+          "away: hot bats (5.64 RPG L14d)",
+          "away: elite top-of-order wOBA 0.480"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "pitcher park (pf_runs 92)",
+          "wind 7.8mph IN from CF (\u0394 -0.11r) \u2014 suppresses totals"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 3.5,
+        "notes": [
+          "home best -113@draftkings; fair -105 (51.2%); gap -1.87%",
+          "away best -105@betmgm; fair +105 (48.8%); gap -2.40%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 6.5,
+        "away": 6.5,
+        "notes": [
+          "lineups confirmed"
+        ]
+      }
+    },
+    "grade": {
+      "home": 53.6,
+      "away": 52.1
+    },
+    "win_prob": {
+      "home": 0.5155,
+      "away": 0.4845
+    },
+    "expected_total": 6.62,
+    "expected_f5_total": 4.65,
+    "nrfi_prob": 0.5178,
+    "market": {
+      "ml": {
+        "away": -105,
+        "home": -113
+      },
+      "total": {
+        "line": 6.5,
+        "over": null,
+        "under": null
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Joey Cantillo Over 5.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": -135,
+        "line": 5.5,
+        "fair_prob": 0.6385341998584388,
+        "fair_american": -177,
+        "edge": 0.11152249604987508,
+        "confidence": 9,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Model pitcher strikeouts projection 6.50 K vs line 5.5",
+          "P(over 5.5) = 63.9% \u00b7 market 57.9%",
+          "5 starts in 30-day Statcast window",
+          "Opp lineup K-rate: 20.2%"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 676282,
+        "player_name": "Joey Cantillo"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 7.6,
+          "k_per_bf": 0.322,
+          "opp_lineup_k_pct": 0.202,
+          "lineup_adjustment": 0.918,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.5,
+          "side": "home",
+          "name": "Joey Cantillo",
+          "id": 676282
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 6.2,
+          "k_per_bf": 0.272,
+          "opp_lineup_k_pct": 0.173,
+          "lineup_adjustment": 0.85,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.09,
+          "side": "away",
+          "name": "Paul Skenes",
+          "id": 694973
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 2.6,
+          "bb_per_bf": 0.11,
+          "opp_lineup_bb_pct": 0.073,
+          "lineup_adjustment": 0.859,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.08,
+          "side": "home",
+          "name": "Joey Cantillo",
+          "id": 676282
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 1.6,
+          "bb_per_bf": 0.07,
+          "opp_lineup_bb_pct": 0.105,
+          "lineup_adjustment": 1.235,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.9,
+          "side": "away",
+          "name": "Paul Skenes",
+          "id": 694973
+        }
+      ],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 680757,
+          "name": "Steven Kwan",
+          "bb_pct": 0.126,
+          "pa_sample": 254,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.457,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 683953,
+          "name": "Travis Bazzana",
+          "bb_pct": 0.115,
+          "pa_sample": 191,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.407,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 800050,
+          "name": "Chase DeLauter",
+          "bb_pct": 0.103,
+          "pa_sample": 233,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.356,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 677587,
+          "name": "Brayan Rocchio",
+          "bb_pct": 0.084,
+          "pa_sample": 250,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.277,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 700932,
+          "name": "Kyle Manzardo",
+          "bb_pct": 0.097,
+          "pa_sample": 247,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.824,
+          "projected_walks": 0.312,
+          "side": "home",
+          "order": 5
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 663968,
+          "name": "Jake Mangum",
+          "bb_pct": 0.048,
+          "pa_sample": 63,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.264,
+          "side": "away",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 669707,
+          "name": "Jared Triolo",
+          "bb_pct": 0.063,
+          "pa_sample": 63,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.339,
+          "side": "away",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 668804,
+          "name": "Bryan Reynolds",
+          "bb_pct": 0.119,
+          "pa_sample": 134,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.625,
+          "side": "away",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "small_sample",
+          "id": 699013,
+          "name": "Esmerlyn Valdez",
+          "bb_pct": 0.083,
+          "pa_sample": 36,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.415,
+          "side": "away",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 656811,
+          "name": "Ryan O'Hearn",
+          "bb_pct": 0.051,
+          "pa_sample": 98,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.25,
+          "projected_walks": 0.249,
+          "side": "away",
+          "order": 5
+        }
+      ],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 10,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 9,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 1,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824653,
+    "matchup": "Minnesota Twins @ Chicago Cubs",
+    "gameDate": "2026-07-19T18:20:00Z",
+    "categories": {
+      "pitching": {
+        "home": 4.6,
+        "away": 5.5,
+        "notes": [
+          "home: velo soft (-0.8 mph)",
+          "home: CSW% L4 starts 28.4%",
+          "home: SL movement shift (+0.7\" horiz, +1.7\" vert) last start",
+          "away: CSW% L4 starts 25.0%"
+        ]
+      },
+      "bullpen": {
+        "home": 8.0,
+        "away": 8.0,
+        "notes": [
+          "home pen quality: K% 28.6, BB% 5.7, ERA 2.08",
+          "home: 2 arms gassed, 0 back-to-back, 139 pitches L7d",
+          "away pen quality: K% 25.0, BB% 11.1, ERA 1.04",
+          "away: 0 arms gassed, 0 back-to-back, 158 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 4.5,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: slow form (4.0 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "pitcher park (pf_runs 95)",
+          "wind 7.1mph IN from CF (\u0394 -0.08r) \u2014 suppresses totals"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best -170@betmgm; fair -151 (60.2%); gap -2.80%",
+          "away best +144@draftkings; fair +151 (39.8%); gap -1.15%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home catcher: elite framer (+6 runs/season)"
+        ]
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 50.2,
+      "away": 53.5
+    },
+    "win_prob": {
+      "home": 0.5934,
+      "away": 0.4066
+    },
+    "expected_total": 7.27,
+    "expected_f5_total": 4.79,
+    "nrfi_prob": 0.5261,
+    "market": {
+      "ml": {
+        "away": 144,
+        "home": -170
+      },
+      "total": {
+        "line": 7.5,
+        "over": -107,
+        "under": -110
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 5.25,
+          "k_per_bf": 0.236,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.55,
+          "side": "home",
+          "name": "Shota Imanaga",
+          "id": 684007,
+          "catcher_framing_bump": 0.36
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 5.0,
+          "k_per_bf": 0.206,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.53,
+          "side": "away",
+          "name": "Zebby Matthews",
+          "id": 805673
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.25,
+          "bb_per_bf": 0.056,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.23,
+          "side": "home",
+          "name": "Shota Imanaga",
+          "id": 684007
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 2.25,
+          "bb_per_bf": 0.093,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.05,
+          "side": "away",
+          "name": "Zebby Matthews",
+          "id": 805673
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824739,
+    "matchup": "Tampa Bay Rays @ Boston Red Sox",
+    "gameDate": "2026-07-19T17:35:00Z",
+    "categories": {
+      "pitching": {
+        "home": 4.7,
+        "away": 6.0,
+        "notes": [
+          "home: CSW% L4 starts 27.8%",
+          "home: FC movement shift (-1.2\" horiz, +2.0\" vert) last start",
+          "away: CSW% L3 starts 29.3%"
+        ]
+      },
+      "bullpen": {
+        "home": 6.5,
+        "away": 3.0,
+        "notes": [
+          "home pen quality: K% 24.1, BB% 6.0, ERA 2.08",
+          "home: 2 arms gassed, 2 back-to-back, 320 pitches L7d",
+          "away pen quality: K% 19.7, BB% 8.5, ERA 3.78",
+          "away: 3 arms gassed, 2 back-to-back, 276 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 7.3,
+        "away": 4.3,
+        "notes": [
+          "home: 0/9 platoon edge vs LHP",
+          "home: hot bats (5.7 RPG L14d)",
+          "home: elite top-of-order wOBA 0.480",
+          "away: 0/9 platoon edge vs RHP",
+          "away: cold bats (3.45 RPG L14d)",
+          "away: elite top-of-order wOBA 0.448",
+          "away: top-of-order cooling (7d wOBA 0.347)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "hitter park (pf_runs 111)",
+          "warm (81.2\u00b0F) \u2014 ball carries",
+          "wind 13.6mph crosswind \u2014 direction-dependent"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home best -125@betmgm; fair -115 (53.5%); gap -2.05%",
+          "away best +105@betmgm; fair +115 (46.5%); gap -2.29%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 6.5,
+        "away": 6.5,
+        "notes": [
+          "lineups confirmed"
+        ]
+      }
+    },
+    "grade": {
+      "home": 55.3,
+      "away": 49.4
+    },
+    "win_prob": {
+      "home": 0.5498,
+      "away": 0.4502
+    },
+    "expected_total": 8.69,
+    "expected_f5_total": 5.55,
+    "nrfi_prob": 0.4973,
+    "market": {
+      "ml": {
+        "away": 105,
+        "home": -125
+      },
+      "total": {
+        "line": 8.5,
+        "over": null,
+        "under": null
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 7.5,
+          "k_per_bf": 0.303,
+          "opp_lineup_k_pct": 0.169,
+          "lineup_adjustment": 0.85,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.67,
+          "side": "home",
+          "name": "Sonny Gray",
+          "id": 543243
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 4.33,
+          "k_per_bf": 0.194,
+          "opp_lineup_k_pct": 0.159,
+          "lineup_adjustment": 0.85,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.63,
+          "side": "away",
+          "name": "Shane McClanahan",
+          "id": 663556
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.75,
+          "bb_per_bf": 0.071,
+          "opp_lineup_bb_pct": 0.093,
+          "lineup_adjustment": 1.094,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.71,
+          "side": "home",
+          "name": "Sonny Gray",
+          "id": 543243
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 0.33,
+          "bb_per_bf": 0.015,
+          "opp_lineup_bb_pct": 0.091,
+          "lineup_adjustment": 1.071,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.35,
+          "side": "away",
+          "name": "Shane McClanahan",
+          "id": 663556
+        }
+      ],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 678882,
+          "name": "Ceddanne Rafaela",
+          "bb_pct": 0.057,
+          "pa_sample": 106,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.188,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 677800,
+          "name": "Wilyer Abreu",
+          "bb_pct": 0.115,
+          "pa_sample": 130,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.371,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 575929,
+          "name": "Willson Contreras",
+          "bb_pct": 0.137,
+          "pa_sample": 102,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.432,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 702332,
+          "name": "Caleb Durbin",
+          "bb_pct": 0.056,
+          "pa_sample": 89,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.168,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 650490,
+          "name": "Yandy D\u00edaz",
+          "bb_pct": 0.093,
+          "pa_sample": 289,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.835,
+          "projected_walks": 0.342,
+          "side": "away",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 666018,
+          "name": "Jonathan Aranda",
+          "bb_pct": 0.124,
+          "pa_sample": 290,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.835,
+          "projected_walks": 0.445,
+          "side": "away",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 691406,
+          "name": "Junior Caminero",
+          "bb_pct": 0.105,
+          "pa_sample": 304,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.835,
+          "projected_walks": 0.368,
+          "side": "away",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 656775,
+          "name": "Cedric Mullins",
+          "bb_pct": 0.082,
+          "pa_sample": 244,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.835,
+          "projected_walks": 0.274,
+          "side": "away",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 802415,
+          "name": "Chandler Simpson",
+          "bb_pct": 0.06,
+          "pa_sample": 249,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.835,
+          "projected_walks": 0.195,
+          "side": "away",
+          "order": 5
+        }
+      ],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 9,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 9,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824897,
+    "matchup": "Texas Rangers @ Atlanta Braves",
+    "gameDate": "2026-07-19T17:35:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 6.5,
+        "notes": [
+          "home: CSW% L4 starts 23.7%",
+          "away: CSW% L4 starts 34.7%"
+        ]
+      },
+      "bullpen": {
+        "home": 4.0,
+        "away": 1.0,
+        "notes": [
+          "home pen quality: K% 23.3, BB% 9.6, ERA 5.17",
+          "home: 6 arms gassed, 0 back-to-back, 286 pitches L7d",
+          "away pen quality: K% 12.7, BB% 14.3, ERA 10.22",
+          "away: 3 arms gassed, 0 back-to-back, 247 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 7.3,
+        "away": 5.7,
+        "notes": [
+          "home: 0/9 platoon edge vs RHP",
+          "home: hot bats (5.9 RPG L14d)",
+          "home: elite top-of-order wOBA 0.448",
+          "away: 0/9 platoon edge vs RHP",
+          "away: elite top-of-order wOBA 0.424"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "warm (92.5\u00b0F) \u2014 ball carries"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best +100@draftkings; fair +112 (47.2%); gap -2.76%",
+          "away best -120@betmgm; fair -112 (52.8%); gap -1.78%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 6.5,
+        "away": 6.5,
+        "notes": [
+          "lineups confirmed"
+        ]
+      }
+    },
+    "grade": {
+      "home": 55.4,
+      "away": 53.5
+    },
+    "win_prob": {
+      "home": 0.4771,
+      "away": 0.5229
+    },
+    "expected_total": 9.46,
+    "expected_f5_total": 4.92,
+    "nrfi_prob": 0.516,
+    "market": {
+      "ml": {
+        "away": -120,
+        "home": 100
+      },
+      "total": {
+        "line": 9.0,
+        "over": 101,
+        "under": -122
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 3.75,
+          "k_per_bf": 0.197,
+          "opp_lineup_k_pct": 0.213,
+          "lineup_adjustment": 0.968,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.2,
+          "side": "home",
+          "name": "Grant Holmes",
+          "id": 656550
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 9.25,
+          "k_per_bf": 0.37,
+          "opp_lineup_k_pct": 0.202,
+          "lineup_adjustment": 0.918,
+          "ump_k_bump": -0.0,
+          "projected_k": 7.47,
+          "side": "away",
+          "name": "Nathan Eovaldi",
+          "id": 543135
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.75,
+          "bb_per_bf": 0.092,
+          "opp_lineup_bb_pct": 0.082,
+          "lineup_adjustment": 0.965,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.95,
+          "side": "home",
+          "name": "Grant Holmes",
+          "id": 656550
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.25,
+          "bb_per_bf": 0.05,
+          "opp_lineup_bb_pct": 0.084,
+          "lineup_adjustment": 0.988,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.09,
+          "side": "away",
+          "name": "Nathan Eovaldi",
+          "id": 543135
+        }
+      ],
+      "batter_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 686948,
+          "name": "Drake Baldwin",
+          "bb_pct": 0.107,
+          "pa_sample": 197,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.353,
+          "side": "home",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 645277,
+          "name": "Ozzie Albies",
+          "bb_pct": 0.099,
+          "pa_sample": 243,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.319,
+          "side": "home",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 621566,
+          "name": "Matt Olson",
+          "bb_pct": 0.113,
+          "pa_sample": 240,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.356,
+          "side": "home",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 671739,
+          "name": "Michael Harris II",
+          "bb_pct": 0.035,
+          "pa_sample": 226,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.105,
+          "side": "home",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 643289,
+          "name": "Mauricio Dub\u00f3n",
+          "bb_pct": 0.067,
+          "pa_sample": 238,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 0.75,
+          "projected_walks": 0.196,
+          "side": "home",
+          "order": 5
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 592626,
+          "name": "Joc Pederson",
+          "bb_pct": 0.125,
+          "pa_sample": 272,
+          "expected_pa": 4.4,
+          "pitcher_bb_adj": 1.082,
+          "projected_walks": 0.595,
+          "side": "away",
+          "order": 1
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 694671,
+          "name": "Wyatt Langford",
+          "bb_pct": 0.063,
+          "pa_sample": 142,
+          "expected_pa": 4.3,
+          "pitcher_bb_adj": 1.082,
+          "projected_walks": 0.293,
+          "side": "away",
+          "order": 2
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 673962,
+          "name": "Josh Jung",
+          "bb_pct": 0.064,
+          "pa_sample": 295,
+          "expected_pa": 4.2,
+          "pitcher_bb_adj": 1.082,
+          "projected_walks": 0.291,
+          "side": "away",
+          "order": 3
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 607043,
+          "name": "Brandon Nimmo",
+          "bb_pct": 0.085,
+          "pa_sample": 293,
+          "expected_pa": 4.0,
+          "pitcher_bb_adj": 1.082,
+          "projected_walks": 0.368,
+          "side": "away",
+          "order": 4
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "id": 669394,
+          "name": "Jake Burger",
+          "bb_pct": 0.071,
+          "pa_sample": 297,
+          "expected_pa": 3.9,
+          "pitcher_bb_adj": 1.082,
+          "projected_walks": 0.3,
+          "side": "away",
+          "order": 5
+        }
+      ],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 10,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 10,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 824978,
+    "matchup": "Washington Nationals @ Athletics",
+    "gameDate": "2026-07-19T20:05:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 6.0,
+        "notes": [
+          "home: velo soft (-0.9 mph)",
+          "home: CSW% L2 starts 34.3%",
+          "away: CSW% L4 starts 29.1%"
+        ]
+      },
+      "bullpen": {
+        "home": 4.0,
+        "away": 4.0,
+        "notes": [
+          "home pen quality: K% 17.2, BB% 7.8, ERA 15.43",
+          "home: 1 arms gassed, 0 back-to-back, 227 pitches L7d",
+          "away pen quality: K% 21.7, BB% 13.0, ERA 12.38",
+          "away: 1 arms gassed, 1 back-to-back, 169 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.5,
+        "away": 6.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: slow form (3.67 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: hot bats (6.67 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "warm (94.5\u00b0F) \u2014 ball carries",
+          "wind 10.6mph OUT to CF (\u0394 +0.22r) \u2014 boosts totals"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best +123@draftkings; fair +134 (42.8%); gap -2.03%",
+          "away best -145@betmgm; fair -134 (57.2%); gap -1.99%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 48.0,
+      "away": 54.4
+    },
+    "win_prob": {
+      "home": 0.4121,
+      "away": 0.5879
+    },
+    "expected_total": 11.08,
+    "expected_f5_total": 5.01,
+    "nrfi_prob": 0.523,
+    "market": {
+      "ml": {
+        "away": -145,
+        "home": 123
+      },
+      "total": {
+        "line": 10.5,
+        "over": -110,
+        "under": -107
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "FG Over 10.5",
+        "market": "total",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": -110,
+        "line": 10.5,
+        "fair_prob": 0.5391099011651103,
+        "fair_american": -117,
+        "edge": 0.02920981131521061,
+        "confidence": 6,
+        "unit_size": 0.5,
+        "risk": "Lean",
+        "reasoning": [
+          "Expected total 11.08 vs market 10.5",
+          "home: velo soft (-0.9 mph)",
+          "home: CSW% L2 starts 34.3%",
+          "warm (94.5\u00b0F) \u2014 ball carries",
+          "wind 10.6mph OUT to CF (\u0394 +0.22r) \u2014 boosts totals",
+          "home pen quality: K% 17.2, BB% 7.8, ERA 15.43"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ],
+        "player_id": null,
+        "player_name": null
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "stale",
+          "starts_in_window": 2,
+          "k_per_start_avg": 2.5,
+          "k_per_bf": 0.263,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.79,
+          "side": "home",
+          "name": "Jacob Lopez",
+          "id": 682052
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 7.25,
+          "k_per_bf": 0.296,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.51,
+          "side": "away",
+          "name": "Foster Griffin",
+          "id": 656492
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "stale",
+          "starts_in_window": 2,
+          "bb_per_start_avg": 0.5,
+          "bb_per_bf": 0.053,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.17,
+          "side": "home",
+          "name": "Jacob Lopez",
+          "id": 682052
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 0.75,
+          "bb_per_bf": 0.031,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.68,
+          "side": "away",
+          "name": "Foster Griffin",
+          "id": 656492
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 1,
+        "n_pitcher_walks_ok": 1,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 1,
+        "n_pitcher_walks_stale": 1,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 825057,
+    "matchup": "St. Louis Cardinals @ Arizona Diamondbacks",
+    "gameDate": "2026-07-19T20:10:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.1,
+        "away": 5.0,
+        "notes": [
+          "home: CSW% L4 starts 24.3%",
+          "home: SI movement shift (-0.9\" horiz, -1.5\" vert) last start",
+          "away: CSW% L4 starts 20.7%"
+        ]
+      },
+      "bullpen": {
+        "home": 3.5,
+        "away": 4.5,
+        "notes": [
+          "home pen quality: K% 22.6, BB% 13.2, ERA 1.98",
+          "home: 5 arms gassed, 3 back-to-back, 212 pitches L7d",
+          "away pen quality: K% 15.9, BB% 11.4, ERA 2.53",
+          "away: 2 arms gassed, 0 back-to-back, 184 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.5,
+        "away": 4.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: solid form (5.0 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: cold bats (3.45 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "hitter park (pf_runs 107)",
+          "warm (103.0\u00b0F) \u2014 ball carries"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 3.5,
+        "notes": [
+          "home best -125@draftkings; fair -118 (54.1%); gap -1.42%",
+          "away best +105@betmgm; fair +118 (45.9%); gap -2.92%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 49.9,
+      "away": 45.8
+    },
+    "win_prob": {
+      "home": 0.5516,
+      "away": 0.4484
+    },
+    "expected_total": 9.53,
+    "expected_f5_total": 5.65,
+    "nrfi_prob": 0.5081,
+    "market": {
+      "ml": {
+        "away": 105,
+        "home": -125
+      },
+      "total": {
+        "line": 9.0,
+        "over": -102,
+        "under": -118
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 3.5,
+          "k_per_bf": 0.14,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.08,
+          "side": "home",
+          "name": "Eduardo Rodriguez",
+          "id": 593958
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 2.5,
+          "k_per_bf": 0.099,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 2.18,
+          "side": "away",
+          "name": "Andre Pallante",
+          "id": 669467
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.0,
+          "bb_per_bf": 0.04,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.88,
+          "side": "home",
+          "name": "Eduardo Rodriguez",
+          "id": 593958
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.0,
+          "bb_per_bf": 0.04,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.88,
+          "side": "away",
+          "name": "Andre Pallante",
+          "id": 669467
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
