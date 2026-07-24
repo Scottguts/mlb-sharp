@@ -1,6 +1,6 @@
 # Paper Props — P/L Summary (last 7 days)
 
-_Window: 2026-07-16 → today_  
+_Window: 2026-07-17 → today_  
 _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 
@@ -8,20 +8,20 @@ _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 | Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |
 |---|---:|:---:|---:|---:|---:|---:|
-| pitcher_strikeouts | 107 | 49-47-0-3-8 | 51.0% | 48.0u | -1.21u | -2.52% |
-| pitcher_walks | 27 | 7-18-0-0-2 | 28.0% | 12.5u | -5.52u | -44.15% |
+| pitcher_strikeouts | 119 | 54-49-0-3-13 | 52.4% | 51.5u | -0.49u | -0.94% |
+| pitcher_walks | 32 | 8-18-0-0-6 | 30.8% | 13.0u | -5.08u | -39.08% |
 
 ## Real bets by market (same window, for comparison)
 
 | Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |
 |---|---:|:---:|---:|---:|---:|---:|
-| all | 24 | 12-8-0-0-4 | 60.0% | 21.0u | +4.36u | +20.78% |
-| moneyline | 4 | 1-1-0-0-2 | 50.0% | 1.0u | -0.05u | -5.36% |
+| all | 25 | 12-11-0-0-2 | 52.2% | 24.0u | +2.28u | +9.51% |
+| moneyline | 4 | 1-3-0-0-0 | 25.0% | 2.0u | -1.05u | -52.68% |
 | total | 3 | 1-2-0-0-0 | 33.3% | 1.5u | -0.52u | -34.92% |
 | runline | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
 | f5_total | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
 | nrfi | 0 | 0-0-0-0-0 | 0.0% | 0.0u | +0.00u | +0.00% |
-| pitcher_strikeouts | 17 | 10-5-0-0-2 | 66.7% | 18.5u | +4.94u | +26.71% |
+| pitcher_strikeouts | 18 | 10-6-0-0-2 | 62.5% | 20.5u | +3.86u | +18.82% |
 
 ## Interpretation
 
