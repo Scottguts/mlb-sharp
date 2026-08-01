@@ -1,6 +1,6 @@
 # Bankroll Simulation
 
-_Generated 2026-07-31 11:13_  
+_Generated 2026-08-01 11:13_  
 _Replays every SETTLED bet in `bet_log.csv` against five sizing strategies._
 
 _Starting bankroll: **$10,000.00** (1u = 1%)._
