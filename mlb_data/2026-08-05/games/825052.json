@@ -1,0 +1,686 @@
+{
+  "gamePk": 825052,
+  "gameDate": "2026-08-06T01:40:00Z",
+  "venue": {
+    "available": true,
+    "name": "Chase Field",
+    "roof": "retractable",
+    "pf_runs": 107,
+    "pf_hr_lhb": 103,
+    "pf_hr_rhb": 104
+  },
+  "weather": {
+    "available": true,
+    "indoor": false,
+    "park": "Chase Field",
+    "first_pitch_iso": "2026-08-06T01:40:00Z",
+    "temp_f": 87.5,
+    "humidity_pct": 45,
+    "dew_point_f": 63.5,
+    "wind_mph": 6.1,
+    "wind_dir_deg": 216,
+    "wind_effect": {
+      "effect": "cross",
+      "delta_runs": 0.0,
+      "angle_off_cf": 36
+    },
+    "precip_prob_pct": 23
+  },
+  "away": {
+    "team_id": 135,
+    "team_name": "San Diego Padres",
+    "probable_pitcher_id": 663554,
+    "probable_pitcher_name": "Casey Mize",
+    "pitcher_profile": {
+      "id": 663554,
+      "available": true,
+      "window_days": 30,
+      "throws": "R",
+      "total_pitches": 256,
+      "season_avg_velo": 90.08,
+      "starts": [
+        {
+          "game_date": "2026-07-25",
+          "pitches": 85,
+          "avg_velo": 88.54470588235294,
+          "max_velo": 95.1,
+          "csw": 0.17647058823529413,
+          "hard_hit": 0.11764705882352941,
+          "strikeouts": 3,
+          "walks": 0,
+          "batters_faced": 21,
+          "barrel": 0.011764705882352941
+        },
+        {
+          "game_date": "2026-07-19",
+          "pitches": 74,
+          "avg_velo": 91.14729729729729,
+          "max_velo": 96.2,
+          "csw": 0.21621621621621623,
+          "hard_hit": 0.04054054054054054,
+          "strikeouts": 5,
+          "walks": 1,
+          "batters_faced": 16,
+          "barrel": 0.013513513513513514
+        },
+        {
+          "game_date": "2026-07-11",
+          "pitches": 97,
+          "avg_velo": 90.62268041237112,
+          "max_velo": 96.0,
+          "csw": 0.26804123711340205,
+          "hard_hit": 0.10309278350515463,
+          "strikeouts": 5,
+          "walks": 2,
+          "batters_faced": 24,
+          "barrel": 0.0
+        }
+      ],
+      "pitch_mix": {
+        "FF": 0.336,
+        "FS": 0.195,
+        "SI": 0.09,
+        "SL": 0.34,
+        "SV": 0.039
+      },
+      "splits": {
+        "L": {
+          "pitches": 126,
+          "avg_velo": 89.32,
+          "csw": 0.198,
+          "xwoba": 0.298,
+          "hard_hit_rate": 0.127
+        },
+        "R": {
+          "pitches": 130,
+          "avg_velo": 90.82,
+          "csw": 0.246,
+          "xwoba": 0.267,
+          "hard_hit_rate": 0.054
+        }
+      },
+      "movement_flags": [],
+      "k_total_window": 13,
+      "bb_total_window": 3,
+      "k_starts_window": 3,
+      "k_per_start": 4.33,
+      "bb_per_start": 1.0,
+      "k_per_bf": 0.213,
+      "bb_per_bf": 0.049
+    },
+    "bullpen_usage": {
+      "team_id": 135,
+      "window_days": 7,
+      "relievers": {
+        "606996": {
+          "name": "Kyle Hart",
+          "throws": "L",
+          "appearances": 1,
+          "pitches": 37,
+          "ip": 2.2,
+          "dates": [
+            "2026-07-29"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "695243": {
+          "name": "Mason Miller",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 45,
+          "ip": 2.2,
+          "dates": [
+            "2026-07-29",
+            "2026-08-01"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "669093": {
+          "name": "Jeremiah Estrada",
+          "throws": "R",
+          "appearances": 4,
+          "pitches": 54,
+          "ip": 2.3000000000000003,
+          "dates": [
+            "2026-07-29",
+            "2026-08-01",
+            "2026-08-02",
+            "2026-08-03"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "593974": {
+          "name": "Wandy Peralta",
+          "throws": "L",
+          "appearances": 4,
+          "pitches": 76,
+          "ip": 2.5,
+          "dates": [
+            "2026-07-29",
+            "2026-07-30",
+            "2026-08-01",
+            "2026-08-03"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "699134": {
+          "name": "Bradgley Rodriguez",
+          "throws": "R",
+          "appearances": 4,
+          "pitches": 54,
+          "ip": 2.4,
+          "dates": [
+            "2026-07-29",
+            "2026-07-31",
+            "2026-08-02",
+            "2026-08-04"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "676664": {
+          "name": "JP Sears",
+          "throws": "L",
+          "appearances": 2,
+          "pitches": 95,
+          "ip": 4.2,
+          "dates": [
+            "2026-07-30",
+            "2026-08-02"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "673513": {
+          "name": "Yuki Matsui",
+          "throws": "L",
+          "appearances": 2,
+          "pitches": 71,
+          "ip": 4.1,
+          "dates": [
+            "2026-07-31",
+            "2026-08-03"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "670970": {
+          "name": "Adrian Morejon",
+          "throws": "L",
+          "appearances": 2,
+          "pitches": 38,
+          "ip": 2.2,
+          "dates": [
+            "2026-08-01",
+            "2026-08-02"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "656288": {
+          "name": "Griffin Canning",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 45,
+          "ip": 3.0,
+          "dates": [
+            "2026-08-02",
+            "2026-08-04"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "608566": {
+          "name": "Germ\u00e1n M\u00e1rquez",
+          "throws": "R",
+          "appearances": 1,
+          "pitches": 28,
+          "ip": 1.0,
+          "dates": [
+            "2026-08-04"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        }
+      },
+      "quality": {
+        "bp_innings": 31.0,
+        "bp_era": 4.94,
+        "bp_k_pct": 0.255,
+        "bp_bb_pct": 0.073,
+        "bp_whip": 1.35,
+        "by_hand": {
+          "L": {
+            "count": 5,
+            "pitches": 317,
+            "appearances": 11,
+            "fresh_count": 3
+          },
+          "R": {
+            "count": 5,
+            "pitches": 226,
+            "appearances": 13,
+            "fresh_count": 1
+          }
+        }
+      }
+    },
+    "recent_form": {
+      "team_id": 135,
+      "window_days": 14,
+      "games_played": 13,
+      "wins": 9,
+      "losses": 4,
+      "rpg_for": 5.15,
+      "rpg_against": 3.85,
+      "win_pct": 0.692,
+      "results": [
+        {
+          "date": "2026-07-29",
+          "for": 3,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-07-30",
+          "for": 1,
+          "against": 4,
+          "won": false
+        },
+        {
+          "date": "2026-07-31",
+          "for": 7,
+          "against": 0,
+          "won": true
+        },
+        {
+          "date": "2026-08-01",
+          "for": 6,
+          "against": 5,
+          "won": true
+        },
+        {
+          "date": "2026-08-02",
+          "for": 5,
+          "against": 4,
+          "won": true
+        },
+        {
+          "date": "2026-08-03",
+          "for": 1,
+          "against": 5,
+          "won": false
+        },
+        {
+          "date": "2026-08-04",
+          "for": 9,
+          "against": 4,
+          "won": true
+        }
+      ]
+    },
+    "travel": {
+      "available": true,
+      "days_rest": 1,
+      "miles_traveled": 0.0,
+      "cross_country": false,
+      "last_venue_id": 15,
+      "notes": []
+    },
+    "top_of_order": {
+      "available": false,
+      "reason": "no_lineup"
+    },
+    "team_split_vs_opp_hand": {
+      "available": true,
+      "vs_hand": "L",
+      "season": 2026,
+      "pa": 1024,
+      "ab": 923,
+      "avg": 0.241,
+      "obp": 0.307,
+      "slg": 0.368,
+      "ops": 0.675,
+      "woba": 0.377,
+      "hr": 20,
+      "k_pct": 0.218,
+      "bb_pct": 0.08
+    }
+  },
+  "home": {
+    "team_id": 109,
+    "team_name": "Arizona Diamondbacks",
+    "probable_pitcher_id": 683352,
+    "probable_pitcher_name": "Mitch Bratt",
+    "pitcher_profile": {
+      "id": 683352,
+      "available": true,
+      "window_days": 30,
+      "throws": "L",
+      "total_pitches": 320,
+      "season_avg_velo": 86.54,
+      "starts": [
+        {
+          "game_date": "2026-07-31",
+          "pitches": 82,
+          "avg_velo": 86.53658536585365,
+          "max_velo": 92.9,
+          "csw": 0.23255813953488372,
+          "hard_hit": 0.06976744186046512,
+          "strikeouts": 2,
+          "walks": 4,
+          "batters_faced": 21,
+          "barrel": 0.011627906976744186
+        },
+        {
+          "game_date": "2026-07-25",
+          "pitches": 92,
+          "avg_velo": 86.45543478260869,
+          "max_velo": 93.5,
+          "csw": 0.2608695652173913,
+          "hard_hit": 0.07608695652173914,
+          "strikeouts": 3,
+          "walks": 5,
+          "batters_faced": 26,
+          "barrel": 0.010869565217391304
+        },
+        {
+          "game_date": "2026-07-20",
+          "pitches": 84,
+          "avg_velo": 86.36309523809524,
+          "max_velo": 92.4,
+          "csw": 0.10714285714285714,
+          "hard_hit": 0.10714285714285714,
+          "strikeouts": 4,
+          "walks": 1,
+          "batters_faced": 23,
+          "barrel": 0.023809523809523808
+        },
+        {
+          "game_date": "2026-07-12",
+          "pitches": 58,
+          "avg_velo": 86.94655172413792,
+          "max_velo": 92.8,
+          "csw": 0.08620689655172414,
+          "hard_hit": 0.13793103448275862,
+          "strikeouts": 0,
+          "walks": 3,
+          "batters_faced": 15,
+          "barrel": 0.034482758620689655
+        }
+      ],
+      "pitch_mix": {
+        "CH": 0.1,
+        "CU": 0.047,
+        "FF": 0.375,
+        "SI": 0.103,
+        "SL": 0.106,
+        "SV": 0.256
+      },
+      "splits": {
+        "L": {
+          "pitches": 92,
+          "avg_velo": 85.84,
+          "csw": 0.239,
+          "xwoba": 0.346,
+          "hard_hit_rate": 0.076
+        },
+        "R": {
+          "pitches": 228,
+          "avg_velo": 86.83,
+          "csw": 0.158,
+          "xwoba": 0.35,
+          "hard_hit_rate": 0.101
+        }
+      },
+      "movement_flags": [
+        "CH movement shift (+0.1\" horiz, -2.1\" vert) last start"
+      ],
+      "k_total_window": 9,
+      "bb_total_window": 13,
+      "k_starts_window": 4,
+      "k_per_start": 2.25,
+      "bb_per_start": 3.25,
+      "k_per_bf": 0.106,
+      "bb_per_bf": 0.153
+    },
+    "bullpen_usage": {
+      "team_id": 109,
+      "window_days": 7,
+      "relievers": {
+        "805299": {
+          "name": "Brandyn Garcia",
+          "throws": "L",
+          "appearances": 3,
+          "pitches": 36,
+          "ip": 3.0,
+          "dates": [
+            "2026-07-29",
+            "2026-07-31",
+            "2026-08-03"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "656464": {
+          "name": "Kevin Ginkel",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 36,
+          "ip": 2.0,
+          "dates": [
+            "2026-07-31",
+            "2026-08-01"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": false
+        },
+        "642528": {
+          "name": "Jonathan Lo\u00e1isiga",
+          "throws": "R",
+          "appearances": 3,
+          "pitches": 47,
+          "ip": 3.0,
+          "dates": [
+            "2026-07-31",
+            "2026-08-01",
+            "2026-08-04"
+          ],
+          "back_to_back": true,
+          "pitched_yesterday": true
+        },
+        "664199": {
+          "name": "Taylor Clarke",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 30,
+          "ip": 2.2,
+          "dates": [
+            "2026-07-31",
+            "2026-08-02"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "672629": {
+          "name": "Gerardo Carrillo",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 43,
+          "ip": 3.0,
+          "dates": [
+            "2026-08-01",
+            "2026-08-04"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "666661": {
+          "name": "Juan Morillo",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 34,
+          "ip": 2.1,
+          "dates": [
+            "2026-08-01",
+            "2026-08-03"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": false
+        },
+        "623149": {
+          "name": "Paul Sewald",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 36,
+          "ip": 1.0,
+          "dates": [
+            "2026-08-01",
+            "2026-08-04"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        },
+        "657044": {
+          "name": "Ryan Thompson",
+          "throws": "R",
+          "appearances": 2,
+          "pitches": 35,
+          "ip": 1.2000000000000002,
+          "dates": [
+            "2026-08-02",
+            "2026-08-04"
+          ],
+          "back_to_back": false,
+          "pitched_yesterday": true
+        }
+      },
+      "quality": {
+        "bp_innings": 18.67,
+        "bp_era": 3.86,
+        "bp_k_pct": 0.211,
+        "bp_bb_pct": 0.066,
+        "bp_whip": 1.07,
+        "by_hand": {
+          "L": {
+            "count": 1,
+            "pitches": 36,
+            "appearances": 3,
+            "fresh_count": 1
+          },
+          "R": {
+            "count": 7,
+            "pitches": 261,
+            "appearances": 15,
+            "fresh_count": 2
+          }
+        }
+      }
+    },
+    "recent_form": {
+      "team_id": 109,
+      "window_days": 14,
+      "games_played": 13,
+      "wins": 8,
+      "losses": 5,
+      "rpg_for": 5.85,
+      "rpg_against": 4.77,
+      "win_pct": 0.615,
+      "results": [
+        {
+          "date": "2026-07-28",
+          "for": 8,
+          "against": 7,
+          "won": true
+        },
+        {
+          "date": "2026-07-29",
+          "for": 3,
+          "against": 0,
+          "won": true
+        },
+        {
+          "date": "2026-07-31",
+          "for": 4,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-08-01",
+          "for": 12,
+          "against": 8,
+          "won": true
+        },
+        {
+          "date": "2026-08-02",
+          "for": 0,
+          "against": 5,
+          "won": false
+        },
+        {
+          "date": "2026-08-03",
+          "for": 5,
+          "against": 1,
+          "won": true
+        },
+        {
+          "date": "2026-08-04",
+          "for": 4,
+          "against": 9,
+          "won": false
+        }
+      ]
+    },
+    "travel": {
+      "available": true,
+      "days_rest": 1,
+      "miles_traveled": 0.0,
+      "cross_country": false,
+      "last_venue_id": 15,
+      "notes": []
+    },
+    "top_of_order": {
+      "available": false,
+      "reason": "no_lineup"
+    },
+    "team_split_vs_opp_hand": {
+      "available": true,
+      "vs_hand": "R",
+      "season": 2026,
+      "pa": 3166,
+      "ab": 2813,
+      "avg": 0.229,
+      "obp": 0.304,
+      "slg": 0.373,
+      "ops": 0.677,
+      "woba": 0.378,
+      "hr": 80,
+      "k_pct": 0.201,
+      "bb_pct": 0.088
+    }
+  },
+  "lineups": {
+    "lineups_confirmed": false,
+    "away_lineup": [],
+    "home_lineup": [],
+    "umpires": [],
+    "hp_ump_tendency": null
+  },
+  "catcher_framing": {
+    "available": true,
+    "home": {
+      "catcher_id": 543510,
+      "season_runs": 0.0,
+      "per_game": 0.0
+    },
+    "away": {
+      "catcher_id": 669134,
+      "season_runs": 0.0,
+      "per_game": 0.0
+    }
+  }
+}
