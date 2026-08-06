@@ -77,12 +77,26 @@ assert sum(WEIGHTS.values()) == 100, f"WEIGHTS sum = {sum(WEIGHTS.values())}"
 # +200 underdog has a 50% chance and report fake 30%+ edges. Don't do that.
 LEAGUE_AVG_TOTAL = 8.86    # fallback baseline runs per game (2022-24 trailing avg)
 HOME_FIELD_PROB  = 0.025   # home edge as a probability bump (2022-24 home win % - 50%)
-GRADE_TO_PROB    = 0.0025  # win-prob shift per grade-point edge (was 0.0035 — tightened
-                            # after recent-30 analysis showed bigger model-vs-market gaps
-                            # correlate with worse outcomes)
-MAX_PROB_SHIFT   = 0.035   # cap deviation from market prior at +/-3.5pp (was 5%) —
-                            # the 4.5-6% edge bucket had 22% W / -70% ROI; tightening
-                            # the deviation cap eliminates those overconfident plays
+GRADE_TO_PROB    = 0.0012  # win-prob shift per grade-point edge (was 0.0025 → 0.0035).
+                            # Cut again 2026-06-04: across 67 settled+stored ML games the
+                            # grade shift HURT win-prob calibration (Brier 0.2553 with the
+                            # shift vs 0.2535 for the market prior alone) and the model's
+                            # win-prob signal regressed with slope -0.49 (inverted) vs the
+                            # ideal +1.0. The grade read adds ~no skill over the devigged
+                            # market on the moneyline, so we anchor harder to the market and
+                            # source edge from line-shopping. A small residual is kept as a
+                            # tie-breaker rather than zeroing outright.
+MAX_PROB_SHIFT   = 0.020   # cap deviation from market prior at +/-2.0pp (was 3.5% → 5%).
+# Reverse favorite-longshot correction. Our settled ML log shows model-favorites
+# (fair_prob >= .5) ran -28.7% ROI (n=49) while underdogs ran +15.9% (n=30), and
+# favorites were predicted +7.2pp over even but won -7.1pp UNDER it — MLB's well
+# documented reverse favorite-longshot bias (heavy favorites overbet by the public).
+# Pull the favored side a fraction of the way back toward 0.50 (and the dog up the
+# same amount). β=0.33 gave the best win-prob calibration of the variants tested
+# (Brier 0.2506 / LogLoss 0.6939 vs 0.2553 / 0.7025 for the un-corrected model).
+# Magnitude is a conservative prior — CLV (closing-snapshot) + forward results will
+# justify tuning it. Set to 0.0 to disable.
+FAV_LONGSHOT_BETA = 0.33
 GRADE_TO_RUNS    = 0.06    # total-runs shift per grade-point pitching/bullpen edge
 MAX_TOTAL_SHIFT  = 0.80    # cap deviation from market total at +/-0.8 runs
 
@@ -812,6 +826,11 @@ def grade_to_win_prob(home_grade, away_grade, odds_for_game=None):
         # No market — fall back to a grade-only model with home-field bump
         shift = _clip(diff * 0.005, -0.10, 0.10)
         h = _clip(0.5 + shift + HOME_FIELD_PROB, 0.05, 0.95)
+    # Reverse favorite-longshot correction: shrink the favored side toward 0.50
+    # (raising the underdog by the same amount). Symmetric, so home/away stay
+    # complementary and it always de-rates whichever side we currently favor.
+    if FAV_LONGSHOT_BETA:
+        h = 0.5 + (h - 0.5) * (1.0 - FAV_LONGSHOT_BETA)
     return {"home": round(h, 4), "away": round(1 - h, 4)}
 
 # Umpire K%/BB% lookup. Hand-curated from UmpScorecards multi-year data.
