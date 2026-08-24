@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-08-23 11:02_  
+_Generated 2026-08-24 11:13_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -19,7 +19,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   63 |  30- 33-  0 |  47.6% |  73.50 |   -7.82 | -10.64% |  8.75% |
+| OVERALL        |   61 |  29- 32-  0 |  47.5% |  70.50 |   -7.53 | -10.68% |  8.71% |
 | moneyline      |   18 |  11-  7-  0 |  61.1% |  11.50 |   +2.48 | +21.60% |  3.16% |
 | total          |    2 |   1-  1-  0 |  50.0% |   1.00 |   -0.05 |  -4.55% |  2.98% |
 
@@ -28,8 +28,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |    8 |   3-  5-  0 |  37.5% |  10.00 |   -3.07 | -30.68% |  8.83% |
-| moneyline      |    2 |   1-  1-  0 |  50.0% |   1.00 |   -0.04 |  -3.70% |  2.22% |
+| OVERALL        |    5 |   2-  3-  0 |  40.0% |   6.50 |   -2.22 | -34.18% |  8.95% |
+| moneyline      |    1 |   1-  0-  0 | 100.0% |   0.50 |   +0.46 | +92.60% |  1.82% |
 
 ## By Confidence (All Time)
 
