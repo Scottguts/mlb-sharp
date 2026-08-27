@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-08-26 12:09_  
+_Generated 2026-08-27 11:10_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
