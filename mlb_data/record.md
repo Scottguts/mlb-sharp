@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-08-31 11:20_  
+_Generated 2026-09-01 11:23_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  322 | 159-160-  1 |  49.8% | 311.50 |   -7.79 |  -2.50% | 17.69% |
-| moneyline      |  114 |  53- 60-  0 |  46.9% |  77.50 |   -5.17 |  -6.67% | 23.40% |
+| OVERALL        |  325 | 159-160-  1 |  49.8% | 311.50 |   -7.79 |  -2.50% | 17.61% |
+| moneyline      |  115 |  53- 60-  0 |  46.9% |  77.50 |   -5.17 |  -6.67% | 23.24% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   56 |  27- 28-  1 |  49.1% |  37.50 |   -1.07 |  -2.85% | 14.88% |
 
@@ -19,23 +19,24 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   56 |  28- 28-  0 |  50.0% |  65.50 |   -3.48 |  -5.32% |  8.76% |
-| moneyline      |   18 |  11-  7-  0 |  61.1% |  11.50 |   +2.48 | +21.60% |  3.16% |
+| OVERALL        |   57 |  27- 27-  0 |  50.0% |  62.50 |   -3.18 |  -5.09% |  8.60% |
+| moneyline      |   19 |  11-  7-  0 |  61.1% |  11.50 |   +2.48 | +21.60% |  3.21% |
 
 ## Last 7 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |    0 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  0.00% |
+| OVERALL        |    3 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  8.30% |
+| moneyline      |    1 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  3.98% |
 
 ## By Confidence (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| 9-10           |   66 |  35- 31-  0 |  53.0% |  96.50 |   +3.33 |  +3.45% | 11.98% |
-| 7-8            |  139 |  65- 72-  1 |  47.4% | 156.50 |  -12.62 |  -8.07% |  8.84% |
+| 9-10           |   68 |  35- 31-  0 |  53.0% |  96.50 |   +3.33 |  +3.45% | 11.93% |
+| 7-8            |  140 |  65- 72-  1 |  47.4% | 156.50 |  -12.62 |  -8.07% |  8.80% |
 | 5-6            |  117 |  59- 57-  0 |  50.9% |  58.50 |   +1.50 |  +2.57% | 31.44% |
 
 ## By Book (All Time)
@@ -43,8 +44,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |  101 |  56- 45-  0 |  55.4% | 102.00 |  +10.84 | +10.63% | 30.23% |
-| draftkings     |  140 |  70- 67-  1 |  51.1% | 150.50 |   -7.27 |  -4.83% | 11.49% |
+| betmgm         |  103 |  56- 45-  0 |  55.4% | 102.00 |  +10.84 | +10.63% | 29.85% |
+| draftkings     |  141 |  70- 67-  1 |  51.1% | 150.50 |   -7.27 |  -4.83% | 11.44% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
 
 ## Closing Line Value (All Time)
@@ -57,6 +58,14 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 | OVERALL        |            24 |        29.2% |    -0.64% |
 | moneyline      |            21 |        33.3% |    -0.46% |
 | total          |             3 |         0.0% |    -1.89% |
+
+## Pending (3)
+
+| Date | Matchup | Market | Side | Line | Book | Price | Units |
+|---|---|---|---|---|---|---|---|
+| 2026-09-01 | New York Mets @ Tampa Bay Rays | pitcher_strikeouts | over | 4.5 | betmgm | -110 | 1.5 |
+| 2026-09-01 | Detroit Tigers @ Minnesota Twins | moneyline | home |  | draftkings | -107 | 1.0 |
+| 2026-09-01 | St. Louis Cardinals @ Los Angeles Dodgers | pitcher_strikeouts | over | 3.5 | betmgm | 115 | 1.5 |
 
 ## Last 10 Settled
 
