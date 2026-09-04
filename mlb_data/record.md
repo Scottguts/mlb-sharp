@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-09-03 11:19_  
+_Generated 2026-09-04 11:19_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,7 +9,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  329 | 162-162-  1 |  50.0% | 318.50 |   -6.59 |  -2.07% | 17.53% |
+| OVERALL        |  331 | 163-163-  1 |  50.0% | 321.50 |   -6.39 |  -1.99% | 17.48% |
 | moneyline      |  115 |  54- 60-  0 |  47.4% |  78.50 |   -4.24 |  -5.40% | 23.24% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   56 |  27- 28-  1 |  49.1% |  37.50 |   -1.07 |  -2.85% | 14.88% |
@@ -19,15 +19,15 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   57 |  28- 27-  0 |  50.9% |  63.50 |   -1.71 |  -2.70% |  8.58% |
-| moneyline      |   19 |  12-  7-  0 |  63.2% |  12.50 |   +3.42 | +27.35% |  3.21% |
+| OVERALL        |   56 |  28- 26-  0 |  51.9% |  63.00 |   +1.10 |  +1.74% |  8.56% |
+| moneyline      |   18 |  11-  7-  0 |  61.1% |  12.00 |   +3.04 | +25.31% |  3.25% |
 
 ## Last 7 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |    7 |   3-  2-  0 |  60.0% |   7.00 |   +1.20 | +17.21% | 10.02% |
+| OVERALL        |    9 |   4-  3-  0 |  57.1% |  10.00 |   +1.40 | +14.00% |  9.89% |
 | moneyline      |    1 |   1-  0-  0 | 100.0% |   1.00 |   +0.93 | +93.46% |  3.98% |
 
 ## By Confidence (All Time)
@@ -35,8 +35,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| 9-10           |   71 |  37- 33-  0 |  52.9% | 102.50 |   +3.60 |  +3.51% | 11.95% |
-| 7-8            |  141 |  66- 72-  1 |  47.8% | 157.50 |  -11.69 |  -7.42% |  8.80% |
+| 9-10           |   71 |  38- 33-  0 |  53.5% | 104.00 |   +5.29 |  +5.09% | 11.95% |
+| 7-8            |  143 |  66- 73-  1 |  47.5% | 159.00 |  -13.19 |  -8.29% |  8.81% |
 | 5-6            |  117 |  59- 57-  0 |  50.9% |  58.50 |   +1.50 |  +2.57% | 31.44% |
 
 ## By Book (All Time)
@@ -44,8 +44,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |  105 |  57- 47-  0 |  54.8% | 106.50 |   +9.57 |  +8.98% | 29.46% |
-| draftkings     |  143 |  72- 67-  1 |  51.8% | 153.00 |   -4.79 |  -3.13% | 11.46% |
+| betmgm         |  106 |  57- 48-  0 |  54.3% | 108.00 |   +8.07 |  +7.47% | 29.28% |
+| draftkings     |  144 |  73- 67-  1 |  52.1% | 154.50 |   -3.09 |  -2.00% | 11.44% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
 
 ## Closing Line Value (All Time)
@@ -63,13 +63,15 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
-| 2026-09-03 | Miami Marlins @ Kansas City Royals | pitcher_strikeouts | under | 3.5 | draftkings | 113 | 1.5 |
-| 2026-09-03 | Chicago White Sox @ Houston Astros | pitcher_strikeouts | under | 6.5 | betmgm | -110 | 1.5 |
+| 2026-09-04 | New York Yankees @ San Diego Padres | pitcher_strikeouts | over | 4.5 | betmgm | 130 | 1.5 |
+| 2026-09-04 | St. Louis Cardinals @ Colorado Rockies | pitcher_strikeouts | under | 3.5 | draftkings | 111 | 1.5 |
 
 ## Last 10 Settled
 
 | Date | Matchup | Bet | Book | Price | Units | Result | P/L |
 |---|---|---|---|---|---|---|---|
+| 2026-09-03 | Chicago White Sox @ Houston Astros | pitcher_strikeouts/under 6.5 | betmgm | -110 | 1.5 | lost | -1.50 |
+| 2026-09-03 | Miami Marlins @ Kansas City Royals | pitcher_strikeouts/under 3.5 | draftkings | 113 | 1.5 | won | +1.70 |
 | 2026-09-02 | Baltimore Orioles @ Colorado Rockies | pitcher_strikeouts/over 5.5 | draftkings | 103 | 1.5 | won | +1.54 |
 | 2026-09-02 | Miami Marlins @ Kansas City Royals | pitcher_strikeouts/under 4.5 | betmgm | 100 | 1.5 | lost | -1.50 |
 | 2026-09-01 | St. Louis Cardinals @ Los Angeles Dodgers | pitcher_strikeouts/over 3.5 | betmgm | 115 | 1.5 | won | +1.73 |
@@ -78,5 +80,3 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 | 2026-08-18 | New York Yankees @ Baltimore Orioles | pitcher_strikeouts/under 5.5 | draftkings | 122 | 1.5 | lost | -1.50 |
 | 2026-08-18 | St. Louis Cardinals @ Cincinnati Reds | pitcher_strikeouts/over 5.5 | draftkings | 121 | 1.5 | won | +1.81 |
 | 2026-08-17 | Chicago White Sox @ Chicago Cubs | pitcher_strikeouts/under 5.5 | betmgm | 110 | 1.5 | lost | -1.50 |
-| 2026-08-17 | St. Louis Cardinals @ Cincinnati Reds | moneyline/away | draftkings | -108 | 0.5 | won | +0.46 |
-| 2026-08-17 | Baltimore Orioles @ Tampa Bay Rays | pitcher_strikeouts/over 3.5 | draftkings | -127 | 1.5 | lost | -1.50 |
