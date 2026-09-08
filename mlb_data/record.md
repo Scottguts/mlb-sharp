@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-09-07 11:19_  
+_Generated 2026-09-08 11:15_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  335 | 165-167-  1 |  49.7% | 330.50 |   -9.29 |  -2.81% | 17.42% |
-| moneyline      |  115 |  54- 60-  0 |  47.4% |  78.50 |   -4.24 |  -5.40% | 23.24% |
+| OVERALL        |  338 | 165-167-  1 |  49.7% | 330.50 |   -9.29 |  -2.81% | 17.35% |
+| moneyline      |  116 |  54- 60-  0 |  47.4% |  78.50 |   -4.24 |  -5.40% | 23.05% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   56 |  27- 28-  1 |  49.1% |  37.50 |   -1.07 |  -2.85% | 14.88% |
 
@@ -19,32 +19,32 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   51 |  24- 27-  0 |  47.1% |  61.50 |   -5.49 |  -8.93% |  8.78% |
-| moneyline      |   15 |   9-  6-  0 |  60.0% |  10.50 |   +2.47 | +23.50% |  3.33% |
+| OVERALL        |   50 |  23- 24-  0 |  48.9% |  57.50 |   -2.44 |  -4.24% |  8.88% |
+| moneyline      |   14 |   8-  5-  0 |  61.5% |   9.50 |   +2.52 | +26.53% |  3.28% |
 
 ## Last 7 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   13 |   6-  7-  0 |  46.2% |  19.00 |   -1.50 |  -7.87% | 10.70% |
-| moneyline      |    1 |   1-  0-  0 | 100.0% |   1.00 |   +0.93 | +93.46% |  3.98% |
+| OVERALL        |   16 |   6-  7-  0 |  46.2% |  19.00 |   -1.50 |  -7.87% | 10.36% |
+| moneyline      |    2 |   1-  0-  0 | 100.0% |   1.00 |   +0.93 | +93.46% |  3.08% |
 
 ## By Confidence (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| 9-10           |   74 |  39- 35-  0 |  52.7% | 108.50 |   +3.82 |  +3.52% | 11.96% |
+| 9-10           |   76 |  39- 35-  0 |  52.7% | 108.50 |   +3.82 |  +3.52% | 11.97% |
 | 7-8            |  144 |  67- 75-  1 |  47.2% | 163.50 |  -14.61 |  -8.94% |  8.84% |
-| 5-6            |  117 |  59- 57-  0 |  50.9% |  58.50 |   +1.50 |  +2.57% | 31.44% |
+| 5-6            |  118 |  59- 57-  0 |  50.9% |  58.50 |   +1.50 |  +2.57% | 31.19% |
 
 ## By Book (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |  109 |  58- 51-  0 |  53.2% | 114.00 |   +5.14 |  +4.51% | 28.82% |
+| betmgm         |  112 |  58- 51-  0 |  53.2% | 114.00 |   +5.14 |  +4.51% | 28.29% |
 | draftkings     |  145 |  74- 68-  1 |  52.1% | 157.50 |   -3.06 |  -1.94% | 11.45% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
 
@@ -58,6 +58,14 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 | OVERALL        |            25 |        28.0% |    -0.64% |
 | moneyline      |            22 |        31.8% |    -0.47% |
 | total          |             3 |         0.0% |    -1.89% |
+
+## Pending (3)
+
+| Date | Matchup | Market | Side | Line | Book | Price | Units |
+|---|---|---|---|---|---|---|---|
+| 2026-09-08 | Houston Astros @ Philadelphia Phillies | pitcher_strikeouts | over | 4.5 | betmgm | -115 | 1.5 |
+| 2026-09-08 | Minnesota Twins @ Detroit Tigers | pitcher_strikeouts | over | 4.5 | betmgm | -105 | 1.5 |
+| 2026-09-08 | Minnesota Twins @ Detroit Tigers | moneyline | away |  | betmgm | 115 | 0.5 |
 
 ## Last 10 Settled
 
