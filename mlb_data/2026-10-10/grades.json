@@ -1,0 +1,190 @@
+[
+  {
+    "gamePk": 849831,
+    "matchup": "Chicago White Sox @ Cleveland Guardians",
+    "gameDate": "2026-10-11T00:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 4.7,
+        "notes": [
+          "home: velo soft (-0.8 mph)",
+          "home: CSW% L5 starts 30.3%",
+          "away: CSW% L5 starts 27.7%",
+          "away: FC movement shift (+0.5\" horiz, -2.0\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 6.0,
+        "away": 2.5,
+        "notes": [
+          "home pen quality: K% 32.7, BB% 12.4, ERA 3.71",
+          "home: 0 arms gassed, 4 back-to-back, 457 pitches L7d",
+          "away pen quality: K% 16.0, BB% 21.0, ERA 7.2",
+          "away: 0 arms gassed, 3 back-to-back, 406 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 6.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: hot bats (5.67 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "pitcher park (pf_runs 92)",
+          "wind 9.8mph OUT to CF (\u0394 +0.19r) \u2014 boosts totals"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 54.8,
+      "away": 46.5
+    },
+    "win_prob": {
+      "home": 0.5665,
+      "away": 0.4335
+    },
+    "expected_total": 7.18,
+    "expected_f5_total": 4.51,
+    "nrfi_prob": 0.5252,
+    "market": {
+      "ml": {
+        "away": 118,
+        "home": -135
+      },
+      "total": {
+        "line": 7.0,
+        "over": -118,
+        "under": 105
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Gavin Williams Over 6.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "draftkings",
+        "price_american": -145,
+        "line": 6.5,
+        "fair_prob": 0.6265108372290693,
+        "fair_american": -168,
+        "edge": 0.05858727669739294,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
+        "reasoning": [
+          "Model pitcher strikeouts projection 7.74 K vs line 6.5",
+          "P(over 6.5) = 62.7% \u00b7 market 56.7%",
+          "5 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 668909,
+        "player_name": "Gavin Williams"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 6.4,
+          "k_per_bf": 0.352,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 7.74,
+          "side": "home",
+          "name": "Gavin Williams",
+          "id": 668909
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 6.0,
+          "k_per_bf": 0.294,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.47,
+          "side": "away",
+          "name": "Sean Burke",
+          "id": 680732
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 2.2,
+          "bb_per_bf": 0.121,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.66,
+          "side": "home",
+          "name": "Gavin Williams",
+          "id": 668909
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 1.4,
+          "bb_per_bf": 0.069,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.52,
+          "side": "away",
+          "name": "Sean Burke",
+          "id": 680732
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
