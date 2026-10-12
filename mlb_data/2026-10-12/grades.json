@@ -1,0 +1,380 @@
+[
+  {
+    "gamePk": 849812,
+    "matchup": "Los Angeles Dodgers @ Milwaukee Brewers",
+    "gameDate": "2026-10-12T21:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 6.5,
+        "notes": [
+          "home: CSW% L3 starts 25.0%",
+          "away: CSW% L3 starts 29.2%"
+        ]
+      },
+      "bullpen": {
+        "home": 5.5,
+        "away": 6.0,
+        "notes": [
+          "home pen quality: K% 24.5, BB% 11.3, ERA 0.61",
+          "home: 4 arms gassed, 1 back-to-back, 214 pitches L7d",
+          "away pen quality: K% 31.4, BB% 11.4, ERA 0.0",
+          "away: 2 arms gassed, 2 back-to-back, 125 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.0,
+        "away": 4.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.0 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: cold bats (3.0 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "wind 5.2mph OUT to CF (\u0394 +0.01r) \u2014 boosts totals"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home best +118@draftkings; fair +126 (44.2%); gap -1.68%",
+          "away best -135@betmgm; fair -126 (55.8%); gap -1.63%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 49.9,
+      "away": 53.6
+    },
+    "win_prob": {
+      "home": 0.4326,
+      "away": 0.5674
+    },
+    "expected_total": 6.84,
+    "expected_f5_total": 4.53,
+    "nrfi_prob": 0.542,
+    "market": {
+      "ml": {
+        "away": -135,
+        "home": 118
+      },
+      "total": {
+        "line": 7.0,
+        "over": 100,
+        "under": -118
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Yoshinobu Yamamoto Under 6.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "under",
+        "book": "draftkings",
+        "price_american": 102,
+        "line": 6.5,
+        "fair_prob": 0.5469927159209158,
+        "fair_american": -121,
+        "edge": 0.10492528616024988,
+        "confidence": 8,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Model pitcher strikeouts projection 6.07 K vs line 6.5",
+          "P(under 6.5) = 54.7% \u00b7 market 48.7%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 808967,
+        "player_name": "Yoshinobu Yamamoto"
+      },
+      {
+        "bet_label": "Logan Henderson Under 5.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "under",
+        "book": "betmgm",
+        "price_american": -115,
+        "line": 5.5,
+        "fair_prob": 0.5761610067229788,
+        "fair_american": -136,
+        "edge": 0.07717057778643843,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
+        "reasoning": [
+          "Model pitcher strikeouts projection 4.99 K vs line 5.5",
+          "P(under 5.5) = 57.6% \u00b7 market 51.6%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 701656,
+        "player_name": "Logan Henderson"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 5.0,
+          "k_per_bf": 0.227,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.99,
+          "side": "home",
+          "name": "Logan Henderson",
+          "id": 701656
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 7.0,
+          "k_per_bf": 0.276,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.07,
+          "side": "away",
+          "name": "Yoshinobu Yamamoto",
+          "id": 808967
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 2.33,
+          "bb_per_bf": 0.106,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.33,
+          "side": "home",
+          "name": "Logan Henderson",
+          "id": 701656
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 1.33,
+          "bb_per_bf": 0.053,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.17,
+          "side": "away",
+          "name": "Yoshinobu Yamamoto",
+          "id": 808967
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  },
+  {
+    "gamePk": 849820,
+    "matchup": "Cleveland Guardians @ Tampa Bay Rays",
+    "gameDate": "2026-10-13T00:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 6.1,
+        "away": 6.2,
+        "notes": [
+          "home: CSW% L3 starts 33.4%",
+          "home: CH movement shift (+1.6\" horiz, -0.6\" vert) last start",
+          "away: CSW% L3 starts 33.0%",
+          "away: FC movement shift (-1.7\" horiz, -1.3\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 9.0,
+        "away": 6.5,
+        "notes": [
+          "home pen quality: K% 36.1, BB% 8.3, ERA 1.86",
+          "home: 0 arms gassed, 0 back-to-back, 143 pitches L7d",
+          "away pen quality: K% 38.5, BB% 11.0, ERA 3.55",
+          "away: 0 arms gassed, 4 back-to-back, 451 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.0,
+        "away": 5.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.33 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline"
+        ]
+      },
+      "weather_park": {
+        "home": 5,
+        "away": 5,
+        "notes": [
+          "indoor / dome \u2014 weather neutral"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best -170@betmgm; fair -155 (60.8%); gap -2.13%",
+          "away best +143@draftkings; fair +155 (39.2%); gap -1.98%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 53.8,
+      "away": 55.3
+    },
+    "win_prob": {
+      "home": 0.6046,
+      "away": 0.3954
+    },
+    "expected_total": 6.17,
+    "expected_f5_total": 4.3,
+    "nrfi_prob": 0.5443,
+    "market": {
+      "ml": {
+        "away": 143,
+        "home": -170
+      },
+      "total": {
+        "line": 6.5,
+        "over": -120,
+        "under": 100
+      }
+    },
+    "bet_cards": [],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 8.0,
+          "k_per_bf": 0.343,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 7.55,
+          "side": "home",
+          "name": "Drew Rasmussen",
+          "id": 656876
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 6.33,
+          "k_per_bf": 0.328,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 7.22,
+          "side": "away",
+          "name": "Foster Griffin",
+          "id": 656492
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 2.33,
+          "bb_per_bf": 0.1,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.2,
+          "side": "home",
+          "name": "Drew Rasmussen",
+          "id": 656876
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 0.67,
+          "bb_per_bf": 0.034,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 0.75,
+          "side": "away",
+          "name": "Foster Griffin",
+          "id": 656492
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
