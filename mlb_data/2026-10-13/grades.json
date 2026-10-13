@@ -1,0 +1,191 @@
+[
+  {
+    "gamePk": 849813,
+    "matchup": "Cleveland Guardians @ Tampa Bay Rays",
+    "gameDate": "2026-10-14T00:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 5.5,
+        "notes": [
+          "home: CSW% L4 starts 21.6%",
+          "away: CSW% L5 starts 25.1%"
+        ]
+      },
+      "bullpen": {
+        "home": 4.0,
+        "away": 4.5,
+        "notes": [
+          "home pen quality: K% 32.4, BB% 8.1, ERA 6.48",
+          "home: 3 arms gassed, 0 back-to-back, 140 pitches L7d",
+          "away pen quality: K% 39.8, BB% 11.5, ERA 3.08",
+          "away: 5 arms gassed, 4 back-to-back, 466 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.0,
+        "away": 5.5,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.25 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: solid form (5.0 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5,
+        "away": 5,
+        "notes": [
+          "indoor / dome \u2014 weather neutral"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home best -132@draftkings; fair -122 (55.0%); gap -1.86%",
+          "away best +115@betmgm; fair +122 (45.0%); gap -1.54%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 48.4,
+      "away": 52.2
+    },
+    "win_prob": {
+      "home": 0.5408,
+      "away": 0.4592
+    },
+    "expected_total": 6.97,
+    "expected_f5_total": 4.49,
+    "nrfi_prob": 0.5345,
+    "market": {
+      "ml": {
+        "away": 115,
+        "home": -132
+      },
+      "total": {
+        "line": 7.0,
+        "over": 102,
+        "under": -122
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Freddy Peralta Over 3.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": -120,
+        "line": 3.5,
+        "fair_prob": 0.5871966527196653,
+        "fair_american": -142,
+        "edge": 0.07652719665271968,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
+        "reasoning": [
+          "Model pitcher strikeouts projection 4.62 K vs line 3.5",
+          "P(over 3.5) = 58.7% \u00b7 market 52.7%",
+          "4 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 642547,
+        "player_name": "Freddy Peralta"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 4.25,
+          "k_per_bf": 0.21,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.62,
+          "side": "home",
+          "name": "Freddy Peralta",
+          "id": 642547
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 5.2,
+          "k_per_bf": 0.28,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.16,
+          "side": "away",
+          "name": "Parker Messick",
+          "id": 800048
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 2.25,
+          "bb_per_bf": 0.111,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.44,
+          "side": "home",
+          "name": "Freddy Peralta",
+          "id": 642547
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 1.6,
+          "bb_per_bf": 0.086,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.89,
+          "side": "away",
+          "name": "Parker Messick",
+          "id": 800048
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
