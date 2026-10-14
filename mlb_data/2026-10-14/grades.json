@@ -1,0 +1,194 @@
+[
+  {
+    "gamePk": 849811,
+    "matchup": "Milwaukee Brewers @ Los Angeles Dodgers",
+    "gameDate": "2026-10-15T00:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 3.6,
+        "away": 6.6,
+        "notes": [
+          "home: velo soft (-0.7 mph)",
+          "home: CSW% L3 starts 24.2%",
+          "home: CH movement shift (+0.2\" horiz, -1.7\" vert) last start",
+          "away: CSW% L3 starts 30.5%",
+          "away: FF movement shift (-1.6\" horiz, -0.3\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 6.0,
+        "away": 7.0,
+        "notes": [
+          "home pen quality: K% 27.5, BB% 13.0, ERA 4.11",
+          "home: 0 arms gassed, 2 back-to-back, 259 pitches L7d",
+          "away pen quality: K% 32.0, BB% 12.0, ERA 0.0",
+          "away: 0 arms gassed, 2 back-to-back, 195 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 3.6,
+        "away": 4.1,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.17 RPG L14d)",
+          "home: travel \u2014 1737.0mi since last game",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: slow form (3.67 RPG L14d)",
+          "away: travel \u2014 1737.0mi since last game"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "market": {
+        "home": 3.5,
+        "away": 3.5,
+        "notes": [
+          "home best -174@draftkings; fair -159 (61.4%); gap -2.08%",
+          "away best +145@betmgm; fair +159 (38.6%); gap -2.24%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 41.9,
+      "away": 53.6
+    },
+    "win_prob": {
+      "home": 0.585,
+      "away": 0.415
+    },
+    "expected_total": 6.96,
+    "expected_f5_total": 4.88,
+    "nrfi_prob": 0.5264,
+    "market": {
+      "ml": {
+        "away": 145,
+        "home": -174
+      },
+      "total": {
+        "line": 7.5,
+        "over": -105,
+        "under": -113
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Robert Gasser Over 3.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": 105,
+        "line": 3.5,
+        "fair_prob": 0.5299738903394255,
+        "fair_american": -113,
+        "edge": 0.08644647519582227,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
+        "reasoning": [
+          "Model pitcher strikeouts projection 4.88 K vs line 3.5",
+          "P(over 3.5) = 53.0% \u00b7 market 47.0%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 688107,
+        "player_name": "Robert Gasser"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 3.0,
+          "k_per_bf": 0.237,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.21,
+          "side": "home",
+          "name": "Blake Snell",
+          "id": 605483
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 4.67,
+          "k_per_bf": 0.222,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.88,
+          "side": "away",
+          "name": "Robert Gasser",
+          "id": 688107
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 1.67,
+          "bb_per_bf": 0.132,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.9,
+          "side": "home",
+          "name": "Blake Snell",
+          "id": 605483
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 1.67,
+          "bb_per_bf": 0.079,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.74,
+          "side": "away",
+          "name": "Robert Gasser",
+          "id": 688107
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
