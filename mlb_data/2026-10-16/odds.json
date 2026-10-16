@@ -1,0 +1,196 @@
+{
+  "available": true,
+  "fetched_at": "2026-10-16T15:08:26.558533Z",
+  "books_used": [
+    "draftkings",
+    "betmgm",
+    "caesars",
+    "pinnacle"
+  ],
+  "markets_requested": [
+    "h2h",
+    "spreads",
+    "totals",
+    "totals_1st_5_innings",
+    "totals_1st_1_innings"
+  ],
+  "markets_fetched": [
+    "h2h",
+    "spreads",
+    "totals"
+  ],
+  "games": [
+    {
+      "id": "b9d2e07cf437b5643307aba274c45a74",
+      "sport_key": "baseball_mlb",
+      "sport_title": "MLB",
+      "commence_time": "2026-10-17T00:00:00Z",
+      "home_team": "Cleveland Guardians",
+      "away_team": "Tampa Bay Rays",
+      "bookmakers": [
+        {
+          "key": "draftkings",
+          "title": "DraftKings",
+          "last_update": "2026-10-16T15:08:03Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-10-16T15:08:03Z",
+              "outcomes": [
+                {
+                  "name": "Cleveland Guardians",
+                  "price": -108
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": -112
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-10-16T15:08:03Z",
+              "outcomes": [
+                {
+                  "name": "Cleveland Guardians",
+                  "price": -198,
+                  "point": 1.5
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": 162,
+                  "point": -1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-10-16T15:08:03Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -114,
+                  "point": 6.5
+                },
+                {
+                  "name": "Under",
+                  "price": -106,
+                  "point": 6.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "betmgm",
+          "title": "BetMGM",
+          "last_update": "2026-10-16T15:08:18Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-10-16T15:08:18Z",
+              "outcomes": [
+                {
+                  "name": "Cleveland Guardians",
+                  "price": -105
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": -115
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-10-16T15:08:18Z",
+              "outcomes": [
+                {
+                  "name": "Cleveland Guardians",
+                  "price": -200,
+                  "point": 1.5
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": 165,
+                  "point": -1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-10-16T15:08:18Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -115,
+                  "point": 6.5
+                },
+                {
+                  "name": "Under",
+                  "price": -105,
+                  "point": 6.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "pinnacle",
+          "title": "Pinnacle",
+          "last_update": "2026-10-16T15:08:05Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-10-16T15:08:05Z",
+              "outcomes": [
+                {
+                  "name": "Cleveland Guardians",
+                  "price": -102
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": -106
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-10-16T15:08:05Z",
+              "outcomes": [
+                {
+                  "name": "Cleveland Guardians",
+                  "price": -191,
+                  "point": 1.5
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": 170,
+                  "point": -1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-10-16T15:08:05Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -115,
+                  "point": 6.5
+                },
+                {
+                  "name": "Under",
+                  "price": 102,
+                  "point": 6.5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    "inning/F5 markets unavailable (F5/NRFI skipped this run): 422 Client Error: Unprocessable Entity for url: https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?regions=us%2Cus2%2Ceu&markets=totals_1st_5_innings%2Ctotals_1st_1_innings&oddsFormat=american&bookmakers=draftkings%2Cbetmgm%2Ccaesars%2Cpinnacle&apiKey=***"
+  ]
+}
