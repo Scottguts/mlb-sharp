@@ -1,0 +1,209 @@
+[
+  {
+    "gamePk": 849816,
+    "matchup": "Tampa Bay Rays @ Cleveland Guardians",
+    "gameDate": "2026-10-18T00:08:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.0,
+        "away": 3.6,
+        "notes": [
+          "home: CSW% L7 starts 23.6%",
+          "away: velo soft (-1.1 mph)",
+          "away: CSW% L3 starts 23.3%",
+          "away: CH movement shift (+1.7\" horiz, -0.4\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 9.5,
+        "away": 7.0,
+        "notes": [
+          "home pen quality: K% 38.9, BB% 3.7, ERA 0.59",
+          "home: 0 arms gassed, 0 back-to-back, 211 pitches L7d",
+          "away pen quality: K% 30.0, BB% 5.0, ERA 5.4",
+          "away: 0 arms gassed, 2 back-to-back, 146 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.5,
+        "away": 4.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: slow form (3.78 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: cold bats (2.57 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "pitcher park (pf_runs 92)",
+          "cold (40.6\u00b0F) \u2014 ball dies"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 3.5,
+        "notes": [
+          "home best -105@betmgm; fair +101 (49.8%); gap -1.46%",
+          "away best -114@draftkings; fair -101 (50.2%); gap -3.04%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 53.4,
+      "away": 43.8
+    },
+    "win_prob": {
+      "home": 0.5216,
+      "away": 0.4784
+    },
+    "expected_total": 5.9,
+    "expected_f5_total": 4.51,
+    "nrfi_prob": 0.5256,
+    "market": {
+      "ml": {
+        "away": -114,
+        "home": -105
+      },
+      "total": {
+        "line": 6.5,
+        "over": -110,
+        "under": -108
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Nick Martinez Over 2.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": 130,
+        "line": 2.5,
+        "fair_prob": 0.4768491395390329,
+        "fair_american": 110,
+        "edge": 0.09675302093977556,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
+        "reasoning": [
+          "Model pitcher strikeouts projection 4.31 K vs line 2.5",
+          "P(over 2.5) = 47.7% \u00b7 market 41.7%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 607259,
+        "player_name": "Nick Martinez"
+      },
+      {
+        "bet_label": "Cleveland Guardians ML",
+        "market": "moneyline",
+        "side": "home",
+        "book": "betmgm",
+        "price_american": -105,
+        "line": null,
+        "fair_prob": 0.5216,
+        "fair_american": -109,
+        "edge": 0.01836190476190458,
+        "confidence": 6,
+        "unit_size": 0.5,
+        "risk": "Lean",
+        "reasoning": [
+          "Pitching edge (5.0 vs 3.6)",
+          "Bullpen edge (9.5 vs 7.0)",
+          "Market edge (5.0 vs 3.5)",
+          "home: CSW% L7 starts 23.6%",
+          "away: velo soft (-1.1 mph)",
+          "home pen quality: K% 38.9, BB% 3.7, ERA 0.59"
+        ],
+        "pass_triggers": [
+          "Key bat scratched at lineup release",
+          "Line moves through your fair value",
+          "Weather forecast worsens (rain >50% or wind reversal)"
+        ],
+        "player_id": null,
+        "player_name": null
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 7,
+          "k_per_start_avg": 0.86,
+          "k_per_bf": 0.24,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.28,
+          "side": "home",
+          "name": "Shawn Armstrong",
+          "id": 542888
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 3.67,
+          "k_per_bf": 0.196,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 4.31,
+          "side": "away",
+          "name": "Nick Martinez",
+          "id": 607259
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 1.0,
+          "bb_per_bf": 0.054,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.19,
+          "side": "away",
+          "name": "Nick Martinez",
+          "id": 607259
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 1,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 1,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
