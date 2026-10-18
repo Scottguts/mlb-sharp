@@ -1,0 +1,216 @@
+[
+  {
+    "gamePk": 849817,
+    "matchup": "Tampa Bay Rays @ Cleveland Guardians",
+    "gameDate": "2026-10-18T21:08:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.5,
+        "away": 6.1,
+        "notes": [
+          "home: CSW% L5 starts 23.0%",
+          "away: CSW% L3 starts 30.9%",
+          "away: CH movement shift (+2.1\" horiz, +2.9\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 6.5,
+        "away": 4.0,
+        "notes": [
+          "home pen quality: K% 27.9, BB% 5.9, ERA 3.12",
+          "home: 5 arms gassed, 0 back-to-back, 262 pitches L7d",
+          "away pen quality: K% 26.3, BB% 5.3, ERA 5.27",
+          "away: 4 arms gassed, 2 back-to-back, 216 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.0,
+        "away": 4.0,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: cold bats (3.43 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "pitcher park (pf_runs 92)",
+          "cold (47.2\u00b0F) \u2014 ball dies",
+          "wind 7.0mph OUT to CF (\u0394 +0.08r) \u2014 boosts totals"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 53.1,
+      "away": 50.3
+    },
+    "win_prob": {
+      "home": 0.539,
+      "away": 0.461
+    },
+    "expected_total": 6.1,
+    "expected_f5_total": 4.12,
+    "nrfi_prob": 0.5416,
+    "market": {
+      "ml": {
+        "away": -130,
+        "home": 110
+      },
+      "total": {
+        "line": 6.5,
+        "over": -102,
+        "under": -116
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Parker Messick Over 4.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "draftkings",
+        "price_american": -114,
+        "line": 4.5,
+        "fair_prob": 0.5803045685279189,
+        "fair_american": -138,
+        "edge": 0.08934366372784774,
+        "confidence": 8,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Model pitcher strikeouts projection 5.19 K vs line 4.5",
+          "P(over 4.5) = 58.0% \u00b7 market 52.0%",
+          "5 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 800048,
+        "player_name": "Parker Messick"
+      },
+      {
+        "bet_label": "Drew Rasmussen Over 5.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "over",
+        "book": "betmgm",
+        "price_american": -110,
+        "line": 5.5,
+        "fair_prob": 0.564155412424683,
+        "fair_american": -129,
+        "edge": 0.07702396917439502,
+        "confidence": 7,
+        "unit_size": 1.0,
+        "risk": "Standard",
+        "reasoning": [
+          "Model pitcher strikeouts projection 8.21 K vs line 5.5",
+          "P(over 5.5) = 56.4% \u00b7 market 50.4%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 656876,
+        "player_name": "Drew Rasmussen"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "k_per_start_avg": 4.2,
+          "k_per_bf": 0.236,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 5.19,
+          "side": "home",
+          "name": "Parker Messick",
+          "id": 800048
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 9.33,
+          "k_per_bf": 0.373,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 8.21,
+          "side": "away",
+          "name": "Drew Rasmussen",
+          "id": 656876
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 5,
+          "bb_per_start_avg": 2.0,
+          "bb_per_bf": 0.112,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.46,
+          "side": "home",
+          "name": "Parker Messick",
+          "id": 800048
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 1.67,
+          "bb_per_bf": 0.067,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.47,
+          "side": "away",
+          "name": "Drew Rasmussen",
+          "id": 656876
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]

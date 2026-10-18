@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-10-17 11:10_  
+_Generated 2026-10-18 11:03_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,8 +9,8 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  393 | 197-190-  1 |  50.9% | 395.00 |   -7.76 |  -1.96% | 16.11% |
-| moneyline      |  123 |  56- 65-  0 |  46.3% |  82.50 |   -6.17 |  -7.48% | 21.91% |
+| OVERALL        |  395 | 198-191-  1 |  50.9% | 396.50 |   -6.96 |  -1.76% | 16.07% |
+| moneyline      |  123 |  56- 66-  0 |  45.9% |  83.00 |   -6.67 |  -8.04% | 21.91% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   57 |  28- 28-  1 |  50.0% |  38.00 |   -0.58 |  -1.52% | 14.69% |
 
@@ -19,16 +19,16 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   33 |  19- 11-  0 |  63.3% |  34.50 |   +3.23 |  +9.35% |  8.24% |
-| moneyline      |    3 |   0-  2-  0 |   0.0% |   1.50 |   -1.50 | -100.00% |  2.70% |
+| OVERALL        |   33 |  19- 11-  0 |  63.3% |  33.00 |   +4.33 | +13.11% |  8.19% |
+| moneyline      |    3 |   0-  3-  0 |   0.0% |   2.00 |   -2.00 | -100.00% |  2.70% |
 
 ## Last 7 Days
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   10 |   6-  1-  0 |  85.7% |   7.50 |   +4.79 | +63.87% |  7.21% |
-| moneyline      |    1 |   0-  0-  0 |   0.0% |   0.00 |   +0.00 |  +0.00% |  1.84% |
+| OVERALL        |   11 |   6-  2-  0 |  75.0% |   8.00 |   +4.90 | +61.26% |  7.53% |
+| moneyline      |    1 |   0-  1-  0 |   0.0% |   0.50 |   -0.50 | -100.00% |  1.84% |
 
 ## By Confidence (All Time)
 
@@ -36,16 +36,16 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | 9-10           |   90 |  47- 43-  0 |  52.2% | 132.50 |   +3.39 |  +2.56% | 12.00% |
-| 7-8            |  174 |  82- 89-  1 |  48.0% | 199.00 |  -15.83 |  -7.96% |  8.72% |
-| 5-6            |  129 |  68- 58-  0 |  54.0% |  63.50 |   +4.68 |  +7.38% | 28.94% |
+| 7-8            |  176 |  83- 89-  1 |  48.3% | 200.00 |  -14.53 |  -7.27% |  8.71% |
+| 5-6            |  129 |  68- 59-  0 |  53.5% |  64.00 |   +4.18 |  +6.54% | 28.94% |
 
 ## By Book (All Time)
 
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| betmgm         |  142 |  77- 62-  0 |  55.4% | 148.00 |   +8.46 |  +5.72% | 24.02% |
-| draftkings     |  170 |  87- 80-  1 |  52.1% | 188.00 |   -4.85 |  -2.58% | 11.08% |
+| betmgm         |  143 |  78- 63-  0 |  55.3% | 149.50 |   +9.26 |  +6.19% | 23.91% |
+| draftkings     |  171 |  87- 80-  1 |  52.1% | 188.00 |   -4.85 |  -2.58% | 11.07% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
 
 ## Closing Line Value (All Time)
@@ -55,8 +55,8 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 
 | Bucket         | Bets w/ Close | Beat Close % | Avg CLV % |
 |---             |--------------:|-------------:|----------:|
-| OVERALL        |            30 |        26.7% |    -1.05% |
-| moneyline      |            26 |        26.9% |    -1.03% |
+| OVERALL        |            31 |        25.8% |    -1.09% |
+| moneyline      |            27 |        25.9% |    -1.07% |
 | total          |             4 |        25.0% |    -1.20% |
 
 ## Pending (3)
@@ -64,13 +64,15 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 | Date | Matchup | Market | Side | Line | Book | Price | Units |
 |---|---|---|---|---|---|---|---|
 | 2026-10-16 | Tampa Bay Rays @ Cleveland Guardians | pitcher_strikeouts | over | 2.5 | betmgm | 110 | 0.5 |
-| 2026-10-17 | Tampa Bay Rays @ Cleveland Guardians | pitcher_strikeouts | over | 2.5 | betmgm | 130 | 1.0 |
-| 2026-10-17 | Tampa Bay Rays @ Cleveland Guardians | moneyline | home |  | betmgm | -105 | 0.5 |
+| 2026-10-18 | Tampa Bay Rays @ Cleveland Guardians | pitcher_strikeouts | over | 4.5 | draftkings | -114 | 1.5 |
+| 2026-10-18 | Tampa Bay Rays @ Cleveland Guardians | pitcher_strikeouts | over | 5.5 | betmgm | -110 | 1.0 |
 
 ## Last 10 Settled
 
 | Date | Matchup | Bet | Book | Price | Units | Result | P/L |
 |---|---|---|---|---|---|---|---|
+| 2026-10-17 | Tampa Bay Rays @ Cleveland Guardians | moneyline/home | betmgm | -105 | 0.5 | lost | -0.50 |
+| 2026-10-17 | Tampa Bay Rays @ Cleveland Guardians | pitcher_strikeouts/over 2.5 | betmgm | 130 | 1.0 | won | +1.30 |
 | 2026-10-15 | Tampa Bay Rays @ Cleveland Guardians | pitcher_strikeouts/over 6.5 | betmgm | 100 | 1.5 | won | +1.50 |
 | 2026-10-14 | Milwaukee Brewers @ Los Angeles Dodgers | pitcher_strikeouts/over 3.5 | betmgm | 105 | 1.0 | lost | -1.00 |
 | 2026-10-13 | Cleveland Guardians @ Tampa Bay Rays | pitcher_strikeouts/over 3.5 | betmgm | -120 | 1.0 | won | +0.83 |
@@ -79,5 +81,3 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 | 2026-10-11 | Los Angeles Dodgers @ Milwaukee Brewers | pitcher_strikeouts/under 7.5 | draftkings | -136 | 0.5 | won | +0.37 |
 | 2026-10-10 | Chicago White Sox @ Cleveland Guardians | pitcher_strikeouts/over 6.5 | draftkings | -145 | 1.0 | won | +0.69 |
 | 2026-10-07 | Tampa Bay Rays @ New York Yankees | pitcher_strikeouts/over 4.5 | betmgm | 110 | 1.0 | won | +1.10 |
-| 2026-10-07 | Tampa Bay Rays @ New York Yankees | pitcher_strikeouts/over 2.5 | draftkings | -150 | 1.5 | won | +1.00 |
-| 2026-10-07 | Los Angeles Dodgers @ Atlanta Braves | pitcher_strikeouts/over 3.5 | betmgm | -150 | 0.5 | won | +0.33 |
