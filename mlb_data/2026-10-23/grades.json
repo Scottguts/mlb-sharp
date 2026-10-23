@@ -1,0 +1,192 @@
+[
+  {
+    "gamePk": 849805,
+    "matchup": "Tampa Bay Rays @ Milwaukee Brewers",
+    "gameDate": "2026-10-24T00:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 5.6,
+        "away": 4.6,
+        "notes": [
+          "home: CSW% L3 starts 28.9%",
+          "home: CU movement shift (+0.2\" horiz, +1.8\" vert) last start",
+          "away: CSW% L3 starts 24.4%",
+          "away: SI movement shift (-0.2\" horiz, +1.7\" vert) last start"
+        ]
+      },
+      "bullpen": {
+        "home": 7.0,
+        "away": 5.0,
+        "notes": [
+          "home: 0 arms gassed, 0 back-to-back, 0 pitches L7d",
+          "away pen quality: K% 12.2, BB% 10.2, ERA 3.18",
+          "away: 0 arms gassed, 3 back-to-back, 180 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 5.5,
+        "away": 4.5,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: solid form (5.25 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: slow form (3.57 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "cold (50.9\u00b0F) \u2014 ball dies"
+        ]
+      },
+      "market": {
+        "home": 3.5,
+        "away": 5.0,
+        "notes": [
+          "home best -188@draftkings; fair -167 (62.6%); gap -2.67%",
+          "away best +155@betmgm; fair +167 (37.4%); gap -1.82%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 53.5,
+      "away": 47.6
+    },
+    "win_prob": {
+      "home": 0.6408,
+      "away": 0.3592
+    },
+    "expected_total": 6.14,
+    "expected_f5_total": 4.57,
+    "nrfi_prob": 0.5232,
+    "market": {
+      "ml": {
+        "away": 155,
+        "home": -188
+      },
+      "total": {
+        "line": 6.5,
+        "over": -110,
+        "under": -108
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Jacob Misiorowski Under 6.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "under",
+        "book": "draftkings",
+        "price_american": 116,
+        "line": 6.5,
+        "fair_prob": 0.5298020070102534,
+        "fair_american": -113,
+        "edge": 0.1443723351421473,
+        "confidence": 8,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Model pitcher strikeouts projection 6.29 K vs line 6.5",
+          "P(under 6.5) = 53.0% \u00b7 market 47.0%",
+          "3 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 694819,
+        "player_name": "Jacob Misiorowski"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 5.33,
+          "k_per_bf": 0.286,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 6.29,
+          "side": "home",
+          "name": "Jacob Misiorowski",
+          "id": 694819
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "k_per_start_avg": 2.33,
+          "k_per_bf": 0.14,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.08,
+          "side": "away",
+          "name": "Nick Martinez",
+          "id": 607259
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 2.0,
+          "bb_per_bf": 0.107,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.35,
+          "side": "home",
+          "name": "Jacob Misiorowski",
+          "id": 694819
+        },
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 3,
+          "bb_per_start_avg": 1.33,
+          "bb_per_bf": 0.08,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.76,
+          "side": "away",
+          "name": "Nick Martinez",
+          "id": 607259
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 2,
+        "n_pitcher_walks_ok": 2,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 0,
+        "n_pitcher_walks_stale": 0,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]

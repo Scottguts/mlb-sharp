@@ -1,6 +1,6 @@
 # MLB Sharp Betting — Record
 
-_Generated 2026-10-22 11:03_  
+_Generated 2026-10-23 11:04_  
 _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 
@@ -9,7 +9,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |  395 | 199-192-  1 |  50.9% | 399.50 |   -7.55 |  -1.89% | 16.07% |
+| OVERALL        |  396 | 199-192-  1 |  50.9% | 399.50 |   -7.55 |  -1.89% | 16.06% |
 | moneyline      |  123 |  56- 66-  0 |  45.9% |  83.00 |   -6.67 |  -8.04% | 21.91% |
 | runline        |   22 |  10- 12-  0 |  45.5% |  16.00 |   -2.94 | -18.35% | 36.01% |
 | total          |   57 |  28- 28-  1 |  50.0% |  38.00 |   -0.58 |  -1.52% | 14.69% |
@@ -19,7 +19,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |   24 |  17-  6-  0 |  73.9% |  24.50 |   +7.14 | +29.15% |  7.79% |
+| OVERALL        |   23 |  17-  4-  0 |  81.0% |  21.50 |  +10.14 | +47.17% |  7.53% |
 | moneyline      |    1 |   0-  1-  0 |   0.0% |   0.50 |   -0.50 | -100.00% |  1.84% |
 
 ## Last 7 Days
@@ -27,7 +27,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
-| OVERALL        |    6 |   3-  2-  0 |  60.0% |   6.00 |   +1.71 | +28.48% |  7.03% |
+| OVERALL        |    6 |   2-  2-  0 |  50.0% |   4.50 |   +0.21 |  +4.65% |  8.08% |
 | moneyline      |    1 |   0-  1-  0 |   0.0% |   0.50 |   -0.50 | -100.00% |  1.84% |
 
 ## By Confidence (All Time)
@@ -36,7 +36,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | 9-10           |   90 |  47- 43-  0 |  52.2% | 132.50 |   +3.39 |  +2.56% | 12.00% |
-| 7-8            |  176 |  84- 90-  1 |  48.3% | 202.50 |  -15.12 |  -7.47% |  8.71% |
+| 7-8            |  177 |  84- 90-  1 |  48.3% | 202.50 |  -15.12 |  -7.47% |  8.74% |
 | 5-6            |  129 |  68- 59-  0 |  53.5% |  64.50 |   +4.18 |  +6.49% | 28.94% |
 
 ## By Book (All Time)
@@ -45,7 +45,7 @@ _Log: `bet_log.csv` (every recommended bet, append-only)_
 | Bucket         | Bets |   W-L-P  | Win %  | Risked | Profit  |   ROI   |  AvgEdge |
 |---             |-----:|:--------:|------:|------:|-------:|--------:|---------:|
 | betmgm         |  143 |  79- 63-  0 |  55.6% | 151.00 |  +10.17 |  +6.73% | 23.91% |
-| draftkings     |  171 |  87- 81-  1 |  51.8% | 189.50 |   -6.35 |  -3.35% | 11.07% |
+| draftkings     |  172 |  87- 81-  1 |  51.8% | 189.50 |   -6.35 |  -3.35% | 11.09% |
 | fanduel        |   81 |  33- 48-  0 |  40.7% |  59.00 |  -11.37 | -19.27% | 12.78% |
 
 ## Closing Line Value (All Time)
@@ -58,6 +58,12 @@ _Avg CLV = avg %-points by which our price beat the close (positive is good)._
 | OVERALL        |            31 |        25.8% |    -1.09% |
 | moneyline      |            27 |        25.9% |    -1.07% |
 | total          |             4 |        25.0% |    -1.20% |
+
+## Pending (1)
+
+| Date | Matchup | Market | Side | Line | Book | Price | Units |
+|---|---|---|---|---|---|---|---|
+| 2026-10-23 | Tampa Bay Rays @ Milwaukee Brewers | pitcher_strikeouts | under | 6.5 | draftkings | 116 | 1.5 |
 
 ## Last 10 Settled
 
