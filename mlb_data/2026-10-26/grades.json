@@ -1,0 +1,191 @@
+[
+  {
+    "gamePk": 849804,
+    "matchup": "Milwaukee Brewers @ Tampa Bay Rays",
+    "gameDate": "2026-10-27T00:00:00Z",
+    "categories": {
+      "pitching": {
+        "home": 4.6,
+        "away": 6.0,
+        "notes": [
+          "home: CSW% L4 starts 24.5%",
+          "home: CU movement shift (-0.8\" horiz, +2.0\" vert) last start",
+          "away: CSW% L2 starts 29.5%"
+        ]
+      },
+      "bullpen": {
+        "home": 4.0,
+        "away": 8.5,
+        "notes": [
+          "home pen quality: K% 5.7, BB% 17.0, ERA 4.09",
+          "home: 0 arms gassed, 2 back-to-back, 204 pitches L7d",
+          "away pen quality: K% 31.6, BB% 5.3, ERA 0.9",
+          "away: 0 arms gassed, 2 back-to-back, 148 pitches L7d"
+        ]
+      },
+      "offense": {
+        "home": 4.0,
+        "away": 5.5,
+        "notes": [
+          "home: lineup not confirmed \u2014 neutral baseline",
+          "home: cold bats (3.44 RPG L14d)",
+          "away: lineup not confirmed \u2014 neutral baseline",
+          "away: solid form (5.4 RPG L14d)"
+        ]
+      },
+      "weather_park": {
+        "home": 5,
+        "away": 5,
+        "notes": [
+          "indoor / dome \u2014 weather neutral"
+        ]
+      },
+      "market": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "home best -118@draftkings; fair -109 (52.2%); gap -1.93%"
+        ]
+      },
+      "situational": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": []
+      },
+      "injury_lineup": {
+        "home": 5.0,
+        "away": 5.0,
+        "notes": [
+          "lineups NOT confirmed \u2014 re-grade closer to first pitch"
+        ]
+      }
+    },
+    "grade": {
+      "home": 45.5,
+      "away": 57.8
+    },
+    "win_prob": {
+      "home": 0.4913,
+      "away": 0.5087
+    },
+    "expected_total": 6.87,
+    "expected_f5_total": 4.55,
+    "nrfi_prob": 0.5321,
+    "market": {
+      "ml": {
+        "away": 100,
+        "home": -118
+      },
+      "total": {
+        "line": 7.0,
+        "over": -105,
+        "under": -105
+      }
+    },
+    "bet_cards": [
+      {
+        "bet_label": "Freddy Peralta Under 4.5 K",
+        "market": "pitcher_strikeouts",
+        "side": "under",
+        "book": "draftkings",
+        "price_american": 110,
+        "line": 4.5,
+        "fair_prob": 0.5278701556806891,
+        "fair_american": -112,
+        "edge": 0.10852732692944711,
+        "confidence": 8,
+        "unit_size": 1.5,
+        "risk": "Strong",
+        "reasoning": [
+          "Model pitcher strikeouts projection 3.83 K vs line 4.5",
+          "P(under 4.5) = 52.8% \u00b7 market 46.8%",
+          "4 starts in 30-day Statcast window"
+        ],
+        "pass_triggers": [
+          "Starter scratched / late lineup change",
+          "Line moves through your fair value",
+          "Rain delay / shortened game risk"
+        ],
+        "player_id": 642547,
+        "player_name": "Freddy Peralta"
+      }
+    ],
+    "tracked_props": {
+      "pitcher_ks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "k_per_start_avg": 3.0,
+          "k_per_bf": 0.174,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.83,
+          "side": "home",
+          "name": "Freddy Peralta",
+          "id": 642547
+        },
+        {
+          "available": true,
+          "data_quality": "stale",
+          "starts_in_window": 2,
+          "k_per_start_avg": 3.0,
+          "k_per_bf": 0.162,
+          "opp_lineup_k_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_k_bump": -0.0,
+          "projected_k": 3.56,
+          "side": "away",
+          "name": "Robert Gasser",
+          "id": 688107
+        }
+      ],
+      "pitcher_walks": [
+        {
+          "available": true,
+          "data_quality": "ok",
+          "starts_in_window": 4,
+          "bb_per_start_avg": 1.75,
+          "bb_per_bf": 0.101,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 2.22,
+          "side": "home",
+          "name": "Freddy Peralta",
+          "id": 642547
+        },
+        {
+          "available": true,
+          "data_quality": "stale",
+          "starts_in_window": 2,
+          "bb_per_start_avg": 1.0,
+          "bb_per_bf": 0.054,
+          "opp_lineup_bb_pct": null,
+          "lineup_adjustment": 1.0,
+          "ump_bb_bump": 0.0,
+          "projected_walks": 1.19,
+          "side": "away",
+          "name": "Robert Gasser",
+          "id": 688107
+        }
+      ],
+      "batter_walks": [],
+      "summary": {
+        "n_pitcher_ks": 2,
+        "n_pitcher_walks": 2,
+        "n_batter_walks": 0,
+        "n_pitcher_ks_ok": 1,
+        "n_pitcher_walks_ok": 1,
+        "n_batter_walks_ok": 0,
+        "n_pitcher_ks_stale": 1,
+        "n_pitcher_walks_stale": 1,
+        "n_batter_walks_small": 0,
+        "n_pitcher_ks_missing": 0,
+        "n_pitcher_walks_missing": 0,
+        "n_batter_walks_missing": 0
+      }
+    }
+  }
+]
