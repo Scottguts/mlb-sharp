@@ -1,0 +1,196 @@
+{
+  "available": true,
+  "fetched_at": "2026-10-28T15:06:08.420774Z",
+  "books_used": [
+    "draftkings",
+    "betmgm",
+    "caesars",
+    "pinnacle"
+  ],
+  "markets_requested": [
+    "h2h",
+    "spreads",
+    "totals",
+    "totals_1st_5_innings",
+    "totals_1st_1_innings"
+  ],
+  "markets_fetched": [
+    "h2h",
+    "spreads",
+    "totals"
+  ],
+  "games": [
+    {
+      "id": "99d7f299f7f7feb7980daeeee5f238a9",
+      "sport_key": "baseball_mlb",
+      "sport_title": "MLB",
+      "commence_time": "2026-10-29T00:00:00Z",
+      "home_team": "Tampa Bay Rays",
+      "away_team": "Milwaukee Brewers",
+      "bookmakers": [
+        {
+          "key": "betmgm",
+          "title": "BetMGM",
+          "last_update": "2026-10-28T15:05:35Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-10-28T15:05:35Z",
+              "outcomes": [
+                {
+                  "name": "Milwaukee Brewers",
+                  "price": -160
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": 135
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-10-28T15:05:35Z",
+              "outcomes": [
+                {
+                  "name": "Milwaukee Brewers",
+                  "price": 115,
+                  "point": -1.5
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": -135,
+                  "point": 1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-10-28T15:05:35Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -120,
+                  "point": 6.5
+                },
+                {
+                  "name": "Under",
+                  "price": 100,
+                  "point": 6.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "draftkings",
+          "title": "DraftKings",
+          "last_update": "2026-10-28T15:06:03Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-10-28T15:06:03Z",
+              "outcomes": [
+                {
+                  "name": "Milwaukee Brewers",
+                  "price": -157
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": 130
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-10-28T15:06:03Z",
+              "outcomes": [
+                {
+                  "name": "Milwaukee Brewers",
+                  "price": 118,
+                  "point": -1.5
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": -142,
+                  "point": 1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-10-28T15:06:03Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -120,
+                  "point": 6.5
+                },
+                {
+                  "name": "Under",
+                  "price": 100,
+                  "point": 6.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "pinnacle",
+          "title": "Pinnacle",
+          "last_update": "2026-10-28T15:06:05Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-10-28T15:06:05Z",
+              "outcomes": [
+                {
+                  "name": "Milwaukee Brewers",
+                  "price": -147
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": 135
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-10-28T15:06:05Z",
+              "outcomes": [
+                {
+                  "name": "Milwaukee Brewers",
+                  "price": 123,
+                  "point": -1.5
+                },
+                {
+                  "name": "Tampa Bay Rays",
+                  "price": -137,
+                  "point": 1.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-10-28T15:06:05Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -117,
+                  "point": 6.5
+                },
+                {
+                  "name": "Under",
+                  "price": 104,
+                  "point": 6.5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    "inning/F5 markets unavailable (F5/NRFI skipped this run): 422 Client Error: Unprocessable Entity for url: https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?regions=us%2Cus2%2Ceu&markets=totals_1st_5_innings%2Ctotals_1st_1_innings&oddsFormat=american&bookmakers=draftkings%2Cbetmgm%2Ccaesars%2Cpinnacle&apiKey=***"
+  ]
+}
