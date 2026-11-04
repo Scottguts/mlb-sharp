@@ -1,6 +1,6 @@
 # Paper Props — P/L Summary (last 7 days)
 
-_Window: 2026-10-27 → today_  
+_Window: 2026-10-28 → today_  
 _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 
@@ -8,8 +8,7 @@ _Paper bets only — no real money involved. Sized flat at 0.5u each._
 
 | Market | Bets | W-L-P-V-P | Win% | Risked | Profit | ROI |
 |---|---:|:---:|---:|---:|---:|---:|
-| pitcher_strikeouts | 1 | 1-0-0-0-0 | 100.0% | 0.5u | +0.48u | +95.24% |
-| pitcher_walks | 2 | 1-1-0-0-0 | 50.0% | 1.0u | +0.26u | +25.50% |
+| pitcher_walks | 1 | 0-1-0-0-0 | 0.0% | 0.5u | -0.50u | -100.00% |
 
 ## Real bets by market (same window, for comparison)
 
